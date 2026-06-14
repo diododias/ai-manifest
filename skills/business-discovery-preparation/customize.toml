@@ -1,0 +1,64 @@
+[workflow]
+# Workflow pra entrevista interativa de preparação
+interview_workflow = "interview-roteiro"
+
+# Output path onde roteiros preenchidos são salvos
+output_path = "business-discovery-preparation"
+
+# Pattern da pasta de run
+run_folder_pattern = "{feature-slug}-{date}"
+
+# Ativar/desativar skip inline
+allow_skip = true
+
+# Incluir flagra automática de gaps
+auto_gap_detection = true
+
+# Confirmar cada resposta antes de continuar
+confirm_after_response = true
+
+# Persistent facts que devem ser lembrados entre runs
+[persistent_facts]
+# Puxar contexto de agendas anteriores se existirem
+previous_roteiros = "file:{project-root}/business-discovery-preparation"
+# Convention pra nomes de features
+feature_naming = "kebab-case"
+
+[sections]
+# Definir quais seções são obrigatórias (não podem ser skippadas)
+mandatory = [
+  "0-contexto",
+  "2-problema-negocio",
+  "3-fluxo-principal"
+]
+
+# Seções onde gap detection é especialmente ativo
+gap_critical = [
+  "2-problema-negocio",    # alerta se métrica vaga
+  "4-regras-negocio",      # alerta se sem exemplo
+  "7-cenarios",            # alerta se sem "Então"
+]
+
+[output_formats]
+# Formatos de saída suportados
+markdown = true           # roteiro-preenchido.md
+comment_snippet = true    # formato pra colar em Slack/Meet
+json = false              # não precisa por enquanto
+
+[handoff]
+# Próximo skill no pipeline
+next_skill = "business-discovery"
+# Requerimentos pra handoff
+requires_sections = [
+  "0-contexto",
+  "2-problema-negocio",
+  "3-fluxo-principal"
+]
+
+[activation]
+# Perguntar feature nome/slug no início?
+ask_feature_slug = true
+# Perguntar se quer zerar ou carregar material anterior?
+ask_resume = true
+# Ativar auto-save a cada resposta?
+auto_save = true
