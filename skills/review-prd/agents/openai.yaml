@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Prd"
+  short_description: "Help with Review Prd tasks"
+  default_prompt: "Use $review-prd to handle the requested task."

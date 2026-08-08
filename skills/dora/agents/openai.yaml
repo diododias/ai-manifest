@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dora"
+  short_description: "Help with Dora tasks and workflows"
+  default_prompt: "Use $dora to handle the requested task."

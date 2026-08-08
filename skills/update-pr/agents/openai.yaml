@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update PR"
+  short_description: "Help with Update PR tasks"
+  default_prompt: "Use $update-pr to handle the requested task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Integration Local"
+  short_description: "Help with Test Integration Local tasks"
+  default_prompt: "Use $test-integration-local to handle the requested task."

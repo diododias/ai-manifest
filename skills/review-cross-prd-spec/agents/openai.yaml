@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Cross Prd Spec"
+  short_description: "Help with Review Cross Prd Spec tasks"
+  default_prompt: "Use $review-cross-prd-spec to handle the requested task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memoria do Workspace"
+  short_description: "Retome contexto sem tratar memoria como fonte de verdade."
+  default_prompt: "Use $workspace-memory para retomar uma missao com seguranca."

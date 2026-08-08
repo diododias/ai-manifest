@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Discovery"
+  short_description: "Help with Technical Discovery tasks"
+  default_prompt: "Use $technical-discovery to handle the requested task."

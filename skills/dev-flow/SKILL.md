@@ -1,24 +1,41 @@
+---
+name: dev-flow
+description: Guia o fluxo seguro de desenvolvimento de uma tarefa, do planejamento à entrega local e à proposta de publicação. Use quando o usuário pedir coordenação end-to-end de uma implementação, correção ou feature.
+---
+
 # Skill: Fluxo de desenvolvimento
 
-Esta skill guia o fluxo padrão ao puxar uma task, do planejamento até a próxima tarefa.
+Esta skill guia o fluxo padrão ao puxar uma task, do planejamento à entrega
+local. Trate criação de issue, commit, push, PR, merge e limpeza de worktree
+como ações separadas, executadas apenas quando autorizadas pelo usuário.
 
 ## Objetivo
 
 Garantir que cada tarefa siga o fluxo:
 
 1. PLAN
-2. CREATE ISSUE
+2. TRACKING (se solicitado)
 3. IMPLEMENT
 4. TEST
-5. COMMIT
-6. OPEN PR (linkado à issue)
-7. MERGE & AUTO-CLOSE
-8. CLEAN WORKTREE
-9. NEXT TASK
+5. COMMIT (se autorizado)
+6. PROPOR PUBLICAÇÃO
+7. PR / MERGE (se autorizado)
+8. ENCERRAR COM SEGURANÇA
+9. PRÓXIMA TASK
 
 ## Uso
 
-Quando você iniciar uma task, siga estes passos em ordem e confirme cada etapa antes de passar à seguinte.
+Quando iniciar uma task, siga estes passos em ordem e confirme cada etapa antes
+de passar à seguinte. A convenção local do repositório prevalece sobre exemplos
+de branch, CI ou issue abaixo.
+
+## Segurança e contrato de artefatos
+
+Siga [o contrato compartilhado](../references/workflow-contract.md). Antes de
+qualquer efeito externo, apresente o alvo e peça autorização explícita:
+criar/editar issue, commit, push, abrir/editar PR, aplicar labels, mergear,
+fechar issue ou remover worktree. Nunca descarte, faça stash ou remova mudanças
+do usuário para deixar a árvore limpa.
 
 ### 1. PLAN
 - Leia a task e entenda o escopo, critério de aceitação e restrições.
@@ -26,13 +43,14 @@ Quando você iniciar uma task, siga estes passos em ordem e confirme cada etapa 
 - Defina o que deve ser feito em um checklist pequeno.
 - Escolha/valide o branch name correto se ainda não existir.
 
-### 2. CREATE ISSUE
-- Toda demanda deve ter uma issue no GitHub para rastreio. Crie antes de implementar.
+### 2. TRACKING (se solicitado)
+- Se a demanda já tem issue, use-a como referência.
+- Se o usuário pedir rastreamento, proponha uma issue com título e corpo antes de criá-la.
 - Use `gh issue create` com título objetivo e corpo contendo:
   - **Contexto**: o "porquê" da demanda.
   - **Escopo**: checklist `- [ ]` com cada entregável (permite fechamento parcial visível).
   - **Critério de aceitação**: como validar.
-- Capture o número da issue (`#N`) — será referenciado no PR.
+- Capture o número da issue (`#N`) quando ela existir; não invente nem exija issue para implementar localmente.
 
 ```bash
 gh issue create \
@@ -51,7 +69,7 @@ EOF
 )"
 ```
 
-- Se a task já tem issue, reaproveite e marque-se como assignee: `gh issue edit <N> --add-assignee @me`.
+- Se a task já tem issue, reaproveite-a. Proponha a atribuição de responsável, mas não a edite sem autorização.
 
 ### 3. IMPLEMENT
 - Escreva o código para resolver o problema de forma simples e clara.
@@ -64,15 +82,20 @@ EOF
 - Execute testes locais relevantes (`pnpm test` no package certo ou caso de teste específico).
 - Garanta que não há regressão nas áreas afetadas.
 
-### 5. COMMIT
+### 5. COMMIT (se autorizado)
 - Faça commits claros e em português, usando o padrão do repositório:
   - `feat(...)`, `fix(...)`, `chore(...)`, `test(...)`
 - O texto do commit deve descrever o que foi alterado.
 - Inclua `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>` quando aplicável.
 - Referencie a issue no rodapé do commit quando útil: `Refs #N`.
 
-### 6. OPEN PR (linkado à issue)
-- Abra o PR com título e descrição objetivos.
+### 6. PROPOR PUBLICAÇÃO
+- Resuma o diff, os testes e a branch atual. Proponha o commit e a publicação necessários.
+- Não assuma que existe CI automático, branch `develop` ou issue vinculada.
+
+### 7. PR / MERGE (se autorizado)
+- Abra ou atualize o PR somente após autorização explícita.
+- Descubra a branch-base na configuração do repositório ou no PR; não fixe `develop`.
 - **Obrigatório**: o corpo do PR deve conter uma keyword de auto-close apontando para a issue:
   - `Closes #N` — fecha a issue ao mergear o PR (entrega completa).
   - `Refs #N` — referencia sem fechar (entrega parcial; marque manualmente os itens `- [x]` concluídos na issue).
@@ -81,7 +104,7 @@ EOF
 
 ```bash
 gh pr create \
-  --base develop \
+  --base <branch-base-confirmada> \
   --title "feat(escopo): descrição" \
   --body "$(cat <<'EOF'
 ## Resumo
@@ -95,70 +118,26 @@ EOF
 )"
 ```
 
-### 7. MERGE & AUTO-CLOSE
-- Após aprovação, mergeie o PR no `develop`:
-  - Via CLI: `gh pr merge <num> --squash --delete-branch`.
-  - Ou via merge local (fluxo padrão do projeto) seguido de `git push origin develop`.
-- Com `Closes #N` no corpo, o GitHub fecha a issue automaticamente quando o PR é mergeado na branch padrão. Para PRs mergeados em `develop` (não-default), feche manualmente: `gh issue close N --comment "Entregue via PR #<pr-num>."`.
-- Entrega parcial: marque os checkboxes `- [x]` na issue (`gh issue edit N --body ...`) e mantenha aberta para o restante.
+ - Antes de mergear, confirme checks requeridos, aprovações, branch-base e o SHA do PR.
+ - Nunca faça push direto para branch protegida; use o mecanismo de merge do PR após autorização.
+ - Para entrega parcial, proponha a atualização da issue; não a altere sem autorização.
 
-### 8. CLEAN WORKTREE
-- Antes de encerrar, garanta que `git status` está limpo.
-- Remova artefatos temporários, arquivos de build locais ou testes quebrados.
-- Remova a worktree: `ExitWorktree action: remove` ou `git worktree remove <path>`.
-- Se houver algo pendente, commit/descartar/stash antes de mudar de task.
+### 8. ENCERRAR COM SEGURANÇA
+- Informe `git status` e deixe mudanças não relacionadas intactas.
+- Remova somente artefatos temporários criados nesta tarefa e apenas com autorização.
+- Não remova worktree, não faça stash e não descarte alterações como etapa automática.
 
-### 9. NEXT TASK
+### 9. PRÓXIMA TASK
 - Atualize `TRACKING.md` (status, contagem de testes, NEXT → DONE).
 - Verifique se a issue foi fechada (ou parcialmente atualizada).
-- Escolha a próxima task prioritária somente com a árvore de trabalho limpa.
+- Não escolha nem inicie uma nova task sem solicitação do usuário.
 - Comece o próximo ciclo de PLANEJAMENTO.
-
-## Automação
-
-- **Auto-close de issue ao mergear PR**: garantido pela keyword `Closes #N` / `Fixes #N` / `Resolves #N` no corpo do PR. Funciona nativo no GitHub quando o PR vai para a branch default. Para branches não-default (ex: `develop`), o fechamento exige `gh issue close` manual ou um workflow.
-- **Workflow opcional** para fechar issues em merges em qualquer branch — criar `.github/workflows/close-linked-issues.yml`:
-
-```yaml
-name: close-linked-issues
-on:
-  pull_request:
-    types: [closed]
-jobs:
-  close:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            const body = context.payload.pull_request.body || "";
-            const re = /(?:close[sd]?|fix(?:e[sd])?|resolve[sd]?)\s+#(\d+)/gi;
-            const nums = [...body.matchAll(re)].map(m => Number(m[1]));
-            for (const n of nums) {
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: n,
-                state: "closed",
-              });
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: n,
-                body: `Fechada pelo merge do PR #${context.payload.pull_request.number}.`,
-              });
-            }
-```
-
-- **Template de issue** (opcional): criar `.github/ISSUE_TEMPLATE/task.md` com os campos Contexto / Escopo / Critério de aceitação para padronizar.
 
 ## Resumo rápido
 
 - Planejar primeiro.
-- Abrir issue antes de implementar (rastreio obrigatório).
+- Criar ou atualizar issue somente quando solicitado.
 - Implementar com foco mínimo viável.
 - Testar antes de commitar.
-- PR sempre com `Closes #N` (ou `Refs #N` se parcial).
-- Mergear → issue fecha sozinha (ou manualmente em branch não-default).
-- Worktree limpa, próxima task.
+- Propor commit, PR ou merge com alvo e evidências; executar apenas com autorização.
+- Preservar a árvore de trabalho e encerrar reportando seu estado.

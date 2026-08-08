@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Spec"
+  short_description: "Help with Review Spec tasks"
+  default_prompt: "Use $review-spec to handle the requested task."

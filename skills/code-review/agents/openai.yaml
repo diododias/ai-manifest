@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Help with Code Review tasks"
+  default_prompt: "Use $code-review to handle the requested task."

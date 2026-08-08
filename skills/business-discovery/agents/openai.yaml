@@ -1,0 +1,4 @@
+interface:
+  display_name: "Business Discovery"
+  short_description: "Help with Business Discovery tasks"
+  default_prompt: "Use $business-discovery to handle the requested task."

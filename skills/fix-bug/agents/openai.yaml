@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Bug"
+  short_description: "Help with Fix Bug tasks and workflows"
+  default_prompt: "Use $fix-bug to handle the requested task."

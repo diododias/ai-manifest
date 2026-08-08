@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Flow"
+  short_description: "Help with Dev Flow tasks and workflows"
+  default_prompt: "Use $dev-flow to handle the requested task."

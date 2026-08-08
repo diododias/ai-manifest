@@ -1,0 +1,5 @@
+# Os checkouts são estado local e não fazem parte deste exemplo documental.
+repos/github/*
+!repos/github/README.md
+repos/worktrees/*
+!repos/worktrees/README.md

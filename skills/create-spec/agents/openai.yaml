@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Spec"
+  short_description: "Help with Create Spec tasks"
+  default_prompt: "Use $create-spec to handle the requested task."

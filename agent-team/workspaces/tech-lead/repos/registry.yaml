@@ -1,0 +1,10 @@
+repositories:
+  - id: checkout-api
+    github: acme/checkout-api
+    local_path: repos/github/acme/checkout-api
+    default_branch: main
+    kind: service
+    projects:
+      - checkout
+    owner: payments-team
+    status: example-not-cloned

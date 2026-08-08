@@ -1,6 +1,6 @@
 ---
 name: business-discovery
-description: Extrai e acumula requisitos de negócio a partir de transcrições de agendas com a PM. Mantém um documento vivo por feature, faz diff a cada nova agenda e sinaliza lacunas de contexto implícito em vez de inventar. Use ao processar a transcrição de uma reunião de levantamento de requisitos.
+description: Extrai e acumula requisitos de negócio de transcrições de discovery, preservando baseline, changelog e lacunas. Use ao processar uma transcrição de levantamento de requisitos ou atualizar os requisitos vivos de uma feature.
 ---
 
 # Skill: Business Discovery
@@ -25,9 +25,15 @@ referências não resolvidas, em vez de inventar.
 
 ## Saída
 
-Documento em `business-discovery/<feature-slug>/requisitos.md`, no formato de
-`business-discovery/templates/requisitos.md`. Referência preenchida em
-`business-discovery/templates/exemplo-preenchido.md`.
+Documento em `business-discovery/<feature-slug>/requisitos.md`, usando
+`templates/requisitos.md` desta skill. Consulte
+`templates/exemplo-preenchido.md` apenas como referência de preenchimento.
+
+## Contrato de artefatos
+
+Antes de escrever, siga [o contrato compartilhado](../references/workflow-contract.md).
+O caminho acima é o padrão; use a convenção do repositório consumidor se ela
+existir.
 
 ## Passos
 
@@ -141,6 +147,6 @@ resolva na agenda antes de especificar.
 
 ## Antes da agenda
 
-Use `business-discovery/templates/roteiro-agenda.md` pra preparar a pauta — ele
+Use `templates/roteiro-agenda.md` desta skill para preparar a pauta — ele
 força explicitar o contexto implícito que senão não entra na transcrição.
 Quanto melhor o roteiro for seguido, menos lacunas a skill precisa sinalizar.

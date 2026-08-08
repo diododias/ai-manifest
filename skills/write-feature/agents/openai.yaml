@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Feature"
+  short_description: "Help with Write Feature tasks"
+  default_prompt: "Use $write-feature to handle the requested task."

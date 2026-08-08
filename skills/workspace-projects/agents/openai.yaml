@@ -1,0 +1,4 @@
+interface:
+  display_name: "Projetos do Workspace"
+  short_description: "Encontre e atualize a fonte canonica de um projeto."
+  default_prompt: "Use $workspace-projects para atuar no projeto correto."

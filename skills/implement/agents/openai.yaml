@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement"
+  short_description: "Help with Implement tasks"
+  default_prompt: "Use $implement to handle the requested task."

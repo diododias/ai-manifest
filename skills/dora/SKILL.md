@@ -1,11 +1,15 @@
 ---
 name: dora
-description: Query codebase using `dora` CLI for code intelligence, symbol definitions, dependencies, and architectural analysis
+description: Query indexed codebases with the `dora` CLI for symbols, dependencies, architecture, and change impact. Use when exploring code and a Dora index is available; otherwise use repository-native search after reporting the missing index.
 ---
 
 ## Philosophy
 
-**IMPORTANT: Use dora FIRST for ALL code exploration tasks.**
+**Prefer Dora for code exploration when its index is available.**
+
+Run `dora status` first. If no configuration or index exists, do not initialize
+the repository implicitly: state that Dora is unavailable and use `rg` plus
+direct file reads. Initialize only when the user asks for it.
 
 dora understands code structure, dependencies, symbols, and architectural relationships through its indexed database. It provides instant answers about:
 
@@ -18,7 +22,7 @@ dora understands code structure, dependencies, symbols, and architectural relati
 
 - **dora**: Code exploration, symbol search, dependency analysis, architecture understanding
 - **Read**: Reading actual source code after finding it with dora
-- **Grep**: Only for non-code files, comments, or when dora doesn't have what you need
+- **Grep**: For non-code files, comments, or when Dora is unavailable/incomplete
 - **Edit/Write**: Making changes after understanding with dora
 - **Bash**: Running tests, builds, git commands
 

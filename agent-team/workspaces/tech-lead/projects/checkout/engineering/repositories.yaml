@@ -1,0 +1,7 @@
+project: checkout
+repositories:
+  - id: checkout-api
+    github: acme/checkout-api
+    local_path: repos/github/acme/checkout-api
+    role: backend
+    required: true

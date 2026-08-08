@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refine Spec"
+  short_description: "Help with Refine Spec tasks"
+  default_prompt: "Use $refine-spec to handle the requested task."
