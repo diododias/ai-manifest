@@ -1,19 +1,23 @@
-#!/usr/bin/env python3
-"""Gera docs/site.html: a documentação do Agent Team em uma única página navegável.
-
-O script lê os documentos markdown vigentes, converte para HTML, preserva os blocos
-Mermaid para renderização no navegador e emite um arquivo autocontido que abre com
-duplo clique, sem servidor.
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["Markdown>=3.7,<4"]
+# ///
+"""Gera index.html: a documentação navegável e autocontida do Agent Team.
 
 Uso:
-    python3 scripts/build-docs-site.py
+    uv run scripts/build-docs-site.py
+
+Os Markdown do repositório são a fonte de verdade. O arquivo gerado pode ser
+aberto diretamente, sem servidor; Mermaid usa CDN com fallback para o código-fonte.
 """
+
+from __future__ import annotations
 
 import html
 import json
 import os.path
 import re
-import sys
 import unicodedata
 from datetime import date
 from pathlib import Path
@@ -21,610 +25,451 @@ from pathlib import Path
 import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTPUT = ROOT / "docs" / "site.html"
+OUTPUT = ROOT / "index.html"
+SEP = "~"
 
-# (arquivo, seção, título no menu)
-PAGES = [
-    ("README.md",                             "Visão geral",   "O que é o Agent Team"),
-    ("docs/README.md",                        "Visão geral",   "Índice da documentação"),
-
-    ("docs/operating-model.md",               "Modelo operacional", "Sistema operacional do trio humano"),
-    ("docs/operating-model-90-10.md",         "Modelo operacional", "Modelo 90/10: gates e autonomia"),
-    ("docs/repo-harness.md",                  "Modelo operacional", "Repo harness"),
-    ("docs/end-to-end-journey.md",            "Modelo operacional", "Jornada de ponta a ponta"),
-    ("docs/journey-by-phase.md",              "Modelo operacional", "Jornada por fases"),
-    ("docs/documentation-standard.md",        "Modelo operacional", "Padrão de documentação"),
-
-    ("docs/workflows/README.md",              "Workflows", "Mapa dos workflows"),
-    ("docs/workflows/00-intake-and-triage.md",                  "Workflows", "00 · Intake e triagem"),
-    ("docs/workflows/01-discovery-and-research.md",             "Workflows", "01 · Discovery e research"),
-    ("docs/workflows/02-product-and-ux-planning.md",            "Workflows", "02 · Produto e UX"),
-    ("docs/workflows/03-technical-specification.md",            "Workflows", "03 · Especificação técnica"),
-    ("docs/workflows/04-autonomous-implementation.md",          "Workflows", "04 · Implementação autônoma"),
-    ("docs/workflows/05-adversarial-validation.md",             "Workflows", "05 · Validação adversarial"),
-    ("docs/workflows/06-pr-and-merge.md",                       "Workflows", "06 · PR e merge"),
-    ("docs/workflows/07-release-candidate-validation.md",       "Workflows", "07 · Homologação"),
-    ("docs/workflows/08-production-release-and-observation.md",  "Workflows", "08 · Produção e observação"),
-    ("docs/workflows/09-knowledge-curation.md",                 "Workflows", "09 · Curadoria de conhecimento"),
-    ("docs/workflows/10-continuous-improvement.md",             "Workflows", "10 · Melhoria contínua"),
-
-    ("docs/agents/catalog.md",                "Agentes", "Catálogo de agentes"),
-    ("docs/agents/README.md",                 "Agentes", "Pacotes importáveis"),
-
-    ("skills/README.md",                      "Skills", "Catálogo de skills"),
-    ("skills/references/workflow-contract.md", "Skills", "Contrato de artefatos"),
-    ("skills/workspace-memory/SKILL.md",      "Skills", "workspace-memory"),
-    ("skills/workspace-projects/SKILL.md",    "Skills", "workspace-projects"),
-    ("skills/workspace-board/SKILL.md",       "Skills", "workspace-board"),
-    ("skills/business-discovery/SKILL.md",    "Skills", "business-discovery"),
-    ("skills/write-feature/SKILL.md",         "Skills", "write-feature"),
-    ("skills/review-prd/SKILL.md",            "Skills", "review-prd"),
-    ("skills/technical-discovery/SKILL.md",   "Skills", "technical-discovery"),
-    ("skills/create-spec/SKILL.md",           "Skills", "create-spec"),
-    ("skills/refine-spec/SKILL.md",           "Skills", "refine-spec"),
-    ("skills/review-spec/SKILL.md",           "Skills", "review-spec"),
-    ("skills/review-cross-prd-spec/SKILL.md", "Skills", "review-cross-prd-spec"),
-    ("skills/dev-flow/SKILL.md",              "Skills", "dev-flow"),
-    ("skills/implement/SKILL.md",             "Skills", "implement"),
-    ("skills/test-integration-local/SKILL.md", "Skills", "test-integration-local"),
-    ("skills/code-review/SKILL.md",           "Skills", "code-review"),
-    ("skills/analyse-bug/SKILL.md",           "Skills", "analyse-bug"),
-    ("skills/fix-bug/SKILL.md",               "Skills", "fix-bug"),
-    ("skills/commit/SKILL.md",                "Skills", "commit"),
-    ("skills/update-pr/SKILL.md",             "Skills", "update-pr"),
-    ("skills/check-pr/SKILL.md",              "Skills", "check-pr"),
-    ("skills/update-docs/SKILL.md",           "Skills", "update-docs"),
-
-    ("docs/diagrams/tech-lead-workspace.md",  "Workspaces", "Anatomia do workspace"),
-    ("workspaces/README.md",                  "Workspaces", "Workspaces de exemplo"),
+SECTIONS = [
+    {
+        "id": "harness",
+        "number": "01",
+        "title": "Harness",
+        "question": "O que torna um repositório operável por agentes?",
+        "summary": "Contexto, ferramentas, regras e verificações transformam conhecimento tácito em uma base operacional confiável.",
+    },
+    {
+        "id": "agentes",
+        "number": "02",
+        "title": "Agentes",
+        "question": "Quem executa, com qual autoridade e limite?",
+        "summary": "Papéis especializados com missão, contexto, permissões, verificação e um contrato explícito de saída.",
+    },
+    {
+        "id": "skills",
+        "number": "03",
+        "title": "Skills",
+        "question": "Como uma tarefa recorrente é executada corretamente?",
+        "summary": "Procedimentos verificáveis reduzem improviso e mantêm artefatos, evidências e critérios consistentes.",
+    },
+    {
+        "id": "loops",
+        "number": "04",
+        "title": "Loops",
+        "question": "Em que ordem os agentes colaboram e quando param?",
+        "summary": "Contratos de colaboração organizam tentativas, crítica, convergência, handoffs e gates ao longo da jornada.",
+    },
+    {
+        "id": "metodologia",
+        "number": "05",
+        "title": "Metodologia",
+        "question": "Como as pessoas operam o sistema no dia a dia?",
+        "summary": "Papéis humanos, checkpoints, gatilhos e cadências mantêm intenção, risco e aprovação sob controle.",
+    },
+    {
+        "id": "workspace",
+        "number": "06",
+        "title": "Workspace",
+        "question": "Onde o trabalho e os artefatos vivem?",
+        "summary": "O espaço operacional preserva ownership, estado, decisões, memória de retomada e evidências de cada execução.",
+    },
 ]
 
+SECTION_BY_ID = {section["id"]: section for section in SECTIONS}
 FRONT_MATTER = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 MERMAID_BLOCK = re.compile(r"^```mermaid\n(.*?)^```\s*$", re.DOTALL | re.MULTILINE)
 
 
-def slugify(text: str) -> str:
-    """Slug ASCII para ids de página, derivado do caminho do arquivo."""
-    text = text.lower().strip()
-    for a, b in zip("áàâãäéèêëíìîïóòôõöúùûüçñ", "aaaaaeeeeiiiiooooouuuucn"):
-        text = text.replace(a, b)
-    text = re.sub(r"[^a-z0-9\s-]", "", text)
-    return re.sub(r"[\s-]+", "-", text).strip("-")
+def slugify(value: str) -> str:
+    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
+    value = re.sub(r"[^a-zA-Z0-9\s-]", "", value).lower().strip()
+    return re.sub(r"[\s-]+", "-", value).strip("-")
 
 
 def github_slugify(value: str, separator: str = "-") -> str:
-    """Reproduz o slug de heading do GitHub.
-
-    Os documentos são escritos para serem lidos também no GitHub, e seus links
-    internos (`#2-regras-de-formatação`) seguem aquela convenção: acentos são
-    preservados, pontuação é removida e cada espaço restante vira um hífen — o que
-    produz hífens duplos onde havia travessão. Usar o slug padrão do Python-Markdown,
-    que remove acentos e colapsa hífens, quebraria esses links dentro do site.
-    """
     value = unicodedata.normalize("NFC", value).strip().lower()
     value = re.sub(r"[^\w\s-]", "", value, flags=re.UNICODE)
     return re.sub(r"\s", separator, value)
 
 
-def parse_front_matter(text: str):
-    meta = {}
+def parse_front_matter(text: str) -> tuple[dict[str, str], str]:
+    meta: dict[str, str] = {}
     match = FRONT_MATTER.match(text)
-    if match:
-        for line in match.group(1).splitlines():
-            if ":" in line:
-                key, value = line.split(":", 1)
-                meta[key.strip()] = value.strip().strip('"').strip("'")
-        text = text[match.end():]
-    return meta, text
+    if not match:
+        return meta, text
+    for line in match.group(1).splitlines():
+        if ":" in line:
+            key, value = line.split(":", 1)
+            meta[key.strip()] = value.strip().strip('"').strip("'")
+    return meta, text[match.end() :]
 
 
-def extract_mermaid(text: str):
-    """Troca blocos mermaid por placeholders, para não passarem pelo conversor."""
-    diagrams = []
+def title_from(body: str, meta: dict[str, str], fallback: str) -> str:
+    if meta.get("title"):
+        return meta["title"]
+    if meta.get("name"):
+        return meta["name"]
+    heading = re.search(r"^#\s+(.+?)\s*$", body, re.MULTILINE)
+    return heading.group(1).strip() if heading else fallback
 
-    def replace(match):
+
+def page(path: str, section: str, group: str, title: str | None = None) -> dict[str, str]:
+    return {"path": path, "section": section, "group": group, "title": title or ""}
+
+
+PAGES = [
+    page("README.md", "overview", "Comece aqui", "O que é o Agent Team"),
+    page("docs/README.md", "overview", "Comece aqui", "Índice da documentação"),
+    page("docs/REPO_HARNESS.md", "harness", "Fundamentos", "Harness do repositório"),
+    page("docs/TOOLS.md", "harness", "Controles do repositório", "Tools"),
+    page("docs/RULES.md", "harness", "Controles do repositório", "Rules"),
+    page("docs/SENSORS.md", "harness", "Controles do repositório", "Sensors"),
+    page("docs/GATES.md", "harness", "Controles do repositório", "Gates"),
+    page("docs/DOCUMENTATION.md", "harness", "Controles do repositório", "Documentation"),
+    page("docs/MCPS.md", "harness", "Controles do repositório", "MCPs"),
+    page("docs/AGENTES.md", "agentes", "Fundamentos", "Como os agentes funcionam"),
+    page("docs/agentes/README.md", "agentes", "Fundamentos", "Catálogo de contratos"),
+    page("agents/README.md", "agentes", "Artefatos executáveis", "Prompts operacionais"),
+    page("agents/catalog.md", "agentes", "Artefatos executáveis", "Catálogo materializado"),
+    page("agents/meeting-context-agent.md", "agentes", "Materiais de apoio", "Meeting context agent"),
+    page("docs/SKILLS.md", "skills", "Fundamentos", "Como as skills funcionam"),
+    page("skills/README.md", "skills", "Fundamentos", "Catálogo de skills"),
+    page("skills/references/workflow-contract.md", "skills", "Contratos compartilhados", "Contrato de artefatos"),
+    page("docs/LOOPS.md", "loops", "Fundamentos", "Como os loops funcionam"),
+    page("docs/loops/README.md", "loops", "Fundamentos", "Catálogo de loops"),
+    page("workflows/README.md", "loops", "Workflows executáveis", "Mapa dos workflows"),
+    page("docs/METODOLOGIA.md", "metodologia", "Fundamentos", "Ciclo de desenvolvimento"),
+    page("docs/metodologia/README.md", "metodologia", "Fundamentos", "Páginas da metodologia"),
+    page("docs/WORKSPACE.md", "workspace", "Fundamentos", "Onde o trabalho vive"),
+    page("docs/workspace/README.md", "workspace", "Fundamentos", "Páginas do workspace"),
+    page("workspaces/README.md", "workspace", "Implementações de referência", "Workspaces de exemplo"),
+    page("templates/README.md", "workspace", "Templates", "Catálogo de templates"),
+    page(
+        "workspaces/tech-lead/docs/diagrams/tech-lead-workspace.md",
+        "workspace",
+        "Infográficos e diagramas",
+        "Anatomia do workspace do Tech Lead",
+    ),
+]
+
+
+def extend(pattern: str, section: str, group: str, excluded: set[str] | None = None) -> None:
+    excluded = excluded or set()
+    for source in sorted(ROOT.glob(pattern)):
+        relative = source.relative_to(ROOT).as_posix()
+        if relative not in excluded and all(item["path"] != relative for item in PAGES):
+            PAGES.append(page(relative, section, group))
+
+
+extend("docs/agentes/*.md", "agentes", "Contratos individuais", {"docs/agentes/README.md"})
+extend("agents/*/AGENT.md", "agentes", "Prompts executáveis")
+extend("skills/*/SKILL.md", "skills", "Procedimentos executáveis")
+extend("docs/loops/[0-9][0-9]-*.md", "loops", "Contratos da jornada")
+extend("workflows/[0-9][0-9]-*.md", "loops", "Workflows executáveis")
+extend("docs/metodologia/[0-9][0-9]-*.md", "metodologia", "Operação humana")
+extend("docs/workspace/[0-9][0-9]-*.md", "workspace", "Estrutura operacional")
+for role in ("pm", "ux", "tech-lead"):
+    PAGES.append(page(f"workspaces/{role}/README.md", "workspace", "Implementações de referência"))
+    PAGES.append(page(f"workspaces/{role}/WORKSPACE.md", "workspace", "Implementações de referência"))
+    PAGES.append(page(f"templates/{role}/README.md", "workspace", "Templates"))
+
+
+def extract_mermaid(text: str) -> tuple[str, list[str]]:
+    diagrams: list[str] = []
+
+    def replace(match: re.Match[str]) -> str:
         diagrams.append(match.group(1).rstrip())
         return f"\n\nMERMAIDPLACEHOLDER{len(diagrams) - 1}ENDPLACEHOLDER\n\n"
 
     return MERMAID_BLOCK.sub(replace, text), diagrams
 
 
-def restore_mermaid(rendered: str, diagrams: list) -> str:
+def restore_mermaid(rendered: str, diagrams: list[str]) -> str:
     for index, source in enumerate(diagrams):
         placeholder = f"MERMAIDPLACEHOLDER{index}ENDPLACEHOLDER"
         block = (
-            '<div class="mermaid-wrap">'
+            '<figure class="mermaid-wrap">'
+            '<div class="mermaid-head"><figcaption>Diagrama interativo</figcaption>'
             '<div class="mermaid-tools">'
-            '<button type="button" data-zoom="out" title="reduzir">−</button>'
+            '<button type="button" data-zoom="out" aria-label="Reduzir diagrama">−</button>'
             '<span data-zoom-label>ajustado</span>'
-            '<button type="button" data-zoom="in" title="ampliar">+</button>'
-            '<button type="button" data-zoom="fit" title="ajustar à largura">ajustar</button>'
-            "</div>"
+            '<button type="button" data-zoom="in" aria-label="Ampliar diagrama">+</button>'
+            '<button type="button" data-zoom="fit">ajustar</button>'
+            "</div></div>"
             f'<pre class="mermaid">{html.escape(source)}</pre>'
-            f'<details class="mermaid-src"><summary>ver código do diagrama</summary>'
+            '<p class="mermaid-fallback">A visualização usa Mermaid. Se estiver offline, o código-fonte permanece disponível abaixo.</p>'
+            '<details class="mermaid-src"><summary>Ver código do diagrama</summary>'
             f'<pre><code>{html.escape(source)}</code></pre></details>'
-            "</div>"
+            "</figure>"
         )
         rendered = rendered.replace(f"<p>{placeholder}</p>", block).replace(placeholder, block)
     return rendered
 
 
-SEP = "~"  # separa id da página do id da âncora; não aparece em slugs
+def prefix_heading_ids(rendered: str, page_id: str) -> tuple[str, list[dict[str, object]]]:
+    toc: list[dict[str, object]] = []
+
+    def replace(match: re.Match[str]) -> str:
+        level, attrs, inner = match.group(1), match.group(2), match.group(3)
+        found = re.search(r'id="([^"]+)"', attrs)
+        raw_id = found.group(1) if found else slugify(re.sub(r"<[^>]+>", "", inner))
+        full_id = f"{page_id}{SEP}{raw_id}"
+        if level in ("2", "3"):
+            toc.append(
+                {
+                    "level": int(level),
+                    "id": full_id,
+                    "anchor": raw_id,
+                    "text": html.unescape(re.sub(r"<[^>]+>", "", inner)).strip(),
+                }
+            )
+        attrs = re.sub(r'\s*id="[^"]+"', "", attrs)
+        return f'<h{level}{attrs} id="{full_id}">{inner}</h{level}>'
+
+    return re.sub(r"<h([1-6])([^>]*)>(.*?)</h\1>", replace, rendered, flags=re.DOTALL), toc
 
 
-def rewrite_links(rendered: str, page_ids: dict, current: Path) -> str:
-    """Converte links entre documentos incluídos em âncoras internas do site.
+def rewrite_links(
+    rendered: str,
+    page_map: dict[str, dict[str, str]],
+    current: Path,
+    current_page: dict[str, str],
+) -> str:
+    def route(target_page: dict[str, str], fragment: str = "") -> str:
+        target = (
+            f"#/documento/{target_page['id']}"
+            if target_page["section"] == "overview"
+            else f"#/secao/{target_page['section']}/{target_page['id']}"
+        )
+        return f"{target}{SEP}{fragment}" if fragment else target
 
-    Links para arquivos do repositório que não entram no site são reescritos como
-    caminho relativo a `docs/`, para que continuem abrindo a partir do site.html.
-    """
-
-    def replace(match):
-        href = match.group(1)
-        if href.startswith(("http://", "https://", "mailto:", "#")):
+    def replace(match: re.Match[str]) -> str:
+        href = html.unescape(match.group(1))
+        if href.startswith(("http://", "https://", "mailto:", "tel:")):
             return match.group(0)
+        if href.startswith("#"):
+            return f'href="{route(current_page, href[1:])}"'
         target, _, fragment = href.partition("#")
-        if not target:
-            return match.group(0)
         resolved = (current.parent / target).resolve()
         try:
-            key = str(resolved.relative_to(ROOT))
+            key = resolved.relative_to(ROOT).as_posix()
         except ValueError:
             return match.group(0)
-        if key in page_ids:
-            anchor = f"#{page_ids[key]}"
-            if fragment:
-                anchor += f"{SEP}{fragment}"
-            return f'href="{anchor}"'
+        if key in page_map:
+            return f'href="{route(page_map[key], fragment)}"'
         relative = os.path.relpath(resolved, OUTPUT.parent)
-        if fragment:
-            relative += f"#{fragment}"
-        return f'href="{relative}" class="ext" title="{key} — arquivo do repositório"'
+        suffix = f"#{fragment}" if fragment else ""
+        return f'href="{html.escape(relative + suffix)}" class="external-file" title="Abrir {html.escape(key)}"'
 
     return re.sub(r'href="([^"]+)"', replace, rendered)
 
 
-def prefix_heading_ids(rendered: str, page_id: str):
-    """Prefixa ids de heading com o id da página e devolve o sumário local."""
-    toc = []
-
-    def replace(match):
-        level, attrs, inner = match.group(1), match.group(2), match.group(3)
-        found = re.search(r'id="([^"]+)"', attrs)
-        raw_id = found.group(1) if found else slugify(re.sub(r"<[^>]+>", "", inner))
-        new_id = f"{page_id}{SEP}{raw_id}"
-        if level in ("2", "3"):
-            toc.append({"level": int(level), "id": new_id,
-                        "text": re.sub(r"<[^>]+>", "", inner).strip()})
-        attrs = re.sub(r'\s*id="[^"]+"', "", attrs)
-        return f'<h{level}{attrs} id="{new_id}">{inner}</h{level}>'
-
-    rendered = re.sub(r"<h([1-6])([^>]*)>(.*?)</h\1>", replace, rendered, flags=re.DOTALL)
-    rendered = re.sub(r'href="#([^"]+)"', lambda m: m.group(0) if SEP in m.group(1)
-                      else f'href="#{page_id}{SEP}{m.group(1)}"', rendered)
-    return rendered, toc
+def plain_text(rendered: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", rendered))).strip()
 
 
-def build():
+def build() -> None:
+    missing = [item["path"] for item in PAGES if not (ROOT / item["path"]).is_file()]
+    if missing:
+        raise SystemExit("Documentos obrigatórios ausentes:\n- " + "\n- ".join(missing))
+
+    path_ids: dict[str, str] = {}
+    route_ids: set[str] = set()
+    for item in PAGES:
+        page_id = slugify(item["path"].removesuffix(".md").replace("/", " "))
+        if page_id in route_ids:
+            raise SystemExit(f"Rota duplicada: {page_id}")
+        route_ids.add(page_id)
+        path_ids[item["path"]] = page_id
+
     converter = markdown.Markdown(
         extensions=["tables", "fenced_code", "toc", "attr_list", "sane_lists"],
         extension_configs={"toc": {"slugify": github_slugify}},
         output_format="html5",
     )
+    page_map: dict[str, dict[str, str]] = {}
+    prepared: list[tuple[dict[str, str], Path, dict[str, str], str, list[str]]] = []
 
-    page_ids = {path: slugify(path.replace(".md", "").replace("/", "-")) for path, _, _ in PAGES}
-    pages = []
-
-    for path, section, title in PAGES:
-        source = ROOT / path
-        if not source.exists():
-            print(f"aviso: {path} não existe, ignorado", file=sys.stderr)
-            continue
-
-        raw = source.read_text(encoding="utf-8")
-        meta, body = parse_front_matter(raw)
+    for item in PAGES:
+        source = ROOT / item["path"]
+        meta, body = parse_front_matter(source.read_text(encoding="utf-8"))
+        title = item["title"] or title_from(body, meta, source.stem.replace("-", " ").title())
         body, diagrams = extract_mermaid(body)
+        enriched = {**item, "id": path_ids[item["path"]], "title": title}
+        page_map[item["path"]] = enriched
+        prepared.append((enriched, source, meta, body, diagrams))
 
+    pages: list[dict[str, object]] = []
+    for item, source, meta, body, diagrams in prepared:
         converter.reset()
         rendered = converter.convert(body)
         rendered = restore_mermaid(rendered, diagrams)
-
-        # Os SKILL.md são instruções para agentes, não documentos de leitura: muitos
-        # abrem direto em `## User Input`, sem título nem resumo. O site reconstrói
-        # esse cabeçalho a partir do front matter para que a página não comece no vazio.
         if "<h1" not in rendered:
-            lede = (f"<blockquote><p>{html.escape(meta['description'])}</p></blockquote>"
-                    if meta.get("description") else "")
-            rendered = f"<h1>{html.escape(meta.get('name') or title)}</h1>{lede}{rendered}"
+            description = meta.get("description", "")
+            lede = f"<blockquote><p>{html.escape(description)}</p></blockquote>" if description else ""
+            rendered = f"<h1>{html.escape(item['title'])}</h1>{lede}{rendered}"
+        rendered, toc = prefix_heading_ids(rendered, item["id"])
+        rendered = rewrite_links(rendered, page_map, source, item)
+        text = plain_text(rendered)
+        pages.append(
+            {
+                **item,
+                "status": meta.get("status", ""),
+                "updated": meta.get("updated_at", ""),
+                "html": rendered,
+                "toc": toc,
+                "excerpt": text[:210] + ("…" if len(text) > 210 else ""),
+                "text": text.lower(),
+            }
+        )
 
-        # A ordem importa: as âncoras locais (`#secao`) são prefixadas primeiro,
-        # enquanto ainda se distinguem dos links entre documentos (`arquivo.md#secao`).
-        page_id = page_ids[path]
-        rendered, toc = prefix_heading_ids(rendered, page_id)
-        rendered = rewrite_links(rendered, page_ids, source)
+    sections = []
+    for section in SECTIONS:
+        count = sum(1 for item in pages if item["section"] == section["id"])
+        if not count:
+            raise SystemExit(f"Macro seção vazia: {section['id']}")
+        sections.append({**section, "count": count})
 
-        pages.append({
-            "id": page_id,
-            "path": path,
-            "section": section,
-            "title": title,
-            "status": meta.get("status", ""),
-            "updated": meta.get("updated_at", ""),
-            "html": rendered,
-            "toc": toc,
-            "text": re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", rendered)).lower(),
-        })
-
-    OUTPUT.write_text(
-        TEMPLATE.replace("/*__PAGES__*/", json.dumps(pages, ensure_ascii=False))
-                .replace("__BUILD_DATE__", date.today().isoformat()),
-        encoding="utf-8",
-    )
-    print(f"site gerado: {OUTPUT.relative_to(ROOT)} ({len(pages)} documentos, "
-          f"{OUTPUT.stat().st_size // 1024} KB)")
+    payload = json.dumps(
+        {"sections": sections, "pages": pages, "buildDate": date.today().isoformat()},
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).replace("</", "<\\/")
+    OUTPUT.write_text(TEMPLATE.replace("/*__DATA__*/", payload), encoding="utf-8")
+    print(f"site gerado: {OUTPUT.relative_to(ROOT)} ({len(pages)} documentos, {OUTPUT.stat().st_size // 1024} KB)")
 
 
-TEMPLATE = r"""<!DOCTYPE html>
+TEMPLATE = r'''<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent Team — documentação</title>
+<meta name="theme-color" content="#0b0f12">
+<meta name="description" content="Documentação interativa do Agent Team: harness, agentes, skills, loops, metodologia e workspace.">
+<title>Agent Team — documentação interativa</title>
 <style>
-  :root {
-    --bg: #ffffff; --bg-soft: #f7f8fa; --bg-sunk: #eef1f5;
-    --fg: #16191d; --fg-soft: #5b6472; --fg-faint: #8b95a3;
-    --line: #e2e6ec; --line-strong: #cbd2dc;
-    --accent: #2563eb; --accent-soft: #dbeafe;
-    --canonical: #047857; --canonical-bg: #d1fae5;
-    --proposed: #b45309; --proposed-bg: #fef3c7;
-    --reference: #4f46e5; --reference-bg: #e0e7ff;
-    --sidebar: 290px; --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f1216; --bg-soft: #161a20; --bg-sunk: #1c222a;
-      --fg: #e6e9ee; --fg-soft: #a3adba; --fg-faint: #6d7885;
-      --line: #262c35; --line-strong: #333b46;
-      --accent: #60a5fa; --accent-soft: #1e3a5f;
-      --canonical: #6ee7b7; --canonical-bg: #064e3b;
-      --proposed: #fcd34d; --proposed-bg: #78350f;
-      --reference: #a5b4fc; --reference-bg: #312e81;
-    }
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ---------- layout ---------- */
-  .shell { display: flex; min-height: 100vh; }
-  aside {
-    width: var(--sidebar); flex: 0 0 var(--sidebar); border-right: 1px solid var(--line);
-    background: var(--bg-soft); height: 100vh; position: sticky; top: 0;
-    display: flex; flex-direction: column;
-  }
-  .brand { padding: 20px 20px 14px; border-bottom: 1px solid var(--line); }
-  .brand h1 { margin: 0; font-size: 15px; letter-spacing: -0.01em; }
-  .brand p { margin: 3px 0 0; font-size: 12px; color: var(--fg-faint); }
-  .search { padding: 12px 16px; border-bottom: 1px solid var(--line); }
-  .search input {
-    width: 100%; padding: 8px 11px; font-size: 13px; font-family: inherit;
-    border: 1px solid var(--line-strong); border-radius: 7px;
-    background: var(--bg); color: var(--fg);
-  }
-  .search input:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
-  nav { flex: 1; overflow-y: auto; padding: 10px 10px 40px; }
-  nav .group {
-    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em;
-    color: var(--fg-faint); padding: 16px 10px 6px;
-  }
-  nav a {
-    display: block; padding: 6px 10px; margin: 1px 0; border-radius: 6px;
-    color: var(--fg-soft); text-decoration: none; font-size: 13.5px; line-height: 1.4;
-  }
-  nav a:hover { background: var(--bg-sunk); color: var(--fg); }
-  nav a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-  nav a.hidden { display: none; }
-
-  main { flex: 1; min-width: 0; display: flex; justify-content: center; }
-  .doc { width: 100%; max-width: 860px; padding: 44px 44px 140px; }
-  .doc.wide { max-width: 1180px; }
-
-  /* ---------- cabeçalho do documento ---------- */
-  .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
-  .badge {
-    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
-    padding: 3px 8px; border-radius: 20px;
-  }
-  .badge.canonical { color: var(--canonical); background: var(--canonical-bg); }
-  .badge.proposed  { color: var(--proposed);  background: var(--proposed-bg); }
-  .badge.reference { color: var(--reference); background: var(--reference-bg); }
-  .path { font-family: var(--mono); font-size: 11.5px; color: var(--fg-faint); }
-
-  /* ---------- conteúdo ---------- */
-  .doc h1 { font-size: 31px; line-height: 1.2; letter-spacing: -0.02em; margin: 6px 0 20px; }
-  .doc h2 {
-    font-size: 22px; letter-spacing: -0.01em; margin: 46px 0 14px;
-    padding-top: 18px; border-top: 1px solid var(--line);
-  }
-  .doc h3 { font-size: 17px; margin: 30px 0 10px; }
-  .doc h4 { font-size: 14.5px; margin: 22px 0 8px; color: var(--fg-soft); }
-  .doc p { margin: 0 0 14px; }
-  .doc a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
-  .doc a:hover { border-bottom-color: currentColor; }
-  .doc a.ext { color: var(--fg-soft); border-bottom: 1px dotted var(--line-strong); }
-  .doc blockquote {
-    margin: 0 0 24px; padding: 12px 18px; border-left: 3px solid var(--accent);
-    background: var(--bg-soft); border-radius: 0 8px 8px 0; color: var(--fg-soft);
-  }
-  .doc blockquote p:last-child { margin: 0; }
-  .doc ul, .doc ol { margin: 0 0 16px; padding-left: 22px; }
-  .doc li { margin: 4px 0; }
-  .doc hr { border: 0; border-top: 1px solid var(--line); margin: 34px 0; }
-  .doc code {
-    font-family: var(--mono); font-size: .87em; background: var(--bg-sunk);
-    padding: 1.5px 5px; border-radius: 4px;
-  }
-  .doc pre {
-    background: var(--bg-sunk); border: 1px solid var(--line); border-radius: 9px;
-    padding: 14px 16px; overflow-x: auto; margin: 0 0 20px; font-size: 12.5px; line-height: 1.55;
-  }
-  .doc pre code { background: none; padding: 0; }
-  .doc table {
-    border-collapse: collapse; width: 100%; margin: 0 0 22px; font-size: 14px;
-    display: block; overflow-x: auto;
-  }
-  .doc th, .doc td {
-    border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top;
-  }
-  .doc th { background: var(--bg-soft); font-weight: 650; white-space: nowrap; }
-  .doc tr:nth-child(even) td { background: var(--bg-soft); }
-  .doc details { margin: 0 0 18px; }
-  .doc summary { cursor: pointer; font-size: 13px; color: var(--fg-soft); }
-
-  /* ---------- mermaid ---------- */
-  .mermaid-wrap {
-    position: relative; margin: 0 0 26px; padding: 18px; border: 1px solid var(--line);
-    border-radius: 11px; background: var(--bg-soft); overflow-x: auto;
-  }
-  pre.mermaid { background: none; border: 0; padding: 0; margin: 0; text-align: center; }
-  pre.mermaid[data-processed] ~ .mermaid-src { display: block; }
-  pre.mermaid svg { max-width: 100%; height: auto; }
-  .mermaid-wrap.zoomed pre.mermaid { text-align: left; }
-  .mermaid-tools {
-    display: none; align-items: center; justify-content: flex-end;
-    gap: 5px; margin: -4px 0 10px;
-  }
-  .mermaid-wrap:has(pre.mermaid[data-processed]) .mermaid-tools { display: flex; }
-  .mermaid-tools button {
-    font: inherit; font-size: 12px; line-height: 1; color: var(--fg-soft); cursor: pointer;
-    background: var(--bg); border: 1px solid var(--line-strong);
-    border-radius: 6px; padding: 5px 9px; min-width: 28px;
-  }
-  .mermaid-tools button:hover { border-color: var(--accent); color: var(--accent); }
-  .mermaid-tools span {
-    font-size: 11px; color: var(--fg-faint); min-width: 58px; text-align: center;
-    font-variant-numeric: tabular-nums;
-  }
-  .mermaid-src { display: none; margin: 14px 0 0; }
-  .mermaid-src pre { margin: 8px 0 0; }
-
-  /* ---------- busca ---------- */
-  .results { padding: 4px 0; }
-  .results .hit { display: block; padding: 9px 10px; border-radius: 7px; text-decoration: none; }
-  .results .hit:hover { background: var(--bg-sunk); }
-  .results .hit strong { display: block; font-size: 13.5px; color: var(--fg); }
-  .results .hit span { font-size: 11.5px; color: var(--fg-faint); }
-  .empty { padding: 14px 10px; font-size: 13px; color: var(--fg-faint); }
-
-  /* ---------- rodapé de navegação ---------- */
-  .pager { display: flex; justify-content: space-between; gap: 14px; margin-top: 56px;
-           padding-top: 22px; border-top: 1px solid var(--line); }
-  .pager a {
-    flex: 1; padding: 12px 16px; border: 1px solid var(--line); border-radius: 9px;
-    text-decoration: none; color: var(--fg); font-size: 13.5px; background: var(--bg-soft);
-  }
-  .pager a:hover { border-color: var(--accent); }
-  .pager a small { display: block; color: var(--fg-faint); font-size: 11px; margin-bottom: 2px; }
-  .pager a.next { text-align: right; }
-  .pager .spacer { flex: 1; }
-
-  /* ---------- mobile ---------- */
-  .menu-btn {
-    display: none; position: fixed; z-index: 30; top: 12px; left: 12px;
-    width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--line-strong);
-    background: var(--bg); color: var(--fg); font-size: 17px; cursor: pointer;
-  }
-  @media (max-width: 900px) {
-    .menu-btn { display: block; }
-    aside {
-      position: fixed; z-index: 25; transform: translateX(-100%);
-      transition: transform .2s ease; box-shadow: 0 0 40px rgba(0,0,0,.18);
-    }
-    aside.open { transform: none; }
-    .doc { padding: 66px 20px 100px; }
-  }
-  @media print {
-    aside, .menu-btn, .pager { display: none; }
-    .doc { max-width: none; padding: 0; }
-  }
+:root {
+  color-scheme: dark;
+  --bg-deep:#0b0f12; --bg:#10161a; --charcoal:#161c21; --elevated:#20282e;
+  --elevated-2:#263139; --line:#31404a; --line-soft:rgba(124,157,171,.17);
+  --cyan:#22d3ee; --cyan-strong:#06b6d4; --cyan-soft:rgba(34,211,238,.12);
+  --text:#e8f0f3; --muted:#93a4ae; --faint:#60727d; --success:#5ee6b3;
+  --warning:#f2c66d; --sidebar:288px; --reading:820px;
+  --sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg-deep);color:var(--text);font:15px/1.68 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 75% 12%,rgba(34,211,238,.08),transparent 27rem),linear-gradient(rgba(255,255,255,.017) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.017) 1px,transparent 1px);background-size:auto,36px 36px,36px 36px}
+a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:2px;width:0;background:var(--cyan);box-shadow:0 0 14px var(--cyan);transition:width .08s linear}
+.app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line-soft);background:rgba(14,20,24,.92);backdrop-filter:blur(20px);display:flex;flex-direction:column;z-index:50}
+.brand{display:flex;gap:12px;align-items:center;padding:22px 20px 18px;text-decoration:none;border-bottom:1px solid var(--line-soft)}.brand-mark{width:37px;height:37px;border:1px solid rgba(34,211,238,.42);background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));display:grid;place-items:center;color:var(--cyan);font:bold 12px var(--mono);clip-path:polygon(50% 0,100% 100%,0 100%)}.brand-copy strong{display:block;letter-spacing:-.01em}.brand-copy span{display:block;color:var(--faint);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.search-box{padding:15px 14px 12px;position:relative}.search-box label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.search-box input{width:100%;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:10px;padding:10px 36px 10px 12px;font:13px var(--sans);outline:0}.search-box input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}.shortcut{position:absolute;right:24px;top:25px;color:var(--faint);font:10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
+.main{min-width:0}.view{min-height:100vh}.menu-toggle{display:none;position:fixed;z-index:70;top:14px;left:14px;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:9px;width:42px;height:42px;font-size:18px}.overlay{display:none}
+.home{max-width:1440px;margin:auto;padding:clamp(34px,5vw,76px)}.hero{min-height:calc(100vh - 152px);display:grid;grid-template-columns:minmax(0,.86fr) minmax(480px,1.14fr);gap:clamp(36px,6vw,92px);align-items:center}.eyebrow{color:var(--cyan);font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:28px;height:1px;background:var(--cyan)}.hero h1{font-size:clamp(42px,6vw,82px);line-height:.98;letter-spacing:-.055em;margin:22px 0 26px;max-width:760px}.hero h1 span{display:block;color:var(--cyan)}.hero-lede{color:var(--muted);font-size:clamp(16px,1.4vw,20px);max-width:650px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}.button{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:650}.button.primary{background:var(--cyan);border-color:var(--cyan);color:#062127}.button:hover{transform:translateY(-1px);border-color:var(--cyan)}.button .arrow{font-family:var(--mono)}
+.hero-meta{display:flex;gap:28px;margin-top:48px}.metric strong{display:block;font:22px var(--mono)}.metric span{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.pyramid-panel{position:relative;padding:32px 26px 27px;border:1px solid var(--line-soft);background:linear-gradient(160deg,rgba(32,40,46,.86),rgba(11,15,18,.52));border-radius:24px;box-shadow:0 34px 90px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.04);overflow:hidden}.pyramid-panel::after{content:"";position:absolute;width:320px;height:320px;border:1px solid rgba(34,211,238,.08);border-radius:50%;right:-150px;top:-150px;box-shadow:0 0 80px rgba(34,211,238,.04)}.pyramid-head{display:flex;justify-content:space-between;align-items:end;margin:0 4px 22px}.pyramid-head strong{font-size:14px}.pyramid-head span{color:var(--faint);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}.pyramid{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1}.pyramid-level{width:var(--level-width);min-height:61px;padding:9px max(16px,10%);display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;background:linear-gradient(90deg,rgba(34,211,238,.04),rgba(34,211,238,.12),rgba(34,211,238,.04));border:1px solid rgba(34,211,238,.18);clip-path:polygon(9% 0,91% 0,100% 100%,0 100%);transition:transform .22s ease,filter .22s ease,background .22s ease;position:relative}.pyramid-level:hover,.pyramid-level:focus-visible{background:linear-gradient(90deg,rgba(34,211,238,.13),rgba(34,211,238,.28),rgba(34,211,238,.13));filter:drop-shadow(0 0 14px rgba(34,211,238,.2));transform:scale(1.025);outline:0}.pyramid-number{font:10px var(--mono);color:var(--cyan)}.pyramid-title{font-weight:750;letter-spacing:.02em}.pyramid-question{display:none;color:var(--muted);font-size:11px}.pyramid-level:hover .pyramid-question,.pyramid-level:focus-visible .pyramid-question{display:block}.pyramid-base{display:flex;justify-content:space-between;color:var(--faint);font:9px var(--mono);text-transform:uppercase;letter-spacing:.13em;margin:14px 5px 0}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;margin-top:60px}.principle{background:var(--bg);padding:24px}.principle span{color:var(--cyan);font:10px var(--mono)}.principle strong{display:block;margin:8px 0 5px;font-size:15px}.principle p{margin:0;color:var(--muted);font-size:13px}
+.section-view{max-width:1260px;margin:auto;padding:clamp(70px,8vw,110px) clamp(26px,6vw,82px)}.breadcrumbs{display:flex;align-items:center;gap:8px;color:var(--faint);font:11px var(--mono);margin-bottom:32px}.breadcrumbs a{text-decoration:none}.breadcrumbs a:hover{color:var(--cyan)}.section-hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:44px;border-bottom:1px solid var(--line-soft)}.section-index{font:11px var(--mono);color:var(--cyan);letter-spacing:.14em;text-transform:uppercase}.section-hero h1{font-size:clamp(54px,8vw,102px);line-height:.9;letter-spacing:-.055em;margin:16px 0 23px}.section-question{font-size:clamp(18px,2vw,25px);margin:0 0 12px;max-width:770px}.section-summary{color:var(--muted);max-width:760px;margin:0}.section-count{width:138px;height:138px;border:1px solid rgba(34,211,238,.24);border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 40px rgba(34,211,238,.04)}.section-count strong{font:34px var(--mono);color:var(--cyan)}.section-count span{font:9px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--faint)}
+.layer-track{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:30px 0 62px}.track-item{height:6px;background:var(--elevated);border-radius:9px;position:relative}.track-item.active{background:var(--cyan);box-shadow:0 0 14px rgba(34,211,238,.34)}.track-item span{position:absolute;top:13px;left:0;color:var(--faint);font:8px var(--mono);text-transform:uppercase;white-space:nowrap}.track-item.active span{color:var(--cyan)}
+.group-block{margin-top:50px}.group-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.group-head h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:0}.group-head span{color:var(--faint);font:10px var(--mono)}.page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.page-card{display:flex;flex-direction:column;min-height:194px;text-decoration:none;border:1px solid var(--line-soft);border-radius:14px;padding:21px;background:rgba(22,28,33,.66);transition:border .18s ease,transform .18s ease,background .18s ease}.page-card:hover,.page-card:focus-visible{border-color:rgba(34,211,238,.45);background:var(--charcoal);transform:translateY(-2px);outline:0}.card-top{display:flex;align-items:center;justify-content:space-between;color:var(--faint);font:9px var(--mono);text-transform:uppercase;letter-spacing:.08em}.card-title{font-size:18px;line-height:1.25;margin:17px 0 10px}.card-excerpt{color:var(--muted);font-size:12px;line-height:1.55;margin:0}.card-path{color:var(--faint);font:9px var(--mono);margin-top:auto;padding-top:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-page{max-width:1220px;margin:auto;padding:72px clamp(24px,6vw,76px) 120px}.doc-grid{display:grid;grid-template-columns:minmax(0,var(--reading)) 230px;gap:64px;align-items:start}.doc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px}.badge{font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:4px 8px;color:var(--muted)}.badge.canonical{color:var(--success);border-color:rgba(94,230,179,.28)}.badge.proposed{color:var(--warning);border-color:rgba(242,198,109,.28)}.source-path{font:10px var(--mono);color:var(--faint);text-decoration:none}.source-path:hover{color:var(--cyan)}
+.article h1{font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.04em;margin:0 0 29px}.article h2{font-size:27px;line-height:1.2;letter-spacing:-.025em;margin:58px 0 18px;padding-top:24px;border-top:1px solid var(--line-soft)}.article h3{font-size:19px;margin:36px 0 13px}.article h4{font-size:15px;color:var(--muted);margin:28px 0 10px}.article p{margin:0 0 17px}.article a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(34,211,238,.26)}.article a:hover{border-color:var(--cyan)}.article blockquote{margin:0 0 28px;border-left:2px solid var(--cyan);padding:14px 18px;background:var(--cyan-soft);color:#bdd0d8}.article ul,.article ol{padding-left:22px;margin:0 0 21px}.article li{margin:6px 0}.article hr{border:0;border-top:1px solid var(--line-soft);margin:42px 0}.article code{font:13px var(--mono);background:var(--elevated);padding:2px 5px;border-radius:4px;color:#bdebf3}.article pre{background:#0c1114;border:1px solid var(--line-soft);border-radius:12px;padding:17px 19px;overflow:auto;margin:0 0 23px;line-height:1.55}.article pre code{background:none;padding:0;color:#c5d1d6}.article table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin:0 0 27px;font-size:13px}.article th,.article td{border:1px solid var(--line-soft);padding:10px 12px;text-align:left;vertical-align:top}.article th{background:var(--elevated);white-space:nowrap}.article tr:nth-child(even) td{background:rgba(32,40,46,.36)}.article img{max-width:100%}.article details{margin:16px 0}.article summary{cursor:pointer;color:var(--cyan)}
+.toc{position:sticky;top:36px;border-left:1px solid var(--line-soft);padding-left:20px;max-height:calc(100vh - 72px);overflow:auto}.toc-title{font:9px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:13px}.toc a{display:block;color:var(--muted);text-decoration:none;font-size:11px;line-height:1.35;padding:6px 0}.toc a.level-3{padding-left:12px;color:var(--faint)}.toc a:hover{color:var(--cyan)}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:70px;padding-top:24px;border-top:1px solid var(--line-soft)}.pager-link{border:1px solid var(--line-soft);border-radius:12px;padding:15px;text-decoration:none}.pager-link:last-child{text-align:right}.pager-link:hover{border-color:var(--cyan)}.pager-link span{display:block;color:var(--faint);font:9px var(--mono);text-transform:uppercase}.pager-link strong{display:block;margin-top:4px;font-size:13px}.pager-spacer{min-height:1px}
+.mermaid-wrap{margin:28px 0;border:1px solid var(--line-soft);border-radius:14px;background:var(--charcoal);padding:15px;overflow:auto}.mermaid-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.mermaid-head figcaption{font:9px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint)}.mermaid-tools{display:flex;gap:5px;align-items:center}.mermaid-tools button{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:5px 8px;font:11px var(--mono);cursor:pointer}.mermaid-tools button:hover{color:var(--cyan);border-color:var(--cyan)}.mermaid-tools span{font:9px var(--mono);color:var(--faint);min-width:54px;text-align:center}.mermaid{background:transparent!important;border:0!important;text-align:center;margin:0!important}.mermaid svg{max-width:100%;height:auto}.mermaid-fallback{font-size:11px;color:var(--faint);margin:10px 0 0!important}.mermaid-wrap.rendered .mermaid-fallback{display:none}.mermaid-src{font-size:11px;margin-top:10px!important}
+.search-view{max-width:1000px;margin:auto;padding:90px clamp(24px,6vw,70px)}.search-view h1{font-size:clamp(42px,6vw,74px);letter-spacing:-.05em;margin:10px 0}.search-intro{color:var(--muted);margin-bottom:40px}.result-list{display:grid;gap:10px}.result{display:grid;grid-template-columns:95px 1fr auto;gap:18px;align-items:start;text-decoration:none;padding:18px;border:1px solid var(--line-soft);border-radius:12px;background:rgba(22,28,33,.55)}.result:hover{border-color:var(--cyan)}.result-section{font:9px var(--mono);text-transform:uppercase;color:var(--cyan)}.result strong{display:block}.result p{margin:5px 0 0;color:var(--muted);font-size:12px}.result-path{font:9px var(--mono);color:var(--faint)}.empty-state{border:1px dashed var(--line);border-radius:14px;padding:36px;color:var(--muted)}
+.not-found{max-width:700px;margin:auto;padding:120px 30px}.not-found strong{font:100px/1 var(--mono);color:var(--cyan)}.not-found h1{font-size:42px}.not-found p{color:var(--muted)}
+@media(max-width:1080px){.hero{grid-template-columns:1fr;min-height:auto}.pyramid-panel{max-width:720px;width:100%;margin:auto}.principles{margin-top:46px}.doc-grid{grid-template-columns:minmax(0,1fr) 200px;gap:36px}}
+@media(max-width:900px){.app{display:block}.sidebar{position:fixed;left:0;transform:translateX(-105%);width:min(88vw,320px);transition:transform .2s ease}.sidebar.open{transform:none}.menu-toggle{display:block}.overlay{display:block;position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s}.overlay.open{opacity:1;pointer-events:auto}.home,.section-view,.doc-page,.search-view{padding-top:82px}.doc-grid{display:block}.toc{position:static;border-left:0;border-top:1px solid var(--line-soft);padding:24px 0 0;margin-top:45px;max-height:none}.section-hero{grid-template-columns:1fr}.section-count{display:none}}
+@media(max-width:650px){.home{padding-left:18px;padding-right:18px}.hero h1{font-size:43px}.pyramid-panel{padding:24px 10px}.pyramid-level{min-height:54px;padding-inline:8px}.pyramid-question{display:none!important}.principles{grid-template-columns:1fr}.hero-meta{gap:18px;flex-wrap:wrap}.page-grid{grid-template-columns:1fr}.section-view{padding-left:18px;padding-right:18px}.section-hero h1{font-size:55px}.layer-track span{display:none}.doc-page{padding-left:18px;padding-right:18px}.pager{grid-template-columns:1fr}.pager-link:last-child{text-align:left}.result{grid-template-columns:1fr}.result-path{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.button:hover,.page-card:hover,.pyramid-level:hover{transform:none}}
+@media print{.sidebar,.menu-toggle,.overlay,.reading-progress,.toc,.pager{display:none!important}.app{display:block}.doc-page{padding:20px}.doc-grid{display:block}.article{max-width:none}.article a{color:inherit}}
 </style>
 </head>
 <body>
-<button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
-<div class="shell">
-  <aside id="sidebar">
-    <div class="brand">
-      <h1>Agent Team</h1>
-      <p>documentação · build __BUILD_DATE__</p>
-    </div>
-    <div class="search">
-      <input id="q" type="search" placeholder="Buscar na documentação…" autocomplete="off">
-    </div>
-    <nav id="nav"></nav>
+<div class="reading-progress" id="reading-progress"></div>
+<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir navegação" aria-expanded="false">☰</button>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#/" aria-label="Agent Team — início">
+      <span class="brand-mark">AT</span><span class="brand-copy"><strong>Agent Team</strong><span>operating system</span></span>
+    </a>
+    <div class="search-box"><label for="global-search">Buscar na documentação</label><input id="global-search" type="search" placeholder="Buscar conceito, agente, skill…" autocomplete="off"><span class="shortcut">/</span></div>
+    <nav class="nav-scroll" id="navigation" aria-label="Navegação principal"></nav>
   </aside>
-  <main><article class="doc" id="doc"></article></main>
+  <div class="overlay" id="overlay"></div>
+  <main class="main"><div class="view" id="view"></div></main>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
-const PAGES = /*__PAGES__*/;
-const nav = document.getElementById('nav');
-const doc = document.getElementById('doc');
-const q = document.getElementById('q');
-const sidebar = document.getElementById('sidebar');
-const byId = Object.fromEntries(PAGES.map(p => [p.id, p]));
-
-function buildNav() {
-  let html = '', section = null;
-  PAGES.forEach(p => {
-    if (p.section !== section) { section = p.section; html += `<div class="group">${section}</div>`; }
-    html += `<a href="#${p.id}" data-id="${p.id}">${p.title}</a>`;
-  });
-  nav.innerHTML = html;
-}
-
-function render(id) {
-  const page = byId[id] || PAGES[0];
-  const wide = /journey|workspace|catalog/.test(page.id);
-  doc.className = 'doc' + (wide ? ' wide' : '');
-  const badge = page.status ? `<span class="badge ${page.status}">${page.status}</span>` : '';
-  const updated = page.updated ? `<span class="path">atualizado em ${page.updated}</span>` : '';
-  const i = PAGES.indexOf(page);
-  const prev = PAGES[i - 1], next = PAGES[i + 1];
-  const pager =
-    `<div class="pager">` +
-    (prev ? `<a href="#${prev.id}"><small>← anterior</small>${prev.title}</a>` : `<div class="spacer"></div>`) +
-    (next ? `<a class="next" href="#${next.id}"><small>próximo →</small>${next.title}</a>` : `<div class="spacer"></div>`) +
-    `</div>`;
-  doc.innerHTML =
-    `<div class="meta">${badge}<span class="path">${page.path}</span>${updated}</div>` +
-    page.html + pager;
-
-  document.querySelectorAll('nav a').forEach(a =>
-    a.classList.toggle('active', a.dataset.id === page.id));
-  renderDiagrams();
-  sidebar.classList.remove('open');
-}
-
-function renderDiagrams() {
-  if (!window.mermaid) return;
-  const nodes = doc.querySelectorAll('pre.mermaid');
-  if (!nodes.length) return;
-  try { mermaid.run({ nodes }); } catch (e) { console.warn('mermaid', e); }
-}
-
-// Os fluxogramas de jornada são grandes demais para caber legíveis na coluna de
-// texto. Cada diagrama ganha zoom próprio: ajustado à largura por padrão, ampliável
-// em passos, com rolagem horizontal no contêiner.
-const ZOOM_STEPS = [0.5, 0.75, 1, 1.5, 2, 3, 4];
-
-function applyZoom(wrap, scale) {
-  const svg = wrap.querySelector('pre.mermaid svg');
-  const label = wrap.querySelector('[data-zoom-label]');
-  if (!svg) return;
-  if (!svg.dataset.baseWidth) {
-    const box = svg.viewBox && svg.viewBox.baseVal;
-    svg.dataset.baseWidth = (box && box.width) || svg.getBoundingClientRect().width || 800;
+const DATA=/*__DATA__*/;
+const view=document.querySelector('#view'),nav=document.querySelector('#navigation');
+const searchInput=document.querySelector('#global-search'),sidebar=document.querySelector('#sidebar');
+const menuToggle=document.querySelector('#menu-toggle'),overlay=document.querySelector('#overlay');
+const progress=document.querySelector('#reading-progress');
+const pagesById=new Map(DATA.pages.map(page=>[page.id,page]));
+const sectionsById=new Map(DATA.sections.map(section=>[section.id,section]));
+let activePage=null;
+const esc=value=>String(value??'').replace(/[&<>"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+const routeFor=page=>page.section==='overview'?`#/documento/${page.id}`:`#/secao/${page.section}/${page.id}`;
+const sectionRoute=section=>`#/secao/${section.id}`;
+function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}
+function groupsFor(sectionId){const groups=new Map();DATA.pages.filter(p=>p.section===sectionId).forEach(page=>{if(!groups.has(page.group))groups.set(page.group,[]);groups.get(page.group).push(page)});return groups}
+function renderNav(sectionId='',pageId=''){
+  const layers=DATA.sections.map(section=>`<a class="nav-link ${section.id===sectionId?'active':''}" href="${sectionRoute(section)}"><span class="nav-num">${section.number}</span><span>${esc(section.title)}</span></a>`).join('');
+  let context='';
+  if(sectionsById.has(sectionId)){
+    context='<div class="nav-divider"></div><div class="nav-label">Nesta camada</div>';
+    for(const [group,pages] of groupsFor(sectionId)) context+=`<details class="context-group" open><summary>${esc(group)}</summary>${pages.map(page=>`<a class="nav-link ${page.id===pageId?'active':''}" href="${routeFor(page)}">${esc(page.title)}</a>`).join('')}</details>`;
   }
-  svg.style.height = 'auto';
-  if (scale === 'fit') {
-    delete wrap.dataset.scale;
-    wrap.classList.remove('zoomed');
-    svg.style.maxWidth = '100%';
-    svg.style.width = '';
-    label.textContent = 'ajustado';
-  } else {
-    wrap.dataset.scale = scale;
-    wrap.classList.add('zoomed');
-    svg.style.maxWidth = 'none';
-    svg.style.width = (parseFloat(svg.dataset.baseWidth) * scale) + 'px';
-    label.textContent = Math.round(scale * 100) + '%';
-  }
+  nav.innerHTML=`<div class="nav-label">Explorar</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>Visão geral</span></a><div class="nav-label">As seis camadas</div>${layers}${context}`;
 }
-
-doc.addEventListener('click', e => {
-  const btn = e.target.closest('[data-zoom]');
-  if (!btn) return;
-  const wrap = btn.closest('.mermaid-wrap');
-  const action = btn.dataset.zoom;
-  if (action === 'fit') return applyZoom(wrap, 'fit');
-  const current = parseFloat(wrap.dataset.scale || 1);
-  let index = ZOOM_STEPS.findIndex(s => s >= current - 0.001);
-  index = action === 'in' ? Math.min(index + 1, ZOOM_STEPS.length - 1) : Math.max(index - 1, 0);
-  applyZoom(wrap, ZOOM_STEPS[index]);
-});
-
-// Um termo como "refine-spec" aparece de passagem em vários documentos, mas o que
-// o leitor quer é a página daquele nome. Título e caminho pesam mais que corpo.
-function score(page, term) {
-  const title = page.title.toLowerCase();
-  if (title === term) return 0;
-  if (title.startsWith(term)) return 1;
-  if (title.includes(term)) return 2;
-  if (page.path.toLowerCase().includes(term)) return 3;
-  return page.text.includes(term) ? 4 : Infinity;
+function homeMarkup(){
+  const pyramid=[...DATA.sections].reverse().map((section,index)=>`<a class="pyramid-level" style="--level-width:${42+index*11.6}%" href="${sectionRoute(section)}" aria-label="Camada ${section.number}, ${esc(section.title)}: ${esc(section.question)}"><span class="pyramid-number">${section.number}</span><span class="pyramid-title">${esc(section.title)}</span><span class="pyramid-question">${esc(section.question)}</span></a>`).join('');
+  return `<section class="home"><div class="hero"><div><div class="eyebrow">Documentação operacional</div><h1>Um sistema para times que <span>dirigem agentes.</span></h1><p class="hero-lede">O Agent Team transforma intenção, contexto e verificação em um ciclo de desenvolvimento operável. Explore da fundação técnica ao lugar onde cada decisão deixa rastro.</p><div class="hero-actions"><a class="button primary" href="${sectionRoute(DATA.sections[0])}">Começar pela base <span class="arrow">→</span></a><a class="button" href="${routeFor(DATA.pages[1])}">Ver índice completo</a></div><div class="hero-meta"><div class="metric"><strong>06</strong><span>camadas</span></div><div class="metric"><strong>${DATA.pages.length}</strong><span>documentos</span></div><div class="metric"><strong>12</strong><span>loops</span></div></div></div><div class="pyramid-panel"><div class="pyramid-head"><strong>Pirâmide operacional</strong><span>clique para explorar</span></div><div class="pyramid">${pyramid}</div><div class="pyramid-base"><span>fundação</span><span>operação</span></div></div></div><div class="principles"><div class="principle"><span>01 / SEPARAÇÃO</span><strong>Quem propõe não aprova.</strong><p>Crítica independente protege o sistema de confirmação automática.</p></div><div class="principle"><span>02 / EVIDÊNCIA</span><strong>Aprovação exige prova.</strong><p>Silêncio não é gate; cada passagem deixa um rastro observável.</p></div><div class="principle"><span>03 / AUTONOMIA</span><strong>Confiança cresce por métrica.</strong><p>O nível de autonomia nunca supera a capacidade de verificação.</p></div></div></section>`;
 }
-
-function search(term) {
-  term = term.trim().toLowerCase();
-  if (!term) { buildNav(); highlightCurrent(); return; }
-  const hits = PAGES.map(p => [p, score(p, term)])
-                    .filter(([, s]) => s < Infinity)
-                    .sort((a, b) => a[1] - b[1] || PAGES.indexOf(a[0]) - PAGES.indexOf(b[0]))
-                    .map(([p]) => p);
-  nav.innerHTML = hits.length
-    ? `<div class="group">${hits.length} resultado${hits.length > 1 ? 's' : ''}</div>` +
-      `<div class="results">` + hits.map(p =>
-        `<a class="hit" href="#${p.id}"><strong>${p.title}</strong><span>${p.section} · ${p.path}</span></a>`
-      ).join('') + `</div>`
-    : `<div class="empty">Nenhum documento contém “${term}”.</div>`;
+function renderHome(){activePage=null;view.innerHTML=homeMarkup();renderNav();document.title='Agent Team — documentação interativa';progress.style.width='0';window.scrollTo(0,0);renderDiagrams()}
+function trackMarkup(active){return `<div class="layer-track" aria-label="Posição na pirâmide">${DATA.sections.map(s=>`<a class="track-item ${s.id===active?'active':''}" href="${sectionRoute(s)}" aria-label="${esc(s.title)}"><span>${esc(s.title)}</span></a>`).join('')}</div>`}
+function renderSection(section){
+  activePage=null;let blocks='';
+  for(const [group,pages] of groupsFor(section.id)) blocks+=`<section class="group-block"><div class="group-head"><h2>${esc(group)}</h2><span>${String(pages.length).padStart(2,'0')} conteúdos</span></div><div class="page-grid">${pages.map((page,index)=>`<a class="page-card" href="${routeFor(page)}"><div class="card-top"><span>${String(index+1).padStart(2,'0')}</span><span>abrir ↗</span></div><strong class="card-title">${esc(page.title)}</strong><p class="card-excerpt">${esc(page.excerpt)}</p><span class="card-path">${esc(page.path)}</span></a>`).join('')}</div></section>`;
+  view.innerHTML=`<section class="section-view"><div class="breadcrumbs"><a href="#/">INÍCIO</a><span>/</span><span>CAMADA ${section.number}</span></div><header class="section-hero"><div><div class="section-index">${section.number} / 06 · camada operacional</div><h1>${esc(section.title)}</h1><p class="section-question">${esc(section.question)}</p><p class="section-summary">${esc(section.summary)}</p></div><div class="section-count"><strong>${String(section.count).padStart(2,'0')}</strong><span>documentos</span></div></header>${trackMarkup(section.id)}${blocks}</section>`;
+  renderNav(section.id);document.title=`${section.title} — Agent Team`;progress.style.width='0';window.scrollTo(0,0);closeMenu();
 }
-
-function highlightCurrent() {
-  const id = (location.hash || '').slice(1).split('~')[0];
-  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.dataset.id === id));
+function tocMarkup(page){if(!page.toc.length)return page.section==='overview'?'<div class="toc-title">Visão geral</div><a href="#/">Voltar ao mapa</a>':`<div class="toc-title">Nesta camada</div><a href="${sectionRoute(sectionsById.get(page.section))}">Ver todas as subseções</a>`;return `<div class="toc-title">Neste documento</div>${page.toc.map(item=>`<a class="level-${item.level}" href="${routeFor(page)}~${encodeURIComponent(item.anchor)}">${esc(item.text)}</a>`).join('')}`}
+function renderDocument(page,anchor=''){
+  activePage=page;const siblings=DATA.pages.filter(item=>item.section===page.section);const index=siblings.findIndex(item=>item.id===page.id),previous=siblings[index-1],next=siblings[index+1];const section=sectionsById.get(page.section),sectionTitle=section?.title||'Visão geral',sectionHref=section?sectionRoute(section):'#/';
+  const badge=page.status?`<span class="badge ${esc(page.status)}">${esc(page.status)}</span>`:'';
+  const updated=page.updated?`<span class="badge">atualizado ${esc(page.updated)}</span>`:'';
+  view.innerHTML=`<section class="doc-page"><div class="breadcrumbs"><a href="#/">INÍCIO</a><span>/</span><a href="${sectionHref}">${esc(sectionTitle)}</a><span>/</span><span>${esc(page.group)}</span></div><div class="doc-grid"><article class="article"><div class="doc-meta">${badge}${updated}<a class="source-path" href="${esc(page.path)}">${esc(page.path)}</a></div>${page.html}<nav class="pager" aria-label="Documentos adjacentes">${previous?`<a class="pager-link" href="${routeFor(previous)}"><span>← anterior</span><strong>${esc(previous.title)}</strong></a>`:'<span class="pager-spacer"></span>'}${next?`<a class="pager-link" href="${routeFor(next)}"><span>próximo →</span><strong>${esc(next.title)}</strong></a>`:'<span class="pager-spacer"></span>'}</nav></article><aside class="toc">${tocMarkup(page)}</aside></div></section>`;
+  renderNav(section?page.section:'',page.id);document.title=`${page.title} — Agent Team`;closeMenu();renderDiagrams();
+  requestAnimationFrame(()=>{if(anchor){const target=document.getElementById(`${page.id}~${decodeURIComponent(anchor)}`);if(target)target.scrollIntoView()}else window.scrollTo(0,0);updateProgress()});
 }
-
-function route() {
-  const raw = (location.hash || '').slice(1);
-  const [id, anchor] = raw.split('~');
-  render(id);
-  if (anchor) {
-    const el = document.getElementById(`${id}~${anchor}`);
-    if (el) el.scrollIntoView();
-  } else {
-    window.scrollTo(0, 0);
-  }
+function score(page,term){let value=0;if(page.title.toLowerCase().includes(term))value+=12;if(page.group.toLowerCase().includes(term))value+=6;if(page.path.toLowerCase().includes(term))value+=5;if(page.text.includes(term))value+=2;return value}
+function renderSearch(term){
+  activePage=null;const query=term.trim().toLowerCase();let content='';
+  if(!query)content='<div class="empty-state">Digite um conceito, agente, skill, artefato ou etapa da jornada.</div>';
+  else{const results=DATA.pages.map(page=>({page,score:score(page,query)})).filter(item=>item.score).sort((a,b)=>b.score-a.score||a.page.title.localeCompare(b.page.title)).slice(0,40);content=results.length?`<div class="result-list">${results.map(({page})=>`<a class="result" href="${routeFor(page)}"><span class="result-section">${esc(sectionsById.get(page.section)?.title||'Visão geral')}</span><span><strong>${esc(page.title)}</strong><p>${esc(page.excerpt)}</p></span><span class="result-path">${esc(page.path)}</span></a>`).join('')}</div>`:'<div class="empty-state">Nenhum documento encontrado. Tente um termo mais amplo.</div>'}
+  view.innerHTML=`<section class="search-view"><div class="eyebrow">Busca global</div><h1>${query?`Resultados para “${esc(term)}”`:'Explore o acervo'}</h1><p class="search-intro">Títulos, caminhos e conteúdo dos ${DATA.pages.length} documentos indexados.</p>${content}</section>`;renderNav();document.title=`Busca${term?` — ${term}`:''} — Agent Team`;progress.style.width='0';window.scrollTo(0,0);
 }
-
-q.addEventListener('input', e => search(e.target.value));
-q.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { q.value = ''; search(''); }
-  if (e.key === 'Enter') { const first = nav.querySelector('a'); if (first) location.hash = first.getAttribute('href'); }
-});
-document.addEventListener('keydown', e => {
-  if ((e.key === '/' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) && document.activeElement !== q) {
-    e.preventDefault(); q.focus(); q.select();
-  }
-});
-document.getElementById('menuBtn').onclick = () => sidebar.classList.toggle('open');
-window.addEventListener('hashchange', route);
-
-if (window.mermaid) {
-  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-  mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default', securityLevel: 'loose' });
-}
-buildNav();
+function renderNotFound(){view.innerHTML='<section class="not-found"><strong>404</strong><h1>Esta rota não existe.</h1><p>A documentação pode ter mudado de lugar. Volte ao mapa principal para continuar.</p><a class="button primary" href="#/">Voltar ao início</a></section>';renderNav();document.title='Não encontrado — Agent Team';progress.style.width='0'}
+function parseRoute(){const raw=location.hash.slice(1)||'/';const split=raw.indexOf('~'),path=split>=0?raw.slice(0,split):raw,anchor=split>=0?raw.slice(split+1):'';return {path,anchor}}
+function route(){const {path,anchor}=parseRoute();if(path==='/'){renderHome();return}if(path.startsWith('/busca')){const query=new URLSearchParams(path.split('?')[1]||'').get('q')||'';searchInput.value=query;renderSearch(query);return}const parts=path.split('/').filter(Boolean);if(parts[0]==='documento'){const page=pagesById.get(parts[1]);if(page?.section==='overview'){renderDocument(page,anchor);return}}if(parts[0]==='secao'&&sectionsById.has(parts[1])){const section=sectionsById.get(parts[1]);if(parts.length===2){renderSection(section);return}const page=pagesById.get(parts[2]);if(page&&page.section===section.id){renderDocument(page,anchor);return}}renderNotFound()}
+async function renderDiagrams(){const wraps=[...document.querySelectorAll('.mermaid-wrap')];if(!wraps.length)return;if(!window.mermaid)return;try{const nodes=wraps.map(wrap=>wrap.querySelector('.mermaid'));await mermaid.run({nodes});wraps.forEach(wrap=>wrap.classList.add('rendered'))}catch(error){console.warn('Mermaid indisponível',error)}}
+function applyZoom(wrap,scale){const svg=wrap.querySelector('.mermaid svg');if(!svg)return;wrap.dataset.scale=String(scale);svg.style.maxWidth='none';svg.style.width=`${scale*100}%`;wrap.querySelector('[data-zoom-label]').textContent=scale===1?'ajustado':`${Math.round(scale*100)}%`}
+document.addEventListener('click',event=>{const button=event.target.closest('[data-zoom]');if(button){const wrap=button.closest('.mermaid-wrap');let scale=Number(wrap.dataset.scale||1);if(button.dataset.zoom==='in')scale=Math.min(2.5,scale+.25);if(button.dataset.zoom==='out')scale=Math.max(.5,scale-.25);if(button.dataset.zoom==='fit')scale=1;applyZoom(wrap,scale)}if(event.target.closest('a')&&innerWidth<=900)closeMenu()});
+function updateProgress(){if(!activePage){progress.style.width='0';return}const height=document.documentElement.scrollHeight-innerHeight;const value=height>0?Math.min(100,scrollY/height*100):0;progress.style.width=`${value}%`}
+searchInput.addEventListener('input',event=>{const term=event.target.value;history.replaceState(null,'',`#/busca?q=${encodeURIComponent(term)}`);renderSearch(term)});
+searchInput.addEventListener('keydown',event=>{if(event.key==='Enter')location.hash=`/busca?q=${encodeURIComponent(searchInput.value)}`});
+menuToggle.addEventListener('click',()=>{const open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);menuToggle.setAttribute('aria-expanded',String(open))});overlay.addEventListener('click',closeMenu);
+document.addEventListener('keydown',event=>{if(event.key==='/'&&!/input|textarea/i.test(document.activeElement.tagName)){event.preventDefault();searchInput.focus()}if(event.key==='Escape'){closeMenu();if(document.activeElement===searchInput){searchInput.value='';searchInput.blur();location.hash='/'}}});
+window.addEventListener('hashchange',route);window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('load',renderDiagrams);
+if(window.mermaid)mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'loose',themeVariables:{background:'#161c21',primaryColor:'#20282e',primaryTextColor:'#e8f0f3',primaryBorderColor:'#22d3ee',lineColor:'#60727d',secondaryColor:'#10161a',tertiaryColor:'#263139'}});
 route();
 </script>
 </body>
 </html>
-"""
+'''
+
 
 if __name__ == "__main__":
     build()
