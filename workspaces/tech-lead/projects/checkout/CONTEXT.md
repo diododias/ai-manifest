@@ -1,25 +1,25 @@
-# Contexto — Checkout
+# Context — Checkout
 
-## Problema e objetivo
+## Problem and objective
 
-O checkout fictício da Acme recebe eventos de pagamento que podem ser reenviados. O projeto busca processá-los com consistência e sem cobranças duplicadas.
+Acme's dummy checkout receives payment events that can be resent. The project seeks to process them consistently and without duplicate charges.
 
-## Usuários e stakeholders
+## Users and stakeholders
 
-- clientes que concluem compras;
-- operação financeira e atendimento;
-- time de Payments, responsável pelo serviço.
+- customers who complete purchases;
+- financial operation and service;
+- Payments team, responsible for the service.
 
-## Escopo
+## Scope
 
-Inclui a API de checkout e seu processamento de pagamentos. Catálogo, logística e o provedor externo de pagamentos ficam fora do escopo.
+Includes the checkout API and its payment processing. Catalog, logistics and the external payment provider are out of scope.
 
-## Arquitetura atual
+## Current architecture
 
-O serviço `acme/checkout-api` recebe um comando com uma chave de idempotência, persiste o resultado e integra com o provedor de pagamentos. A decisão detalhada está em [`engineering/adr/ADR-001-idempotency-key.md`](engineering/adr/ADR-001-idempotency-key.md).
+The `acme/checkout-api` service receives a command with an idempotence key, persists the result and integrates with the payment provider. The detailed decision is in [`engineering/adr/ADR-001-idempotency-key.md`](engineering/adr/ADR-001-idempotency-key.md).
 
-## Restrições
+## Restrictions
 
-- redelivery é esperado;
-- a mesma chave não pode produzir duas cobranças;
-- evidências não podem expor dados pessoais ou credenciais.
+- redelivery is expected;
+- the same key cannot produce two charges;
+- evidence cannot expose personal data or credentials.

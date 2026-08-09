@@ -1,6 +1,6 @@
 ---
 name: "code-review"
-description: "Revisa mudanças de código contra SPEC, testes e riscos, produzindo achados acionáveis sem modificar o código. Use antes de revisão humana ou quando o usuário pedir uma revisão técnica de uma feature ou PR."
+description: "Reviews code changes against SPEC, tests and risks, producing actionable findings without modifying the code. Use before human review or when the user requests a technical review of a feature or PR."
 ---
 
 ## User Input
@@ -13,175 +13,175 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Revisar o código de forma adversarial antes de chegar a revisores humanos, verificando conformidade com a SPEC, qualidade e cobertura de testes.
+Adversarially review code before it reaches human reviewers, verifying SPEC compliance, quality, and test coverage.
 
-## Contrato de artefatos
+## Artifact contract
 
-Resolva artefatos conforme [o contrato compartilhado](../references/workflow-contract.md).
+Resolve artifacts as per [shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Obrigatório:** código implementado (diff da branch)
-- **Obrigatório:** testes executados
-- **Opcional:** descrição do PR (se já existe)
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** implemented code (branch diff)
+- **Required:** tests performed
+- **Optional:** description of the PR (if it already exists)
 
 ## Execution Steps
 
-### 1. Coletar contexto
+### 1. Collect context
 
-- Leia a SPEC — requisitos técnicos e critérios de aceite.
-- Descubra a base do PR (`gh pr view --json baseRefName`) ou a branch configurada no repositório; então use `git diff <base>...HEAD`. Não presuma `main` ou `develop`.
-- Leia testes criados/modificados.
+- Read the SPEC — technical requirements and acceptance criteria.
+- Discover the base of the PR (`gh pr view --json baseRefName`) or the branch configured in the repository; then use `git diff <base>...HEAD`. Do not assume `main` or `develop`.
+- Read created/modified tests.
 
-### 2. Revisão em camadas
+### 2. Layered Review
 
-#### A. Conformidade com SPEC
-Para cada bloco implementado:
-- O código implementa o que a SPEC define?
-- Critérios de aceite técnicos (CT-XX) são atendidos?
-- Modelo de dados está correto?
-- Contratos de interface batem com a SPEC?
+#### A. SPEC Compliance
+For each implemented block:
+- Does the code implement what the SPEC defines?
+- Are technical acceptance criteria (CT-XX) met?
+- Is the data model correct?
+- Do interface contracts match SPEC?
 
-#### B. Qualidade do Código
-- Código segue convenções do repositório?
-- Funções/métodos são claros e bem nomeados?
-- Não há code duplication desnecessária?
-- Tratamento de erros adequado?
-- Edge cases tratados?
+#### B. Code Quality
+- Does the code follow repository conventions?
+- Are functions/methods clear and well named?
+- Is there no unnecessary code duplication?
+- Adequate error handling?
+- Edge cases treated?
 
-#### C. Segurança
-- Input validation presente?
-- Secrets/credenciais hardcoded?
+#### C. Security
+- Input validation present?
+- Hardcoded secrets/credentials?
 - SQL injection, XSS, CSRF?
-- Aut autorização/autenticação adequada?
+- Proper authorization/authentication?
 
 #### D. Performance
-- Queries N+1?
-- Operações bloqueantes?
-- Cache adequado?
-- Memória/loop infinitos potenciais?
+- Do you want N+1?
+- Blocking operations?
+- Adequate cache?
+- Potential infinite memory/loop?
 
-#### E. Testes
-- Todos os CT-XX têm teste?
-- Testes são significativos (não apenas passam)?
-- Edge cases testados?
-- Mocks/stubs adequados?
+#### E. Tests
+- Does all CT-XX have a test?
+- Are tests meaningful (not just pass)?
+- Edge cases tested?
+- Suitable mocks/stubs?
 
-### 3. Classificar achados
+### 3. Classify findings
 
-- **BLOCKER:** Deve ser corrigido antes do PR (bug, security, SPEC violation)
-- **REVIEW:** Revisores devem verificar (design, padrão, performance)
-- **SUGGESTION:** Melhoria opcional (refactoring, otimização)
-- **PRAISE:** Código bem escrito (reforço positivo)
+- **BLOCKER:** Must be fixed before PR (bug, security, SPEC violation)
+- **REVIEW:** Reviewers must check (design, standard, performance)
+- **SUGGESTION:** Optional improvement (refactoring, optimization)
+- **PRAISE:** Well-written code (positive reinforcement)
 
-### 4. Gerar relatório
+### 4. Generate report
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/code-review.md`:
+Generates `teamwork/plan/feature-plan-<feature-slug>/code-review.md`:
 
 ```markdown
 # Code Review — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
-**Branch:** <nome da branch>
-**Commits:** <quantidade>
+**Date:** <YYYY-MM-DD>
+**Branch:** <branch name>
+**Commits:** <quantity>
 
 ---
 
-## Resumo
+## Summary
 
-| Categoria | Quantidade |
+| Category | Quantity |
 |-----------|-----------|
 | 🔴 BLOCKER | X |
 | 🟠 REVIEW | X |
-| 🟡 SUGGESTION | X |
+| 🟡SUGGESTION | X |
 | 🟢 PRAISE | X |
 
-**Recomendação:** ✅ Aprovar / 🔄 Revisar / ❌ Rejeitar
+**Recommendation:** ✅ Approve / 🔄 Review / ❌ Reject
 
 ---
 
-## Conformidade com SPEC
+## SPEC Compliance
 
-| Bloco | CT-XX | Status | Observação |
+| Block | CT-XX | Status | Note |
 |-------|-------|--------|------------|
 | ... | CT-01 | ✅ / ⚠️ / ❌ | ... |
 
 ---
 
-## Achados
+## Findings
 
 ### 🔴 BLOCKER
 
-#### B-01: <Título>
-- **Arquivo:** `caminho/linha`
-- **Problema:** <descrição>
-- **Sugestão:** <como corrigir>
+#### B-01: <Title>
+- **File:** `path/line`
+- **Problem:** <description>
+- **Suggestion:** <how to fix>
 
 ### 🟠 REVIEW
 
-#### R-01: <Título>
+#### R-01: <Title>
 ...
 
 ### 🟡 SUGGESTION
 
-#### S-01: <Título>
+#### S-01: <Title>
 ...
 
 ### 🟢 PRAISE
 
-#### P-01: <Título>
-<o que está bem e por quê>
+#### P-01: <Title>
+<what is ok and why>
 
 ---
 
-## Cobertura de Testes
+## Test Coverage
 
-| CT-XX | Critério | Teste | Status |
+| CT-XX | Criterion | Test | Status |
 |-------|----------|-------|--------|
 | CT-01 | ... | ... | ✅ / ❌ |
 
 ---
 
-## Material de Homologação
+## Approval Material
 
-<se solicitado, gere material seguindo template do time>
+<if requested, generate material following the team template>
 
-### Resumo da Mudança
-<o que mudou e por quê>
+### Change Summary
+<what changed and why>
 
-### Como Testar
-<passos de validação>
+### How to Test
+<validation steps>
 
-### Impacto
-<áreas afetadas, riscos>
+### Impact
+<affected areas, risks>
 
 ---
 
-## Recomendação Final
+## Final Recommendation
 
-<justificativa da recomendação>
+<justification for recommendation>
 ```
 
-### 5. Reportar no chat
+### 5. Report in chat
 
-- Resumo: X blockers, Y review, Z sugestões.
-- Recomendação: aprovar, revisar ou rejeitar.
-- Bloqueios que precisam de resolução.
+- Summary: X blockers, Y review, Z suggestions.
+- Recommendation: approve, review or reject.
+- Blockages that need resolution.
 
-## Convenções
+## Conventions
 
-- Revisão é adversarial — tente encontrar problemas.
-- Nunca silencie blockers — sempre reporte.
-- Praise é importante — reforça boas práticas.
-- Português para documentação.
-- Material de homologação segue template do time quando solicitado.
+- Review is adversarial — try to find problems.
+- Never silence blockers — always report.
+- Praise is important — reinforces good practices.
+- Portuguese for documentation.
+- Approval material follows the team template when requested.
 
-## Done When
+##DoneWhen
 
-- [ ] Revisão em todas as camadas executada
-- [ ] Conformidade com SPEC verificada
-- [ ] Achados classificados (BLOCKER/REVIEW/SUGGESTION/PRAISE)
-- [ ] `code-review.md` gerado
-- [ ] Recomendação de aprovação/revisão/rejeição reportada
+- [ ] Review performed on all layers
+- [ ] Verified SPEC compliance
+- [ ] Classified findings (BLOCKER/REVIEW/SUGGESTION/PRAISE)
+- [ ] `code-review.md` generated
+- [ ] Approval/revision/rejection recommendation reported

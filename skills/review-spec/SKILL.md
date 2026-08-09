@@ -1,6 +1,6 @@
 ---
 name: review-spec
-description: Revisa uma SPEC contra o PRD para encontrar lacunas, ambiguidades, inconsistências e riscos de implementação. Use antes de aprovar a SPEC ou iniciar o plano de execução.
+description: Reviews a SPEC against the PRD to find gaps, ambiguities, inconsistencies, and implementation risks. Use before approving the SPEC or starting the execution plan.
 ---
 
 ## User Input
@@ -13,145 +13,145 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Analisar a SPEC em busca de gaps, ambiguidades e inconsistências internas, gerando relatório de pontos a resolver classificados por severidade.
+Analyze the SPEC in search of gaps, ambiguities and internal inconsistencies, generating a report of points to be resolved classified by severity.
 
-## Contrato de artefatos
+## Artifact contract
 
-Resolva PRD e SPEC conforme [o contrato compartilhado](../references/workflow-contract.md).
+Resolve PRD and SPEC as per [the shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Obrigatório:** `.agents/prd/<feature-slug>/PRD.md`
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** `.agents/prd/<feature-slug>/PRD.md`
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira dos artefatos.
-- Verifique se os arquivos de entrada existem.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from artifacts.
+- Check if the input files exist.
 
-### 2. Carregar artefatos
+### 2. Upload artifacts
 
-- Leia `SPEC.md` — análise principal.
-- Leia `PRD.md` — referência para validação de cobertura.
+- Read `SPEC.md` — key analysis.
+- Read `PRD.md` — reference for coverage validation.
 
-### 3. Análise da SPEC
+### 3. SPEC Analysis
 
-Verifique sistematicamente:
+Systematically check:
 
-#### A. Cobertura do PRD
-- Cada história do PRD tem solução técnica na SPEC?
-- Cada regra de negócio (RN-XX) é tratada?
-- Cada critério de sucesso (SC-XX) tem equivalente técnico?
+#### A. PRD Coverage
+- Does each PRD story have a technical solution in SPEC?
+- Is each business rule (RN-XX) handled?
+- Does each success criterion (SC-XX) have a technical equivalent?
 
-#### B. Consistência Interna
-- Terminologia consistente (mesmo conceito nomeado igual)?
-- Modelo de dados coerente com os fluxos?
-- Contratos de interface alinhados com o modelo?
+#### B. Internal Consistency
+- Consistent terminology (same concept named the same)?
+- Data model consistent with flows?
+- Interface contracts aligned with the model?
 
-#### C. Completude
-- Histórias sem critérios de aceite técnicos?
-- Componentes sem definição clara?
-- Fluxos de exceção não tratados?
+#### C. Completeness
+- Stories without technical acceptance criteria?
+- Components without clear definition?
+- Unhandled exception flows?
 
-#### D. Ambiguidade
-- Termos vagos ("rápido", "escalável") sem métrica?
-- Placeholder não resolvido (TODO, TKTK)?
-- Decisões técnicas pendentes?
+#### D. Ambiguity
+- Vague terms ("fast", "scalable") without metrics?
+- Unresolved placeholder (TODO, TKTK)?
+- Pending technical decisions?
 
-#### E. Viabilidade
-- Dependências externas identificadas?
-- Riscos técnicos documentados?
-- Estimate de esforço realista?
+#### E. Feasibility
+- External dependencies identified?
+- Documented technical risks?
+- Realistic effort estimate?
 
-### 4. Classificar por severidade
+### 4. Sort by severity
 
-- **CRITICAL:** Bloqueia implementação (história sem solução, contrato inválido)
-- **HIGH:** Impacta qualidade (exceção não tratada, teste não definido)
-- **MEDIUM:** Pode causar retrabalho (ambiguidade, terminologia inconsistente)
-- **LOW:** Melhoria de qualidade (documentação, exemplos)
+- **CRITICAL:** Blocks implementation (unresolved story, invalid contract)
+- **HIGH:** Impacts quality (unhandled exception, test not defined)
+- **MEDIUM:** May cause rework (ambiguity, inconsistent terminology)
+- **LOW:** Quality improvement (documentation, examples)
 
-### 5. Gerar relatório
+### 5. Generate report
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/review-spec.md`:
+Generates `teamwork/plan/feature-plan-<feature-slug>/review-spec.md`:
 
 ```markdown
-# Review da SPEC — <Feature Name>
+# SPEC Review — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 **SPEC:** .agents/spec/<feature-slug>/SPEC.md
 
 ---
 
-## Resumo
+## Summary
 
-| Severidade | Quantidade |
+| Severity | Quantity |
 |------------|-----------|
 | 🔴 CRITICAL | X |
-| 🟠 HIGH | X |
+| 🟠HIGH | X |
 | 🟡 MEDIUM | X |
 | 🔵 LOW | X |
 
-**Status:** 🔴 Bloqueado / 🟡 Ajustes necessários / 🟢 Aprovado
+**Status:** 🔴 Blocked / 🟡 Necessary adjustments / 🟢 Approved
 
 ---
 
-## Achados
+## Findings
 
 ### 🔴 CRITICAL
 
-#### C-01: <Título>
-- **Local:** SPEC §<seção>
-- **Problema:** <descrição>
-- **Recomendação:** <como resolver>
+#### C-01: <Title>
+- **Location:** SPEC §<section>
+- **Problem:** <description>
+- **Recommendation:** <how to solve>
 
-### 🟠 HIGH
+### 🟠HIGH
 
-#### H-01: <Título>
+#### H-01: <Title>
 ...
 
 ### 🟡 MEDIUM
 
-#### M-01: <Título>
+#### M-01: <Title>
 ...
 
 ### 🔵 LOW
 
-#### L-01: <Título>
+#### L-01: <Title>
 ...
 
 ---
 
-## Cobertura PRD → SPEC
+## PRD Coverage → SPEC
 
-| História PRD | Na SPEC? | Observação |
+| PRD History | At SPEC? | Note |
 |-------------|----------|------------|
 | HIST-01 | ✅ / ❌ | ... |
 
-## Próximos Passos
+## Next Steps
 
-- <ações para resolver CRITICAL>
-- <ações para resolver HIGH>
-- <recomendações gerais>
+- <actions to resolve CRITICAL>
+- <actions to resolve HIGH>
+- <general recommendations>
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Resumo: X achados (Y críticos, Z alto).
-- Bloqueios que precisam de resolução antes de avançar.
-- Status geral (bloqueado / ajustes / aprovado).
+- Summary: X findings (Y critical, Z high).
+- Blocks that need resolution before moving forward.
+- General status (locked / adjustments / approved).
 
-## Convenções
+## Conventions
 
-- Relatório é read-only — não modifica a SPEC.
-- Classificação por severidade é subjetiva mas deve ser consistente.
-- Português.
+- Report is read-only — does not modify the SPEC.
+- Classification by severity is subjective but must be consistent.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] `review-spec.md` gerado em `teamwork/plan/feature-plan-<feature-slug>/`
-- [ ] Todos os achados classificados por severidade
-- [ ] Cobertura PRD → SPEC documentada
-- [ ] Status e próximos passos reportados
+- [ ] `review-spec.md` generated in `teamwork/plan/feature-plan-<feature-slug>/`
+- [ ] All findings classified by severity
+- [ ] PRD → SPEC coverage documented
+- [ ] Status and next steps reported

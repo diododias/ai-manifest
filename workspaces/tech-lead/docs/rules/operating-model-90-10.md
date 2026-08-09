@@ -1,670 +1,670 @@
 ---
-title: Agent Team — modelo operacional 90/10
+title: Agent Team — 90/10 operating model
 status: proposed
 updated_at: 2026-08-08
 ---
 
-# Agent Team — modelo operacional 90/10
+# Agent Team — 90/10 operating model
 
-> Desdobramento prático de [Agent Team — sistema operacional do trio humano](../rules/operating-model.md) · [Fluxo visual completo](end-to-end-journey.md) · [Fluxos por fase](journey-by-phase.md) · [workflows multiagente](../workflows/README.md).
+> Practical breakdown of [Agent Team — human trio operating system](../rules/operating-model.md) · [Full visual flow](end-to-end-journey.md) · [Flows per phase](journey-by-phase.md) · [multi-agent workflows](../workflows/README.md).
 
-As subseções do fluxo operacional indicam o que deve ser feito; os [workflows](../workflows/README.md) descrevem como os agentes colaboram, fazem handoff, criticam e consolidam cada saída.
+The subsections of the operational flow indicate what must be done; [workflows](../workflows/README.md) describe how agents collaborate, handoff, criticize and consolidate each output.
 
-## Objetivo do modelo
+## Purpose of the model
 
-- Automatizar aproximadamente 90% do trabalho operacional
-- Reservar o tempo humano para decisões de valor, risco e responsabilidade
-- Fazer agentes produzirem, criticarem, corrigirem e comprovarem o trabalho
-- Substituir reviews extensos por checkpoints curtos e orientados a evidências
-- Permitir mais autonomia conforme o fluxo demonstra segurança
+- Automate approximately 90% of operational work
+- Reserve human time for value, risk and responsibility decisions
+- Make agents produce, criticize, correct and prove the work
+- Replace extensive reviews with short, evidence-oriented checkpoints
+- Allow more autonomy as the flow demonstrates security
 
-## O que significa 90% automatizado
+## What does 90% automated mean
 
-- 90% das atividades executadas sem intervenção manual
-- Não significa 90% das decisões delegadas aos agentes
-- Não elimina responsabilidade humana sobre produto e produção
-- Não autoriza agentes a ignorar gates ou ampliar o próprio acesso
-- Não deve ser medido apenas por quantidade de tarefas
-- Deve reduzir tempo humano sem aumentar falhas, risco ou retrabalho
+- 90% of activities carried out without manual intervention
+- Does not mean 90% of decisions are delegated to agents
+- Does not eliminate human responsibility for product and production
+- Does not authorize agents to bypass gates or expand their own access
+- It should not be measured only by number of tasks
+- Must reduce human time without increasing failures, risk or rework
 
-## Divisão de responsabilidade
+## Division of responsibility
 
-- **Agentes fazem:** pesquisa, síntese, especificação, código, testes e evidências
-- **Automações fazem:** validações determinísticas, bloqueios e rastreabilidade
-- **Humanos fazem:** prioridade, escolhas irreversíveis, exceções e aceite
-- **Sistema faz:** roteamento, registro, observação e escalonamento
-
----
-
-## Princípio central: review de decisão
-
-- O humano não revisa todo o processo
-- O humano responde a uma pergunta objetiva em cada checkpoint
-- O sistema apresenta decisão recomendada, alternativas, riscos e evidências
-- O review possui tempo esperado e critérios explícitos
-- Falta de resposta não equivale a aprovação
-- Mudança material invalida a aprovação relacionada
-
-## Evidence pack apresentado ao humano
-
-- Decisão solicitada em uma frase
-- Recomendação dos agentes
-- Alternativas consideradas
-- Principais riscos e trade-offs
-- Mudanças desde o último checkpoint
-- Evidências dos gates executados
-- Pendências, exceções e nível de confiança
-- Links para artefatos completos, código e execução
+- **Agents do:** research, synthesis, specification, code, tests and evidence
+- **Automations do:** deterministic validations, blocking and traceability
+- **Humans make:** priority, irreversible choices, exceptions and acceptance
+- **System does:** routing, recording, observation and scheduling
 
 ---
 
-## Classificação de risco
+## Central principle: decision review
 
-### R0 — mínimo
+- The human does not review the entire process
+- The human answers an objective question at each checkpoint
+- The system presents recommended decisions, alternatives, risks and evidence
+- The review has an expected time and explicit criteria
+- Lack of response does not equate to approval
+- Material change invalidates the related approval
 
-- Documentação, texto e formatação
-- Sem mudança de comportamento
-- Sem dados, secrets ou contratos
-- Merge automático após gates
-- Review humano por amostragem
+## Evidence pack presented to the human
 
-### R1 — baixo
-
-- Refatoração interna ou mudança localizada
-- Comportamento coberto por testes existentes
-- Sem migração, segurança ou integração crítica
-- Uma aprovação humana curta no PR
-- Deploy automático com observação
-
-### R2 — médio
-
-- Novo comportamento de produto
-- Mudança de contrato interno ou integração
-- Impacto reversível, mas relevante
-- Aprovação de produto ou Code Owner
-- Canary e rollback automatizados
-
-### R3 — alto
-
-- Dados persistidos, migrações ou contratos públicos
-- Autenticação, autorização, secrets ou privacidade
-- Pagamentos, disponibilidade ou operação crítica
-- Aprovações humana de produto e técnica
-- Aprovação explícita antes de produção
-
-### R4 — crítico
-
-- Impacto regulatório, financeiro ou destrutivo
-- Ação irreversível ou de grande alcance
-- Plano de mudança e rollback revisados manualmente
-- Dupla aprovação e segregação de função
-- Acompanhamento humano durante a liberação
-
-## Regras da classificação
-
-- Um agente propõe o risco e outro agente tenta elevá-lo
-- O maior risco justificado prevalece
-- Redução manual de risco exige justificativa registrada
-- Mudança de escopo recalcula o risco
-- Paths sensíveis elevam o risco automaticamente
-- Dúvida não resolvida impede classificação como R0 ou R1
+- Decision requested in one sentence
+- Recommendation of agents
+- Alternatives considered
+- Main risks and trade-offs
+- Changes since the last checkpoint
+- Evidence of executed gates
+- Pending issues, exceptions and confidence level
+- Links to complete artifacts, code and execution
 
 ---
 
-## Fluxo operacional de ponta a ponta
+## Risk classification
 
-### 0. Entrada e triagem
+### R0 — minimum
 
-- **Agentes:** Intake Agent + Product Manager Agent
-- **Automações:**
-  - validar campos obrigatórios
-  - identificar duplicidade e dependências
-  - relacionar demanda, produto e repositório
-  - classificar tipo e risco inicial
-- **Saída:** Work Item com contexto, prioridade proposta e owner
-- **Gate automático:** item completo, rastreável e sem duplicidade conhecida
-- **Ação humana:** priorizar ou rejeitar o item
-- **Tempo humano esperado:** 2–5 minutos
+- Documentation, text and formatting
+- No change in behavior
+- No data, secrets or contracts
+- Automatic merge after gates
+- Human review by sampling
 
-### 1. Discovery multiagente
+### R1 — low
+
+- Internal refactoring or localized change
+- Behavior covered by existing tests
+- No migration, security or critical integration
+- A short human approval on PR
+- Automatic deployment with observation
+
+### R2 — medium
+
+- New product behavior
+- Change of internal contract or integration
+- Reversible but relevant impact
+- Product or Code Owner approval
+- Automated canary and rollback
+
+### R3 — high
+
+- Persisted data, migrations or public contracts
+- Authentication, authorization, secrets or privacy
+- Payments, availability or critical operation
+- Human product and technical approvals
+- Explicit approval before production
+
+### R4 — critical
+
+- Regulatory, financial or destructive impact
+- Irreversible or far-reaching action
+- Manually reviewed change plan and rollback
+- Double approval and segregation of duties
+- Human monitoring during release
+
+## Classification rules
+
+- One agent proposes the risk and another agent tries to increase it
+- The greatest justified risk prevails
+- Manual risk reduction requires recorded justification
+- Scope change recalculates risk
+- Sensitive paths automatically elevate risk
+- Unresolved questions prevent classification as R0 or R1
+
+---
+
+## End-to-end operational flow
+
+### 0. Entry and screening
+
+- **Agents:** Intake Agent + Product Manager Agent
+- **Automations:**
+  - validate mandatory fields
+  - identify duplication and dependencies
+  - relate demand, product and repository
+  - classify type and initial risk
+- **Output:** Work Item with context, proposed priority and owner
+- **Automatic gate:** complete item, traceable and without known duplication
+- **Human action:** prioritize or reject the item
+- **Expected human time:** 2–5 minutes
+
+### 1. Multi-agent Discovery
 
 - **Agent Team:**
   - Product Manager Agent
   - UX Specification Agent
   - Tech Lead Discovery Agent
-- **Execução:**
-  - agentes investigam em paralelo
-  - cada agente registra hipóteses e evidências
-  - Product Manager Agent consolida o `PB.md`
-  - os demais agentes criticam a síntese
-- **Automações:**
-  - validar estrutura do `PB.md`
-  - verificar links e fontes
-  - detectar afirmações sem evidência
-  - identificar perguntas e riscos sem owner
-  - comparar descoberta com demandas similares
-- **Gate automático:** problema, usuário, experiência e viabilidade cobertos
+- **Execution:**
+  - agents investigate in parallel
+  - each agent records hypotheses and evidence
+  - Product Manager Agent consolidates `PB.md`
+  - the other agents criticize the synthesis
+- **Automations:**
+  - validate `PB.md` structure
+  - check links and sources
+  - detect claims without evidence
+  - identify questions and risks without owner
+  - compare discovery with similar demands
+- **Automatic gate:** problem, user, experience and feasibility covered
 
-#### Checkpoint humano H1 — vale avançar?
+#### H1 human checkpoint — is it worth moving forward?
 
-- **Responsável:** Product Manager / sponsor
-- **Pergunta:** este problema merece investimento agora?
-- **Review:** problema, usuário, valor, restrições e riscos
-- **Decisão:** avançar, ajustar, adiar ou encerrar
-- **Tempo humano esperado:** 5–10 minutos
+- **Responsible:** Product Manager / sponsor
+- **Question:** does this problem deserve investment now?
+- **Review:** problem, user, value, restrictions and risks
+- **Decision:** move forward, adjust, postpone or close
+- **Expected human time:** 5–10 minutes
 
-### 2. Planejamento de produto
+### 2. Product planning
 
 - **Agent Team:**
   - Product Manager Agent
   - Adversarial Product Manager Agent
-- **Execução:**
-  - Product Manager propõe o `PRD.md`
-  - agente adversarial procura ambiguidades e gaps
-  - Product Manager responde e revisa o documento
-  - gaps não resolvidos são escalados
-- **Automações:**
-  - validar template e campos obrigatórios
-  - detectar termos vagos ou não mensuráveis
-  - exigir critérios de aceite observáveis
-  - verificar rastreabilidade `PB → PRD`
-  - verificar escopo, fora de escopo e métricas
-- **Gate automático:** PRD completo e crítica adversarial respondida
+- **Execution:**
+  - Product Manager proposes `PRD.md`
+  - adversarial agent looks for ambiguities and gaps
+  - Product Manager responds and reviews the document
+  - unresolved gaps are scaled
+- **Automations:**
+  - validate template and mandatory fields
+  - detect vague or unmeasurable terms
+  - require observable acceptance criteria
+  - check traceability `PB → PRD`
+  - check scope, out of scope and metrics
+- **Automatic gate:** Complete PRD and adversarial criticism answered
 
-#### Checkpoint humano H2 — é isto que construiremos?
+#### Human Checkpoint H2 — is this what we will build?
 
-- **Responsável:** Product Manager / stakeholder
-- **Pergunta:** escopo, experiência e critérios de sucesso estão corretos?
-- **Review:** decisões e gaps; não o documento linha por linha
-- **Decisão:** aprovar, reduzir, ampliar ou devolver
-- **Tempo humano esperado:** 10–15 minutos
+- **Responsible:** Product Manager / stakeholder
+- **Question:** Are scope, experience and success criteria correct?
+- **Review:** decisions and gaps; not the document line by line
+- **Decision:** approve, reduce, expand or return
+- **Expected human time:** 10–15 minutes
 
-### 3. Especificação técnica
+### 3. Technical specification
 
 - **Agent Team:**
   - Specification Tech Lead Agent
   - Adversarial Tech Lead Agent
-- **Execução:**
-  - especificador propõe arquitetura e decomposição
-  - agente adversarial avalia gaps, riscos e trade-offs
-  - decisões são consolidadas em `ADR.md` e `SPEC.md`
-  - trabalho é dividido em tarefas verificáveis
-- **Automações:**
-  - validar estrutura dos artefatos
-  - verificar rastreabilidade `PRD → SPEC → TASKS`
-  - detectar ciclos e violações arquiteturais conhecidas
-  - identificar contratos e paths sensíveis
-  - validar dependências e ordem das tarefas
-  - gerar threat model quando aplicável
-- **Gate automático:** especificação consistente e gaps críticos tratados
+- **Execution:**
+  - specifier proposes architecture and decomposition
+  - adversarial agent evaluates gaps, risks and trade-offs
+  - decisions are consolidated in `ADR.md` and `SPEC.md`
+  - work is divided into verifiable tasks
+- **Automations:**
+  - validate artifact structure
+  - check traceability `PRD → SPEC → TASKS`
+  - detect cycles and known architectural violations
+  - identify sensitive contracts and paths
+  - validate dependencies and order of tasks
+  - generate threat model when applicable
+- **Automatic gate:** consistent specification and critical gaps addressed
 
-#### Checkpoint humano H3 — decisão técnica excepcional
+#### Human checkpoint H3 — exceptional technical decision
 
-- **Obrigatório:** R3, R4, nova ADR ou exceção arquitetural
-- **Opcional:** R0, R1 e R2 sem decisão estrutural nova
-- **Responsável:** Tech Lead / arquiteto / especialista do domínio
-- **Pergunta:** aceitamos estes trade-offs e riscos residuais?
-- **Review:** decisão, alternativas descartadas e impacto futuro
-- **Tempo humano esperado:** 10–20 minutos
+- **Required:** R3, R4, new ADR or architectural exception
+- **Optional:** R0, R1 and R2 without new structural decision
+- **Responsible:** Tech Lead / architect / domain expert
+- **Question:** do we accept these trade-offs and residual risks?
+- **Review:** decision, discarded alternatives and future impact
+- **Expected human time:** 10–20 minutes
 
-### 4. Implementação autônoma
+### 4. Standalone implementation
 
-- **Agentes:** Orchestrator Agent + Software Engineer Agents
-- **Execução:**
-  - selecionar próxima tarefa elegível
-  - criar branch ou worktree isolado
-  - implementar mudança mínima
-  - criar ou atualizar testes
-  - executar validações locais
-  - corrigir falhas automaticamente
-  - registrar commits pequenos e rastreáveis
-  - atualizar documentação afetada
+- **Agents:** Orchestrator Agent + Software Engineer Agents
+- **Execution:**
+  - select next eligible task
+  - create isolated branch or worktree
+  - implement minimal change
+  - create or update tests
+  - perform local validations
+  - fix crashes automatically
+  - log small, traceable commits
+  - update affected documentation
 - **Pre-commit gate:**
-  - formatação, lint e typecheck
-  - unit tests afetados
-  - testes de arquitetura rápidos
-  - secrets e arquivos proibidos
-  - consistência básica dos artefatos
+  - formatting, lint and typecheck
+  - unit tests affected
+  - fast architecture tests
+  - secrets and prohibited files
+  - basic consistency of artifacts
 - **Pre-push gate:**
-  - build reproduzível
-  - suíte ampliada de testes
-  - cobertura mínima e mutation delta
-  - análise estática e dependências
-  - código morto e contratos quebrados
-- **Correção automática:** até um limite de tentativas e tempo
-- **Escalonamento:** falha repetida, conflito de requisito ou risco elevado
-- **Ação humana:** nenhuma durante o fluxo saudável
+  - reproducible build
+  - expanded test suite
+  - minimum coverage and mutation delta
+  - static analysis and dependencies
+  - dead code and broken contracts
+- **Automatic correction:** up to a limit of attempts and time
+- **Escalation:** repeated failure, requirement conflict or high risk
+- **Human action:** none during healthy flow
 
-### 5. Validação adversarial
+### 5. Adversarial validation
 
 - **Agent Team:**
   - QA / Validation Agent
   - Security Review Agent
   - Architecture Review Agent
   - Adversarial Code Reviewer Agent
-- **Execução:**
-  - validar cada critério de aceite
-  - testar caminhos felizes, erros e casos-limite
-  - comparar implementação com `PRD` e `SPEC`
-  - procurar regressões, vulnerabilidades e violações
-  - produzir evidências reproduzíveis
+- **Execution:**
+  - validate each acceptance criteria
+  - test happy paths, errors and edge cases
+  - compare implementation with `PRD` and `SPEC`
+  - look for regressions, vulnerabilities and breaches
+  - produce reproducible evidence
 - **CI fast lane:**
-  - lint, typecheck, unit tests e arquitetura
-  - executada em todo push
+  - lint, typecheck, unit tests and architecture
+  - executed on every push
 - **CI deep lane:**
-  - integração, TAAC, mutação e segurança
-  - executada conforme risco, paths e impacto
-- **Gate automático:** todos os checks obrigatórios aprovados
-- **Ação humana:** somente para falso positivo, exceção ou gap de requisito
+  - integration, TAAC, mutation and security
+  - executed according to risk, paths and impact
+- **Automatic gate:** all mandatory checks approved
+- **Human action:** only for false positive, exception or requirement gap
 
-### 6. PR e decisão de merge
+### 6. PR and merge decision
 
-- **Agentes:** PR Agent + Reviewer Agents
-- **Automações:**
-  - gerar descrição e evidence pack
-  - resumir comportamento alterado
-  - destacar arquivos e trechos de maior risco
-  - solicitar Code Owners conforme paths
-  - exigir status checks da fonte autorizada
-  - invalidar aprovação após mudança material
-- **Review dos agentes:**
-  - corretude e completude
-  - segurança e privacidade
-  - arquitetura e contratos
-  - testes e manutenibilidade
-  - documentação e observabilidade
+- **Agents:** PR Agent + Reviewer Agents
+- **Automations:**
+  - generate description and evidence pack
+  - summarize changed behavior
+  - highlight files and snippets of highest risk
+  - request Code Owners according to paths
+  - require status checks from the authorized source
+  - invalidate approval after material change
+- **Agents review:**
+  - correctness and completeness
+  - security and privacy
+  - architecture and contracts
+  - testing and maintainability
+  - documentation and observability
 
-#### Checkpoint humano H4 — podemos integrar?
+#### H4 human checkpoint — can we integrate?
 
-- **R0:** merge automático; revisão humana por amostragem
-- **R1:** uma revisão rápida do owner
-- **R2:** uma aprovação do responsável afetado
-- **R3:** aprovação técnica + aprovação do owner
-- **R4:** dupla aprovação com segregação de função
-- **Review humano:** evidence pack, hotspots e exceções
-- **Tempo humano esperado:** 5–15 minutos
-- **Gate de merge:** aprovações exigidas + CI verde + branch atualizada
+- **R0:** automatic merge; human sampling review
+- **R1:** a quick review from the owner
+- **R2:** an approval from the affected person responsible
+- **R3:** technical approval + owner approval
+- **R4:** double approval with segregation of duties
+- **Human review:** evidence pack, hotspots and exceptions
+- **Expected human time:** 5–15 minutes
+- **Merge gate:** approvals required + green CI + updated branch
 
-### 7. Homologação automatizada
+### 7. Automated approval
 
-- **Agentes:** Release Agent + Product Validation Agent
-- **Ambiente:** preview ou staging isolado
-- **Automações:**
-  - deploy do artefato imutável
-  - seed de dados seguros
-  - smoke, E2E e testes sintéticos
-  - comparação visual quando aplicável
-  - validação automática dos critérios de aceite
-  - geração de demonstração e evidências
-- **Ação humana:** revisar apenas experiência nova ou mudança R2+
-- **Saída:** release candidate aprovado ou devolvido
+- **Agents:** Release Agent + Product Validation Agent
+- **Environment:** preview or isolated staging
+- **Automations:**
+  - deploy the immutable artifact
+  - secure data seed
+  - smoke, E2E and synthetic tests
+  - visual comparison when applicable
+  - automatic validation of acceptance criteria
+  - generation of demonstration and evidence
+- **Human action:** review only new experience or R2+ change
+- **Output:** release candidate approved or returned
 
-### 8. Liberação em produção
+### 8. Production release
 
-- **Agentes:** Release Agent + Observability Agent
-- **Estratégias:** feature flag, canary, blue/green ou rollout progressivo
-- **Gates automáticos:**
-  - artefato assinado e rastreável
-  - ambiente e secrets autorizados
-  - migração validada e compatível
-  - backup e rollback verificados
-  - SLOs e alertas configurados
+- **Agents:** Release Agent + Observability Agent
+- **Strategies:** feature flag, canary, blue/green or progressive rollout
+- **Automatic gates:**
+  - signed and traceable artifact
+  - authorized environment and secrets
+  - validated and compatible migration
+  - verified backup and rollback
+  - Configured SLOs and alerts
 
-#### Checkpoint humano H5 — podemos expor o risco?
+#### Human checkpoint H5 — can we expose the risk?
 
-- **R0/R1:** deploy automático
-- **R2:** aprovação opcional conforme criticidade do produto
-- **R3/R4:** aprovação explícita antes do ambiente de produção
-- **Responsável:** Product Owner + responsável técnico quando necessário
-- **Review:** impacto, plano de rollout, rollback e sinais de saúde
-- **Tempo humano esperado:** 3–10 minutos
+- **R0/R1:** automatic deploy
+- **R2:** optional approval depending on the criticality of the product
+- **R3/R4:** explicit approval before production environment
+- **Responsible:** Product Owner + technical responsible when necessary
+- **Review:** impact, rollout plan, rollback and health signs
+- **Expected human time:** 3–10 minutes
 
-### 9. Observação e aprendizado
+### 9. Observation and learning
 
-- **Agentes:** Observability Agent + Knowledge Agent
-- **Automações:**
-  - monitorar erros, latência, SLOs e métricas de produto
-  - comparar baseline e comportamento após deploy
-  - pausar rollout ou reverter automaticamente
-  - atualizar changelog e documentação
-  - registrar falhas e novos itens no backlog
-- **Gate pós-deploy:** janela de observação sem regressão relevante
-- **Ação humana:** decisão apenas quando rollback não for seguro ou automático
+- **Agents:** Observability Agent + Knowledge Agent
+- **Automations:**
+  - monitor errors, latency, SLOs and product metrics
+  - compare baseline and behavior after deploy
+  - pause rollout or revert automatically
+  - update changelog and documentation
+  - record failures and new items in the backlog
+- **Post-deploy gate:** observation window without relevant regression
+- **Human action:** decision only when rollback is not safe or automatic
 
-### 10. Melhoria contínua — Auto Dream
+### 10. Continuous improvement — Auto Dream
 
-- **Agente:** Auto Dream Agent
-- **Trigger:** agenda semanal + execução extraordinária após incidente relevante
-- **Objetivo:** transformar o histórico operacional em memória e melhorias concretas
-- **Escopo:** produto, agentes, prompts, processo, harness, skills, scripts, gates e fluxo
+- **Agent:** Auto Dream Agent
+- **Trigger:** weekly schedule + extraordinary execution after relevant incident
+- **Objective:** transform operational history into memory and concrete improvements
+- **Scope:** product, agents, prompts, process, harness, skills, scripts, gates and flow
 
-#### Entradas do ciclo
+#### Cycle inputs
 
-- Sessões e decisões dos agentes
-- Evidence packs e feedbacks humanos
-- Falhas, retries, bloqueios e escalonamentos
-- Resultados de hooks, CI, homologação e deploy
-- Incidentes, rollbacks e defeitos escapados
-- Métricas de tempo, custo, qualidade e autonomia
-- Demandas de melhoria geradas anteriormente
+- Agent sessions and decisions
+- Evidence packs and human feedback
+- Failures, retries, blockages and escalations
+- Results of hooks, CI, approval and deployment
+- Incidents, rollbacks and escaped defects
+- Metrics of time, cost, quality and autonomy
+- Previously generated improvement demands
 
-#### Pipeline automatizado
+#### Automated pipeline
 
-- Coletar sessões e eventos da semana
-- Remover secrets e dados pessoais antes da análise
-- Agrupar eventos por etapa, causa e tipo de impacto
-- Identificar padrões recorrentes e ocorrências isoladas
-- Comparar resultados com semanas anteriores
-- Distinguir aprendizado reutilizável de problema operacional
-- Procurar contradições com a memória existente
-- Produzir evidências e nível de confiança para cada conclusão
-- Submeter conclusões a um Critic Agent independente
-- Consolidar somente itens confirmados ou explicitamente sinalizados como hipótese
+- Collect sessions and events for the week
+- Remove secrets and personal data before analysis
+- Group events by stage, cause and type of impact
+- Identify recurring patterns and isolated occurrences
+- Compare results with previous weeks
+- Distinguish reusable learning from operational problems
+- Look for contradictions with existing memory
+- Produce evidence and confidence level for each conclusion
+- Submit findings to an independent Critic Agent
+- Consolidate only items that are confirmed or explicitly flagged as hypotheses
 
-#### Caminho A — aprendizado validado
+#### Path A — validated learning
 
-- Identificar o que funcionou e em qual contexto
-- Registrar evidências e condições de reutilização
-- Verificar duplicidade, contradição e validade temporal
-- Propor inclusão, atualização ou remoção no `MEMORY.md`
-- Preservar a origem e a data do aprendizado
-- Não transformar preferência isolada em regra global
+- Identify what worked and in what context
+- Record evidence and conditions of reuse
+- Check duplicity, contradiction and temporal validity
+- Propose inclusion, update or removal in `MEMORY.md`
+- Preserve the origin and date of learning
+- Do not transform an isolated preference into a global rule
 
-#### Gate de memória
+#### Memory gate
 
-- Evidência vinculada à conclusão
-- Escopo e contexto de aplicação explícitos
-- Ausência de secrets ou dados pessoais
-- Sem contradição não resolvida
-- Conhecimento acionável e reutilizável
-- Mudança sensível exige aprovação humana
+- Evidence linked to conclusion
+- Explicit scope and context of application
+- Absence of secrets or personal data
+- No unresolved contradiction
+- Actionable and reusable knowledge
+- Sensitive change requires human approval
 
-#### Caminho B — falha ou oportunidade de melhoria
+#### Path B — failure or opportunity for improvement
 
-- Descrever o sintoma observado
-- Identificar causa provável e evidências
-- Registrar frequência, impacto e etapa afetada
-- Propor ação corretiva e resultado esperado
-- Classificar o tipo de melhoria:
-  - processo
+- Describe the observed symptom
+- Identify probable cause and evidence
+- Record frequency, impact and affected stage
+- Propose corrective action and expected results
+- Classify the type of improvement:
+  - process
   - harness
-  - skill ou prompt
-  - script ou ferramenta
-  - hook ou gate
-  - arquitetura do workflow
-  - documentação ou contexto
-- Gerar demanda rastreável no backlog
-- Relacionar sessões, execuções e incidentes de origem
-- Detectar e vincular demandas duplicadas
+  - skill or prompt
+  - script or tool
+  - hook or gate
+  - workflow architecture
+  - documentation or context
+- Generate traceable demand in the backlog
+- Relate sessions, executions and source incidents
+- Detect and link duplicate demands
 
-#### Estrutura mínima da demanda
+#### Minimum demand structure
 
-- Título orientado ao problema
-- Sintoma e impacto
-- Evidências e frequência
-- Hipótese de causa-raiz
-- Melhoria proposta
-- Critério de aceite mensurável
-- Prioridade e classe de risco sugeridas
-- Owner recomendado
-- Links para sessões e artefatos relacionados
+- Problem-oriented title
+- Symptom and impact
+- Evidence and frequency
+- Root cause hypothesis
+- Proposed improvement
+- Measurable acceptance criteria
+- Suggested priority and risk class
+- Recommended owner
+- Links to related sessions and artifacts
 
-#### Priorização sugerida
+#### Suggested prioritization
 
-- **P0:** risco crítico, segurança ou perda de dados
-- **P1:** falha recorrente que bloqueia o fluxo
-- **P2:** retrabalho, custo ou baixa confiabilidade
-- **P3:** otimização e melhoria incremental
-- Frequência não substitui impacto na definição da prioridade
-- O Auto Dream recomenda; o responsável humano controla a prioridade final
+- **P0:** critical risk, security or data loss
+- **P1:** recurring failure that blocks the flow
+- **P2:** rework, cost or low reliability
+- **P3:** optimization and incremental improvement
+- Frequency does not replace impact in defining priority
+- Auto Dream recommends; the human responsible controls the final priority
 
-#### Checkpoint humano H6 — o sistema aprendeu corretamente?
+#### Human checkpoint H6 — did the system learn correctly?
 
-- **Obrigatório:** mudanças sensíveis no `MEMORY.md`, P0/P1 e alteração de gates
-- **Por amostragem:** aprendizados de baixo risco e demandas P2/P3
-- **Responsável:** owner do Agent Team / Engineering Enablement
-- **Pergunta:** evidências, aprendizado e ação proposta são confiáveis?
-- **Decisão:** aprovar, ajustar, descartar ou solicitar mais evidências
-- **Tempo humano esperado:** 10–20 minutos por ciclo semanal
+- **Mandatory:** sensitive changes to `MEMORY.md`, P0/P1 and gate changes
+- **By sampling:** low-risk learning and P2/P3 demands
+- **Responsible:** owner of the Agent Team / Engineering Enablement
+- **Question:** Are evidence, learning and proposed action reliable?
+- **Decision:** approve, adjust, discard or request more evidence
+- **Expected human time:** 10–20 minutes per weekly cycle
 
-#### Saídas do ciclo
+#### Cycle outputs
 
-- `MEMORY.md` atualizado com aprendizados validados
-- Demandas de melhoria criadas ou enriquecidas no backlog
-- Relatório semanal curto com padrões e tendências
-- Métricas do sistema de trabalho atualizadas
-- Hipóteses inconclusivas mantidas para observação futura
+- `MEMORY.md` updated with validated learnings
+- Improvement demands created or enriched in the backlog
+- Short weekly report with patterns and trends
+- Updated work system metrics
+- Inconclusive hypotheses kept for future observation
 
-#### Gate de conclusão
+#### Completion gate
 
-- Todas as fontes processadas e rastreáveis
-- Aprendizados separados de hipóteses
-- Falhas relevantes convertidas em demandas
-- Duplicidades e contradições tratadas
-- Mudanças sensíveis revisadas
-- Nenhum dado confidencial persistido indevidamente
+- All sources processed and traceable
+- Learning separated from hypotheses
+- Relevant failures converted into demands
+- Duplicities and contradictions dealt with
+- Sensitive changes reviewed
+- No confidential data improperly persisted
 
-#### Falhas do próprio Auto Dream
+#### Failures of Auto Dream itself
 
-- Falha de coleta abre alerta, não produz conclusão parcial silenciosa
-- Baixa confiança mantém item como hipótese
-- Contradição bloqueia atualização automática da memória
-- Demanda sem evidência permanece como rascunho
-- O agente não pode aprovar alterações nos próprios gates
-- Incidentes do Auto Dream entram no próximo ciclo de análise
+- Collection failure opens alert, does not produce silent partial completion
+- Low confidence keeps item as hypothesis
+- Contradiction blocks automatic memory update
+- Demand without evidence remains as a draft
+- The agent cannot approve changes to the gates themselves
+- Auto Dream incidents enter the next analysis cycle
 
 ---
 
-## Resumo dos checkpoints humanos
+## Summary of human checkpoints
 
-| Checkpoint | Decisão humana | Quando | Tempo esperado |
+| Checkpoint | Human decision | When | Expected time |
 |---|---|---|---:|
-| H1 | Vale investir? | Após discovery | 5–10 min |
-| H2 | É isto que construiremos? | Após PRD | 10–15 min |
-| H3 | Aceitamos o trade-off? | Apenas risco ou decisão estrutural | 10–20 min |
-| H4 | Podemos integrar? | Antes do merge, conforme risco | 5–15 min |
-| H5 | Podemos expor o risco? | Produção R3/R4 | 3–10 min |
-| H6 | O sistema aprendeu corretamente? | Ciclo semanal do Auto Dream | 10–20 min |
+| H1 | Is it worth investing? | After discovery | 5–10 min |
+| H2 | Is this what we will build? | After PRD | 10–15 min |
+| H3 | Do we accept the trade-off? | Only risk or structural decision | 10–20 min |
+| H4 | Can we integrate? | Before the merge, according to risk | 5–15 min |
+| H5 | Can we expose the risk? | Production R3/R4 | 3–10 min |
+| H6 | Did the system learn correctly? | Auto Dream weekly cycle | 10–20 min |
 
-## Como reduzir ainda mais os reviews
+## How to reduce reviews even further
 
-- Combinar H2 e H3 para mudanças pequenas e bem conhecidas
-- Eliminar H3 quando não houver ADR, exceção ou risco relevante
-- Aplicar H4 por amostragem em R0 após histórico confiável
-- Tornar H5 automático em R0/R1 com rollback comprovado
-- Mostrar somente diferenças desde a última aprovação
-- Direcionar o humano aos hotspots, não ao diff completo
-- Usar Code Owners apenas para paths realmente sensíveis
-- Criar políticas diferentes por risco e tipo de repositório
-- Medir falsos positivos e remover gates sem valor
-
----
-
-## Arquitetura de gates
-
-### Gate local — segundos ou poucos minutos
-
-- Feedback imediato ao agente
-- Checks determinísticos e de baixo custo
-- Deve oferecer instrução clara de correção
-- Falha bloqueia commit ou push
-
-### Gate de CI — minutos
-
-- Executado em ambiente limpo
-- Confirma build, testes, segurança e arquitetura
-- Seleciona checks conforme risco e paths alterados
-- Falha bloqueia merge
-
-### Gate de merge — decisão consolidada
-
-- Confirma aprovações e status checks
-- Confirma proveniência da automação
-- Impede bypass silencioso e force push
-- Invalida aprovação quando o diff muda materialmente
-
-### Gate de ambiente — exposição controlada
-
-- Libera secrets somente após autorização
-- Restringe branches e artefatos permitidos
-- Exige aprovação quando o risco determinar
-- Integra sinais de observabilidade e change management
-
-### Gate pós-deploy — comportamento real
-
-- Compara métricas com o baseline
-- Interrompe rollout diante de regressão
-- Reverte automaticamente quando seguro
-- Abre incidente quando ação humana for necessária
-
-## Regras para gates baseados em IA
-
-- IA pode recomendar, explicar e priorizar achados
-- Bloqueio automático exige regra reproduzível e evidência verificável
-- Achado probabilístico deve passar por confirmação independente
-- O mesmo agente não deve produzir e aprovar a própria mudança
-- Agents não podem alterar gates dentro do mesmo fluxo avaliado
-- Mudança em rules, hooks ou CI eleva risco automaticamente
-- Bypass exige pessoa autorizada, motivo e prazo de correção
+- Combine H2 and H3 for small, well-known changes
+- Eliminate H3 when there is no ADR, exception or relevant risk
+- Apply H4 by sampling in R0 after reliable history
+- Make H5 automatic in R0/R1 with proven rollback
+- Show only differences since the last approval
+- Direct the human to the hotspots, not the full diff
+- Use Code Owners only for really sensitive paths
+- Create different policies by risk and type of repository
+- Measure false positives and remove worthless gates
 
 ---
 
-## Contrato de escalonamento
+## Gate architecture
 
-- Requisito contraditório ou sem owner
-- Confiança abaixo do limite definido
-- Duas ou mais tentativas de correção sem progresso
-- Mudança fora do escopo aprovado
-- Necessidade de nova permissão ou acesso externo
-- Falha não reproduzível ou evidência inconsistente
-- Decisão irreversível ou impacto não calculável
-- Divergência entre agentes sem critério objetivo de desempate
+### Local gate — seconds or a few minutes
 
-## Autonomia progressiva
+- Immediate feedback to the agent
+- Deterministic and low-cost checks
+- Must offer clear correction instructions
+- Failure blocks commit or push
 
-### Nível A0 — assistido
+### CI Gate — minutes
 
-- Humanos aprovam todas as transições
-- Indicado para início do piloto
+- Executed in a clean environment
+- Confirms build, testing, security and architecture
+- Selects checks according to risk and changed paths
+- Failure blocks merge
 
-### Nível A1 — execução autônoma
+### Merge gate — consolidated decision
 
-- Agentes executam implementação e validação
-- Humanos mantêm H1, H2, H4 e H5
+- Confirms approvals and status checks
+- Confirms the origin of the automation
+- Prevents silent bypass and force push
+- Invalidates approval when diff changes materially
 
-### Nível A2 — merge por risco
+### Ambient gate — controlled exposure
 
-- R0 pode fazer auto-merge
-- R1 recebe review humano curto
-- R2+ mantém owners específicos
+- Release secrets only after authorization
+- Restricts allowed branches and artifacts
+- Requires approval when risk determines
+- Integrates observability signals and change management
 
-### Nível A3 — entrega autônoma controlada
+### Post-deploy gate — actual behavior
 
-- R0/R1 fazem deploy automático
-- Rollback e observabilidade são obrigatórios
-- Humanos atuam em exceções e riscos altos
+- Compare metrics with the baseline
+- Stops rollout in case of regression
+- Automatically reverts when safe
+- Open incident when human action is necessary
 
-### Nível A4 — operação orientada a exceções
+## Rules for AI-based gates
 
-- Fluxo saudável ocorre sem intervenção
-- Humanos recebem apenas decisões e incidentes relevantes
-- Auditorias por amostragem verificam a qualidade do sistema
-
-## Critério para elevar autonomia
-
-- Volume mínimo de entregas observado
-- Baixa taxa de defeitos escapados
-- Rollback testado e confiável
-- Gates com poucos falsos positivos
-- Risco classificado corretamente
-- Evidências completas e auditáveis
-- Tempo humano realmente reduzido
+- AI can recommend, explain and prioritize findings
+- Automatic blocking requires reproducible rule and verifiable evidence
+- Probabilistic findings must undergo independent confirmation
+- The same agent should not produce and approve the change itself
+- Agents cannot change gates within the same evaluated flow
+- Changes in rules, hooks or CI automatically increase risk
+- Bypass requires authorized person, reason and correction deadline
 
 ---
 
-## Métricas do modelo 90/10
+## Escalation contract
 
-- Percentual de etapas concluídas sem intervenção
-- Minutos humanos por entrega
-- Tempo aguardando aprovação humana
-- Taxa de decisões devolvidas por falta de contexto
-- Aprovação na primeira passagem de cada gate
-- Retrabalho após H2, H3 e H4
-- Defeitos escapados para produção
-- Rollbacks automáticos e manuais
-- Falsos positivos por gate
-- Custo de agentes por entrega
-- Lead time e cycle time
-- Percentual de mudanças por classe de risco
-- Cobertura de rastreabilidade entre artefatos
+- Contradictory or ownerless requirement
+- Confidence below the defined limit
+- Two or more correction attempts without progress
+- Change outside the approved scope
+- Need for new permission or external access
+- Non-reproducible failure or inconsistent evidence
+- Irreversible decision or non-calculable impact
+- Divergence between agents without objective tiebreaker criteria
 
-## Meta inicial sugerida
+## Progressive autonomy
 
-- 80–90% das atividades executadas por agentes
-- Até 30–45 minutos humanos por entrega R1/R2
-- Nenhuma aprovação humana baseada apenas em confiança no agente
-- 100% dos merges protegidos por gates verificáveis
-- 100% das mudanças R3/R4 com owner e rollback definidos
-- Evoluir para auto-merge somente após evidência do piloto
+### Level A0 — assisted
 
----
+- Humans approve all transitions
+- Recommended for starting the pilot
 
-## Implementação do modelo
+### Level A1 — autonomous execution
 
-### Etapa 1 — contrato mínimo
+- Agents perform implementation and validation
+- Humans maintain H1, H2, H4 and H5
 
-- Definir classes de risco
-- Definir responsáveis humanos
-- Criar templates dos artefatos
-- Criar formato do evidence pack
-- Definir condições de escalonamento
+### Level A2 — merge due to risk
 
-### Etapa 2 — harness mínimo
+- R0 can do self-merge
+- R1 receives short human review
+- R2+ maintains specific owners
 
-- Configurar `AGENTS.md`, rules e skills
-- Implementar pre-commit e pre-push
-- Criar CI fast lane e deep lane
-- Proteger branch e status checks
-- Configurar `CODEOWNERS` para paths sensíveis
+### Level A3 — controlled autonomous delivery
 
-### Etapa 3 — piloto controlado
+- R0/R1 deploy automatically
+- Rollback and observability are mandatory
+- Humans act in exceptions and high risks
 
-- Escolher um fluxo R1 real
-- Operar inicialmente em autonomia A0/A1
-- Medir tempo humano e falhas
-- Ajustar gates e templates
-- Validar rollback e rastreabilidade
+### Level A4 — exception-oriented operation
 
-### Etapa 4 — automação do roteamento
+- Healthy flow occurs without intervention
+- Humans receive only relevant decisions and incidents
+- Sampling audits verify the quality of the system
 
-- Classificar risco automaticamente
-- Acionar Agent Teams por etapa
-- Produzir evidence packs automaticamente
-- Solicitar apenas os reviewers necessários
-- Escalar exceções com contexto completo
+## Criterion to increase autonomy
 
-### Etapa 5 — autonomia progressiva
-
-- Liberar auto-merge para R0
-- Liberar deploy automático para R0/R1
-- Ampliar por evidência, não por expectativa
-- Manter auditoria humana por amostragem
+- Minimum volume of deliveries observed
+- Low rate of escaped defects
+- Tested and reliable rollback
+- Gates with few false positives
+- Risk classified correctly
+- Complete and auditable evidence
+- Really reduced human time
 
 ---
 
-## Referências operacionais
+## 90/10 model metrics
 
-- [GitHub Rulesets e regras disponíveis](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
+- Percentage of steps completed without intervention
+- Human minutes per delivery
+- Time waiting for human approval
+- Rate of decisions returned due to lack of context
+- Approval on the first pass of each gate
+- Rework after H2, H3 and H4
+- Defects escaped to production
+- Automatic and manual rollbacks
+- False positives per gate
+- Cost of agents per delivery
+- Lead time and cycle time
+- Percentage of changes by risk class
+- Traceability coverage between artifacts
+
+## Suggested initial goal
+
+- 80–90% of activities performed by agents
+- Up to 30–45 human minutes per R1/R2 delivery
+- No human approval based solely on trust in the agent
+- 100% of merges protected by verifiable gates
+- 100% of R3/R4 changes with defined owner and rollback
+- Evolve to self-merge only after evidence from the pilot
+
+---
+
+## Model implementation
+
+### Step 1 — minimum contract
+
+- Define risk classes
+- Define human responsible
+- Create artifact templates
+- Create evidence pack format
+- Define escalation conditions
+
+### Step 2 — minimum harness
+
+- Configure `AGENTS.md`, rules and skills
+- Implement pre-commit and pre-push
+- Create fast lane and deep lane CI
+- Protect branch and status checks
+- Configure `CODEOWNERS` for sensitive paths
+
+### Stage 3 — pilot controlled
+
+- Choose a real R1 flow
+- Initially operate in A0/A1 autonomy
+- Measure human time and failures
+- Adjust gates and templates
+- Validate rollback and traceability
+
+### Step 4 — routing automation
+
+- Automatically classify risk
+- Activate Agent Teams by stage
+- Automatically produce evidence packs
+- Request only the necessary reviewers
+- Escalate exceptions with full context
+
+### Stage 5 — progressive autonomy
+
+- Release auto-merge to R0
+- Release automatic deployment to R0/R1
+- Expand by evidence, not by expectation
+- Maintain human audit by sampling
+
+---
+
+## Operational references
+
+- [GitHub Rulesets and rules available](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets)
 - [GitHub Code Owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
 - [GitHub deployment environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments)
 - [NIST Secure Software Development Framework](https://www.nist.gov/publications/secure-software-development-framework-ssdf-version-11-recommendations-mitigating-risk)
 
-## Próximo detalhamento recomendado
+## Next recommended breakdown
 
-- Definir o schema do Work Item
-- Criar o template do evidence pack
-- Desenhar a matriz `risco × gates × aprovações`
-- Especificar os prompts e contratos de cada agente
-- Definir os eventos que movimentam o workflow
-- Criar o primeiro repo harness de referência
-- Simular uma entrega R1 de ponta a ponta
+- Define the Work Item schema
+- Create the evidence pack template
+- Draw the matrix `risk × gates × approvals`
+- Specify each agent's prompts and contracts
+- Define the events that move the workflow
+- Create the first reference repo harness
+- Simulate an end-to-end R1 delivery

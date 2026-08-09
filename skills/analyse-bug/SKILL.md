@@ -1,6 +1,6 @@
 ---
-name: analyse-bug
-description: Analisa evidências de um bug, rastreia causa raiz e documenta impacto sem implementar correções. Use ao receber logs, prints, erros ou descrições de comportamento incorreto.
+name: analyze-bug
+description: Analyzes evidence of a bug, traces root cause, and documents impact without implementing fixes. Use when receiving logs, prints, errors or descriptions of incorrect behavior.
 ---
 
 ## User Input
@@ -13,130 +13,130 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Analisar o problema reported, rastrear a causa raiz, identificar componentes afetados e gerar documentação estruturada.
+Analyze the reported problem, track the root cause, identify affected components and generate structured documentation.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar um relatório, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating a report, follow [shared agreement](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** evidência do bug (log, print, descrição, erro)
-- **Opcional:** contexto adicional (quando aconteceu, frequency, impacto)
+- **Required:** evidence of the bug (log, print, description, error)
+- **Optional:** additional context (when it happened, frequency, impact)
 
 ## Execution Steps
 
-### 1. Coletar evidência
+### 1. Collect evidence
 
-- Colete toda a informação disponível: logs, prints, stack traces,Descrição do comportamento esperado vs obtido.
-- Se `$ARGUMENTS` for vazio, peça evidência ao usuário.
+- Collect all available information: logs, prints, stack traces, Description of expected vs. obtained behavior.
+- If `$ARGUMENTS` is empty, ask the user for evidence.
 
-### 2. Classificar o bug
+### 2. Rate the bug
 
-| Dimensão | Opção |
-|----------|-------|
-| Severidade | 🔴 Crash / 🟠 Funcional / 🟡 UI / 🔵 Cosmético |
-| Impacto | Todos usuários / Alguns / Edge case |
-| Recorrência | Sempre / Intermitente / Uma vez |
-| Componente | Backend / Frontend / Infra / Database |
+| Dimension | Option |
+|----------|-----------|
+| Severity | 🔴 Crash / 🟠 Functional / 🟡 UI / 🔵 Cosmetic |
+| Impact | All users / Some / Edge case |
+| Recurrence | Always / Flashing / Once |
+| Component | Backend / Frontend / Infra / Database |
 
-### 3. Rastrear causa raiz
+### 3. Track root cause
 
-Analise a evidência para identificar:
+Analyze the evidence to identify:
 
-- **Sintoma:** o que o usuário/sistema apresenta.
-- **Causa imediata:** o que no código/config causou o sintoma.
-- **Causa raiz:** por que o código/config estava assim (falta de validação, race condition, etc.).
+- **Symptom:** what the user/system presents.
+- **Immediate cause:** what in the code/config caused the symptom.
+- **Root cause:** why the code/config was like this (lack of validation, race condition, etc.).
 
-Use técnicas:
-- Stack trace → arquivo → função → lógica.
-- Log analysis → sequência de eventos.
-- Reprodução → passos para recriar.
+Use techniques:
+- Stack trace → file → function → logic.
+- Log analysis → sequence of events.
+- Reproduction → steps to recreate.
 
-### 4. Identificar componentes afetados
+### 4. Identify affected components
 
-| Componente | Arquivo | Função/Método | Impacto |
-|-----------|---------|---------------|---------|
+| Component | Archive | Function/Method | Impact |
+|-----------|------------|---------------|---------|
 | ... | ... | ... | ... |
 
-### 5. Documentar o bug
+### 5. Document the bug
 
-Gere `bugs/bug-<NOME-SLUG>.md`:
+Generate `bugs/bug-<NOME-SLUG>.md`:
 
 ```markdown
-# Bug: <Título>
+# Bug: <Title>
 
 **ID:** BUG-<NNN>
-**Data:** <YYYY-MM-DD>
-**Severidade:** 🔴/🟠/🟡/🔵
-**Status:** 🟡 Analisado
+**Date:** <YYYY-MM-DD>
+**Severity:** 🔴/🟠/🟡/🔵
+**Status:** 🟡 Analyzed
 
 ---
 
-## Sintoma
+## Symptom
 
-<o que acontece — comportamento observável>
+<what happens — observable behavior>
 
-## Comportamento Esperado
+## Expected Behavior
 
-<o que deveria acontecer>
+<what should happen>
 
-## Evidência
+## Evidence
 
-<logs, prints, stack traces — colar trechos relevantes>
+<logs, prints, stack traces — paste relevant excerpts>
 
-## Causa Raiz
+## Root Cause
 
-<análise técnica do porquê acontece>
+<technical analysis of why it happens>
 
-## Componentes Afetados
+## Affected Components
 
-| Componente | Arquivo | Função |
-|-----------|---------|--------|
+| Component | Archive | Function |
+|-----------|------------|--------|
 | ... | ... | ... |
 
-## Passos para Reproduzir
+## Steps to Reproduce
 
-1. <passo 1>
-2. <passo 2>
-3. <passo 3>
+1. <step 1>
+2. <step 2>
+3. <step 3>
 
-**Resultado:** <erro/bug>
-**Esperado:** <comportamento correto>
+**Result:** <error/bug>
+**Expected:** <correct behavior>
 
-## Impacto
+## Impact
 
-- **Usuários:** <afeta todos/alguns/edge case>
-- **Dados:** <perda/corrupção/dados OK>
-- **Performance:** <sim/não/leve>
+- **Users:** <affects all/some/edge case>
+- **Data:** <loss/corruption/data OK>
+- **Performance:** <yes/no/light>
 
-## Sugestão de Correção
+## Correction Suggestion
 
-<direção da correção — não implementar ainda>
+<fix direction — do not implement yet>
 
-## Referências
+## References
 
-- <links, issues, PRs relacionados>
+- <related links, issues, PRs>
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Resumo: sintoma, causa raiz, severidade.
-- Componentes afetados.
-- Caminho para correção sugerido.
-- Se precisa de mais informação para análise completa.
+- Summary: symptom, root cause, severity.
+- Affected components.
+- Suggested correction path.
+- If you need more information for a complete analysis.
 
-## Convenções
+## Conventions
 
-- Nunca implemente a correção — apenas analise.
-- Documente com evidências, não suposições.
-- Causa raiz é "por que" — não "o que" (sintoma).
-- Português.
+- Never implement the fix — just analyze it.
+- Document with evidence, not assumptions.
+- Root cause is “why” — not “what” (symptom).
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] Evidência coletada e analisada
-- [ ] Causa raiz identificada
-- [ ] Componentes afetados mapeados
-- [ ] `bug-<NOME>.md` gerado em `bugs/`
-- [ ] Resumo reportado no chat
+- [ ] Evidence collected and analyzed
+- [ ] Root cause identified
+- [ ] Affected components mapped
+- [ ] `bug-<NOME>.md` generated in `bugs/`
+- [ ] Summary reported in chat

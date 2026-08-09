@@ -1,38 +1,38 @@
 ---
-title: Workspace de exemplo do Product Manager
+title: Product Manager example workspace
 status: example
 owner: product-manager
 updated_at: 2026-08-08
 ---
 
-# Workspace do PM
+# PM Workspace
 
-Este exemplo organiza portfólio, discovery, estratégia, requisitos, roadmap, decisões e validação de produto. O projeto `checkout` é fictício e se conecta aos exemplos de UX e Tech Lead.
+This example organizes portfolio, discovery, strategy, requirements, roadmap, decisions and product validation. The `checkout` project is fictional and connects to the UX and Tech Lead examples.
 
-## Navegação
+## Navigation
 
-1. Carregue [`README.md`](README.md) e [`AGENTS.md`](AGENTS.md).
-2. Consulte [`docs/portfolio/PORTFOLIO.md`](docs/portfolio/PORTFOLIO.md) e [`BOARD.md`](BOARD.md).
-3. Entre em [`projects/checkout/README.md`](projects/checkout/README.md).
-4. Use os templates em [`docs/templates/`](docs/templates/README.md) e o fluxo em [`docs/playbooks/product-cycle.md`](docs/playbooks/product-cycle.md).
+1. Load [`README.md`](README.md) and [`AGENTS.md`](AGENTS.md).
+2. See [`docs/portfolio/PORTFOLIO.md`](docs/portfolio/PORTFOLIO.md) and [`BOARD.md`](BOARD.md).
+3. Enter [`projects/checkout/README.md`](projects/checkout/README.md).
+4. Use the templates in [`docs/templates/`](docs/templates/README.md) and the flow in [`docs/playbooks/product-cycle.md`](docs/playbooks/product-cycle.md).
 
-## Estrutura
+## Structure
 
 ```text
 pm/
 ├── README.md
 ├── AGENTS.md
 ├── WORKSPACE.md
-├── BOARD.md
-├── docs/          # portfólio, padrões, playbooks e templates
-├── projects/      # fonte de verdade de produto por projeto
-│   └── <projeto>/plans/assets/<workflow>/<data>-<session-id>/  # material bruto isolado por sessão
-├── ..coordination/  # entradas, decisões pendentes e handoffs temporários
-├── memory.md      # contexto retomável, não autoritativo
-└── archive/       # material global desativado
+├──BOARD.md
+├── docs/ # portfolio, patterns, playbooks and templates
+├── projects/ # product source of truth by project
+│ └── <project>/plans/assets/<workflow>/<data>-<session-id>/ # raw material isolated per session
+├── ..coordination/ # entries, pending decisions and temporary handoffs
+├── memory.md # resumable context, non-authoritative
+└── archive/ # global material disabled
 ```
 
-## Envelope padrão
+## Standard envelope
 
 ```yaml
 mission_id: "<id>"

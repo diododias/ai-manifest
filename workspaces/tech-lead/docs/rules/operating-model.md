@@ -1,1128 +1,1128 @@
 ---
-title: Agent Team — sistema operacional do trio humano
+title: Agent Team — operating system of the human trio
 status: canonical
 updated_at: 2026-08-08
 ---
 
-# Agent Team — sistema operacional do trio humano
+# Agent Team — operating system of the human trio
 
-> Visão canônica do Agent Team para um time pilotado por **Product Manager, UX e Tech Lead**. Detalhamentos relacionados: [modelo operacional 90/10](rules/operating-model-90-10.md) · [fluxo visual completo](operations/end-to-end-journey.md) · [fluxos por fase](operations/journey-by-phase.md) · [workflows multiagente](workflows/README.md) · [workspace do Tech Lead](architecture/tech-lead-workspace.md).
+> Canonical view of the Agent Team for a team led by **Product Manager, UX and Tech Lead**. Related details: [90/10 operating model](rules/operating-model-90-10.md) · [full visual flow](operations/end-to-end-journey.md) · [flows per phase](operations/journey-by-phase.md) · [multi-agent workflows](workflows/README.md) · [Tech Lead workspace](architecture/tech-lead-workspace.md).
 
-> Agentes: [catálogo e contratos detalhados](agents/catalog.md) · [Meeting Context Agent para transcrições](agents/meeting-context-agent.md).
+> Agents: [detailed catalog and contracts](agents/catalog.md) · [Meeting Context Agent for transcriptions](agents/meeting-context-agent.md).
 
-## 1. Propósito
+## 1. Purpose
 
-Transformar uma necessidade de negócio em software validado por meio de um pequeno núcleo humano que dirige uma força de trabalho de agentes especializados.
+Transform a business need into validated software through a small human core that directs a workforce of specialized agents.
 
-O modelo deve:
+The model must:
 
-- combinar agentes especializados, pessoas e automações
-- manter decisões, código e documentação sincronizados
-- produzir evidências em todas as etapas do ciclo
-- escalar a entrega sem perder segurança e governança
-- reservar atenção humana para intenção, julgamento, risco e responsabilidade
-- tornar execução, validação e coleta de evidências progressivamente autônomas
-- melhorar o próprio sistema de trabalho a cada ciclo
+- combine specialized agents, people and automations
+- keep decisions, code and documentation in sync
+- produce evidence at all stages of the cycle
+- scale delivery without losing security and governance
+- reserving human attention for intent, judgment, risk and responsibility
+- make execution, validation and evidence collection progressively autonomous
+- improve the work system itself with each cycle
 
-O trio humano não tenta executar manualmente todo o trabalho. Ele opera o sistema:
+The human trio does not attempt to perform all the work manually. It operates the system:
 
-- **Product Manager:** dirige valor, prioridade e resultado de negócio
-- **UX:** dirige entendimento do usuário, experiência e qualidade de uso
-- **Tech Lead:** dirige viabilidade, arquitetura, qualidade técnica e risco operacional
-- **Agentes:** pesquisam, propõem, implementam, criticam, validam e documentam
-- **Automações:** executam verificações determinísticas, bloqueios e rastreabilidade
-
----
-
-## 2. Princípios operacionais
-
-- Pessoas definem prioridade, restrições, limites de autonomia e aprovação final.
-- Agentes executam trabalho especializado e produzem evidências.
-- Cada etapa possui entrada, saída, owner humano e critério de passagem.
-- O responsável humano decide; o agente primário prepara e recomenda.
-- Quem produz uma mudança não é o único responsável por validá-la.
-- Divergências relevantes entre agentes são resolvidas pelo owner humano do domínio.
-- A etapa termina com um artefato coerente, não com análises isoladas.
-- O repositório concentra regras e contexto executável do produto.
-- O harness transforma padrões em verificações repetíveis.
-- Mudanças pequenas, reversíveis e rastreáveis reduzem risco e retrabalho.
-- Comunicação assíncrona é o padrão; reunião existe para decidir, não para narrar status.
-- Aprovação humana deve receber síntese, alternativas, riscos e evidências, não contexto bruto.
-- Uma mudança material invalida a aprovação relacionada.
-- Ausência de resposta nunca equivale a aprovação.
-- Autonomia aumenta apenas quando métricas e gates demonstram segurança.
-
-## 3. Modelo de atuação dos Agent Teams
-
-- Cada fase pode acionar um time temporário de agentes especializados.
-- O [catálogo de agentes](agents/catalog.md) define os contratos e limites de cada papel.
-- Cada agente analisa o problema a partir de uma responsabilidade explícita.
-- Um agente primário conduz e consolida o artefato da fase.
-- Agentes adversariais procuram ambiguidades, gaps, riscos e suposições frágeis.
-- As contribuições e divergências são registradas antes da consolidação.
-- O owner humano intervém em decisão de valor, experiência, risco ou exceção — não em toda execução.
-- O contexto passa entre fases por artefatos versionados e evidence packs.
-- Agentes recebem acesso mínimo, escopo delimitado e condição objetiva de parada.
-
-### Estrutura mínima de uma missão para agentes
-
-- objetivo e resultado esperado
-- contexto e fontes canônicas
-- escopo e fora de escopo
-- artefato de entrada
-- artefato de saída
-- critérios de aceite
-- gates obrigatórios
-- ferramentas e permissões autorizadas
-- classe de risco
-- condição de escalonamento
-- owner humano da decisão
+- **Product Manager:** drives value, priority and business results
+- **UX:** drives user understanding, experience and quality of use
+- **Tech Lead:** directs feasibility, architecture, technical quality and operational risk
+- **Agents:** research, propose, implement, criticize, validate and document
+- **Automations:** perform deterministic checks, blocking and traceability
 
 ---
 
-## 4. O trio humano
+## 2. Operating principles
 
-### 4.1 Product Manager — dono do valor e da prioridade
+- People define priority, restrictions, limits of autonomy and final approval.
+- Agents perform specialized work and produce evidence.
+- Each stage has an entrance, exit, human owner and passage criteria.
+- The human responsible decides; the primary agent prepares and recommends.
+- Whoever produces a change is not solely responsible for validating it.
+- Relevant disagreements between agents are resolved by the human owner of the domain.
+- The stage ends with a coherent artifact, not with isolated analyses.
+- The repository contains rules and executable context of the product.
+- Harness transforms patterns into repeatable checks.
+- Small, reversible and traceable changes reduce risk and rework.
+- Asynchronous communication is the default; Meeting exists to decide, not to narrate status.
+- Human approval must receive synthesis, alternatives, risks and evidence, not raw context.
+- A material change invalidates the related approval.
+- Lack of response never equates to approval.
+- Autonomy increases only when metrics and gates demonstrate security.
 
-#### Responsabilidades
+## 3. Agent Teams operating model
 
-- manter visão, objetivos, outcomes e roadmap
-- ordenar o backlog por valor, urgência, risco e aprendizado
-- formular o problema antes de comprometer uma solução
-- identificar stakeholders, restrições comerciais e resultados esperados
-- definir escopo, fora de escopo e critérios de sucesso
-- garantir rastreabilidade entre problema, investimento, entrega e resultado
-- decidir avançar, ajustar, adiar ou encerrar um item
-- homologar valor com stakeholders e registrar pendências
-- priorizar melhorias originadas pela telemetria
-- operar agentes de intake, discovery, pesquisa, planejamento e validação de produto
+- Each phase can activate a temporary team of specialized agents.
+- The [agent catalog](agents/catalog.md) defines the contracts and limits of each role.
+- Each agent analyzes the problem based on an explicit responsibility.
+- A primary agent conducts and consolidates the phase artifact.
+- Adversarial agents look for ambiguities, gaps, risks and weak assumptions.
+- Contributions and disagreements are recorded before consolidation.
+- The human owner intervenes in decisions regarding value, experience, risk or exception — not in every execution.
+- The context passes between phases through versioned artifacts and evidence packs.
+- Agents receive minimum access, limited scope and objective stop condition.
 
-#### Inputs recorrentes
+### Minimum mission structure for agents
 
-- estratégia e objetivos do negócio
-- necessidades de clientes e stakeholders
-- pesquisas e evidências de UX
-- métricas de produto e operação
-- restrições, riscos e estimativas do Tech Lead
-- feedback de homologação e produção
-- incidentes, custo do fluxo e oportunidades de melhoria
-
-#### Outputs recorrentes
-
-- backlog ordenado e com owner
-- objetivo e outcome esperado
-- `PB.md` aprovado
-- `PRD.md` consolidado
-- escopo e fora de escopo explícitos
-- métricas e critérios de sucesso
-- decisões H1, H2 e aceite de produto
-- prioridade das demandas de melhoria
-- comunicação de resultado aos stakeholders
-
-#### Não é responsabilidade exclusiva do PM
-
-- desenhar sozinho a experiência
-- definir arquitetura ou solução técnica
-- aprovar exceção técnica sem o Tech Lead
-- substituir evidência de usuário por opinião de stakeholder
-
-### 4.2 UX — dono da experiência e da evidência sobre o usuário
-
-#### Responsabilidades
-
-- planejar e executar pesquisa proporcional ao risco
-- representar necessidades, contexto e limitações dos usuários
-- mapear jornadas, fluxos, tarefas e pontos de fricção
-- definir princípios de experiência, conteúdo e interação
-- especificar estados nominal, vazio, loading, erro, permissão e recuperação
-- garantir acessibilidade, consistência e usabilidade
-- produzir protótipos na fidelidade necessária para decidir
-- validar hipóteses antes e depois da implementação
-- acompanhar qualidade da experiência na homologação e em produção
-- operar agentes de pesquisa, síntese, UX writing, prototipação e avaliação heurística
-
-#### Inputs recorrentes
-
-- problema, público e outcome definidos com o PM
-- dados de comportamento, suporte e analytics
-- restrições técnicas e oportunidades informadas pelo Tech Lead
-- design system e padrões existentes
-- feedback de stakeholders e usuários
-- resultados de experimentos e homologação
-
-#### Outputs recorrentes
-
-- plano e evidências de pesquisa
-- personas ou segmentos quando úteis à decisão
-- jornada atual e jornada desejada
-- fluxos, wireframes e protótipos
-- especificação de UX, conteúdo, estados e acessibilidade
-- hipóteses e riscos de experiência
-- critérios de aceite de UX
-- relatório de validação e recomendações pós-entrega
-
-#### Não é responsabilidade exclusiva do UX
-
-- decidir prioridade de negócio
-- prometer escopo sem alinhamento com PM e Tech Lead
-- produzir telas sem problema e hipótese explícitos
-- validar experiência apenas por aderência visual
-
-### 4.3 Tech Lead — dono da integridade técnica e do risco operacional
-
-#### Responsabilidades
-
-- avaliar viabilidade e risco desde o discovery
-- definir arquitetura, contratos, integrações e estratégia de dados
-- registrar alternativas, trade-offs e ADRs relevantes
-- decompor a solução em unidades pequenas, independentes e verificáveis
-- definir estratégia de testes, observabilidade, rollout e rollback
-- manter fronteiras arquiteturais, padrões e débito técnico sob controle
-- definir e evoluir rules, hooks, gates, skills e harness do repositório
-- proteger segurança, privacidade, confiabilidade e manutenibilidade
-- decidir exceções técnicas e escalonar riscos R3/R4
-- operar agentes de especificação, engenharia, QA, segurança, arquitetura, review e release
-
-#### Inputs recorrentes
-
-- `PB.md`, `PRD.md` e especificação de UX
-- arquitetura e contratos existentes
-- SLOs, incidentes e telemetria técnica
-- inventário de dependências e restrições de plataforma
-- requisitos de segurança, privacidade e compliance
-- capacidade do time e custo operacional
-
-#### Outputs recorrentes
-
-- avaliação de viabilidade e risco
-- `PLAN.md`, `SPEC.md`, `ADR.md`, `TASKS.md` e `CHECKLIST.md`
-- estratégia de implementação e testes
-- plano de migração, rollout e rollback quando aplicável
-- gates e evidence pack técnico
-- decisão H3 e recomendação técnica em H4/H5
-- backlog de saúde técnica e melhorias do harness
-
-#### Não é responsabilidade exclusiva do Tech Lead
-
-- redefinir objetivo de produto por conveniência técnica
-- escolher experiência sem participação do UX
-- aprovar o próprio desvio de arquitetura sem revisão independente
-- transformar toda decisão técnica em reunião humana
-
-### 4.4 Responsabilidade compartilhada
-
-Os três são conjuntamente responsáveis por:
-
-- qualidade do problema antes da solução
-- coerência entre valor, experiência e viabilidade
-- riscos explícitos e decisões rastreáveis
-- critérios de aceite observáveis
-- proteção dos dados e dos usuários
-- saúde do fluxo agentico
-- aprendizado após a entrega
-
-Nenhuma pessoa é um “tradutor” passivo para outra. PM, UX e Tech Lead trazem decisões do próprio domínio e constroem juntos o contrato que os agentes executarão.
+- objective and expected result
+- context and canonical sources
+- scope and out of scope
+- input artifact
+- output artifact
+- acceptance criteria
+- mandatory gates
+- authorized tools and permissions
+- risk class
+- escalation condition
+- human owner of the decision
 
 ---
 
-## 5. Direitos de decisão
+## 4. The human trio
 
-| Decisão | Owner | Consultados | Evidência mínima |
+### 4.1 Product Manager — owner of value and priority
+
+#### Responsibilities
+
+- maintain vision, objectives, outcomes and roadmap
+- order the backlog by value, urgency, risk and learning
+- formulate the problem before committing to a solution
+- identify stakeholders, commercial restrictions and expected results
+- define scope, out of scope and success criteria
+- ensure traceability between problem, investment, delivery and result
+- decide to advance, adjust, postpone or close an item
+- approve value with stakeholders and record pending issues
+- prioritize improvements originating from telemetry
+- operate intake, discovery, research, planning and product validation agents
+
+#### Recurring inputs
+
+- business strategy and objectives
+- customer and stakeholder needs
+- UX research and evidence
+- product and operation metrics
+- Tech Lead restrictions, risks and estimates
+- approval and production feedback
+- incidents, flow cost and improvement opportunities
+
+#### Recurring outputs
+
+- ordered and owned backlog
+- objective and expected outcome
+- `PB.md` approved
+- `PRD.md` consolidated
+- explicit scope and out-of-scope
+- success metrics and criteria
+- decisions H1, H2 and product acceptance
+- priority of improvement demands
+- communication of results to stakeholders
+
+#### It is not the sole responsibility of the PM
+
+- design the experience yourself
+- define architecture or technical solution
+- approve technical exception without Tech Lead
+- replace user evidence with stakeholder opinion
+
+### 4.2 UX — owner of the experience and evidence about the user
+
+#### Responsibilities
+
+- plan and execute research proportional to risk
+- represent users’ needs, context and limitations
+- map journeys, flows, tasks and friction points
+- define principles of experience, content and interaction
+- specify nominal, empty, loading, error, permission and recovery states
+- ensure accessibility, consistency and usability
+- produce prototypes with the fidelity necessary to decide
+- validate hypotheses before and after implementation
+- monitor the quality of experience in approval and production
+- operate research agents, synthesis, UX writing, prototyping and heuristic evaluation
+
+#### Recurring inputs
+
+- problem, audience and outcome defined with the PM
+- behavior data, support and analytics
+- technical constraints and opportunities informed by the Tech Lead
+- design system and existing standards
+- feedback from stakeholders and users
+- results of experiments and approval
+
+#### Recurring outputs
+
+- research plan and evidence
+- personas or segments when useful for the decision
+- current journey and desired journey
+- flows, wireframes and prototypes
+- specification of UX, content, states and accessibility
+- hypotheses and experiment risks
+- UX acceptance criteria
+- validation report and post-delivery recommendations
+
+#### It is not the sole responsibility of UX
+
+- decide business priority
+- promise scope without alignment with PM and Tech Lead
+- produce screens without explicit problems and hypotheses
+- validate experience only by visual adherence
+
+### 4.3 Tech Lead — owner of technical integrity and operational risk
+
+#### Responsibilities
+
+- assess feasibility and risk from discovery
+- define architecture, contracts, integrations and data strategy
+- register relevant alternatives, trade-offs and ADRs
+- decompose the solution into small, independent and verifiable units
+- define testing, observability, rollout and rollback strategy
+- keep architectural boundaries, standards and technical debt under control
+- define and evolve repository rules, hooks, gates, skills and harnesses
+- protect security, privacy, reliability and maintainability
+- decide technical exceptions and escalate R3/R4 risks
+- operate specification, engineering, QA, security, architecture, review and release agents
+
+#### Recurring inputs
+
+- `PB.md`, `PRD.md` and UX specification
+- existing architecture and contracts
+- SLOs, incidents and technical telemetry
+- inventory of platform dependencies and restrictions
+- security, privacy and compliance requirements
+- team capacity and operational cost
+
+#### Recurring outputs
+
+- feasibility and risk assessment
+- `PLAN.md`, `SPEC.md`, `ADR.md`, `TASKS.md` and `CHECKLIST.md`
+- implementation and testing strategy
+- migration plan, rollout and rollback when applicable
+- technical gates and evidence pack
+- H3 decision and technical recommendation on H4/H5
+- technical health backlog and harness improvements
+
+#### It is not the exclusive responsibility of the Tech Lead
+
+- redefine product objective for technical convenience
+- choose experience without UX participation
+- approve own architecture deviation without independent review
+- transform every technical decision into a human meeting
+
+### 4.4 Shared responsibility
+
+The three are jointly responsible for:
+
+- quality of the problem before the solution
+- coherence between value, experience and viability
+- explicit risks and traceable decisions
+- observable acceptance criteria
+- protection of data and users
+- health of agentic flow
+- learning after delivery
+
+No person is a passive “translator” for another. PM, UX and Tech Lead bring decisions from their own domain and together build the contract that the agents will execute.
+
+---
+
+## 5. Decision rights
+
+| Decision | Owner | Consulted | Minimal evidence |
 |---|---|---|---|
-| Prioridade e investimento | PM | UX + Tech Lead | valor, urgência, risco e custo de oportunidade |
-| Problema e outcome | PM | UX + Tech Lead | evidência do problema e métrica de resultado |
-| Jornada e experiência | UX | PM + Tech Lead | pesquisa, fluxo, protótipo e critérios de UX |
-| Escopo da entrega | PM | UX + Tech Lead | outcome, capacidade, dependências e riscos |
-| Arquitetura e implementação | Tech Lead | PM + UX | alternativas, trade-offs, risco e validação |
-| Exceção arquitetural | Tech Lead | owner afetado | ADR, prazo, consequência e plano de reversão |
-| Aceite de produto | PM | UX + stakeholder | critérios de produto e evidências de homologação |
-| Aceite de experiência | UX | PM + Tech Lead | critérios de UX, acessibilidade e validação |
-| Merge e release | Tech Lead por política | PM + UX conforme risco | CI, evidence pack, rollout e rollback |
-| Exposição de risco R3/R4 | PM + Tech Lead | UX quando houver impacto ao usuário | impacto, mitigação, observabilidade e rollback |
-| Prioridade de melhoria | owner do domínio; PM ordena o backlog | trio | telemetria, frequência, impacto e esforço |
-| Mudança de gate | Tech Lead + revisor independente | PM/UX se afetados | falsos positivos, risco coberto e plano de adoção |
+| Priority and investment | PM | UX + Tech Lead | value, urgency, risk and opportunity cost |
+| Problem and outcome | PM | UX + Tech Lead | problem evidence and outcome metrics |
+| Journey and experience | UX | PM + Tech Lead | research, flow, prototype and UX criteria |
+| Scope of delivery | PM | UX + Tech Lead | outcome, capacity, dependencies and risks |
+| Architecture and implementation | Tech Lead | PM + UX | alternatives, trade-offs, risk and validation |
+| Architectural exception | Tech Lead | affected owner | ADR, term, consequence and reversal plan |
+| Product acceptance | PM | UX + stakeholder | product criteria and approval evidence |
+| Experience acceptance | UX | PM + Tech Lead | UX, accessibility and validation criteria |
+| Merge and release | Tech Lead by policy | PM + UX according to risk | CI, evidence pack, rollout and rollback |
+| Risk exposure R3/R4 | PM + Tech Lead | UX when there is an impact on the user | impact, mitigation, observability and rollback |
+| Improvement priority | domain owner; PM sorts the backlog | threesome | telemetry, frequency, impact and effort |
+| Gate change | Tech Lead + independent reviewer | PM/UX if affected | false positives, covered risk and adoption plan |
 
-### Regra de desempate
+### Tiebreaker rule
 
-- valor, prioridade e outcome: decide o PM
-- experiência, usabilidade e acessibilidade: decide o UX
-- arquitetura, segurança e confiabilidade: decide o Tech Lead
-- conflito entre domínios: registrar alternativas, impacto e decisão conjunta
-- risco irreversível, regulatório ou de grande alcance: escalar ao sponsor ou responsável formal
+- value, priority and outcome: decides the PM
+- experience, usability and accessibility: decides the UX
+- architecture, security and reliability: decides the Tech Lead
+- conflict between domains: record alternatives, impact and joint decision
+- irreversible, regulatory or far-reaching risk: escalate to the sponsor or formal person responsible
 
 ---
 
-## 6. Contrato de passagem entre os três profissionais
+## 6. Passage contract between the three professionals
 
-| De | Para | Inputs entregues | Output esperado do receptor |
+| From | To | Inputs delivered | Expected receiver output |
 |---|---|---|---|
-| PM | UX | problema, segmento, outcome, restrições e perguntas | evidência do usuário, jornada, fluxo e critérios de experiência |
-| PM | Tech Lead | problema, escopo candidato, métricas e restrições | viabilidade, riscos, dependências e opções técnicas |
-| UX | PM | evidências, necessidades, hipóteses e riscos de experiência | decisão de escopo/prioridade e atualização do PRD |
-| UX | Tech Lead | fluxo, estados, conteúdo, acessibilidade e protótipo | contratos, tarefas e estratégia de implementação compatíveis |
-| Tech Lead | PM | custo, riscos, dependências, alternativas e impacto operacional | decisão de investimento, corte ou sequenciamento |
-| Tech Lead | UX | restrições, latência, dados, plataforma e componentes existentes | adaptação consciente da experiência sem perder o outcome |
-| Trio | Agent Team | artefato aprovado, critérios, gates, risco e permissões | mudança executada, validada, documentada e evidenciada |
-| Agent Team | Trio | evidence pack, divergências e decisões pendentes | aprovação, correção, adiamento ou escalonamento |
+| PM | UX | problem, segment, outcome, restrictions and questions | user evidence, journey, flow and experience criteria |
+| PM | Tech Lead | problem, candidate scope, metrics and constraints | feasibility, risks, dependencies and technical options |
+| UX | PM | evidence, needs, hypotheses and experience risks | scope/priority decision and PRD update |
+| UX | Tech Lead | flow, states, content, accessibility and prototype | compatible contracts, tasks and implementation strategy |
+| Tech Lead | PM | cost, risks, dependencies, alternatives and operational impact | investment decision, cut or sequencing |
+| Tech Lead | UX | constraints, latency, data, platform and existing components | conscious adaptation of the experience without losing the outcome |
+| Threesome | Agent Team | approved artifact, criteria, gates, risk and permissions | change executed, validated, documented and evidenced |
+| Agent Team | Threesome | evidence pack, disagreements and pending decisions | approval, correction, postponement or escalation |
 
-### Definition of Ready para execução agentica
+### Definition of Ready for agentic execution
 
-- problema e usuário explícitos
-- outcome e métrica definidos
-- owner humano conhecido
-- escopo e fora de escopo claros
-- fluxo e estados de UX suficientes para a tarefa
-- contratos e restrições técnicas suficientes
-- critérios de aceite verificáveis
-- classe de risco e gates definidos
-- acessos e ferramentas autorizados
-- dúvidas críticas resolvidas ou assumidas de forma explícita
+- explicit problem and user
+- defined outcome and metrics
+- known human owner
+- clear scope and out of scope
+- enough UX flow and states for the task
+- sufficient contracts and technical restrictions
+- verifiable acceptance criteria
+- risk class and defined gates
+- authorized access and tools
+- critical doubts resolved or explicitly addressed
 
-### Definition of Done do ciclo
+### Definition of Done of the cycle
 
-- critérios de produto, UX e engenharia cobertos
-- testes e gates obrigatórios aprovados
-- impacto arquitetural avaliado
-- riscos e limitações conhecidos
-- documentação e fontes canônicas atualizadas
-- aprovações humanas e automatizadas identificadas
-- backlog, artefatos, commits, PR, release e telemetria vinculados
-- rollout observado sem regressão relevante ou com plano de correção
-- aprendizados e melhorias encaminhados ao loop correto
+- product, UX and engineering criteria covered
+- mandatory tests and gates approved
+- architectural impact assessed
+- known risks and limitations
+- updated documentation and canonical sources
+- human and automated approvals identified
+- linked backlog, artifacts, commits, PR, release and telemetry
+- rollout observed without relevant regression or with correction plan
+- learnings and improvements forwarded to the correct loop
 
 ---
 
-## 7. Cerimônias humanas
+## 7. Human ceremonies
 
-As cerimônias são pontos de decisão do trio. Preparação, análise, atualização de status e geração de artefatos ficam preferencialmente com os agentes e automações.
+Ceremonies are decision points for the trio. Preparation, analysis, status updates and generation of artifacts are preferably handled by agents and automations.
 
-### 7.1 Pulso assíncrono diário
+### 7.1 Daily asynchronous pulse
 
-- **Cadência:** diária; leitura em até 10 minutos por pessoa
-- **Participantes:** PM, UX e Tech Lead
-- **Preparação por agentes:** estado do fluxo, mudanças, bloqueios, risco e decisões requeridas
-- **Inputs:** quadro atualizado, evidence packs parciais, alertas e divergências
-- **Agenda:** somente bloqueios, novas informações e pedidos de decisão
-- **Outputs:** owners, prazo da decisão e replanejamento registrado
-- **Não deve virar:** reunião diária de relato individual
+- **Cadence:** daily; reading in up to 10 minutes per person
+- **Participants:** PM, UX and Tech Lead
+- **Preparation by agents:** flow status, changes, blockages, risk and required decisions
+- **Inputs:** updated table, partial evidence packs, alerts and divergences
+- **Agenda:** only blocks, new information and decision requests
+- **Outputs:** owners, decision deadline and registered replanning
+- **Should not become:** daily individual report meeting
 
-### 7.2 Triagem e prioridade
+### 7.2 Triage and priority
 
-- **Cadência:** semanal, 30–45 minutos
+- **Cadence:** weekly, 30–45 minutes
 - **Owner:** PM
-- **Participantes:** PM, UX e Tech Lead
-- **Inputs:** novos itens, métricas, feedback, incidentes, dependências e capacidade
-- **Perguntas:** qual problema entra, qual sai e o que precisa de discovery?
-- **Outputs:** backlog ordenado, owner, risco inicial e próximos discoveries
-- **Gate:** contexto, prioridade e responsável minimamente claros
+- **Participants:** PM, UX and Tech Lead
+- **Inputs:** new items, metrics, feedback, incidents, dependencies and capacity
+- **Questions:** which problem comes in, which comes out and what needs discovery?
+- **Outputs:** ordered backlog, owner, initial risk and upcoming discoveries
+- **Gate:** minimally clear context, priority and responsible party
 
-### 7.3 Kickoff de discovery — H1
+### 7.3 Discovery kickoff — H1
 
-- **Cadência:** por oportunidade; 30–45 minutos
+- **Cadence:** by opportunity; 30–45 minutes
 - **Owner:** PM
-- **Inputs:** intake consolidado, evidências existentes e perguntas abertas
-- **Contribuição do PM:** problema, valor, stakeholders e outcome
-- **Contribuição do UX:** lacunas sobre usuário e plano de pesquisa
-- **Contribuição do Tech Lead:** restrições, dependências e risco de viabilidade
-- **Outputs:** missão de discovery, `PB.md` inicial, agentes acionados e timebox
-- **Decisão final:** avançar, ajustar, adiar ou encerrar
+- **Inputs:** consolidated intake, existing evidence and open questions
+- **PM contribution:** problem, value, stakeholders and outcome
+- **UX contribution:** gaps regarding user and research plan
+- **Contribution from Tech Lead:** restrictions, dependencies and viability risk
+- **Outputs:** discovery mission, initial `PB.md`, activated agents and timebox
+- **Final decision:** move forward, adjust, postpone or close
 
-### 7.4 Refinamento de produto e experiência — H2
+### 7.4 Product and experience refinement — H2
 
-- **Cadência:** por item candidato; 45–60 minutos
-- **Owner:** PM; UX co-owner da experiência
-- **Inputs:** `PB.md`, pesquisa, jornada, protótipo, PRD proposto e crítica adversarial
-- **Perguntas:** é isto que construiremos, para quem e com qual resultado?
-- **Outputs:** `PRD.md`, especificação de UX, critérios de aceite e escopo aprovado
-- **Gate:** gaps críticos tratados, ambiguidades reduzidas e sucesso mensurável
+- **Cadence:** per candidate item; 45–60 minutes
+- **Owner:** PM; UX co-owner of the experience
+- **Inputs:** `PB.md`, research, journey, prototype, proposed PRD and adversarial criticism
+- **Questions:** Is this what we will build, for whom and with what result?
+- **Outputs:** `PRD.md`, UX specification, acceptance criteria and approved scope
+- **Gate:** critical gaps addressed, ambiguities reduced and measurable success
 
-### 7.5 Revisão de solução e risco — H3
+### 7.5 Solution and risk review — H3
 
-- **Cadência:** sob demanda; obrigatória para ADR, exceção ou risco elevado; 30–60 minutos
+- **Cadence:** on demand; mandatory for ADR, exception or high risk; 30–60 minutes
 - **Owner:** Tech Lead
-- **Inputs:** `PLAN.md`, `SPEC.md`, ADR, alternativas, threat model, plano de testes e crítica adversarial
-- **Contribuição do PM:** impacto em outcome, prazo e escopo
-- **Contribuição do UX:** impacto em jornada, conteúdo, acessibilidade e estados
-- **Outputs:** decisão técnica, trade-offs aceitos, tarefas executáveis e riscos com owner
-- **Gate:** rastreabilidade, gaps críticos tratados e validação viável
+- **Inputs:** `PLAN.md`, `SPEC.md`, ADR, alternatives, threat model, test plan and adversarial criticism
+- **PM contribution:** impact on outcome, deadline and scope
+- **UX contribution:** impact on journey, content, accessibility and states
+- **Outputs:** technical decision, accepted trade-offs, executable tasks and risks with owner
+- **Gate:** traceability, critical gaps addressed and viable validation
 
-### 7.6 Review de entrega — H4
+### 7.6 Delivery review — H4
 
-- **Cadência:** por incremento ou release candidate; 20–30 minutos
-- **Owner:** PM para valor; Tech Lead para integridade técnica; UX para experiência
-- **Inputs:** demo preparada por agentes, evidence pack, critérios de aceite e mudanças desde H2/H3
-- **Perguntas:** entrega o outcome acordado, funciona bem e pode ser integrada?
-- **Outputs:** aceite, ajustes, novos itens ou rejeição justificada
-- **Gate:** revisão aprovada, CI verde e ausência de bloqueadores
+- **Cadence:** per increment or release candidate; 20–30 minutes
+- **Owner:** PM for value; Tech Lead for technical integrity; UX for experience
+- **Inputs:** demo prepared by agents, evidence pack, acceptance criteria and changes since H2/H3
+- **Questions:** delivers the agreed outcome, works well and can it be integrated?
+- **Outputs:** acceptance, adjustments, new items or justified rejection
+- **Gate:** review approved, green IC and absence of blockers
 
-### 7.7 Decisão de release — H5
+### 7.7 Release decision — H5
 
-- **Cadência:** por release; apenas síncrona quando risco exigir; 10–20 minutos
-- **Owner:** Tech Lead; PM coaprova R3/R4
-- **Inputs:** release candidate, risco, rollout, rollback, SLOs e sinais de saúde
-- **Outputs:** liberar, pausar, reduzir exposição ou retornar à implementação
-- **Gate:** ambiente, secrets, migração, observabilidade e rollback verificados
+- **Cadence:** per release; only synchronous when risk requires; 10–20 minutes
+- **Owner:** Tech Lead; PM co-approves R3/R4
+- **Inputs:** release candidate, risk, rollout, rollback, SLOs and health signals
+- **Outputs:** release, pause, reduce exposure or return to implementation
+- **Gate:** environment, secrets, migration, observability and rollback checked
 
-### 7.8 Telemetria e melhoria — H6
+### 7.8 Telemetry and improvement — H6
 
-- **Cadência:** semanal, 45–60 minutos
-- **Owner:** trio, com facilitação rotativa
-- **Inputs:** relatório de telemetria, padrões, incidentes, custo, feedback e propostas do Auto Dream
-- **Perguntas:** o sistema aprendeu corretamente e qual melhoria merece investimento?
-- **Outputs:** memória validada, demandas P0–P3, owners, experimentos e alterações de processo propostas
-- **Gate:** evidência rastreável, hipótese separada de aprendizado e mudança sensível revisada
+- **Cadence:** weekly, 45–60 minutes
+- **Owner:** trio, with rotating facilitation
+- **Inputs:** Auto Dream telemetry report, patterns, incidents, cost, feedback and proposals
+- **Questions:** Did the system learn correctly and which improvement deserves investment?
+- **Outputs:** validated memory, P0–P3 demands, owners, experiments and proposed process changes
+- **Gate:** traceable evidence, separate learning hypothesis and revised sensitive change
 
-### 7.9 Revisão mensal do sistema
+### 7.9 Monthly system review
 
-- **Cadência:** mensal, 60–90 minutos
-- **Participantes:** trio; sponsor ou enablement quando necessário
-- **Inputs:** tendências de outcome, qualidade, fluxo, custo, autonomia e falsos positivos dos gates
-- **Outputs:** ajustes de capacidade, políticas, ferramentas, gates e nível de autonomia
-- **Regra:** não usar uma métrica isolada para elevar autonomia
+- **Cadence:** monthly, 60–90 minutes
+- **Participants:** trio; sponsor or enablement when necessary
+- **Inputs:** trends in outcome, quality, flow, cost, autonomy and false positives of gates
+- **Outputs:** capacity adjustments, policies, tools, gates and autonomy level
+- **Rule:** do not use an isolated metric to increase autonomy
 
 ### 7.10 Quarterly outcome review
 
-- **Cadência:** trimestral, 60–90 minutos
+- **Cadence:** quarterly, 60–90 minutes
 - **Owner:** PM
-- **Inputs:** outcomes, estratégia, pesquisas, saúde técnica, custo e aprendizados acumulados
-- **Outputs:** prioridades do próximo ciclo, apostas encerradas e capacidades a desenvolver
+- **Inputs:** outcomes, strategy, research, technical health, cost and accumulated learning
+- **Outputs:** priorities for the next cycle, bets closed and capabilities to be developed
 
 ---
 
-## 8. Ciclo de desenvolvimento de ponta a ponta
+## 8. End-to-end development cycle
 
-### 0. Intake e triagem de backlog
+### 0. Intake and backlog screening
 
-- **Workflow:** [intake e triagem](workflows/00-intake-and-triage.md)
-- **Owner humano:** Product Manager
-- **Agentes:** Intake Agent + Product Manager Agent
-- **Objetivo:** registrar, deduplicar, contextualizar e priorizar necessidades
-- **Inputs:** problema, oportunidade, solicitação, feedback, incidente ou melhoria
-- **Atividades:** validar campos, relacionar produto/repositório, identificar duplicidade e propor risco
-- **Outputs:** Work Item priorizável, contexto inicial, owner e risco preliminar
-- **Gate:** problema, prioridade, rastreabilidade e responsável minimamente claros
-- **Cerimônia:** triagem e prioridade
+- **Workflow:** [intake and screening](workflows/00-intake-and-triage.md)
+- **Human Owner:** Product Manager
+- **Agents:** Intake Agent + Product Manager Agent
+- **Objective:** register, deduplicate, contextualize and prioritize needs
+- **Inputs:** problem, opportunity, request, feedback, incident or improvement
+- **Activities:** validate fields, relate product/repository, identify duplicity and propose risk
+- **Outputs:** Prioritizable Work Item, initial context, owner and preliminary risk
+- **Gate:** minimally clear problem, priority, traceability and person responsible
+- **Ceremony:** screening and priority
 
 ### 1. Discovery
 
-- **Workflow:** [discovery e research](workflows/01-discovery-and-research.md)
-- **Owner humano:** PM; UX e Tech Lead respondem por seus domínios
+- **Workflow:** [discovery and research](workflows/01-discovery-and-research.md)
+- **Human owner:** PM; UX and Tech Lead respond for their domains
 - **Agent Team:** Product Discovery Team
   - Product Manager Agent
   - UX Specification Agent
   - Tech Lead Discovery Agent
-- **Objetivo:** compreender problema, usuário, contexto, valor e viabilidade inicial
-- **Inputs:** Work Item priorizado, dados, pesquisas existentes, restrições e perguntas
-- **Dinâmica:** investigação paralela, registro de hipóteses, síntese pelo Product Manager Agent e crítica dos demais
-- **Outputs:** `PB.md`, evidências, jornada inicial, restrições, riscos e perguntas abertas
-- **Conteúdo mínimo:** problema, usuários, jornada, valor, restrições e riscos
-- **Gate:** problema validado, experiência desejada compreendida e viabilidade inicial avaliada
-- **Cerimônia:** kickoff de discovery / H1
+- **Objective:** understand problem, user, context, value and initial feasibility
+- **Inputs:** Work Prioritized item, data, existing searches, constraints and questions
+- **Dynamics:** parallel investigation, recording of hypotheses, synthesis by the Product Manager Agent and criticism by others
+- **Outputs:** `PB.md`, evidence, initial journey, restrictions, risks and open questions
+- **Minimum content:** problem, users, journey, value, restrictions and risks
+- **Gate:** problem validated, desired experience understood and initial feasibility assessed
+- **Ceremony:** discovery / H1 kickoff
 
-### 2. Planejamento de produto e experiência
+### 2. Product and experience planning
 
-- **Workflow:** [planejamento de produto e UX](workflows/02-product-and-ux-planning.md)
-- **Owner humano:** PM para produto; UX para experiência
+- **Workflow:** [product and UX planning](workflows/02-product-and-ux-planning.md)
+- **Human owner:** PM for product; UX for experience
 - **Agent Team:** Product Planning Team
   - Product Manager Agent
   - UX Specification Agent
   - Adversarial Product Manager Agent
-  - agentes de pesquisa, conteúdo ou prototipação quando necessários
-- **Objetivo:** transformar o problema em uma proposta clara, testável e utilizável
-- **Inputs:** `PB.md`, evidências de usuário, restrições e decisão H1
-- **Dinâmica:** proposta → protótipo/especificação de UX → crítica adversarial → revisão → consolidação
+  - research, content or prototyping agents when necessary
+- **Objective:** transform the problem into a clear, testable and usable proposal
+- **Inputs:** `PB.md`, user evidence, constraints and H1 decision
+- **Dynamics:** proposal → UX prototype/specification → adversarial criticism → review → consolidation
 - **Outputs:**
   - `PRD.md`
-  - jornada e fluxo desejados
-  - wireframe ou protótipo na fidelidade necessária
-  - estados, conteúdo e critérios de acessibilidade
-  - critérios de sucesso e aceite
-- **Conteúdo mínimo:** objetivos, usuários, jornadas, escopo, fora de escopo, requisitos e métricas
-- **Gate:** gaps críticos tratados, ambiguidades reduzidas e critérios de sucesso aprovados
-- **Cerimônia:** refinamento de produto e experiência / H2
+  - desired journey and flow
+  - wireframe or prototype in the required fidelity
+  - states, content and accessibility criteria
+  - success and acceptance criteria
+- **Minimum content:** objectives, users, journeys, scope, out of scope, requirements and metrics
+- **Gate:** critical gaps addressed, ambiguities reduced and success criteria approved
+- **Ceremony:** product and experience refinement / H2
 
-### 3. Especificação técnica
+### 3. Technical specification
 
-- **Workflow:** [especificação técnica](workflows/03-technical-specification.md)
-- **Owner humano:** Tech Lead
+- **Workflow:** [technical specification](workflows/03-technical-specification.md)
+- **Human Owner:** Tech Lead
 - **Agent Team:** Technical Specification Team
   - Specification Tech Lead Agent
   - Adversarial Tech Lead Agent
-  - Security, Data ou Platform Agent quando o risco exigir
-- **Objetivo:** definir como construir, validar, liberar e operar a solução
-- **Inputs:** `PB.md`, `PRD.md`, especificação de UX, arquitetura, contratos e SLOs
-- **Dinâmica:** especificação → revisão crítica → resposta aos gaps → decisão
+  - Security, Data or Platform Agent when the risk requires it
+- **Objective:** define how to build, validate, release and operate the solution
+- **Inputs:** `PB.md`, `PRD.md`, UX specification, architecture, contracts and SLOs
+- **Dynamics:** specification → critical review → response to gaps → decision
 - **Outputs:**
-  - `PLAN.md` — estratégia de implementação
-  - `ADR.md` — decisões arquiteturais relevantes
-  - `SPEC.md` — comportamento e contratos técnicos
-  - `TASKS.md` — unidades pequenas de execução
-  - `CHECKLIST.md` — critérios verificáveis de aceite
-  - plano de testes, rollout, rollback e observabilidade conforme risco
-- **Conteúdo mínimo:** arquitetura, alternativas, trade-offs, riscos e validação
-- **Gate:** gaps críticos tratados, trade-offs registrados e tarefas executáveis
-- **Cerimônia:** revisão de solução e risco / H3 quando necessária
+  - `PLAN.md` — implementation strategy
+  - `ADR.md` — relevant architectural decisions
+  - `SPEC.md` — behavior and technical contracts
+  - `TASKS.md` — small execution units
+  - `CHECKLIST.md` — verifiable acceptance criteria
+  - test plan, rollout, rollback and observability according to risk
+- **Minimum content:** architecture, alternatives, trade-offs, risks and validation
+- **Gate:** critical gaps addressed, trade-offs recorded and executable tasks
+- **Ceremony:** review of solution and risk / H3 when necessary
 
-### 4. Implementação
+### 4. Implementation
 
-- **Workflow:** [implementação autônoma](workflows/04-autonomous-implementation.md)
-- **Owner humano:** Tech Lead por política e exceção
-- **Agentes:** Orchestrator Agent + Software Engineer Agents
-- **Suporte:** repo harness, skills e ferramentas de código
-- **Objetivo:** implementar uma tarefa pequena por vez
-- **Inputs:** tarefa, SPEC, critérios, contexto, permissões e gates
-- **Atividades:** código, testes, documentação, commits e evidências
-- **Outputs:** mudança funcional pronta para validação e diff rastreável
-- **Gate:** verificações locais rápidas aprovadas
-- **Ação humana:** apenas diante de decisão, exceção ou escalonamento
+- **Workflow:** [standalone implementation](workflows/04-autonomous-implementation.md)
+- **Human Owner:** Tech Lead by policy and exception
+- **Agents:** Orchestrator Agent + Software Engineer Agents
+- **Support:** repo harness, skills and code tools
+- **Objective:** implement one small task at a time
+- **Inputs:** task, SPEC, criteria, context, permissions and gates
+- **Activities:** code, tests, documentation, commits and evidence
+- **Outputs:** functional change ready for validation and traceable diff
+- **Gate:** quick local checks passed
+- **Human action:** only in the event of a decision, exception or escalation
 
-### 5. Validação adversarial
+### 5. Adversarial validation
 
-- **Workflow:** [validação adversarial](workflows/05-adversarial-validation.md)
-- **Owner humano:** Tech Lead; PM e UX validam seus critérios
-- **Agentes:** Validation / QA, Security, Architecture e Reviewer Agents
-- **Suporte:** repo harness e ambientes reproduzíveis
-- **Objetivo:** provar aderência à especificação e procurar falhas que o autor não encontrou
-- **Inputs:** mudança, PRD, UX spec, SPEC, CHECKLIST e classe de risco
-- **Atividades:** testes, segurança, arquitetura, acessibilidade, regressão e mutation testing quando aplicável
-- **Outputs:** evidências vinculadas aos critérios e achados classificados
-- **Gate:** checklist completo e ausência de bloqueadores
+- **Workflow:** [adversarial validation](workflows/05-adversarial-validation.md)
+- **Human Owner:** Tech Lead; PM and UX validate your criteria
+- **Agents:** Validation / QA, Security, Architecture and Reviewer Agents
+- **Support:** repo harness and reproducible environments
+- **Objective:** prove adherence to the specification and look for flaws that the author did not find
+- **Inputs:** change, PRD, UX spec, SPEC, CHECKLIST and risk class
+- **Activities:** testing, security, architecture, accessibility, regression and mutation testing when applicable
+- **Outputs:** evidence linked to criteria and classified findings
+- **Gate:** complete checklist and absence of blockers
 
-### 6. Code review, PR e decisão de merge
+### 6. Code review, PR and merge decision
 
-- **Workflow:** [PR e merge](workflows/06-pr-and-merge.md)
-- **Owner humano:** Tech Lead ou Code Owner conforme risco
-- **Agentes:** PR Agent + Reviewer Agent
-- **Objetivo:** avaliar qualidade, risco, manutenibilidade e prontidão para integração
-- **Inputs:** diff, commits, resultados de validação e evidence pack
-- **Atividades:** revisão de código, testes, impacto arquitetural, contratos e documentação
-- **Outputs:** PR rastreável, aprovação ou solicitações de ajuste
-- **Gate:** revisão aprovada, CI verde, branch atualizada e aprovações válidas
-- **Cerimônia:** review de entrega / H4 quando exigido pela política
+- **Workflow:** [PR and merge](workflows/06-pr-and-merge.md)
+- **Human Owner:** Tech Lead or Code Owner depending on risk
+- **Agents:** PR Agent + Reviewer Agent
+- **Objective:** evaluate quality, risk, maintainability and readiness for integration
+- **Inputs:** diff, commits, validation results and evidence pack
+- **Activities:** code review, testing, architectural impact, contracts and documentation
+- **Outputs:** Trackable PR, approval or adjustment requests
+- **Gate:** approved review, green CI, updated branch and valid approvals
+- **Ceremony:** delivery review / H4 when required by policy
 
-### 7. Homologação
+### 7. Approval
 
-- **Workflow:** [homologação](workflows/07-release-candidate-validation.md)
-- **Owners humanos:** PM para valor; UX para experiência; stakeholder quando necessário
-- **Agentes:** Release Agent + Product Validation Agent
-- **Objetivo:** confirmar valor e comportamento no cenário representativo
-- **Inputs:** release candidate, critérios de aceite, ambiente e dados de teste
-- **Atividades:** preview, smoke, E2E, acessibilidade, demonstração e coleta de evidências
-- **Outputs:** aceite, evidências e pendências registradas
-- **Gate:** critérios de aceite validados ou plano de correção explícito
+- **Workflow:** [approval](workflows/07-release-candidate-validation.md)
+- **Human owners:** PM for value; UX for experience; stakeholder when necessary
+- **Agents:** Release Agent + Product Validation Agent
+- **Objective:** confirm value and behavior in the representative scenario
+- **Inputs:** release candidate, acceptance criteria, environment and test data
+- **Activities:** preview, smoke, E2E, accessibility, demonstration and evidence collection
+- **Outputs:** acceptance, evidence and pending issues recorded
+- **Gate:** validated acceptance criteria or explicit correction plan
 
-### 8. Entrega e observação
+### 8. Delivery and observation
 
-- **Workflow:** [produção e observação](workflows/08-production-release-and-observation.md)
-- **Owner humano:** Tech Lead; PM coaprova exposição R3/R4
-- **Agentes:** Release Agent + Observability Agent
-- **Objetivo:** liberar com exposição controlada e provar saúde no uso real
-- **Inputs:** release candidate aprovado, plano de rollout, rollback, SLOs e alertas
-- **Atividades:** deploy progressivo, feature flag quando aplicável, monitoramento e comparação com baseline
-- **Outputs:** versão liberada, sinais de saúde, rollback/pausa quando necessário e changelog
-- **Gate:** ambiente autorizado, migração compatível e janela pós-deploy sem regressão relevante
-- **Cerimônia:** decisão de release / H5 conforme risco
+- **Workflow:** [production and observation](workflows/08-production-release-and-observation.md)
+- **Human Owner:** Tech Lead; PM co-approves exposure R3/R4
+- **Agents:** Release Agent + Observability Agent
+- **Objective:** release with controlled exposure and prove health in real use
+- **Inputs:** approved release candidate, rollout plan, rollback, SLOs and alerts
+- **Activities:** progressive deployment, feature flag when applicable, monitoring and comparison with baseline
+- **Outputs:** released version, health signals, rollback/pause when necessary and changelog
+- **Gate:** authorized environment, compatible migration and post-deploy window without relevant regression
+- **Ceremony:** release decision / H5 according to risk
 
-### 9. Atualização da base de conhecimento
+### 9. Knowledge base update
 
-- **Workflow:** [curadoria de conhecimento](workflows/09-knowledge-curation.md)
-- **Owner humano:** owner do domínio alterado
-- **Agente:** Knowledge Agent
-- **Cadência:** contínua + revisão automatizada semanal
-- **Objetivo:** manter documentação alinhada ao produto real
-- **Inputs:** decisões, código, PR, homologação, release e incidentes
-- **Atividades:** consolidar decisões, aprendizados e mudanças; procurar contradições e obsolescência
-- **Outputs:** fontes canônicas e conhecimento reutilizável atualizados
-- **Gate:** documentação atual, rastreável e sem contradições não resolvidas
+- **Workflow:** [knowledge curation](workflows/09-knowledge-curation.md)
+- **Human owner:** domain owner changed
+- **Agent:** Knowledge Agent
+- **Cadence:** continuous + weekly automated review
+- **Objective:** maintain documentation aligned with the real product
+- **Inputs:** decisions, code, PR, approval, release and incidents
+- **Activities:** consolidate decisions, learning and changes; look for contradictions and obsolescence
+- **Outputs:** updated canonical sources and reusable knowledge
+- **Gate:** current, traceable documentation without unresolved contradictions
 
-## 10. Telemetria e melhoria contínua — Auto Dream
+## 10. Telemetry and continuous improvement — Auto Dream
 
-- **Workflow:** [telemetria e melhoria contínua](workflows/10-continuous-improvement.md)
-- **Owner humano:** trio; cada demanda retorna ao owner do domínio
-- **Agentes:** Telemetry/Observability Agent + Auto Dream Agent + Critic Agent independente
-- **Trigger:** coleta contínua, síntese semanal e execução extraordinária após incidente relevante
-- **Objetivo:** observar o sistema de trabalho, aprender com evidência e melhorar produto, agentes e fluxo
-- **Escopo:** produto, UX, engenharia, agentes, prompts, processo, harness, skills, scripts, ferramentas, hooks, gates, documentação e arquitetura do workflow
-- **Cerimônia:** telemetria e melhoria / H6
+- **Workflow:** [telemetry and continuous improvement](workflows/10-continuous-improvement.md)
+- **Human owner:** trio; each demand returns to the domain owner
+- **Agents:** Telemetry/Observability Agent + Auto Dream Agent + independent Critic Agent
+- **Trigger:** continuous collection, weekly synthesis and extraordinary execution after relevant incident
+- **Objective:** observe the work system, learn from evidence and improve the product, agents and flow
+- **Scope:** product, UX, engineering, agents, prompts, process, harness, skills, scripts, tools, hooks, gates, documentation and workflow architecture
+- **Ceremony:** telemetry and improvement / H6
 
-### 10.1 Por que “Telemetria e melhoria”
+### 10.1 Why “Telemetry and improvement”
 
-“Auto Dream” descreve um mecanismo. “Telemetria e melhoria” descreve o resultado operacional: enxergar como o sistema se comporta, distinguir sinal de ruído e converter evidência em aprendizado ou ação.
+“Auto Dream” describes a mechanism. “Telemetry and improvement” describes the operational outcome: seeing how the system behaves, distinguishing signal from noise, and converting evidence into learning or action.
 
-Sem telemetria, melhoria contínua vira opinião. Sem retorno ao backlog e à memória, telemetria vira dashboard decorativo.
+Without telemetry, continuous improvement becomes opinion. Without returning to the backlog and memory, telemetry becomes a decorative dashboard.
 
-### 10.2 Eventos e correlação mínima
+### 10.2 Events and minimum correlation
 
-Cada evento relevante deve carregar, quando aplicável:
+Each relevant event must carry, where applicable:
 
-- `work_item_id`, produto e repositório
-- fase, agente, modelo, versão de prompt/skill e tool usada
-- session/run ID e timestamp
-- input, output e status da execução
-- duração, tokens, custo e tamanho de contexto
-- retry, fallback, bloqueio e escalonamento
-- gate, resultado, evidência e duração
-- decisão humana, owner e motivo
-- commit, PR, release e ambiente
-- classe de risco e nível de autonomia
-- proteção ou anonimização de dados sensíveis
+- `work_item_id`, product and repository
+- phase, agent, model, prompt/skill version and tool used
+- session/run ID and timestamp
+- input, output and execution status
+- duration, tokens, cost and context size
+- retry, fallback, blocking and scaling
+- gate, result, evidence and duration
+- human decision, owner and motive
+- commit, PR, release and environment
+- risk class and level of autonomy
+- protection or anonymization of sensitive data
 
-O padrão recomendado é instrumentar logs, métricas e traces correlacionáveis, com taxonomia versionada e política de retenção.
+The recommended pattern is to instrument logs, metrics and correlational traces, with versioned taxonomy and retention policy.
 
-### 10.3 Entradas do ciclo
+### 10.3 Cycle inputs
 
-- sessões e decisões dos agentes
-- evidence packs e feedbacks humanos
-- falhas, retries, bloqueios e escalonamentos
-- resultados de hooks, CI, homologação e deploy
-- incidentes, rollbacks e defeitos escapados
-- métricas de tempo, custo, qualidade, UX e autonomia
-- feedback de usuário e sinais de produto
-- demandas de melhoria geradas anteriormente
+- agent sessions and decisions
+- evidence packs and human feedback
+- failures, retries, blockages and escalations
+- results from hooks, CI, approval and deployment
+- incidents, rollbacks and escaped defects
+- time, cost, quality, UX and autonomy metrics
+- user feedback and product signals
+- previously generated improvement demands
 
-### 10.4 Pipeline automatizado
+### 10.4 Automated pipeline
 
-1. Coletar sessões e eventos continuamente.
-2. Remover secrets e dados pessoais antes da análise.
-3. Validar completude, correlação e qualidade dos dados.
-4. Agrupar eventos por etapa, causa e tipo de impacto.
-5. Identificar padrões recorrentes e ocorrências isoladas.
-6. Comparar resultados com baseline e períodos anteriores.
-7. Distinguir aprendizado reutilizável de problema operacional.
-8. Procurar duplicidade, contradição e obsolescência na memória.
-9. Produzir evidências e nível de confiança para cada conclusão.
-10. Submeter conclusões a um Critic Agent independente.
-11. Consolidar itens confirmados e manter hipóteses inconclusivas em observação.
+1. Collect sessions and events continuously.
+2. Remove secrets and personal data before analysis.
+3. Validate data completeness, correlation and quality.
+4. Group events by stage, cause and type of impact.
+5. Identify recurring patterns and isolated occurrences.
+6. Compare results with baseline and previous periods.
+7. Distinguish reusable learning from operational problems.
+8. Look for duplicity, contradiction and obsolescence in memory.
+9. Produce evidence and level of confidence for each conclusion.
+10. Submit findings to an independent Critic Agent.
+11. Consolidate confirmed items and keep inconclusive hypotheses under observation.
 
-### 10.5 Loop A — aprendizado validado
+### 10.5 Loop A — validated learning
 
-- identificar o que funcionou, para quem e em qual contexto
-- registrar evidências, origem, data e condições de reutilização
-- verificar duplicidade, contradição e validade temporal
-- propor inclusão, atualização ou remoção no `MEMORY.md`
-- evitar transformar preferência isolada em regra global
-- exigir aprovação humana para memória sensível
+- identify what worked, for whom and in what context
+- record evidence, origin, date and conditions of reuse
+- check duplicity, contradiction and temporal validity
+- propose inclusion, update or removal in `MEMORY.md`
+- avoid transforming an isolated preference into a global rule
+- require human approval for sensitive memory
 
-#### Gate de memória
+#### Memory gate
 
-- evidência vinculada à conclusão
-- escopo e contexto de aplicação explícitos
-- ausência de secrets ou dados pessoais
-- nenhuma contradição não resolvida
-- conhecimento acionável e reutilizável
-- mudança sensível revisada por pessoa responsável
+- evidence linked to the conclusion
+- explicit scope and context of application
+- absence of secrets or personal data
+- no unresolved contradictions
+- actionable and reusable knowledge
+- sensitive change reviewed by responsible person
 
-### 10.6 Loop B — falha ou oportunidade de melhoria
+### 10.6 Loop B — failure or opportunity for improvement
 
-- descrever sintoma, impacto e etapa afetada
-- identificar causa provável e evidências
-- registrar frequência e alcance
-- propor ação corretiva e resultado esperado
-- gerar demanda rastreável no backlog
-- relacionar sessões, execuções e incidentes de origem
-- detectar e vincular duplicidades
+- describe symptom, impact and affected stage
+- identify probable cause and evidence
+- record frequency and reach
+- propose corrective action and expected result
+- generate traceable demand in the backlog
+- relate sessions, executions and source incidents
+- detect and link duplicates
 
-Tipos de melhoria preservados e ampliados:
+Preserved and expanded types of improvements:
 
-- produto ou experiência
-- processo ou cerimônia
+- product or experience
+- process or ceremony
 - harness
-- skill ou prompt
-- script, ferramenta ou integração
-- hook ou gate
-- arquitetura do workflow
-- documentação, contexto ou memória
-- observabilidade, segurança ou custo
+- skill or prompt
+- script, tool or integration
+- hook or gate
+- workflow architecture
+- documentation, context or memory
+- observability, security or cost
 
-#### Estrutura mínima da demanda
+#### Minimum demand structure
 
-- título orientado ao problema
-- sintoma e impacto
-- evidências e frequência
-- hipótese de causa-raiz
-- melhoria proposta
-- critério de aceite mensurável
-- prioridade e classe de risco sugeridas
-- owner recomendado
-- links para sessões e artefatos relacionados
+- problem-oriented title
+- symptom and impact
+- evidence and frequency
+- root cause hypothesis
+- proposed improvement
+- measurable acceptance criteria
+- suggested priority and risk class
+- owner recommended
+- links to related sessions and artifacts
 
-#### Priorização
+#### Prioritization
 
-- **P0:** risco crítico, segurança ou perda de dados
-- **P1:** falha recorrente que bloqueia o fluxo
-- **P2:** retrabalho, custo ou baixa confiabilidade
-- **P3:** otimização e melhoria incremental
-- frequência não substitui impacto
-- o Auto Dream recomenda; o owner humano decide e o PM ordena o backlog
+- **P0:** critical risk, security or data loss
+- **P1:** recurring failure that blocks the flow
+- **P2:** rework, cost or low reliability
+- **P3:** optimization and incremental improvement
+- frequency does not replace impact
+- Auto Dream recommends; the human owner decides and the PM orders the backlog
 
-### 10.7 Painel mínimo do trio
+### 10.7 Trio Minimum Panel
 
-#### Produto e UX — PM + UX
+#### Product and UX — PM + UX
 
-- outcome e adoção da entrega
-- conversão ou conclusão da tarefa principal
-- erros de usuário, abandono e tempo na tarefa
-- feedback qualitativo e defeitos de experiência
-- acessibilidade e critérios de UX não atendidos
+- delivery outcome and adoption
+- conversion or completion of the main task
+- user errors, abandonment and time on task
+- qualitative feedback and experience defects
+- accessibility and UX criteria not met
 
-#### Fluxo — trio
+#### Flow — trio
 
-- lead time: backlog até homologação
-- cycle time: implementação até merge
-- tempo por fase e tempo esperando decisão humana
-- taxa de aprovação na primeira passagem por gate
-- retrabalho após validação ou homologação
-- bloqueios, retries e escalonamentos
-- percentual de gates automatizados
-- percentual de execução autônoma por classe de risco
+- lead time: backlog until approval
+- cycle time: implementation until merge
+- time per phase and time waiting for human decision
+- pass rate on first pass per gate
+- rework after validation or approval
+- blocking, retries and escalations
+- percentage of automated gates
+- percentage of autonomous execution by risk class
 
-#### Engenharia — Tech Lead
+#### Engineering — Tech Lead
 
-- falhas de build, testes e CI
-- defeitos e regressões pós-entrega
-- cobertura dos critérios de aceite
-- change failure rate e tempo de recuperação
-- violações arquiteturais, segurança e dependências
-- falsos positivos e tempo gasto por gate
+- build, testing and CI failures
+- post-delivery defects and regressions
+- coverage of acceptance criteria
+- change failure rate and recovery time
+- architectural violations, security and dependencies
+- false positives and time spent per gate
 
-#### Agentes e custo — trio
+#### Agents and cost — trio
 
-- tokens, custo e duração por fase, agente e entrega
-- taxa de sucesso sem intervenção
-- número de tentativas até conclusão
-- falhas por tool, skill, prompt e modelo
-- qualidade do evidence pack
-- tempo humano em exceções e aprovações
-- atualidade e uso da base de conhecimento
+- tokens, cost and duration per phase, agent and delivery
+- success rate without intervention
+- number of attempts until completion
+- failures by tool, skill, prompt and model
+- quality of the evidence pack
+- human time on exceptions and approvals
+- currentness and use of the knowledge base
 
-### 10.8 Saídas do ciclo
+### 10.8 Cycle outputs
 
-- `MEMORY.md` atualizado com aprendizados validados
-- demandas de melhoria criadas ou enriquecidas no backlog
-- relatório semanal curto com padrões, tendências e qualidade dos dados
-- métricas do sistema de trabalho atualizadas
-- hipóteses inconclusivas mantidas para observação futura
-- experimento com owner, baseline, prazo e critério de sucesso
+- `MEMORY.md` updated with validated learnings
+- improvement demands created or enriched in the backlog
+- short weekly report with patterns, trends and data quality
+- updated work system metrics
+- inconclusive hypotheses kept for future observation
+- experiment with owner, baseline, deadline and success criteria
 
-### 10.9 Gate de conclusão
+### 10.9 Completion Gate
 
-- fontes processadas e rastreáveis
-- qualidade e lacunas dos dados explícitas
-- aprendizados separados de hipóteses
-- falhas relevantes convertidas em demandas
-- duplicidades e contradições tratadas
-- mudanças sensíveis revisadas
-- nenhum dado confidencial persistido indevidamente
+- processed and traceable sources
+- explicit data quality and gaps
+- hypothesis-separated learnings
+- relevant failures converted into demands
+- duplicities and contradictions dealt with
+- revised sensitive changes
+- no confidential data improperly persisted
 
-### 10.10 Falhas do próprio ciclo
+### 10.10 Failures of the cycle itself
 
-- falha de coleta abre alerta e impede conclusão silenciosamente parcial
-- baixa confiança mantém o item como hipótese
-- contradição bloqueia atualização automática da memória
-- demanda sem evidência permanece como rascunho
-- agente não pode aprovar alteração nos próprios gates
-- incidentes do Auto Dream entram no próximo ciclo de análise
+- collection failure opens alert and silently prevents partial completion
+- low confidence keeps the item as a hypothesis
+- contradiction blocks automatic memory update
+- demand without evidence remains as a draft
+- agent cannot approve changes to the gates themselves
+- Auto Dream incidents enter next analysis cycle
 
 ---
 
-## 11. Evidence pack apresentado às pessoas
+## 11. Evidence pack presented to people
 
-Toda decisão humana recebe um pacote curto:
+Every human decision receives a short package:
 
-- pergunta de decisão em uma frase
-- recomendação dos agentes
-- alternativas consideradas
-- principais riscos e trade-offs
-- mudanças desde a última aprovação
-- evidências dos gates executados
-- pendências, exceções e nível de confiança
-- impacto em produto, experiência e engenharia
-- links para artefatos completos, código e execução
+- decision question in a sentence
+- agent recommendation
+- alternatives considered
+- main risks and trade-offs
+- changes since last approval
+- evidence of the gates executed
+- pending issues, exceptions and confidence level
+- impact on product, experience and engineering
+- links to full artifacts, code and execution
 
-O evidence pack deve permitir decidir sem reler todas as sessões, mas preservar links para auditoria.
+The evidence pack should allow you to decide without re-reading all the sessions, but preserving links for auditing.
 
 ---
 
 ## 12. Repo harness
 
-### 12.1 Papel
+### 12.1 Paper
 
-- tornar o repositório compreensível para pessoas e agentes
-- converter padrões de engenharia em regras executáveis
-- oferecer caminhos seguros e repetíveis para mudanças
-- reduzir dependência de contexto informal ou individual
-- produzir feedback acionável e evidência auditável
+- make the repository understandable for people and agents
+- convert engineering standards into executable rules
+- offer secure and repeatable paths to change
+- reduce dependence on informal or individual context
+- produce actionable feedback and auditable evidence
 
 ### 12.2 Skills
 
-Skills nativas do Agent Team, em [`skills/`](../skills/):
+Native Agent Team skills, in [`skills/`](../skills/):
 
-- `business-discovery`, `technical-discovery`, `write-feature`, `review-prd`, `create-spec`, `review-spec`, `review-cross-prd-spec`, `refine-spec` — discovery, especificação e planejamento
-- `implement`, `dev-flow`, `fix-bug`, `analyse-bug`, `test-integration-local` — implementação e validação
-- `code-review`, `commit`, `update-pr`, `check-pr`, `update-docs` — revisão, publicação e documentação
-- `workspace-memory`, `workspace-projects`, `workspace-board` — operação do workspace do trio
+- `business-discovery`, `technical-discovery`, `write-feature`, `review-prd`, `create-spec`, `review-spec`, `review-cross-prd-spec`, `refine-spec` — discovery, specification and planning
+- `implement`, `dev-flow`, `fix-bug`, `analyse-bug`, `test-integration-local` — implementation and validation
+- `code-review`, `commit`, `update-pr`, `check-pr`, `update-docs` — review, publication and documentation
+- `workspace-memory`, `workspace-projects`, `workspace-board` — trio workspace operation
 
-Extensões recomendadas:
+Recommended extensions:
 
-- skill de intake e deduplicação
-- skill de pesquisa e síntese de UX
-- skill de threat modeling e privacidade
-- skill de migração, rollout e rollback
-- skill de incident response e post-mortem
-- skill de telemetria e avaliação de agentes
-- skill de atualização e verificação de documentação
+- intake and deduplication skill
+- UX research and synthesis skill
+- threat modeling and privacy skill
+- migration, rollout and rollback skills
+- incident response and post-mortem skills
+- telemetry skill and agent evaluation
+- documentation update and verification skill
 
-Toda skill deve declarar objetivo, inputs, outputs, tools permitidas, critérios de parada, exemplos e testes.
+Every skill must declare objective, inputs, outputs, allowed tools, stopping criteria, examples and tests.
 
 ### 12.3 Rules
 
-- arquitetura e fronteiras entre módulos
-- convenções e nomes de objetos
-- padrões aceitos e padrões proibidos
-- injeção de dependência e composição
-- gitflow e estratégia de branches
-- critérios de validação e homologação
-- propriedade por paths e Code Owners
-- classificação de risco e permissões por fase
-- segurança, privacidade e uso de dados
-- SLOs, observabilidade, rollout e rollback
-- estratégia de testes:
-  - unitários
-  - arquitetura
-  - integração / TAAC
-  - contrato
+- architecture and boundaries between modules
+- conventions and object names
+- accepted standards and prohibited standards
+- dependency injection and composition
+- gitflow and branching strategy
+- validation and approval criteria
+- ownership by paths and Code Owners
+- risk classification and permissions per phase
+- security, privacy and data usage
+- SLOs, observability, rollout and rollback
+- testing strategy:
+  - unitary
+  - architecture
+  - integration / TAAC
+  - contract
   - end-to-end
-  - acessibilidade
-  - mutação
+  - accessibility
+  - mutation
 
-### 12.4 Hooks e gates locais
+### 12.4 Local hooks and gates
 
-#### Pre-commit — feedback rápido
+#### Pre-commit — quick feedback
 
-- lint e formatação
+- lint and formatting
 - typecheck
-- testes unitários afetados
-- testes de arquitetura
-- consistência entre código, PRD e SPEC
+- affected unit tests
+- architectural tests
+- consistency between code, PRD and SPEC
 
-#### Pre-push — validação ampliada
+#### Pre-push — extended validation
 
-- cobertura mínima definida pelo projeto
-- código morto e débito técnico bloqueante
-- vazamento de secrets
-- integração / TAAC em container
-- impacto em contratos e compatibilidade
-- dependency review e licenças quando aplicável
+- minimum coverage defined by the project
+- dead code and blocking technical debt
+- secret leak
+- integration / TAAC in container
+- impact on contracts and compatibility
+- dependency review and licenses when applicable
 
-#### CI — validação independente
+#### CI — independent validation
 
-- repetir gates críticos em ambiente limpo
-- executar build, testes, segurança e arquitetura
-- selecionar checks conforme risco e paths alterados
-- gerar evidências auditáveis
-- impedir merge quando houver bloqueadores
+- repeat critical gates in a clean environment
+- perform build, testing, security and architecture
+- select checks according to risk and changed paths
+- generate auditable evidence
+- prevent merge when there are blockers
 
-#### Gate de merge
+#### Merge gate
 
-- confirmar aprovações e status checks
-- confirmar proveniência da automação
-- impedir bypass silencioso e force push
-- invalidar aprovação quando o diff mudar materialmente
+- confirm approvals and status checks
+- confirm provenance of automation
+- prevent silent bypass and force push
+- invalidate approval when diff changes materially
 
-#### Gate de ambiente
+#### Ambient gate
 
-- liberar secrets somente após autorização
-- restringir branches e artefatos permitidos
-- validar migração, backup e compatibilidade
-- exigir aprovação conforme risco
-- integrar sinais de observabilidade e change management
+- release secrets only after authorization
+- restrict allowed branches and artifacts
+- validate migration, backup and compatibility
+- require approval according to risk
+- integrate observability signals and change management
 
-#### Gate pós-deploy
+#### Post-deploy gate
 
-- comparar métricas com baseline
-- interromper rollout diante de regressão
-- reverter automaticamente quando seguro
-- abrir incidente quando ação humana for necessária
+- compare metrics with baseline
+- stop rollout in case of regression
+- automatically revert when safe
+- open incident when human action is required
 
-### 12.5 Regras para gates baseados em IA
+### 12.5 Rules for AI-based gates
 
-- IA pode recomendar, explicar e priorizar achados.
-- Bloqueio automático exige regra reproduzível e evidência verificável.
-- Achado probabilístico exige confirmação independente.
-- O mesmo agente não produz e aprova sozinho a própria mudança.
-- Agentes não alteram gates dentro do mesmo fluxo avaliado.
-- Mudança em rules, hooks ou CI eleva o risco automaticamente.
-- Bypass exige pessoa autorizada, motivo, validade e plano de correção.
+- AI can recommend, explain and prioritize findings.
+- Automatic blocking requires reproducible rule and verifiable evidence.
+- Probabilistic finding requires independent confirmation.
+- The same agent does not produce and approve the change itself.
+- Agents do not change gates within the same evaluated flow.
+- Changes in rules, hooks or CI automatically increase the risk.
+- Bypass requires authorized person, reason, validity and correction plan.
 
-### 12.6 Tools por capacidade
+### 12.6 Tools per capacity
 
-As ferramentas são opções de implementação; o contrato do fluxo não deve depender de uma marca específica.
+Tools are implementation options; the flow contract should not depend on a specific brand.
 
-#### Gestão, decisão e colaboração
+#### Management, decision and collaboration
 
-- gerenciador de backlog e roadmap: Linear, Jira, GitHub Projects ou equivalente
-- documentos e decisões: Markdown no repositório, Obsidian, Notion ou equivalente
-- comunicação: Slack, Teams ou equivalente
-- registro de decisão: ADRs versionados e decision log
+- backlog and roadmap manager: Linear, Jira, GitHub Projects or equivalent
+- documents and decisions: Markdown in the repository, Obsidian, Notion or equivalent
+- communication: Slack, Teams or equivalent
+- decision record: versioned ADRs and decision log
 
-#### Pesquisa, experiência e design
+#### Research, experience and design
 
-- pesquisa e síntese: repositório de research, Dovetail ou equivalente
-- fluxos e protótipos: Figma, FigJam, Penpot ou equivalente
-- design system: Storybook e tokens versionados
-- avaliação: testes de usabilidade, axe/Lighthouse e regressão visual
+- research and synthesis: research repository, Dovetail or equivalent
+- flows and prototypes: Figma, FigJam, Penpot or equivalent
+- design system: Storybook and versioned tokens
+- evaluation: usability tests, axe/Lighthouse and visual regression
 
-#### Código e compreensão da codebase
+#### Code and understanding the codebase
 
-- LSP, lint e formatação
-- typecheck e análise estática
+- LSP, lint and formatting
+- typecheck and static analysis
 - Serena
-- Dora
-- busca estrutural, grafo de dependências e análise arquitetural
-- ambientes de desenvolvimento reproduzíveis e containers
+-Dora
+- structural search, dependency graph and architectural analysis
+- reproducible development environments and containers
 
-#### Redução e gestão de contexto
+#### Reduction and context management
 
-- RTK
-- índices de codebase e recuperação semântica autorizada
-- compactação de logs e evidence packs
-- budgets de contexto, tokens e custo por fase
+-RTK
+- codebase indexes and authorized semantic retrieval
+- compression of logs and evidence packs
+- context budgets, tokens and cost per phase
 
-#### Qualidade e segurança
+#### Quality and safety
 
-- frameworks de teste e mutation testing adequados à stack
-- SAST/code scanning, como CodeQL ou equivalente
+- testing and mutation testing frameworks suited to the stack
+- SAST/code scanning, such as CodeQL or equivalent
 - secret scanning
-- dependency review, SBOM, vulnerabilidades e licenças
-- DAST e testes de contrato quando aplicáveis
-- policy as code para regras determinísticas
+- dependency review, SBOM, vulnerabilities and licenses
+- DAST and contract testing when applicable
+- policy as code for deterministic rules
 
-#### CI/CD e operação
+#### CI/CD and operation
 
-- GitHub Actions, GitLab CI, Buildkite ou equivalente
-- preview environments e infraestrutura como código
-- feature flags e rollout gradual
-- artifact registry e proveniência/attestation
-- deploy progressivo, canary e rollback automatizado
+- GitHub Actions, GitLab CI, Buildkite or equivalent
+- preview environments and infrastructure as code
+- feature flags and gradual rollout
+- artifact registry and provenance/attestation
+- progressive deployment, canary and automated rollback
 
-#### Observabilidade e telemetria do Agent Team
+#### Agent Team observability and telemetry
 
-- OpenTelemetry para correlacionar logs, métricas e traces
-- backend de observabilidade como Grafana stack, Datadog, New Relic ou equivalente
-- error tracking como Sentry ou equivalente
-- product analytics como PostHog, Amplitude ou equivalente
-- experimentação e avaliação de prompts/agentes
-- dashboards de custo, qualidade, autonomia e fluxo
+- OpenTelemetry to correlate logs, metrics and traces
+- observability backend like Grafana stack, Datadog, New Relic or equivalent
+- error tracking like Sentry or equivalent
+- product analytics like PostHog, Amplitude or equivalent
+- experimentation and evaluation of prompts/agents
+- cost, quality, autonomy and flow dashboards
 
-#### Portal e conhecimento
+#### Portal and knowledge
 
-- `PRD.md` — por que e o que será entregue
-- especificação de UX — jornada, fluxo, estados, conteúdo e acessibilidade
-- `SPEC.md` — comportamento e contratos esperados
-- `ADR.md` — decisões e consequências arquiteturais
-- `AGENTS.md` — instruções operacionais para agentes
-- `README.md` — uso, execução e visão geral do repositório
-- histórico de PRs — mudanças, evidências e decisões locais
-- Backstage Software Catalog/TechDocs ou equivalente para ownership, catálogo e descoberta em escala
+- `PRD.md` — why and what will be delivered
+- UX specification — journey, flow, states, content and accessibility
+- `SPEC.md` — expected behavior and contracts
+- `ADR.md` — architectural decisions and consequences
+- `AGENTS.md` — operating instructions for agents
+- `README.md` — usage, execution and repository overview
+- history of PRs — changes, evidence and local decisions
+- Backstage Software Catalog/TechDocs or equivalent for ownership, catalog and discovery at scale
 
-### 12.7 Contrato de avaliação de uma ferramenta
+### 12.7 Tool evaluation contract
 
-Antes de adotar uma ferramenta, registrar:
+Before adopting a tool, record:
 
-- problema que resolve e owner
-- etapa, input e output atendidos
-- integração com fontes canônicas
-- permissões, dados enviados e retenção
-- custo financeiro e cognitivo
-- API, automação e exportabilidade
-- evidência produzida e capacidade de auditoria
-- lock-in e plano de saída
-- métrica de sucesso e data de revisão
+- problem solving and owner
+- stage, input and output met
+- integration with canonical sources
+- permissions, sent data and retention
+- financial and cognitive cost
+- API, automation and exportability
+- evidence produced and audit capacity
+- lock-in and exit plan
+- success metric and review date
 
-### 12.8 Referências oficiais para as extensões propostas
+### 12.8 Official references for proposed extensions
 
 - [GitHub Actions — workflows](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows)
 - [GitHub CodeQL — code scanning](https://docs.github.com/en/code-security/concepts/code-scanning/codeql/codeql-code-scanning)
-- [GitHub — segurança da cadeia de suprimentos](https://docs.github.com/en/code-security/concepts/supply-chain-security/supply-chain-security)
-- [OpenTelemetry — métricas e correlação entre sinais](https://opentelemetry.io/docs/specs/otel/metrics/)
+- [GitHub — supply chain security](https://docs.github.com/en/code-security/concepts/supply-chain-security/supply-chain-security)
+- [OpenTelemetry — metrics and correlation between signals](https://opentelemetry.io/docs/specs/otel/metrics/)
 - [Backstage — Software Catalog](https://backstage.io/docs/features/software-catalog/)
 - [Backstage — TechDocs](https://backstage.io/docs/features/techdocs/)
 
-Essas referências sustentam as capacidades sugeridas; não constituem decisão de adoção. A escolha deve passar pelo contrato de avaliação acima.
+These references support the suggested capabilities; do not constitute an adoption decision. The choice must go through the evaluation contract above.
 
 ---
 
-## 13. Governança e segurança
+## 13. Governance and security
 
-- permissões mínimas por agente e por etapa
-- aprovação humana para ações irreversíveis ou externas
-- segredos fora de prompts, logs e artefatos
-- dados pessoais minimizados, protegidos e retidos por política
-- rastreabilidade entre demanda, decisão, código e evidência
-- registro de autoria, ferramentas, modelos e versões utilizadas
-- critérios claros para interromper, escalar ou pedir decisão
-- exceções documentadas com prazo e responsável
-- segregação entre produção, validação e aprovação
-- kill switch e revogação de credenciais
-- auditoria periódica das permissões de agentes e integrações
+- minimum permissions per agent and per stage
+- human approval for irreversible or external actions
+- secrets outside of prompts, logs and artifacts
+- personal data minimized, protected and retained by policy
+- traceability between demand, decision, code and evidence
+- record of authorship, tools, models and versions used
+- clear criteria for interrupting, escalating or asking for a decision
+- documented exceptions with deadline and person responsible
+- segregation between production, validation and approval
+- kill switch and credential revocation
+- periodic audit of agent and integration permissions
 
-### Contrato de escalonamento
+### Escalation contract
 
-Escalar quando houver:
+Escalate when there is:
 
-- requisito contraditório ou sem owner
-- confiança abaixo do limite definido
-- duas ou mais tentativas de correção sem progresso
-- mudança fora do escopo aprovado
-- necessidade de nova permissão ou acesso externo
-- falha não reproduzível ou evidência inconsistente
-- decisão irreversível ou impacto não calculável
-- divergência entre agentes sem critério objetivo de desempate
-
----
-
-## 14. Classificação de risco e autonomia
-
-### R0 — mínimo
-
-- documentação, texto e formatação
-- sem mudança de comportamento, dados, secrets ou contratos
-- merge automático após gates; review humano por amostragem
-
-### R1 — baixo
-
-- refatoração interna ou mudança localizada
-- comportamento coberto por testes existentes
-- sem migração, segurança ou integração crítica
-- aprovação curta e deploy automático com observação
-
-### R2 — médio
-
-- novo comportamento ou mudança de contrato interno/integração
-- impacto reversível, mas relevante
-- aprovação de produto ou Code Owner; canary e rollback
-
-### R3 — alto
-
-- dados persistidos, migrações, contratos públicos, autenticação, privacidade, pagamentos ou operação crítica
-- aprovações humana de produto e técnica
-- aprovação explícita antes de produção
-
-### R4 — crítico
-
-- impacto regulatório, financeiro, destrutivo ou de grande alcance
-- plano de mudança e rollback revisados manualmente
-- dupla aprovação, segregação de função e acompanhamento humano
-
-### Regras
-
-- um agente propõe o risco e outro tenta elevá-lo
-- o maior risco justificado prevalece
-- redução manual exige justificativa registrada
-- mudança de escopo recalcula o risco
-- paths sensíveis elevam risco automaticamente
-- dúvida não resolvida impede R0/R1
-
-### Autonomia progressiva
-
-- **A0 — assistido:** pessoas aprovam todas as transições
-- **A1 — execução autônoma:** agentes executam; pessoas aprovam decisões e merge
-- **A2 — merge por risco:** R0/R1 podem integrar por política
-- **A3 — entrega autônoma controlada:** baixo risco chega à produção com rollback comprovado
-- **A4 — orientado a exceções:** fluxo saudável ocorre sem intervenção; pessoas tratam decisões e anomalias
-
-Elevar autonomia somente com histórico suficiente, baixa taxa de falha, gates confiáveis, poucos falsos positivos, rollback testado e telemetria íntegra.
+- contradictory or ownerless requirement
+- confidence below the defined threshold
+- two or more correction attempts without progress
+- change outside the approved scope
+- need for new permission or external access
+- non-reproducible failure or inconsistent evidence
+- irreversible decision or non-calculable impact
+- divergence between agents without objective tiebreaker criteria
 
 ---
 
-## 15. Evolução do modelo
+## 14. Risk classification and autonomy
 
-### Fase 1 — piloto assistido
+### R0 — minimum
 
-- selecionar um repositório e fluxo de baixo risco
-- definir papéis, artefatos e gates mínimos
-- manter aprovação humana em todas as transições
-- medir tempo, retrabalho, custo e falhas
+- documentation, text and formatting
+- no change in behavior, data, secrets or contracts
+- automatic merge after gates; human review by sampling
 
-### Fase 2 — padronização
+### R1 — low
 
-- criar templates reutilizáveis
-- consolidar rules, skills, hooks e PR template
-- definir critérios comuns de entrada e saída
-- documentar exceções por tipo de repositório
-- instituir as cerimônias do trio
+- internal refactoring or localized change
+- behavior covered by existing tests
+- no migration, security or critical integration
+- short approval and automatic deployment with observation
 
-### Fase 3 — automação
+### R2 — medium
 
-- automatizar roteamento entre agentes
-- executar gates conforme risco e tipo de mudança
-- atualizar status, artefatos e evidências automaticamente
-- instrumentar telemetria ponta a ponta
-- escalar para pessoas somente decisões e exceções
+- new behavior or change in internal/integration contract
+- reversible but relevant impact
+- product or Code Owner approval; canary and rollback
 
-### Fase 4 — escala e melhoria contínua
+### R3 — high
 
-- expandir para outros times e repositórios
-- comparar desempenho entre fluxos sem criar ranking simplista
-- evoluir skills a partir de falhas recorrentes
-- revisar semanalmente regras, métricas e conhecimento
-- elevar autonomia por evidência
+- persisted data, migrations, public procurement, authentication, privacy, payments or critical operation
+- human product and technical approvals
+- explicit approval before production
 
----
+### R4 — critical
 
-## 16. Métricas iniciais do modelo
+- regulatory, financial, destructive or far-reaching impact
+- manually reviewed change plan and rollback
+- double approval, segregation of functions and human monitoring
 
-- lead time: backlog até homologação
-- cycle time: implementação até merge
-- taxa de aprovação na primeira revisão e por gate
-- retrabalho após validação ou homologação
-- defeitos e regressões após entrega
-- cobertura dos critérios de aceite
-- percentual de gates automatizados
-- tempo humano gasto em exceções e aprovações
-- custo por etapa, agente, modelo e entrega
-- atualidade e uso da base de conhecimento
-- outcome e adoção por entrega
-- falhas, retries e escalonamentos por fase
-- qualidade e completude do evidence pack
-- falsos positivos por gate
-- percentual de trabalho autônomo por classe de risco
+### Rules
 
-As métricas devem orientar investigação. Nenhuma delas, isoladamente, representa produtividade ou qualidade do trio.
+- one agent proposes the risk and another tries to increase it
+- the greatest justified risk prevails
+- manual reduction requires recorded justification
+- scope change recalculates risk
+- sensitive paths automatically increase risk
+- unresolved doubt prevents R0/R1
+
+### Progressive autonomy
+
+- **A0 — watched:** people approve all transitions
+- **A1 — autonomous execution:** agents execute; people approve decisions and merge
+- **A2 — merge by risk:** R0/R1 can merge by policy
+- **A3 — controlled autonomous delivery:** low risk reaches production with proven rollback
+- **A4 — exception-oriented:** healthy flow occurs without intervention; people treat decisions and anomalies
+
+Increase autonomy only with sufficient history, low failure rate, reliable gates, few false positives, tested rollback and intact telemetry.
 
 ---
 
-## 17. Decisões ainda em aberto
+## 15. Model evolution
 
-- ferramenta que orquestrará o Agent Team
-- limites de autonomia de cada papel
-- formato canônico e ciclo de vida dos artefatos
-- critério de risco por tipo de mudança
-- gates obrigatórios por linguagem e repositório
-- responsável por aprovar exceções fora do trio
-- estratégia de ambientes para integração e homologação
-- como medir custo, qualidade e ganho de produtividade
-- como versionar e distribuir rules e skills compartilhadas
-- onde ficará a fonte canônica da telemetria do fluxo
-- qual ferramenta será sistema de registro para backlog e decisões
-- política de retenção das sessões e dados dos agentes
-- quais cerimônias podem ser eliminadas após maturidade comprovada
+### Phase 1 — pilot assisted
+
+- select a low-risk repository and stream
+- define minimum roles, artifacts and gates
+- maintain human approval on all transitions
+- measure time, rework, cost and failures
+
+### Phase 2 — standardization
+
+- create reusable templates
+- consolidate rules, skills, hooks and PR template
+- define common entry and exit criteria
+- document exceptions by repository type
+- institute the trio ceremonies
+
+### Phase 3 — automation
+
+- automate routing between agents
+- execute gates according to risk and type of change
+- update statuses, artifacts and evidence automatically
+- instrument end-to-end telemetry
+- escalate to people only decisions and exceptions
+
+### Phase 4 — scale and continuous improvement
+
+- expand to other teams and repositories
+- compare performance between flows without creating simplistic ranking
+- evolve skills based on recurring failures
+- review rules, metrics and knowledge weekly
+- increase autonomy through evidence
 
 ---
 
-## 18. Próximos passos para o piloto de três pessoas
+## 16. Initial model metrics
 
-1. Escolher o repositório e um caso R1 real.
-2. Nomear PM, UX e Tech Lead e registrar seus direitos de decisão.
-3. Mapear o fluxo atual e os principais gargalos.
-4. Definir o conjunto mínimo de agentes e permissões.
-5. Criar templates mínimos de `PB`, `PRD`, UX spec, `SPEC` e evidence pack.
-6. Implementar gates essenciais no repo harness.
-7. Instrumentar IDs, eventos, custo, duração e resultados dos gates.
-8. Executar um ciclo completo de ponta a ponta.
-9. Realizar H6 com dados do ciclo e criar no máximo três melhorias prioritárias.
-10. Repetir por três ciclos antes de elevar autonomia ou adicionar cerimônias.
+- lead time: backlog until approval
+- cycle time: implementation until merge
+- approval rate in the first review and per gate
+- rework after validation or approval
+- defects and regressions after delivery
+- coverage of acceptance criteria
+- percentage of automated gates
+- human time spent on exceptions and approvals
+- cost per stage, agent, model and delivery
+- currentness and use of the knowledge base
+- outcome and adoption by delivery
+- failures, retries and escalations per phase
+- quality and completeness of the evidence pack
+- false positives per gate
+- percentage of self-employment by risk class
 
-## Resultado esperado
+Metrics should guide investigation. None of them, in isolation, represents the productivity or quality of the trio.
 
-O trio mantém autoridade clara sobre produto, experiência e tecnologia, enquanto os agentes absorvem a maior parte da pesquisa operacional, produção, crítica, execução, validação e documentação. O sistema não depende de heroísmo nem de contexto oral: cada passagem possui contrato, cada decisão possui owner, cada entrega possui evidência e cada ciclo deixa o próximo mais seguro, rápido e autônomo.
+---
+
+## 17. Decisions still open
+
+- tool that will orchestrate the Agent Team
+- limits of autonomy of each role
+- canonical format and life cycle of artifacts
+- risk criteria by type of change
+- mandatory gates per language and repository
+- responsible for approving exceptions outside the trio
+- environment strategy for integration and approval
+- how to measure cost, quality and productivity gains
+- how to version and distribute shared rules and skills
+- where the canonical source of the stream telemetry will be located
+- which tool will be the recording system for backlog and decisions
+- retention policy for agent sessions and data
+- which ceremonies can be eliminated after proven maturity
+
+---
+
+## 18. Next steps for the three-person pilot
+
+1. Choose the repository and a real R1 case.
+2. Appoint PM, UX and Tech Lead and register their decision rights.
+3. Map the current flow and main bottlenecks.
+4. Define the minimum set of agents and permissions.
+5. Create minimal templates for `PB`, `PRD`, UX spec, `SPEC` and evidence pack.
+6. Implement essential gates in the repo harness.
+7. Instrument gate IDs, events, cost, duration and results.
+8. Run a complete cycle from end to end.
+9. Perform H6 with cycle data and create a maximum of three priority improvements.
+10. Repeat for three cycles before increasing autonomy or adding ceremonies.
+
+## Expected result
+
+The trio maintains clear authority over product, experience, and technology, while agents absorb most of the operational research, production, critique, execution, validation, and documentation. The system does not depend on heroism or oral context: each passage has a contract, each decision has an owner, each delivery has evidence and each cycle leaves the next one safer, faster and more autonomous.

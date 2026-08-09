@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implementa um bloco de um plano técnico com validação incremental e tracking atualizado. Use quando houver plano de implementação e SPEC aprovados; não publica commits ou PRs sem pedido explícito.
+description: Implements a block of a technical plan with incremental validation and updated tracking. Use when there is an approved implementation plan and SPEC; does not publish commits or PRs without explicit request.
 ---
 
 ## User Input
@@ -13,87 +13,87 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Implementar o código seguindo o plano de implementação, bloco a bloco, com validação incremental.
+Implement the code following the implementation plan, block by block, with incremental validation.
 
-## Contrato de artefatos
+## Artifact contract
 
-Resolva o plano, a SPEC e o tracking conforme [o contrato compartilhado](../references/workflow-contract.md).
+Resolve the plan, SPEC and tracking according to [the shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Obrigatório:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
-- **Opcional:** bloco específico para implementar (via `$ARGUMENTS`)
+- **Required:** `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
+- **Optional:** specific block to implement (via `$ARGUMENTS`)
 
 ## Execution Steps
 
-### 1. Localizar a feature e o plano
+### 1. Find the feature and plane
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira do contexto.
-- Leia `plano-implementacao.md`, `SPEC.md` e `tracking.md`.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from the context.
+- Read `plano-implementacao.md`, `SPEC.md` and `tracking.md`.
 
-### 2. Identificar bloco a implementar
+### 2. Identify block to implement
 
-- Se `$ARGUMENTS` especifica um bloco, implemente apenas esse.
-- Caso contrário, implemente o próximo bloco não concluído do plano.
-- Verifique dependências: blocos dependentes devem estar ✅ antes de iniciar.
+- If `$ARGUMENTS` specifies a block, implement only that one.
+- Otherwise, implement the next uncompleted block of the plan.
+- Check dependencies: dependent blocks must be ✅ before starting.
 
-### 3. Implementar o bloco
+### 3. Implement the block
 
-Para cada ação dentro do bloco:
+For each action within the block:
 
-1. **Antes de escrever código:**
-   - Leia os arquivos existentes que serão modificados.
-   - Entenda convenções, padrões e imports existentes.
-   - Verifique se há testes existentes relevantes.
+1. **Before writing code:**
+   - Read existing files that will be modified.
+   - Understand existing conventions, standards and imports.
+   - Check for relevant existing tests.
 
-2. **Escreva o código:**
-   - Siga convenções do repositório.
-   - Mudanças pequenas e incrementais.
-   - Prefira modificar código existente a criar novo quando possível.
+2. **Write the code:**
+   - Follow repository conventions.
+   - Small, incremental changes.
+   - Prefer modifying existing code rather than creating new code when possible.
 
-3. **Após cada mudança:**
-   - Verifique se o código compila/roda sem erros óbvios.
-   - Execute lint/format se disponível.
+3. **After each change:**
+   - Check that the code compiles/runs without obvious errors.
+   - Run lint/format if available.
 
-### 4. Validação do bloco
+### 4. Block validation
 
-Após implementar todas as ações do bloco:
+After implementing all block actions:
 
-- Execute testes relevantes (se existirem).
-- Valide contra os critérios de aceite do bloco no plano.
-- Se houver erro, corrija antes de avançar.
+- Run relevant tests (if they exist).
+- Validate against the block acceptance criteria in the plan.
+- If there is an error, correct it before moving forward.
 
-### 5. Atualizar tracking
+### 5. Update tracking
 
-Após concluir o bloco:
-- Atualize `tracking.md`: status → ✅, data de fim.
-- Se bloqueado: status → ❌, descreva o bloqueio no log.
+After completing the block:
+- Update `tracking.md`: status → ✅, end date.
+- If blocked: status → ❌, describe the block in the log.
 
-### 6. Progressão
+### 6. Progression
 
-- Após concluir um bloco, prossiga para o próximo (respeitando dependências).
-- Se `$ARGUMENTS` pediu bloco específico, pare ao concluir.
+- After completing a block, proceed to the next (respecting dependencies).
+- If `$ARGUMENTS` asked for specific block, stop when finished.
 
-### 7. Reportar no chat
+### 7. Report in chat
 
-- Resumo: bloco implementado, arquivos criados/modificados.
-- Testes executados e resultado.
-- Próximo bloco recomendado.
-- Se bloqueado: descrição do problema e sugestão.
+- Summary: block implemented, files created/modified.
+- Tests performed and results.
+- Next recommended block.
+- If blocked: description of the problem and suggestion.
 
-## Regras
+## Rules
 
-- **Não pule blocos** — dependências existem por motivo.
-- **Valide incrementalmente** — não acumule mudanças sem testar.
-- **Siga o plano** — se precisar desviar, documente no tracking.
-- **Commits pequenos** — proponha um commit após cada bloco concluído; só use `/commit` quando o usuário pedir o registro em Git.
+- **Don't skip blocks** — dependencies exist for a reason.
+- **Validate incrementally** — don't accumulate changes without testing.
+- **Follow the plan** — if you need to deviate, document it in the tracking.
+- **Small commits** — propose a commit after each completed block; only use `/commit` when the user requests registration in Git.
 
-## Done When
+##DoneWhen
 
-- [ ] Bloco(s) implementado(s) conforme plano
-- [ ] Código segue convenções do repositório
-- [ ] Testes relevantes executados
-- [ ] tracking.md atualizado
-- [ ] Próximo bloco identificado (ou feature concluída)
+- [ ] Block(s) implemented according to plan
+- [ ] Code follows repository conventions
+- [ ] Relevant tests performed
+- [ ] updated tracking.md
+- [ ] Next identified block (or completed feature)

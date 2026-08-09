@@ -1,62 +1,62 @@
 ---
-title: Workflow 10 — telemetria e melhoria contínua
+title: Workflow 10 — telemetry and continuous improvement
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 10 — telemetria e melhoria contínua
+# Workflow 10 — telemetry and continuous improvement
 
-> Bloco executável do [🌙 Dream Loop](../docs/loops/10-continuous-improvement.md): compara o comportamento semanal do sistema de trabalho com um baseline governado e transforma padrões em aprendizado validado ou demanda priorizável.
+> [🌙 Dream Loop](../docs/loops/10-continuous-improvement.md) executable block: compares the weekly behavior of the work system with a governed baseline and transforms patterns into validated learning or prioritizable demand.
 
-O objeto deste workflow são os loops, gates, handoffs e workspaces — não a avaliação individual de agentes. Telemetry produz dados e limitações; Auto Dream formula hipóteses; Critic tenta refutá-las; o trio decide H6 quando a proposta afeta memória sensível, prioridade crítica, gate, política ou autonomia.
+The object of this workflow is loops, gates, handoffs and workspaces — not the individual evaluation of agents. Telemetry produces data and limitations; Auto Dream formulates hypotheses; Critic tries to refute them; the trio decides H6 when the proposal affects sensitive memory, critical priority, gate, policy or autonomy.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada produz um relatório periódico reproduzível e dá a cada conclusão exatamente um destino: aprendizado validado, Work Item de melhoria ou hipótese em observação. Observação genérica sem owner/critério não é saída.
+A closed run produces a reproducible periodic report and gives each conclusion exactly one target: validated learning, improvement Work Item, or observation hypothesis. Generic observation without owner/criteria is not output.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | janela, baseline, dataset, qualidade e análise estão identificados |
-| **Agentes** | Telemetry não inferiu causalidade; Auto Dream não priorizou; Critic independente avaliou generalização |
-| **Workspaces** | relatório técnico, memória e backlog permanecem em suas fontes/owners corretos |
-| **Decisão** | H6 foi executado quando obrigatório; PM ordena demanda no backlog normal |
-| **Governança** | nenhuma proposta alterou o próprio gate/autonomia sem owner e aprovação |
+| **Loop** | window, baseline, dataset, quality and analysis are identified |
+| **Agents** | Telemetry did not infer causality; Auto Dream did not prioritize; Independent critic evaluated generalization |
+| **Workspaces** | technical report, memory and backlog remain in their correct sources/owners |
+| **Decision** | H6 was performed when mandatory; PM orders demand in normal backlog |
+| **Governance** | no proposal changed the gate/autonomy itself without owner and approval |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 10 — conhecimento e melhoria |
-| **Cadência** | semanal e extraordinária após incidente relevante |
-| **Unidade de execução** | uma janela fechada `period_id`, com baseline comparável e corte de dados explícito |
-| **Consolida** | [Auto Dream Agent](../agents/auto-dream-agent/AGENT.md) |
-| **Produz dados** | [Telemetry Agent](../agents/telemetry-agent/AGENT.md) |
-| **Complementa operação** | [Observability Agent](../agents/observability-agent/AGENT.md) |
-| **Desafia** | [Critic Agent](../agents/critic-agent/AGENT.md), independente |
-| **Owner humano** | trio; PM ordena backlog; owner do domínio decide execução |
-| **Entrada** | eventos/sessões, gates, retries, feedback, incidentes, custos, métricas, Daily hypotheses e demandas anteriores |
-| **Saída** | relatório, proposta de memória, Work Items de melhoria e hipóteses em observação |
-| **Gate de conteúdo** | evidência, contexto, confiança, validade, privacidade, qualidade e contradições tratados |
-| **Gate do bloco** | conteúdo + crítica + destinos persistidos + H6/política + reconciliação |
-| **Volta dominante** | do sistema — realimenta o desenho dos demais loops |
+| **Step** | 10 — knowledge and improvement |
+| **Cadence** | weekly and extraordinary after relevant incident |
+| **Execution unit** | a closed window `period_id`, with comparable baseline and explicit data cut |
+| **Consolidates** | [Auto Dream Agent](../agents/auto-dream-agent/AGENT.md) |
+| **Produces data** | [Telemetry Agent](../agents/telemetry-agent/AGENT.md) |
+| **Complements operation** | [Observability Agent](../agents/observability-agent/AGENT.md) |
+| **Challenge** | [Critic Agent](../agents/critic-agent/AGENT.md), independent |
+| **Human owner** | trio; PM orders backlog; domain owner decides execution |
+| **Input** | events/sessions, gates, retries, feedback, incidents, costs, metrics, Daily hypotheses and previous demands |
+| **Exit** | report, memory proposal, Work Items for improvement and hypotheses under observation |
+| **Content gate** | evidence, context, trust, validity, privacy, quality and contradictions treated |
+| **Block Gate** | content + critique + persisted destinations + H6/politics + reconciliation |
+| **Dominant lap** | of the system — feeds back to the design of the other loops |
 
 ---
 
-## Preflight da janela
+## Window Preflight
 
-1. Fixar `period_id`, início/fim, timezone, projetos/workspaces incluídos e timestamp de corte.
-2. Congelar definições de métricas e baseline antes de observar o resultado. Alterar definição após ver os dados invalida comparação.
-3. Inventariar fontes: sessões, envelopes, gates, CI, reviews, releases, incidentes, custos, feedbacks e hipóteses do Daily Loop.
-4. Validar permissões, retenção e minimização; remover secrets e dados pessoais antes de disponibilizar dataset à análise.
-5. Correlacionar `mission_id`, `work_item_id`, `workflow`, gate, release e decisão; medir cobertura e eventos órfãos.
-6. Registrar falhas de coleta e comparabilidade. Queda de métrica causada por coleta ausente é alerta, não melhoria.
-7. Confirmar Critic independente e owners possíveis dos destinos.
+1. Fix `period_id`, start/end, timezone, included projects/workspaces and cutoff timestamp.
+2. Freeze metrics and baseline definitions before observing the result. Changing the setting after viewing the data invalidates the comparison.
+3. Inventory sources: sessions, envelopes, gates, CI, reviews, releases, incidents, costs, feedbacks and hypotheses from the Daily Loop.
+4. Validate permissions, retention and minimization; remove secrets and personal data before making dataset available for analysis.
+5. Correlate `mission_id`, `work_item_id`, `workflow`, gate, release and decision; measure coverage and orphan events.
+6. Record collection and comparability failures. Dropping metrics caused by missing collection is a warning, not an improvement.
+7. Confirm independent Critic and possible owners of the destinations.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "DREAM-<id>"
@@ -81,139 +81,139 @@ stop_conditions: []
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[Janela + fontes + baseline] --> B[Telemetry<br/>dataset governado]
-    A --> C[Observability<br/>releases, incidentes e SLOs]
-    B --> D{Qualidade suficiente?}
-    D -- não --> E[Alerta de coleta<br/>sem conclusão]
-    D -- sim --> F[Auto Dream<br/>padrões e hipóteses]
+TD flowchart
+    A[Window + sources + baseline] --> B[Telemetry<br/>governed dataset]
+    A --> C[Observability<br/>releases, incidents and SLOs]
+    B --> D{Enough quality?}
+    D -- no --> E[Collection alert<br/>no completion]
+    D -- yes --> F[Auto Dream<br/>patterns and hypotheses]
     C --> F
-    F --> G[Critic independente<br/>refutação/generalização]
-    G --> H[Auto Dream<br/>respostas e confiança]
-    H --> I{Destino}
-    I -- aprendizado --> J[Proposta ao Archivist/MEMORY]
-    I -- melhoria --> K[Work Item via Triage]
-    I -- baixa confiança --> L[Hipótese em observação]
-    J --> M{H6 obrigatório?}
+    F --> G[Independent critic<br/>rebuttal/generalization]
+    G --> H[Auto Dream<br/>answers and confidence]
+    H --> I{Destination}
+    I -- learning --> J[Proposal to Archivist/MEMORY]
+    I -- improvement --> K[Work Item via Triage]
+    I -- low confidence --> L[Hypothesis under observation]
+    J --> M{H6 required?}
     K --> M
-    M -- sim --> N[Trio decide H6]
-    M -- não --> O[Amostragem/política]
+    M -- yes --> N[Trio decides H6]
+    M -- no --> O[Sampling/policy]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — governar dados | Telemetry Agent | dataset, esquema, origem, cobertura, retenção, qualidade e limitações |
-| M2 — contexto operacional | Observability Agent | releases, rollbacks, incidentes, SLOs e baselines de saúde |
-| M3 — analisar sistema | Auto Dream Agent | padrões por loop/causa/impacto, hipóteses e confiança |
-| M4 — criticar | Critic Agent | contestação de evidência, causalidade, amostra, viés e generalização |
-| M5 — consolidar destinos | Auto Dream Agent | aprendizado, demanda ou hipótese; nunca mistura os três |
-| M6 — decidir H6 | trio/owner do sistema | aceitar, ajustar, observar ou rejeitar propostas sensíveis |
-| M7 — persistir | Knowledge/Intake owners | memória por gate do Archivist; Work Item pelo Triage |
+| M1 — govern data | Telemetry Agent | dataset, schema, source, coverage, retention, quality and limitations |
+| M2 — operational context | ObservabilityAgent | releases, rollbacks, incidents, SLOs and health baselines |
+| M3 — analyze system | Auto Dream Agent | patterns by loop/cause/impact, hypotheses and confidence |
+| M4 — criticize | Critical Agent | contesting evidence, causality, sample, bias and generalization |
+| M5 — consolidate destinations | Auto Dream Agent | learning, demand or hypothesis; never mixes the three |
+| M6 — decide H6 | trio/system owner | accept, adjust, observe or reject sensitive proposals |
+| M7 — persist | Knowledge/Intake owners | memory by Archivist gate; Work Item by Triage |
 
-M1 e M2 podem rodar em paralelo. M3 só inicia após o relatório de qualidade; o Auto Dream não recebe dados brutos não minimizados.
-
----
-
-## Métricas e uso seguro
-
-O relatório pode medir por loop:
-
-- lead/cycle time e tempo em espera;
-- número de voltas internas, médias e externas;
-- gate pass/fail/not-run e revalidações;
-- bloqueios, escalonamentos e causas;
-- retrabalho após H2/H3/H4;
-- defeitos escapados, rollback e incidentes;
-- custo, cobertura de evidence packs e qualidade de handoff;
-- níveis de autonomia e intervenções humanas registradas.
-
-Esses sinais avaliam desenho do fluxo. Alta taxa de retorno externo pode indicar entrada ruim ou gate tardio; não autoriza ranking de agente. Causalidade é hipótese até haver teste/controle suficiente.
+M1 and M2 can run in parallel. M3 only starts after the quality report; Auto Dream does not receive unminimized raw data.
 
 ---
 
-## Contrato dos três destinos
+## Metrics and secure usage
 
-| Destino | Conteúdo mínimo | Gate seguinte |
+The report can measure per loop:
+
+- lead/cycle time and waiting time;
+- number of internal, medium and external turns;
+- gate pass/fail/not-run and revalidations;
+- blockages, escalations and causes;
+- rework after H2/H3/H4;
+- escaped defects, rollback and incidents;
+- cost, evidence pack coverage and handoff quality;
+- levels of autonomy and recorded human interventions.
+
+These signals evaluate flow design. High external return rate may indicate poor entry or late gate; does not authorize agent ranking. Causality is hypothesized until there is sufficient testing/control.
+
+---
+
+## Contract of the three destinations
+
+| Destination | Minimum content | Next Gate |
 |---|---|---|
-| aprendizado | observação, contexto, evidência, alcance, confiança, validade e revisão futura | Archivist; H6 quando sensível |
-| demanda de melhoria | sintoma, frequência, impacto, evidência, causa provável, critério de aceite, owner recomendado e risco | Triage; PM prioriza na mesma fila do produto |
-| hipótese em observação | pergunta, sinal atual, evidência faltante e condição de promoção/descarte | próxima janela ou evento definido |
+| learning | observation, context, evidence, scope, confidence, validity and future review | Archivist; H6 when sensitive |
+| demand for improvement | symptom, frequency, impact, evidence, probable cause, acceptance criteria, recommended owner and risk | Triage; PM prioritizes in the same product queue |
+| hypothesis under observation | question, current signal, missing evidence and promotion/discard status | next window or event defined |
 
-Auto Dream não edita memória sensível sozinho, não cria prioridade definitiva e não altera gate/política/autonomia diretamente.
+Auto Dream does not edit sensitive memory alone, does not create definitive priority and does not change gate/policy/autonomy directly.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | Telemetry | `technical-discovery`, `analyse-bug`, `update-docs` |
 | Observability | `analyse-bug`, `technical-discovery`, `update-docs` |
 | Auto Dream | `analyse-bug`, `technical-discovery`, `update-docs` |
-| Critic | `review-prd`, `review-spec`, `code-review`, `review-cross-prd-spec` conforme a conclusão |
+| Critic | `review-prd`, `review-spec`, `code-review`, `review-cross-prd-spec` as per completion |
 
-Cada envelope registra `skills_used`. O Critic recebe relatório, dataset governado/agregado, definições e hipóteses; não recebe dados pessoais ou a narrativa privada do Auto Dream.
+Each envelope records `skills_used`. Critic receives report, governed/aggregated dataset, definitions and hypotheses; does not receive personal data or the private narrative of Auto Dream.
 
 ---
 
-## Persistência multiworkspace
+## Multiworkspace persistence
 
-| Artefato | Fonte canônica | Writer |
+| Artifact | Canonical source | Writer |
 |---|---|---|
-| relatório/dataset/qualidade | `<tech-lead-workspace>/projects/<project>/execution/telemetry/<period-id>.md` | Telemetry Agent |
-| relatório Dream | `execution/telemetry/<period-id>-dream.md` | Auto Dream Agent |
-| review do Critic | `execution/reviews/dream-<period-id>.md` | Critic Agent |
-| memória validada | `MEMORY.md` do workspace correspondente | Knowledge Agent após gate/owner |
-| demanda de melhoria | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | Intake Agent após triagem |
-| hipótese aberta | `.coordination/observations/` até próxima evidência | Auto Dream; trânsito |
-| decisão H6 | fonte de decisões do sistema de trabalho | trio/owner |
+| report/dataset/quality | `<tech-lead-workspace>/projects/<project>/execution/telemetry/<period-id>.md` | Telemetry Agent |
+| Dream report | `execution/telemetry/<period-id>-dream.md` | Auto Dream Agent |
+| Critic review | `execution/reviews/dream-<period-id>.md` | Critical Agent |
+| validated memory | `MEMORY.md` of the corresponding workspace | Knowledge Agent after gate/owner |
+| demand for improvement | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | Intake Agent after screening |
+| open hypothesis | `.coordination/observations/` until next evidence | AutoDream; traffic |
+| decision H6 | source of work system decisions | trio/owner |
 
-Relatório não substitui Work Item. Melhoria só está encaminhada quando chegou ao intake; aprendizado só está vigente quando passou pelo Archivist e foi promovido.
+Report does not replace Work Item. Improvement is only forwarded when it reaches intake; learning is only effective when you have passed the Archivist and been promoted.
 
 ---
 
 ## Gates
 
-### Gate de dados e análise
+### Data and analytics gate
 
-- [ ] janela, corte, baseline e definições são estáveis e comparáveis;
-- [ ] origem, cobertura, retenção e limitações estão explícitas;
-- [ ] secrets/dados pessoais foram removidos antes da análise;
-- [ ] eventos órfãos e falhas de coleta estão quantificados;
-- [ ] padrão, ocorrência isolada, correlação, hipótese e causalidade estão separados;
-- [ ] cada conclusão possui evidência, contexto, confiança e validade.
+- [ ] window, cut, baseline and definitions are stable and comparable;
+- [ ] origin, coverage, retention and limitations are explicit;
+- [ ] secrets/personal data were removed before analysis;
+- [ ] orphan events and collection failures are quantified;
+- [ ] pattern, isolated occurrence, correlation, hypothesis and causality are separated;
+- [ ] each conclusion has evidence, context, confidence and validity.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] Critic usou linha independente e cada contestação recebeu resposta;
-- [ ] conclusões contraditórias/baixa confiança não foram promovidas;
-- [ ] cada saída possui exatamente um destino e owner;
-- [ ] memória e backlog foram atualizados por seus workflows/owners, não pelo Auto Dream diretamente;
-- [ ] H6 ocorreu para P0/P1, memória sensível e toda mudança de gate/política/autonomia;
-- [ ] relatório, reviews, decisões e destinos estão ligados pelo `period_id`.
+- [ ] Critic used an independent line and each challenge received a response;
+- [ ] contradictory conclusions/low confidence were not promoted;
+- [ ] each output has exactly one destination and owner;
+- [ ] memory and backlog were updated by their workflows/owners, not by Auto Dream directly;
+- [ ] H6 occurred for P0/P1, sensitive memory and all gate/policy/autonomy changes;
+- [ ] report, reviews, decisions and destinations are linked by `period_id`.
 
 ---
 
-## H6, falhas e escalonamento
+## H6, failures and escalation
 
-| Condição | Ação |
+| Condition | Action |
 |---|---|
-| falha/queda de coleta | abrir alerta de telemetria; não concluir melhoria |
-| dados pessoais/secrets | interromper, remover com segurança e revisar acesso/retenção |
-| métricas não comparáveis | marcar `blocked/partial`; redefinir próxima janela antes de coletar |
-| baixa confiança/amostra insuficiente | manter hipótese com condição de nova evidência |
-| P0/P1, memória sensível, gate/política/autonomia | H6 obrigatório |
-| demanda de baixo risco | segue política/amostragem, mas entra no Triage |
-| contradição não resolvida | bloquear atualização automática e escalar ao trio |
-| proposta relaxa gate que a avaliaria | revisão independente + owner humano; nunca autoaprovação |
+| collection failure/drop | open telemetry alert; not complete improvement |
+| personal data/secrets | stop, securely remove, and review access/retention |
+| non-comparable metrics | mark `blocked/partial`; reset next window before collecting |
+| low confidence/insufficient sample | maintain hypothesis as new evidence |
+| P0/P1, sensitive memory, gate/policy/autonomy | H6 mandatory |
+| low risk demand | follows policy/sampling, but enters Triage |
+| unresolved contradiction | block automatic update and scale to trio |
+| proposal relaxes gate that would evaluate it | independent review + human owner; never self-approval |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "DREAM-<id>"
@@ -246,4 +246,4 @@ gates:
 handoff_to: []
 ```
 
-`period_closed` exige que dados, crítica, destinos e decisões sejam auditáveis; publicar um relatório não equivale a melhorar o sistema.
+`period_closed` requires that data, criticism, destinations and decisions are auditable; publishing a report does not equate to improving the system.

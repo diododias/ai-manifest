@@ -1,6 +1,6 @@
 ---
 name: review-prd
-description: Consolida requisitos e histórias em um PRD com objetivos, regras e critérios de sucesso rastreáveis. Use depois da discovery e do refinamento de produto, antes da especificação técnica.
+description: Consolidates requirements and stories into a PRD with trackable goals, rules, and success criteria. Use after discovery and product refinement, before technical specification.
 ---
 
 ## User Input
@@ -13,123 +13,123 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Consolidar o PRD Plan a partir das histórias escritas e do `requisitos.md`, validando que todos os requisitos estão cobertos.
+Consolidate the PRD Plan based on the written stories and `requisitos.md`, validating that all requirements are covered.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar o PRD, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating the PRD, follow [the shared agreement](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `teamwork/plan/feature-plan-<feature-slug>/historias.md`
-- **Obrigatório:** `business-discovery/<feature-slug>/requisitos.md`
-- **Opcional:** transcrição da agenda de refinamento (para contexto adicional)
+- **Required:** `teamwork/plan/feature-plan-<feature-slug>/historias.md`
+- **Required:** `business-discovery/<feature-slug>/requisitos.md`
+- **Optional:** transcription of the refinement agenda (for additional context)
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira dos artefatos.
-- Verifique se os arquivos de entrada existem.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from artifacts.
+- Check if the input files exist.
 
-### 2. Carregar contexto
+### 2. Load context
 
-- Leia `historias.md` — base para o PRD.
-- Leia `requisitos.md` — baseline de requisitos para validação de cobertura.
+- Read `historias.md` — basis for the PRD.
+- Read `requisitos.md` — baseline requirements for coverage validation.
 
-### 3. Consolidar o PRD
+### 3. Consolidate the PRD
 
-Crie `.agents/prd/<feature-slug>/PRD.md` (crie os diretórios se necessário) no formato:
+Create `.agents/prd/<feature-slug>/PRD.md` (create directories if necessary) in the format:
 
 ```markdown
 # PRD — <Feature Name>
 
 **Feature:** <slug>
-**Status:** 🟡 Em revisão
-**Data:** <YYYY-MM-DD>
-**Autor:** PM (via review-prd)
+**Status:** 🟡 Under review
+**Date:** <YYYY-MM-DD>
+**Author:** PM (via review-prd)
 
 ---
 
-## 1. Objetivo
+## 1. Objective
 
-<descrição clara do problema de negócio que a feature resolve, extraída do contexto das histórias e requisitos>
+<clear description of the business problem that the feature solves, extracted from the context of the stories and requirements>
 
-## 2. Histórias
+## 2. Stories
 
-| ID | Título | Prioridade | Requisitos |
-|----|--------|------------|------------|
+| ID | Title | Priority | Requirements |
+|----|------------|------------|------------|
 | HIST-01 | ... | P1 | RN-XX, US-1 |
 | HIST-02 | ... | P2 | RN-YY, US-2 |
 
-### HIST-01: <Título>
+### HIST-01: <Title>
 
-<contexto, critérios de aceite, dependências — copiar de historias.md>
+<context, acceptance criteria, dependencies — copy from historias.md>
 
-## 3. Critérios de Sucesso
+## 3. Success Criteria
 
-| ID | Métrica | Alvo | História |
+| ID | Metric | Target | History |
 |----|---------|------|----------|
 | SC-01 | ... | ... | HIST-XX |
 
-## 4. Regras de Negócio
+## 4. Business Rules
 
-| ID | Regra | Exemplo | Cenário |
+| ID | Rule | Example | Scenario |
 |----|-------|---------|---------|
-| RN-01 | ... | ... | <cenário Gherkin> |
+| RN-01 | ... | ... | <Gherkin scenario> |
 
-## 5. Fora de Escopo
+## 5. Out of Scope
 
-<itens explicitamente fora de escopo, extraídos de requisitos.md>
+<items explicitly out of scope, taken from requirements.md>
 
-## 6. Gaps e Pendências
+## 6. Gaps and Issues
 
-| ID | Descrição | Status |
+| ID | Description | Status |
 |----|-----------|--------|
-| DA-01 | ... | ⏳ Aberto |
+| DA-01 | ... | ⏳ Open |
 
-## 7. Fluxos
+## 7. Flows
 
 ### Happy Path
-<fluxo principal>
+<main flow>
 
-### Exceções
-<fluxos de exceção e edge cases>
+### Exceptions
+<exception flows and edge cases>
 
-## 8. Glossário
+## 8. Glossary
 
-| Termo | Definição |
+| Term | Definition |
 |-------|-----------|
 | ... | ... |
 ```
 
-### 4. Validar cobertura
+### 4. Validate coverage
 
-Compare o PRD contra `requisitos.md`:
+Compare PRD against `requisitos.md`:
 
-- Todas as US-X estão vinculadas a pelo menos uma história?
-- Todas as RN-XX aparecem no PRD?
-- Todos os SC-XX estão vinculados a histórias?
-- Gaps/DA-XX foram transferidos?
+- Are all US-X linked to at least one story?
+- Do all RN-XX appear in the PRD?
+- Are all SC-XX story-bound?
+- Have Gaps/DA-XX been transferred?
 
-Liste cobertos e não cobertos.
+List covered and not covered.
 
-### 5. Reportar no chat
+### 5. Report in chat
 
-- Resumo: X histórias consolidadas, Y regras vinculadas, Z SC definidos.
-- Lista de requisitos não cobertos (se houver).
-- Status do PRD (pronto para revisão / precisa de ajustes).
+- Summary: X consolidated stories, Y linked rules, Z SC defined.
+- List of requirements not covered (if any).
+- PRD status (ready for review / needs adjustments).
 
-## Convenções
+## Conventions
 
-- PRD segue o formato padrão do time.
-- Cada história mantém vínculo rastreável com requisitos (RN, US, SC).
-- Status: 🟡 Em revisão → 🟢 Aprovado → ✅ Implementado.
-- Português. Gherkin pt-BR para cenários.
+- PRD follows the team's standard format.
+- Each story maintains traceable link to requirements (RN, US, SC).
+- Status: 🟡 Under review → 🟢 Approved → ✅ Implemented.
+- Portuguese. Gherkin pt-BR for scenarios.
 
-## Done When
+##DoneWhen
 
-- [ ] `PRD.md` criado em `.agents/prd/<feature-slug>/`
-- [ ] Cobertura validada: todos os requisitos do `requisitos.md` mapeados
-- [ ] Gaps/DA-XX transferidos para seção de pendências
-- [ ] Resumo reportado no chat
+- [ ] `PRD.md` created in `.agents/prd/<feature-slug>/`
+- [ ] Validated coverage: all `requisitos.md` requirements mapped
+- [ ] Gaps/DA-XX transferred to pending section
+- [ ] Summary reported in chat

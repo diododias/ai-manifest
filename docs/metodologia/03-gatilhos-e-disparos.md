@@ -1,137 +1,137 @@
-# 03 — Gatilhos e disparos
+#03 — Triggers and shots
 
-> O que dispara o quê, quando, e o que nunca dispara sozinho.
+> What triggers what, when, and what never triggers itself.
 
-Um catálogo de loops descreve o que acontece **dentro** de cada etapa. Ele não responde à pergunta que aparece na primeira semana de operação: *o que faz a próxima etapa começar?* Se a resposta for "alguém lembra", o modelo não é agentico — é um processo manual com agentes dentro.
+A loop catalog describes what happens **inside** each step. It doesn't answer the question that appears in the first week of operation: *what makes the next step start?* If the answer is "does anyone remember", the model is not agentic — it is a manual process with agents inside.
 
-Esta página documenta o sistema nervoso do fluxo. Todo movimento tem um gatilho declarado, e todo gatilho pertence a uma de três naturezas, com propriedades diferentes.
+This page documents the flow nervous system. Every movement has a declared trigger, and every trigger belongs to one of three natures, with different properties.
 
-| Natureza | Origem | Propriedade que a define |
+| Nature | Origin | Property that defines it |
 |---|---|---|
-| **Por evento** | algo mudou de estado no sistema | reage imediatamente e não depende de ninguém lembrar |
-| **Por calendário** | passou o tempo | acontece mesmo quando não houve entrega |
-| **Manual** | uma pessoa acionou | é sempre registrado, nunca implícito |
+| **By event** | something changed state in the system | reacts immediately and does not depend on anyone remembering |
+| **By calendar** | passed the time | happens even when there was no delivery |
+| **Manual** | one person triggered | is always recorded, never implied |
 
-A regra que atravessa as três: **um gatilho que não deixa rastro não existe.** Toda ativação registra origem, momento, missão despachada e owner notificado — é isso que permite ao [🌙 Dream Loop](../loops/10-continuous-improvement.md) medir o desenho do fluxo em vez de opinar sobre ele.
+The rule that cuts across all three: **a trigger that leaves no trace does not exist.** Every activation records origin, moment, mission dispatched and owner notified — this is what allows [🌙 Dream Loop](../loops/10-continuous-improvement.md) to measure the flow design instead of giving an opinion on it.
 
 ---
 
-## Disparos por evento
+## Triggers per event
 
-A coluna mais importante é a última: **quem fica sabendo**. Um disparo que aciona um agente sem notificar ninguém produz trabalho invisível, e trabalho invisível é o que aparece semanas depois como surpresa.
+The most important column is the last one: **who knows**. A shot that triggers an agent without notifying anyone produces invisible work, and invisible work is what appears weeks later as a surprise.
 
-| Evento | Aciona | Consolida | Notifica |
+| Event | Activate | Consolidate | Notify |
 |---|---|---|---|
-| Solicitação, incidente ou feedback chega | [🚦 Triage Loop](../loops/00-intake-and-triage.md) | Intake Agent | PM |
-| Transcrição de reunião registrada | Meeting Context → [🚦 Triage](../loops/00-intake-and-triage.md) | Intake Agent | PM |
-| Work Item priorizado pelo PM | [🔦 Scout Loop](../loops/01-discovery-and-research.md) | Product Manager Agent | PM e UX |
-| Gate de discovery aprovado | **H1** | — | PM ou sponsor |
-| H1 respondido com "avançar" | [🎨 Studio Loop](../loops/02-product-and-ux-planning.md) | PM + UX Specification | PM e UX |
-| Gate de produto aprovado | **H2** | — | PM, com UX |
-| H2 aprovado | [🗺️ Drafting Loop](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead |
-| ADR nova, exceção ou risco R3/R4 detectados | **H3** | — | Tech Lead |
-| Especificação aprovada, tarefas elegíveis | [🔁 Ralph Loop](../loops/04-autonomous-implementation.md) | Orchestrator Agent | ninguém, no fluxo saudável |
-| Sensor local reprova | volta interna do próprio agente | o agente | ninguém, dentro do limite de tentativas |
-| Limite de tentativas atingido | escalonamento | Orchestrator | Tech Lead |
-| Push com mudança pronta | [⚔️ Red Team Loop](../loops/05-adversarial-validation.md) e CI | QA / Validation | ninguém, se verde |
-| CI reprova | volta para [🔁 Ralph](../loops/04-autonomous-implementation.md) | Orchestrator | Tech Lead, se recorrente |
-| Validação adversarial aprovada | [🚪 Gatekeeper Loop](../loops/06-pr-and-merge.md) | PR Agent | Code Owners dos paths tocados |
-| PR aberto com CI verde | **H4**, conforme risco | — | Code Owner |
-| Merge concluído | [🎭 Rehearsal Loop](../loops/07-release-candidate-validation.md) | Product Validation | PM e UX, se houver experiência nova |
-| Release candidate aprovado | [🐤 Canary Loop](../loops/08-production-release-and-observation.md) | Release Agent | Tech Lead |
-| Risco R3/R4 ou exposição crítica | **H5** | — | Tech Lead e PM |
-| Janela de observação sem regressão | [🗄️ Archivist Loop](../loops/09-knowledge-curation.md) | Knowledge Agent | owner do domínio |
-| Regressão detectada após deploy | rollback automático e volta para [🔁 Ralph](../loops/04-autonomous-implementation.md) | Release + Observability | Tech Lead, imediatamente |
-| Incidente em produção | [🚦 Triage](../loops/00-intake-and-triage.md) com prioridade elevada | Intake Agent | PM e Tech Lead |
+| Request, incident or feedback arrives | [🚦 Triage Loop](../loops/00-intake-and-triage.md) | Intake Agent | PM |
+| Recorded meeting transcript | Meeting Context → [🚦 Triage](../loops/00-intake-and-triage.md) | Intake Agent | PM |
+| Work Item prioritized by PM | [🔦 Scout Loop](../loops/01-discovery-and-research.md) | Product Manager Agent | PM and UX |
+| Approved discovery gate | **H1** | — | PM or sponsor |
+| H1 answered with "advance" | [🎨 Studio Loop](../loops/02-product-and-ux-planning.md) | PM + UX Specification | PM and UX |
+| Approved Product Gate | **H2** | — | PM, with UX |
+| H2 approved | [🗺️ Drafting Loop](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead |
+| New ADR, exception or R3/R4 risk detected | **H3** | — | Tech Lead |
+| Approved specification, eligible tasks | [🔁 Ralph Loop](../loops/04-autonomous-implementation.md) | Orchestrator Agent | nobody, in healthy flow |
+| Local sensor fails | internal return of the agent himself | the agent | nobody, within the limit of attempts |
+| Attempt limit reached | escalation | Orchestrator | Tech Lead |
+| Push with change ready | [⚔️ Red Team Loop](../loops/05-adversarial-validation.md) and CI | QA/Validation | nobody, if green |
+| CI disapproves | back to [🔁 Ralph](../loops/04-autonomous-implementation.md) | Orchestrator | Tech Lead, if recurring |
+| Adversarial validation approved | [🚪 Gatekeeper Loop](../loops/06-pr-and-merge.md) | PR Agent | Code Owners of the paths played |
+| Open PR with green CI | **H4**, depending on risk | — | Code Owner |
+| Merge completed | [🎭 Rehearsal Loop](../loops/07-release-candidate-validation.md) | Product Validation | PM and UX, if there is new experience |
+| Release candidate approved | [🐤 Canary Loop](../loops/08-production-release-and-observation.md) | ReleaseAgent | Tech Lead |
+| R3/R4 risk or critical exposure | **H5** | — | Tech Lead and PM |
+| Observation window without regression | [🗄️ Archivist Loop](../loops/09-knowledge-curation.md) | Knowledge Agent | domain owner |
+| Regression detected after deploy | automatic rollback and return to [🔁 Ralph](../loops/04-autonomous-implementation.md) | Release + Observability | Tech Lead, immediately |
+| Incident in production | [🚦 Triage](../loops/00-intake-and-triage.md) with high priority | Intake Agent | PM and Tech Lead |
 
-### Eventos que mudam a classe de risco
+### Events that change the risk class
 
-Alguns eventos não acionam um loop: eles alteram quantas aprovações o item passará a exigir. Reconhecê-los é o que impede que uma mudança se torne perigosa sem que nada no fluxo registre isso.
+Some events do not trigger a loop: they change how many approvals the item will require. Recognizing them is what prevents a change from becoming dangerous without anything in the flow registering it.
 
-| Evento | Efeito |
+| Event | Effect |
 |---|---|
-| Mudança toca path sensível declarado | eleva risco automaticamente |
-| Mudança altera rules, sensors ou CI | eleva risco automaticamente e exige revisor independente |
-| Escopo alterado após aprovação | recalcula risco e invalida a aprovação relacionada |
-| Dúvida relevante permanece aberta | impede classificação como R0 ou R1 |
+| Change touches sensitive path declared | automatically increases risk |
+| Change alters rules, sensors or CI | automatically raises risk and requires independent reviewer |
+| Scope changed after approval | recalculates risk and invalidates related approval |
+| Relevant question remains open | prevents classification as R0 or R1 |
 
 ---
 
-## Disparos por calendário
+## Triggers by calendar
 
-Dois circuitos giram por tempo. Eles existem porque o que observam — o estado do sistema de trabalho — não gera evento próprio: um item parado há três dias não dispara nada por si mesmo.
+Two circuits rotate per time. They exist because what they observe — the state of the work system — does not generate its own event: an item that has been stopped for three days does not trigger anything on its own.
 
-| Cadência | Aciona | Consolida | Entrega a |
+| Cadence | Activate | Consolidate | Delivery to |
 |---|---|---|---|
-| **Diária, início do dia** | [☀️ Daily Loop](../loops/11-daily-operations.md) | Auto Dream Agent | briefing ao owner do workspace |
-| **Semanal** | [🌙 Dream Loop](../loops/10-continuous-improvement.md) | Auto Dream Agent | H6, ao trio |
-| **Extraordinária, após incidente relevante** | [🌙 Dream Loop](../loops/10-continuous-improvement.md) | Auto Dream Agent | H6, ao trio |
+| **Daily, start of the day** | [☀️ Daily Loop](../loops/11-daily-operations.md) | Auto Dream Agent | briefing to the workspace owner |
+| **Weekly** | [🌙 Dream Loop](../loops/10-continuous-improvement.md) | Auto Dream Agent | H6, three of a kind |
+| **Extraordinary, after relevant incident** | [🌙 Dream Loop](../loops/10-continuous-improvement.md) | Auto Dream Agent | H6, three of a kind |
 
-O detalhe do que cada cadência faz está em [Ritmos e cadências](04-ritmos-e-cadencias.md). O que importa aqui é a propriedade: **um disparo por calendário não pode ser silenciosamente pulado.** Falha de coleta abre alerta; um dia sem dados é um sinal, não a ausência de um.
+The detail of what each cadence does is in [Rhythms and cadences](04-ritmos-e-cadencias.md). What matters here is the property: **one trigger per calendar cannot be silently skipped.** Collection failure opens alert; a day without data is a signal, not the absence of one.
 
 ---
 
-## Disparos manuais
+## Manual shooting
 
-Existe um conjunto pequeno de acionamentos que uma pessoa faz diretamente. Todos são registrados, e a maioria é uma forma de **intervir no fluxo**, não de iniciá-lo.
+There is a small set of actions that a person makes directly. All are recorded, and most are a way of **intervening in the flow**, not starting it.
 
-| Ação | Quem pode | Efeito | Registro obrigatório |
+| Action | Who can | Effect | Registration required |
 |---|---|---|---|
-| Priorizar ou despriorizar um Work Item | PM | move o item para a fila de discovery, ou o retira | razão da mudança |
-| Devolver um artefato a um loop anterior | owner do checkpoint | reabre a etapa com pergunta nova | a pergunta que motivou a devolução |
-| Solicitar discovery adicional | PM ou UX | nova rodada do [🔦 Scout](../loops/01-discovery-and-research.md) com escopo declarado | a lacuna a ser fechada |
-| Abrir exceção arquitetural | Tech Lead | libera o avanço com dívida declarada | ADR com prazo e plano de reversão |
-| Pausar ou reverter um rollout | Tech Lead | interrompe a exposição | sinal observado e decisão |
-| Rebaixar nível de autonomia | Tech Lead | reintroduz checkpoints | métrica que motivou |
-| Executar um loop em `dry-run` | qualquer owner | valida o contrato sem efeito colateral | nenhum, por não haver efeito |
+| Prioritize or deprioritize a Work Item | PM | moves the item to the discovery queue, or removes it | reason for change |
+| Return an artifact to a previous loop | checkpoint owner | reopens the stage with new question | the question that prompted the return |
+| Request additional discovery | PM or UX | new round of [🔦 Scout](../loops/01-discovery-and-research.md) with declared scope | the gap to be closed |
+| Open architectural exception | Tech Lead | releases the advance with declared debt | ADR with term and reversion plan |
+| Pause or reverse a rollout | Tech Lead | interrupts the exhibition | observed signal and decision |
+| Lower autonomy level | Tech Lead | reintroduces checkpoints | metric that motivated |
+| Loop in `dry-run` | any owner | validates the contract without side effects | none, as there is no effect |
 
-Um comentário sobre o penúltimo item. **Rebaixar autonomia é uma ação normal do modelo**, não uma admissão de fracasso. A autonomia sobe por evidência e desce pela mesma via; um sistema em que ela só sobe está medindo mal.
+A comment on the penultimate item. **Downgrading autonomy is a normal model action**, not an admission of failure. Autonomy rises through evidence and descends through the same path; a system in which it only goes up is measuring poorly.
 
 ---
 
-## O que nunca dispara sozinho
+## What never fires alone
 
-Esta é a lista que define o limite do modelo. Cada linha tem uma razão estrutural, não uma preferência de estilo.
+This is the list that defines the limit of the model. Each line has a structural reason, not a style preference.
 
-| Nunca automático | Por quê |
+| Never automatic | Why |
 |---|---|
-| Prioridade de um Work Item | prioridade é comparação entre itens, e a comparação exige a intenção do negócio |
-| Aprovação de escopo | quem propôs o escopo tem incentivo estrutural para aprová-lo |
-| Exceção arquitetural | uma exceção que se concede sozinha deixa de ser exceção |
-| Exposição de risco R3/R4 | o custo de errar é irreversível ou de grande alcance |
-| Alteração de gate, rule ou nível de autonomia | um sistema que relaxa a própria verificação converge para a ausência de verificação |
-| Encerramento de um item por duplicidade | encerrar sem vínculo explícito faz o item sumir do rastro |
-| Escrita em `MEMORY.md` de aprendizado de baixa confiança | memória inflacionada deixa de ser lida, e memória não lida é pior que ausente |
+| Priority of a Work Item | priority is comparison between items, and comparison requires business intent |
+| Scope approval | whoever proposed the scope has a structural incentive to approve it |
+| Architectural exception | an exception that grants itself ceases to be an exception |
+| Risk exposure R3/R4 | the cost of making mistakes is irreversible or far-reaching |
+| Changing gate, rule or autonomy level | a system that relaxes verification itself converges to no verification |
+| Closing an item due to duplicity | closing without explicit link makes the item disappear from the trail |
+| Written in low-confidence learning `MEMORY.md` | inflated memory stops being read, and unread memory is worse than missing |
 
-A regra geral por trás das sete linhas: **automação decide o verificável; pessoa decide o comparável e o irreversível.**
-
----
-
-## Como um disparo é executado
-
-Todo acionamento — por evento, calendário ou mão humana — atravessa a mesma sequência antes de virar trabalho. Ela existe para que nenhuma missão comece sem autoridade declarada.
-
-1. O gatilho é registrado com origem, momento e item afetado.
-2. O Orchestrator monta a **identidade da missão**: objetivo, escopo e fora de escopo, fontes canônicas, critérios de aceite, gates, risco, tools autorizadas, budget, condição de parada e owner humano.
-3. A missão é despachada ao agente consolidador do loop correspondente.
-4. O loop gira conforme seu contrato em [`loops/`](../loops/README.md).
-5. O envelope de saída volta ao Orchestrator com status, confiança e skills usadas.
-6. O handoff atravessa a fronteira: o artefato chega à fonte canônica e o owner é notificado se houver decisão pendente.
-
-**Uma missão com qualquer campo de identidade ausente não deve ser executada** — a ausência é, na prática, uma autorização em branco. O detalhe dos campos está em [Agentes](../AGENTES.md).
+The general rule behind the seven lines: **automation decides the verifiable; person decides what is comparable and what is irreversible.**
 
 ---
 
-## Falhas típicas do sistema de disparos
+## How a shot is executed
 
-| Falha | Sintoma | Correção |
+Every trigger — by event, calendar or human hand — goes through the same sequence before becoming work. It exists so that no mission can begin without declared authority.
+
+1. The trigger is recorded with origin, time and affected item.
+2. The Orchestrator assembles the **mission identity**: objective, scope and out-of-scope, canonical sources, acceptance criteria, gates, risk, authorized tools, budget, stopping condition and human owner.
+3. The mission is dispatched to the corresponding loop consolidator agent.
+4. The loop rotates according to your contract in [`loops/`](../loops/README.md).
+5. The outgoing envelope returns to Orchestrator with status, confidence and skills used.
+6. Handoff crosses the border: the artifact arrives at the canonical source and the owner is notified if there is a pending decision.
+
+**A mission with any missing identity field should not be performed** — the absence is, in effect, a blank authorization. Details of the fields are in [Agents](../AGENTES.md).
+
+---
+
+## Typical failures of the firing system
+
+| Failure | Symptom | Correction |
 |---|---|---|
-| Gatilho implícito | uma etapa só começa quando alguém pergunta por ela | declarar o evento que a inicia, ou aceitá-la como cadência |
-| Disparo sem notificação | trabalho concluído que ninguém sabia estar em curso | todo disparo declara quem é notificado, mesmo que seja "ninguém" |
-| Escalonamento sem prazo | o item fica em aberto indefinidamente | escalonamento carrega decisão pedida e data-limite |
-| Cadência pulada em silêncio | um dia ou uma semana somem do histórico | falha de coleta abre alerta, nunca resultado vazio |
-| Reentrada não declarada | o trabalho volta a um loop anterior sem registro | toda devolução carrega a pergunta que a motivou |
+| Implicit trigger | a stage only begins when someone asks about it | declare the event that initiates it, or accept it as a cadence |
+| Shooting without notification | work completed that no one knew was underway | every shot declares who is notified, even if it is "nobody" |
+| Escalation without deadline | the item remains open indefinitely | escalation carries requested decision and deadline |
+| Cadence skipped in silence | a day or a week disappears from the history | collection failure opens alert, never empty result |
+| Undeclared reentry | work returns to a previous loop without registration | every return carries the question that motivated it |
 
 ---
 
-*Anterior: [Checkpoints humanos](02-checkpoints-humanos.md) · Próximo: [Ritmos e cadências](04-ritmos-e-cadencias.md).*
+*Previous: [Human Checkpoints](02-checkpoints-humanos.md) · Next: [Rhythms and Cadences](04-ritmos-e-cadencias.md).*

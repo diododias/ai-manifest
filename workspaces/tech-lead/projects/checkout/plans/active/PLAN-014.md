@@ -8,21 +8,21 @@ work_items:
 updated_at: 2026-08-08
 ---
 
-# Implementar idempotência de pagamentos
+# Implement payment idempotence
 
-## Resultado esperado
+## Expected result
 
-Atender `REQ-001` e `SPEC-001` no `checkout-api`, com comportamento concorrente comprovado.
+Serve `REQ-001` and `SPEC-001` on `checkout-api`, with proven concurrent behavior.
 
-## Etapas
+## Steps
 
-- [x] Aprovar a decisão arquitetural.
-- [x] Definir o contrato técnico.
-- [ ] Implementar persistência, conflito e replay.
-- [ ] Executar testes unitários e de integração.
-- [ ] Registrar review e evidências.
+- [x] Approve the architectural decision.
+- [x] Define the technical contract.
+- [ ] Implement persistence, conflict and replay.
+- [ ] Run unit and integration tests.
+- [ ] Register review and evidence.
 
-## Riscos
+## Risks
 
-- Corrida entre tentativas: mitigar com unicidade no armazenamento e teste concorrente.
-- Replay de payload divergente: comparar impressão digital e retornar conflito.
+- Race between attempts: mitigate with uniqueness in storage and concurrent testing.
+- Divergent payload replay: compare fingerprint and return conflict.

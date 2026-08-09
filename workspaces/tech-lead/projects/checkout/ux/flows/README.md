@@ -1,3 +1,3 @@
-# Fluxos
+# Streams
 
-Armazene aqui os fluxos de experiência específicos do checkout e seus estados de erro, retry e recuperação.
+Store checkout-specific experience flows and their error, retry, and recovery states here.

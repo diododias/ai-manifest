@@ -1,8 +1,8 @@
-# Plano de validação
+# Validation plan
 
-1. Validar compreensão dos estados de processamento, sucesso e indeterminado.
-2. Verificar se participantes escolhem uma ação segura após timeout.
-3. Executar inspeção de teclado, foco, semântica e anúncio.
-4. Registrar achados por severidade e critério de UX.
+1. Validate understanding of processing, success and indeterminate states.
+2. Check whether participants choose a safe action after timeout.
+3. Perform Keyboard, Focus, Semantic, and Announcement Inspection.
+4. Record findings by severity and UX criteria.
 
-Validação deve usar protótipo ou implementação com fidelidade suficiente para a decisão.
+Validation must use prototype or implementation with sufficient fidelity for the decision.

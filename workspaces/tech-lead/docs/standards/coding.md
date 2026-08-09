@@ -1,7 +1,7 @@
-# Padrão de código
+# Code pattern
 
-- Respeite o `AGENTS.md`, formatadores e convenções do repositório alterado.
-- Restrinja a mudança ao Work Item ativo.
-- Preserve compatibilidade ou documente explicitamente a ruptura.
-- Não introduza segredo, credencial, artefato gerado ou dependência sem justificativa.
-- Remova código morto criado ou tornado obsoleto pela própria mudança.
+- Respect the `AGENTS.md`, formatters and conventions of the changed repository.
+- Restrict the change to the active Work Item.
+- Preserve compatibility or explicitly document breakage.
+- Do not introduce secret, credential, generated artifact or dependency without justification.
+- Remove dead code created or made obsolete by the change itself.

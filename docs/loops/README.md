@@ -1,96 +1,96 @@
-# Contratos individuais dos loops
+# Individual loop contracts
 
-Este diretório contém a documentação das 12 etapas da jornada, um arquivo por loop. O conceito geral — o que é um loop, as três voltas, como agentes, skills, tools, MCPs, sensors e gates se encaixam em cada giro — está em [Loops — How Loops Work](../LOOPS.md); aqui ficam os contratos específicos.
+This directory contains documentation for the 12 steps of the journey, one file per loop. The general concept — what a loop is, the three loops, how agents, skills, tools, MCPs, sensors and gates fit into each loop — is in [Loops — How Loops Work](../LOOPS.md); Here are the specific contracts.
 
-## Como ler um contrato
+## How to read a contract
 
-Cada arquivo segue a mesma estrutura, e a leitura na ordem abaixo responde às perguntas na sequência em que normalmente surgem:
+Each file follows the same structure, and reading in the order below answers the questions in the sequence in which they normally arise:
 
-| Seção | Responde |
+| Section | Reply |
 |---|---|
-| **Contrato operacional** | o que entra, quem consolida, quem desafia, o que sai, qual gate e qual owner humano |
-| **Sequência** | a ordem das missões, o que roda em paralelo e onde cada volta fecha |
-| **Handoffs** | o que atravessa a fronteira na entrada e na saída |
-| **O que este loop não faz** | os limites explícitos da etapa e a razão de cada um |
-| **Falhas típicas** | o modo de falha recorrente e o sintoma pelo qual ele é reconhecido |
-| **Artefatos e onde vivem** | o destino canônico de cada saída e o que é apenas trânsito |
-| **Escalonamento** | a condição de parada e o owner humano da decisão |
+| **Operating contract** | what comes in, who consolidates, who challenges, what comes out, which gate and which human owner |
+| **Sequence** | the order of the missions, what runs in parallel and where each turn ends |
+| **Handoffs** | what crosses the border at entry and exit |
+| **What this loop doesn't do** | the explicit limits of the step and the reason for each |
+| **Typical faults** | the recurring failure mode and the symptom by which it is recognized |
+| **Artifacts and where they live** | the canonical destination of each exit and what is just transit |
+| **Scaling** | the stopping condition and the human owner of the decision |
 
-Todo loop cumpre, além dessas particularidades, o **contrato comum**: seis itens obrigatórios, um único agente consolidador, crítica por instância independente, handoff que separa fato de hipótese, e artefato que só se considera entregue quando chega à fonte canônica. Um contrato individual deve ser lido como "o contrato comum, mais estas particularidades".
+Every loop fulfills, in addition to these particularities, the **common contract**: six mandatory items, a single consolidating agent, criticism by an independent instance, handoff that separates fact from hypothesis, and an artifact that is only considered delivered when it reaches the canonical source. An individual contract should be read as "the common contract, plus these particulars".
 
-## Entrada
+## Entry
 
-Recebe o que chega de fora e organiza o trabalho dos demais.
+Receives what arrives from outside and organizes the work of others.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 0 | [Intake e triagem](00-intake-and-triage.md) | 🚦 Triage Loop | Intake Agent |
+| 0 | [Intake and screening](00-intake-and-triage.md) | 🚦 Triage Loop | Intake Agent |
 
-## Produto e discovery
+## Product and discovery
 
-Estruturam o problema antes de qualquer solução, com o par produção/crítica já presente.
+They structure the problem before any solution, with the production/criticism pair already present.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 1 | [Discovery e research](01-discovery-and-research.md) | 🔦 Scout Loop | Product Manager Agent |
-| 2 | [Planejamento de produto e UX](02-product-and-ux-planning.md) | 🎨 Studio Loop | Product Manager + UX Specification |
+| 1 | [Discovery and research](01-discovery-and-research.md) | 🔦Scout Loop | Product Manager Agent |
+| 2 | [Product and UX planning](02-product-and-ux-planning.md) | 🎨 Studio Loop | Product Manager + UX Specification |
 
-## Especificação
+## Specification
 
-Converte o produto aprovado em estratégia técnica executável.
+Converts the approved product into an executable technical strategy.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 3 | [Especificação técnica](03-technical-specification.md) | 🗺️ Drafting Loop | Specification Tech Lead Agent |
+| 3 | [Technical specification](03-technical-specification.md) | 🗺️ Drafting Loop | Specification Tech Lead Agent |
 
-## Construção e validação
+## Construction and validation
 
-Onde a separação entre produzir e aprovar fica mais visível — e onde as três voltas giram mais rápido.
+Where the separation between producing and approving becomes more visible — and where the three turns rotate faster.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 4 | [Implementação autônoma](04-autonomous-implementation.md) | 🔁 Ralph Loop | Orchestrator Agent |
-| 5 | [Validação adversarial](05-adversarial-validation.md) | ⚔️ Red Team Loop | QA / Validation Agent |
-| 6 | [PR e merge](06-pr-and-merge.md) | 🚪 Gatekeeper Loop | PR Agent |
+| 4 | [Standalone implementation](04-autonomous-implementation.md) | 🔁Ralph Loop | Orchestrator Agent |
+| 5 | [Adversarial validation](05-adversarial-validation.md) | ⚔️ Red Team Loop | QA / Validation Agent |
+| 6 | [PR and merge](06-pr-and-merge.md) | 🚪 Gatekeeper Loop | PR Agent |
 
-## Release e operação
+## Release and operation
 
-Confirmam valor em ambiente representativo e expõem a mudança de forma controlada.
+They confirm value in a representative environment and expose change in a controlled way.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 7 | [Homologação](07-release-candidate-validation.md) | 🎭 Rehearsal Loop | Product Validation Agent |
-| 8 | [Produção e observação](08-production-release-and-observation.md) | 🐤 Canary Loop | Release Agent |
+| 7 | [Approval](07-release-candidate-validation.md) | 🎭 Rehearsal Loop | Product Validation Agent |
+| 8 | [Production and observation](08-production-release-and-observation.md) | 🐤 Canary Loop | ReleaseAgent |
 
-## Conhecimento e melhoria
+## Knowledge and improvement
 
-Fecham a volta mais longa: a que tem o próprio sistema de trabalho como objeto.
+They close the longest loop: the one that has the work system itself as an object.
 
-| # | Loop | Codinome | Consolida |
+| # | Loop | Codename | Consolidate |
 |---:|---|---|---|
-| 9 | [Curadoria de conhecimento](09-knowledge-curation.md) | 🗄️ Archivist Loop | Knowledge Agent |
-| 10 | [Telemetria e melhoria contínua](10-continuous-improvement.md) | 🌙 Dream Loop | Auto Dream Agent |
-| 11 | [Operação diária](11-daily-operations.md) | ☀️ Daily Loop | Auto Dream Agent |
+| 9 | [Knowledge curation](09-knowledge-curation.md) | 🗄️ Archivist Loop | Knowledge Agent |
+| 10 | [Telemetry and continuous improvement](10-continuous-improvement.md) | 🌙Dream Loop | Auto Dream Agent |
+| 11 | [Daily Operation](11-daily-operations.md) | ☀️ Daily Loop | Auto Dream Agent |
 
-Os loops 10 e 11 são os únicos que giram por calendário, e não por Work Item. A [comparação entre as duas janelas](11-daily-operations.md#diário-e-semanal--por-que-são-dois-loops) explica por que são dois circuitos e não um.
+Loops 10 and 11 are the only ones that rotate by calendar, and not by Work Item. The [comparison between the two windows](11-daily-operations.md#daily-and-weekly--why-there-are-two-loops) explains why there are two circuits and not one.
 
 ---
 
-## Caminhos de falha
+## Failure paths
 
-Um gate reprovado não interrompe a jornada: devolve o trabalho a um loop específico. Este mapa é a resposta para "e se não passar?".
+A failed gate does not interrupt the journey: it returns work to a specific loop. This map is the answer to "what if I don't pass?".
 
-| Loop | Falha corrigível volta para | Decisão volta para |
+| Loop | Correctable fault back to | Decision returns to |
 |---|---|---|
-| 🚦 Triage | origem da solicitação | PM |
-| 🔦 Scout | o próprio loop, com nova pergunta | H1 — investir, ajustar, adiar ou encerrar |
-| 🎨 Studio | 🔦 Scout, se faltar evidência | H2 — PM e UX |
-| 🗺️ Drafting | 🎨 Studio, se o requisito for ambíguo | H3 — Tech Lead |
-| 🔁 Ralph | o próprio agente, dentro do limite de tentativas | Tech Lead |
-| ⚔️ Red Team | 🔁 Ralph | Tech Lead, para exceção |
-| 🚪 Gatekeeper | 🔁 Ralph + revalidação em 🥊 | H4 — Code Owner |
-| 🎭 Rehearsal | 🔁 Ralph, se for defeito; 🎨 Studio, se for escopo | PM ou UX |
-| 🐤 Canary | rollback e 🔁 Ralph | H5 — Tech Lead; PM coaprova R3/R4 |
-| 🗄️ Archivist | hipótese permanece identificada como tal | owner do domínio |
-| 🌙 Dream | hipótese em observação | H6 — trio |
-| ☀️ Daily | hipótese em observação até nova evidência | owner do workspace; melhoria segue ao PM via 🚦 Triage |
+| 🚦 Triage | request origin | PM |
+| 🔦 Scout | the loop itself, with new question | H1 — invest, adjust, postpone or terminate |
+| 🎨 Studio | 🔦 Scout, if evidence is missing | H2 — PM and UX |
+| 🗺️ Drafting | 🎨 Studio, if the requirement is ambiguous | H3 — Tech Lead |
+| 🔁 Ralph | the agent himself, within the limit of attempts | Tech Lead |
+| ⚔️ Red Team | 🔁 Ralph | Tech Lead, for exception |
+| 🚪 Gatekeeper | 🔁 Ralph + revalidation in 🥊 | H4 — Code Owner |
+| 🎭 Rehearsal | 🔁 Ralph, if it's a defect; 🎨 Studio, if scope | PM or UX |
+| 🐤 Canary | rollback and 🔁 Ralph | H5 — Tech Lead; PM co-approves R3/R4 |
+| 🗄️ Archivist | hypothesis remains identified as such | domain owner |
+| 🌙Dream | hypothesis under observation | H6 — trio |
+| ☀️ Daily | hypothesis under observation until new evidence | workspace owner; improvement follows the PM via 🚦 Triage |

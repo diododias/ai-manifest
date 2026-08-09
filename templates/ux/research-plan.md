@@ -6,16 +6,16 @@ owner: ux
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Pergunta de pesquisa>
+# <Search question>
 
-## Hipóteses e decisões apoiadas
+## Hypotheses and supported decisions
 
-<O que precisa ser aprendido e por quê.>
+<What needs to be learned and why.>
 
-## Método e participantes
+## Method and participants
 
-<Amostra, recrutamento, consentimento e procedimento.>
+<Sample, recruitment, consent and procedure.>
 
-## Análise, riscos e limitações
+## Analysis, risks and limitations
 
-<Como evidência será interpretada com segurança.>
+<As evidence it will be interpreted with confidence.>

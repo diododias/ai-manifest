@@ -1,6 +1,6 @@
-# Padrão de interação
+# Interaction pattern
 
-- Todo fluxo declara entrada, sucesso, falhas, abandono e recuperação.
-- Ações assíncronas exibem progresso e evitam repetição acidental.
-- Estados preservam contexto quando o usuário precisa tentar novamente.
-- Mudanças destrutivas ou irreversíveis exigem proteção proporcional ao risco.
+- Every flow states entry, success, failures, abandonment and recovery.
+- Asynchronous actions display progress and prevent accidental repetition.
+- States preserve context when the user needs to try again.
+- Destructive or irreversible changes require protection proportional to the risk.

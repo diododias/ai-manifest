@@ -6,28 +6,28 @@ owner: ux
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Componente ou sistema de design>
+# <Component or design system>
 
-## Tokens
+##Tokens
 
-<Cores, tipografia, espaçamento, raio, elevação e demais variáveis de design usadas — com nome do token e valor.>
+<Colors, typography, spacing, radius, elevation and other design variables used — with token name and value.>
 
-## Anatomia e variantes
+## Anatomy and variants
 
-<Partes que compõem o componente, variantes visuais existentes e quando usar cada uma.>
+<Parts that make up the component, existing visual variants and when to use each one.>
 
-## Estados
+## States
 
-<Default, hover, focus, active, disabled, loading, erro e vazio — aparência e regra de transição de cada um.>
+<Default, hover, focus, active, disabled, loading, error and empty — appearance and transition rule for each.>
 
-## Comportamento e interação
+## Behavior and interaction
 
-<Como o componente responde a entrada do usuário, gestos, atalhos, transições e animações.>
+<How the component responds to user input, gestures, shortcuts, transitions and animations.>
 
-## Acessibilidade
+## Accessibility
 
-<Contraste mínimo, ordem e visibilidade de foco, semântica assistiva e navegação por teclado.>
+<Minimal contrast, focus order and visibility, assistive semantics, and keyboard navigation.>
 
-## Responsividade
+## Responsiveness
 
-<Como o componente se adapta a diferentes tamanhos de tela e densidades.>
+<How the component adapts to different screen sizes and densities.>

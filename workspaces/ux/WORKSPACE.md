@@ -1,38 +1,38 @@
 ---
-title: Workspace de exemplo de UX
+title: UX example workspace
 status: example
 owner: ux
 updated_at: 2026-08-08
 ---
 
-# Workspace de UX
+# UX Workspace
 
-Este exemplo organiza evidências de usuário, jornadas, fluxos, especificações, protótipos, acessibilidade e validação. O projeto `checkout` é fictício e se conecta aos exemplos de PM e Tech Lead.
+This example organizes user evidence, journeys, flows, specifications, prototypes, accessibility, and validation. The `checkout` project is fictional and connects to the PM and Tech Lead examples.
 
-## Navegação
+## Navigation
 
-1. Carregue [`README.md`](README.md) e [`AGENTS.md`](AGENTS.md).
-2. Consulte [`BOARD.md`](BOARD.md).
-3. Entre em [`projects/checkout/README.md`](projects/checkout/README.md).
-4. Use os padrões em [`docs/standards/`](docs/standards/README.md), o playbook e os templates.
+1. Load [`README.md`](README.md) and [`AGENTS.md`](AGENTS.md).
+2. See [`BOARD.md`](BOARD.md).
+3. Enter [`projects/checkout/README.md`](projects/checkout/README.md).
+4. Use the patterns in [`docs/standards/`](docs/standards/README.md), the playbook and templates.
 
-## Estrutura
+## Structure
 
 ```text
 ux/
 ├── README.md
 ├── AGENTS.md
 ├── WORKSPACE.md
-├── BOARD.md
-├── docs/          # padrões, playbooks e templates
-├── projects/      # pesquisa e experiência por projeto
-│   └── <projeto>/plans/assets/<workflow>/<data>-<session-id>/  # material bruto isolado por sessão
-├── ..coordination/  # recrutamento, handoffs e decisões temporárias
-├── memory.md      # contexto retomável, não autoritativo
-└── archive/       # material global desativado
+├──BOARD.md
+├── docs/ # patterns, playbooks and templates
+├── projects/ # research and experience by project
+│ └── <project>/plans/assets/<workflow>/<data>-<session-id>/ # raw material isolated per session
+├── ..coordination/ # recruitment, handoffs and temporary decisions
+├── memory.md # resumable context, non-authoritative
+└── archive/ # global material disabled
 ```
 
-## Envelope padrão
+## Standard envelope
 
 ```yaml
 mission_id: "<id>"

@@ -1,7 +1,7 @@
-# Execução
+# Execution
 
-- [`handoffs/`](handoffs/README.md): transferência de responsabilidade;
-- [`reviews/`](reviews/README.md): pareceres técnicos;
-- [`evidence/`](evidence/README.md): provas dos critérios de aceite.
+- [`handoffs/`](handoffs/README.md): transfer of responsibility;
+- [`reviews/`](reviews/README.md): technical opinions;
+- [`evidence/`](evidence/README.md): proof of acceptance criteria.
 
-Os arquivos fornecidos são modelos preenchidos parcialmente e não representam uma execução real.
+The files provided are partially completed templates and do not represent an actual execution.

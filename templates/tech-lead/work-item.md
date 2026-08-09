@@ -1,6 +1,6 @@
 ---
 id: WI-<NNN>
-title: <Título>
+title: <Title>
 project: <project-slug>
 status: backlog
 priority: medium
@@ -12,20 +12,20 @@ blocked_by: []
 updated_at: <ISO-8601>
 ---
 
-# <Título>
+# <Title>
 
-## Objetivo
+## Objective
 
-<Resultado delimitado.>
+<Delimited result.>
 
-## Critérios de aceite
+## Acceptance criteria
 
-- [ ] <Critério verificável>
+- [ ] <Verifiable criterion>
 
-## Evidências
+## Evidence
 
-<Links preenchidos durante a execução.>
+<Links populated during execution.>
 
-## Histórico
+## History
 
-- <Data e evento>
+- <Date and event>

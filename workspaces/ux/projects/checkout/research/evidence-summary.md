@@ -1,14 +1,14 @@
-# Resumo de evidência
+# Evidence summary
 
-Este workspace não contém pesquisa real. O problema descrito pelo PM é um input e permanece uma hipótese até ser sustentado por fontes adequadas.
+This workspace contains no actual research. The problem described by the PM is an input and remains a hypothesis until supported by appropriate sources.
 
-## Conhecido
+## Known
 
-- O PRD do exemplo exige repetição segura após timeout.
-- O sistema pode processar a cobrança apesar de o cliente não receber a resposta.
+- The PRD in the example requires safe repetition after timeout.
+- The system can process the charge even though the customer does not receive a response.
 
-## Desconhecido
+## Unknown
 
-- linguagem compreendida pelos segmentos reais;
-- frequência e impacto percebido;
-- preferência entre aguardar, consultar status ou tentar novamente.
+- language understood by real segments;
+- frequency and perceived impact;
+- preference between waiting, checking status or trying again.

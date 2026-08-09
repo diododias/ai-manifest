@@ -1,21 +1,21 @@
 ---
-title: Bindings de workflows — workspace do Tech Lead
+title: Workflow bindings — Tech Lead workspace
 status: example
 owner: tech-lead
 updated_at: 2026-08-08
 ---
 
-# Workflows habilitados no workspace do Tech Lead
+# Workflows enabled in the Tech Lead workspace
 
-Este diretório referencia o [catálogo canônico](../../../../workflows/README.md). Ele registra versão, permissões e integrações locais; não replica definições nem recebe saídas de execução.
+This directory references [canonical catalog](../../../../workflows/README.md). It records local version, permissions, and integrations; does not replicate definitions or receive execution output.
 
-| Workflow | Papel técnico | Fonte persistente |
+| Workflow | Technical paper | Persistent Font |
 |---|---|---|
-| [Discovery](../../../../workflows/01-discovery-and-research.md) | viabilidade, dependências e risco inicial | `projects/<project>/engineering/architecture/` |
-| [Especificação](../../../../workflows/03-technical-specification.md) | consolida plano, ADR, spec e tarefas | `projects/<project>/plans/active/`, `engineering/specs/`, `engineering/adr/`, `work-items/` |
-| [Implementação](../../../../workflows/04-autonomous-implementation.md) | orquestra tarefas e mudanças isoladas | `projects/<project>/work-items/`, `execution/evidence/`, `repos/worktrees/` |
-| [Validação e PR](../../../../workflows/05-adversarial-validation.md) | consolida review técnico e integração | `projects/<project>/execution/reviews/` e `execution/evidence/` |
-| [Release e observação](../../../../workflows/08-production-release-and-observation.md) | rollout, saúde e rollback | `projects/<project>/execution/evidence/` e `LEARNINGS.md` (candidatos) |
-| [Conhecimento e melhoria](../../../../workflows/10-continuous-improvement.md) | consolida telemetria e propostas | `projects/<project>/LEARNINGS.md` |
+| [Discovery](../../../../workflows/01-discovery-and-research.md) | feasibility, dependencies and initial risk | `projects/<project>/engineering/architecture/` |
+| [Specification](../../../../workflows/03-technical-specification.md) | consolidates plan, ADR, spec and tasks | `projects/<project>/plans/active/`, `engineering/specs/`, `engineering/adr/`, `work-items/` |
+| [Implementation](../../../../workflows/04-autonomous-implementation.md) | orchestrates isolated tasks and changes | `projects/<project>/work-items/`, `execution/evidence/`, `repos/worktrees/` |
+| [Validation and PR](../../../../workflows/05-adversarial-validation.md) | consolidates technical review and integration | `projects/<project>/execution/reviews/` and `execution/evidence/` |
+| [Release and observation](../../../../workflows/08-production-release-and-observation.md) | rollout, health and rollback | `projects/<project>/execution/evidence/` and `LEARNINGS.md` (candidates) |
+| [Knowledge and improvement](../../../../workflows/10-continuous-improvement.md) | consolidates telemetry and proposals | `projects/<project>/LEARNINGS.md` |
 
-`..coordination/` mantém somente estado de trânsito. Handoffs persistentes ficam em `projects/<project>/execution/handoffs/`; código e worktrees ficam em `repos/`, nunca em `projects/`.
+`..coordination/` only maintains traffic status. Persistent handoffs are in `projects/<project>/execution/handoffs/`; code and worktrees are in `repos/`, never in `projects/`.

@@ -1,7 +1,7 @@
-# Projetos
+# Projects
 
-Cada pasta é a fonte de verdade de um projeto, independentemente da quantidade de repositórios envolvidos.
+Each folder is the source of truth for a project, regardless of the number of repositories involved.
 
-- [`checkout/`](checkout/README.md): projeto piloto fictício deste exemplo.
+- [`checkout/`](checkout/README.md): fictitious pilot project of this example.
 
-Crie novos projetos pelo playbook [`docs/playbooks/create-project.md`](../docs/playbooks/create-project.md).
+Create new projects using the [`docs/playbooks/create-project.md`](../docs/playbooks/create-project.md) playbook.

@@ -1,24 +1,24 @@
 # Skills
 
-O repositório carrega um catálogo de skills em `skills/`. Cada skill é um procedimento verificável para uma tarefa recorrente que exige julgamento — o que a distingue de um script, que cobre o determinístico.
+The repository loads a catalog of skills in `skills/`. Each skill is a verifiable procedure for a recurring task that requires judgment — which distinguishes it from a script, which covers the deterministic.
 
-As skills de maior impacto operacional neste repositório são:
+The skills with the greatest operational impact in this repository are:
 
-| Skill | O que faz |
+| Skill | What does it do |
 |---|---|
-| `analyse-bug` | investiga um bug com rastreamento estruturado de hipóteses até isolamento da causa raiz |
-| `fix-bug` | executa a correção a partir do diagnóstico, com critério de parada e evidence pack |
-| `implement` | implementa uma feature a partir de uma spec aprovada, respeitando rules e estratégia de testes |
-| `write-feature` | fluxo completo de spec → implementação → PR para features novas |
-| `code-review` | revisão estruturada com checagem de rules, testes e evidência antes de aprovar |
-| `check-pr` | valida um PR aberto antes do merge: status checks, scope, evidence pack |
-| `create-spec` | produz uma especificação técnica a partir de um requisito, pronta para revisão humana |
-| `refine-spec` | itera sobre uma spec existente incorporando feedback |
-| `technical-discovery` | mapeia o repositório para orientar uma tarefa nova — lido antes de qualquer implementação |
-| `test-integration-local` | roda a bateria de integração localmente com ambiente isolado |
-| `commit` | monta mensagem de commit estruturada com rastreabilidade para o Work Item |
-| `update-docs` | atualiza a documentação afetada por uma mudança, incluindo ADRs quando necessário |
-| `workspace-memory` | retoma contexto de sessões anteriores antes de qualquer ação |
-| `workspace-board` | assume e reconcilia Work Items com evidência no board |
+| `analyse-bug` | Investigates a Bug with Structured Hypothesis Tracking to Root Cause Isolation |
+| `fix-bug` | performs the correction based on the diagnosis, with stopping criteria and evidence pack |
+| `implement` | implements a feature from an approved spec, respecting rules and testing strategy |
+| `write-feature` | full spec flow → implementation → PR for new features |
+| `code-review` | structured review with checking rules, tests and evidence before approving |
+| `check-pr` | validates an open PR before the merge: status checks, scope, evidence pack |
+| `create-spec` | produces a technical specification from a requirement, ready for human review |
+| `refine-spec` | iterates over an existing spec incorporating feedback |
+| `technical-discovery` | maps the repository to guide a new task — read before any implementation |
+| `test-integration-local` | runs integration battery locally with isolated environment |
+| `commit` | assembles structured commit message with traceability for the Work Item |
+| `update-docs` | updates documentation affected by a change, including ADRs when necessary |
+| `workspace-memory` | resumes context from previous sessions before taking any action |
+| `workspace-board` | assumes and reconciles Work Items with evidence on the board |
 
-Skills específicas do repositório — migração de schema, geração de SDK, rollout do serviço — ficam em `skills/<nome>/SKILL.md` e seguem a mesma estrutura do catálogo global.
+Repository-specific skills — schema migration, SDK generation, service rollout — are located in `skills/<nome>/SKILL.md` and follow the same structure as the global catalog.

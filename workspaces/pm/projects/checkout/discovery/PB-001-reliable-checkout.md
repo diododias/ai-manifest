@@ -6,21 +6,21 @@ owner: product-manager
 updated_at: 2026-08-08
 ---
 
-# Recuperação confiável do pagamento
+# Reliable payment recovery
 
-## Problema
+## Problem
 
-Após timeout, o cliente não sabe se pode tentar novamente sem ser cobrado duas vezes.
+After timeout, the client does not know if they can try again without being charged twice.
 
-## Evidência do exemplo
+## Evidence from example
 
-Hipótese ilustrativa baseada em relatos de suporte; um workspace real deve vincular fontes e baseline antes da aprovação.
+Illustrative hypothesis based on supporting reports; A real workspace must link sources and baseline before approval.
 
-## Outcome
+##Outcome
 
-Permitir repetição segura e tornar o resultado compreensível para o cliente.
+Allow safe repetition and make the result understandable to the customer.
 
-## Perguntas para os parceiros
+## Questions for partners
 
-- UX: quais estados e mensagens sustentam uma recuperação compreensível?
-- Tech Lead: como garantir idempotência sob retry e concorrência?
+- UX: What states and messages support understandable recovery?
+- Tech Lead: how to guarantee idempotence under retry and competition?

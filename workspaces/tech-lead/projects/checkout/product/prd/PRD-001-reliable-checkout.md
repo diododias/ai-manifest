@@ -6,18 +6,18 @@ owner: product-manager
 updated_at: 2026-08-08
 ---
 
-# Checkout confiável
+# Reliable checkout
 
-> Snapshot não autoritativo de entrada técnica. Consulte o [PRD canônico no workspace de PM](../../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md).
+> Non-authoritative snapshot of technical input. See [Canonical PRD in PM workspace](../../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md).
 
-## Resultado
+## Result
 
-Clientes podem repetir uma tentativa após timeout sem risco de cobrança duplicada.
+Customers can repeat an attempt after a timeout without the risk of double billing.
 
-## Métrica de sucesso
+## Success metrics
 
-Nenhuma cobrança duplicada para requisições com a mesma chave de idempotência durante a janela suportada.
+No duplicate charges for requests with the same idempotence key during the supported window.
 
-## Fora de escopo
+## Out of scope
 
-Troca de provedor de pagamentos e redesenho visual do checkout.
+Switching payment providers and visual redesign of the checkout.

@@ -1,87 +1,87 @@
 # 🚦 Triage Loop
 
-> Intake e triagem — converte ruído em Work Item rastreável, sem deixar a triagem virar decisão de prioridade.
+> Intake and screening — converts noise into traceable Work Item, without letting screening become a priority decision.
 
-O Triage Loop é a porta de entrada da jornada. Tudo o que chega de fora — solicitação, incidente, feedback, oportunidade, transcrição de reunião — passa por aqui antes de existir como trabalho. A distinção que sustenta o loop inteiro: **normalizar uma demanda não é aprová-la**. O agente organiza; o PM decide.
+The Triage Loop is the gateway to the journey. Everything that comes from outside — request, incident, feedback, opportunity, meeting transcript — passes through here before existing as work. The distinction that sustains the entire loop: **normalizing a demand is not approving it**. The agent organizes; the PM decides.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 0 — entrada |
-| **Consolida** | [📥 Intake Agent](../agentes/intake-agent.md) |
-| **Colaboram** | [📝 Meeting Context Agent](../agentes/meeting-context-agent.md) quando a origem for reunião; [📋 Product Manager Agent](../agentes/product-manager-agent.md) para enriquecer contexto de produto |
-| **Owner humano** | Product Manager |
-| **Entrada** | solicitação, incidente, feedback, oportunidade ou context pack de reunião |
-| **Saída** | Work Item com problema, origem, produto, owner, duplicidades, dependências, risco preliminar e lacunas |
-| **Gate de saída** | problema, rastreabilidade, responsável e contexto mínimo explícitos |
-| **Volta dominante** | externa — a lacuna vira pergunta devolvida à origem, não suposição |
+| **Step** | 0 — input |
+| **Consolidates** | [📥 Intake Agent](../agentes/intake-agent.md) |
+| **Collaborate** | [📝 Meeting Context Agent](../agentes/meeting-context-agent.md) when the origin is a meeting; [📋 Product Manager Agent](../agentes/product-manager-agent.md) to enrich product context |
+| **Human owner** | Product Manager |
+| **Input** | request, incident, feedback, opportunity or meeting context pack |
+| **Exit** | Work Item with problem, origin, product, owner, duplicates, dependencies, preliminary risk and gaps |
+| **Exit gate** | explicit problem, traceability, responsible and minimum context |
+| **Dominant lap** | external — the gap becomes a question returned to the origin, not an assumption |
 
 ```mermaid
 flowchart LR
-    A[Solicitação ou transcrição] --> B{Origem é reunião?}
-    B -- sim --> C[Meeting Context Agent\ncontext pack]
-    B -- não --> D[Intake Agent]
+    A[Request or transcript] --> B{Source is a meeting?}
+    B -- yes --> C[Meeting Context Agent\ncontext pack]
+    B -- no --> D[Intake Agent]
     C --> D
-    D --> E[Product Manager Agent\ncontexto e duplicidades]
-    E --> F[Intake Agent\nconsolida Work Item]
-    F --> G{Gate de triagem}
-    G -- completo --> H[PM prioriza ou rejeita]
-    G -- lacuna --> I[perguntas para origem ou PM]
+    D --> E[Product Manager Agent\ncontext and duplicates]
+    E --> F[Intake Agent\nconsolidates Work Item]
+    F --> G{Sorting Gate}
+    G -- complete --> H[PM prioritizes or rejects]
+    G -- gap --> I[questions for origin or PM]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O Meeting Context Agent, quando acionado, separa fatos, decisões provisórias e itens que exigem confirmação. Seu output é somente contexto de entrada — nunca um Work Item.
-2. O Intake Agent normaliza a demanda, vincula fontes e procura duplicidades e dependências.
-3. O Product Manager Agent complementa valor, stakeholder, produto afetado e perguntas de negócio, **sem definir a prioridade final**.
-4. O Intake Agent consolida um único Work Item e registra a origem de cada afirmação relevante.
-5. O PM decide priorizar, devolver para esclarecimento ou encerrar.
+1. The Meeting Context Agent, when activated, separates facts, provisional decisions and items that require confirmation. Your output is input context only — never a Work Item.
+2. The Intake Agent normalizes demand, links sources and looks for duplications and dependencies.
+3. The Product Manager Agent complements value, stakeholder, affected product and business questions, **without defining the final priority**.
+4. The Intake Agent consolidates a single Work Item and records the origin of each relevant assertion.
+5. PM decides to prioritize, return for clarification or close.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | material bruto da origem, com autor e data identificáveis |
-| **Saída** | Work Item com cada afirmação vinculada à sua fonte; lacunas listadas como perguntas abertas, não preenchidas por inferência |
+| **Input** | raw source material, with identifiable author and date |
+| **Exit** | Work Item with each statement linked to its source; gaps listed as open questions, not filled in by inference |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** priorizar, estimar ou propor solução.
+**Does not:** prioritize, estimate or propose a solution.
 
-Um Work Item que já chega com solução embutida contamina todo o [🔦 Scout Loop](01-discovery-and-research.md) que vem depois — o discovery passa a validar a solução em vez de investigar o problema. O Intake Agent registra o que foi pedido e qual problema está por trás; a conversão em proposta pertence a outra etapa.
+A Work Item that arrives with a built-in solution contaminates the entire [🔦 Scout Loop](01-discovery-and-research.md) that comes later — discovery starts validating the solution instead of investigating the problem. The Intake Agent records what was requested and what problem is behind it; the conversion into a proposal belongs to another stage.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Solução disfarçada de problema | o Work Item descreve uma feature, não uma dor | devolver à origem a pergunta "que problema isso resolve?" |
-| Duplicidade encerrada sem vínculo | item some do backlog sem rastro | encerramento exige link explícito ao item que o absorveu |
-| Inferência silenciosa | o Work Item afirma o que ninguém disse | cada afirmação carrega origem; sem origem, vira pergunta |
+| Solution disguised as a problem | the Work Item describes a feature, not a pain | return to the source the question "what problem does this solve?" |
+| Duplicity terminated without link | item disappears from backlog without trace | closure requires explicit link to the item that absorbed it |
+| Silent Inference | the Work Item states what no one said | each statement carries origin; without origin, becomes a question |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Work Item consolidado | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | sim |
-| Context pack de reunião | `<pm-workspace>/projects/<project>/work-items/assets/` | se houve reunião |
-| Material bruto recebido | `<pm-workspace>/.coordination/inbox/` | trânsito |
-| Perguntas devolvidas à origem | `<pm-workspace>/.coordination/handoffs/` | trânsito |
+| Work Consolidated Item | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | yes |
+| Meeting context pack | `<pm-workspace>/projects/<project>/work-items/assets/` | if there was a meeting |
+| Raw material received | `<pm-workspace>/.coordination/inbox/` | traffic |
+| Questions returned to origin | `<pm-workspace>/.coordination/handoffs/` | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar ao PM quando o problema não puder ser identificado, houver conflito entre solicitações ou a prioridade exigir julgamento. **Duplicidade não autoriza encerrar um item sem vínculo explícito ao item que o absorveu.**
+Escalate to PM when issue cannot be identified, requests conflict, or priority requires judgment. **Duplicity does not authorize closing an item without an explicit link to the item that absorbed it.**

@@ -1,132 +1,132 @@
-# 05 — Manual do operador
+#05 — Operator’s manual
 
-> Como operar na prática: o que abrir, em que ordem, como despachar, como ler uma saída e como intervir sem quebrar o fluxo.
+> How to operate in practice: what to open, in what order, how to dispatch, how to read an output and how to intervene without breaking the flow.
 
-As páginas anteriores descrevem o modelo. Esta descreve o **uso**. Ela responde à pergunta de quem senta para trabalhar e precisa saber o que fazer primeiro — e, principalmente, o que fazer quando algo não sai como o contrato previa.
+The previous pages describe the model. This describes **usage**. It answers the question of those who sit down to work and need to know what to do first — and, above all, what to do when something doesn't go as the contract stipulated.
 
-O princípio que organiza tudo aqui: **você opera por exceção.** O fluxo saudável não precisa de você. O que chega até você é uma decisão, um bloqueio ou uma anomalia — e para cada um existe uma resposta válida, um registro obrigatório e um limite do que pode ser feito sem envolver outra pessoa.
+The principle that organizes everything here: **you operate by exception.** Healthy flow doesn't need you. What comes to you is a decision, a block or an anomaly — and for each one there is a valid response, a mandatory record and a limit to what can be done without involving another person.
 
 ---
 
-## O dia, na ordem
+## The day, in order
 
-A sequência abaixo vale para os três papéis. O que muda é o conteúdo, não a ordem.
+The sequence below applies to the three roles. What changes is the content, not the order.
 
-1. **Briefing diário.** Abrir `.coordination/daily/<data>.md`, produzido pelo [☀️ Daily Loop](../loops/11-daily-operations.md). Ler a seção *bloqueado* primeiro e responder ao que tem data-limite hoje. As demais seções são leitura, não ação.
-2. **Checkpoints pendentes.** Responder aos H acumulados. Cada um chega com evidence pack; se não chegou, ele não está pronto para ser respondido — devolver por essa razão é uma resposta válida.
-3. **Escalonamentos abertos.** Verificar o que parou esperando decisão. Um escalonamento sem resposta por mais de um ciclo diário reaparece no briefing do dia seguinte, com destaque.
-4. **Despacho.** Iniciar o que foi priorizado, com a identidade de missão completa.
-5. **Nada mais.** Se depois disso não há nada aguardando você, o fluxo está saudável. Acompanhar execução em andamento não é operação — é ansiedade com aparência de rigor.
+1. **Daily Briefing.** Open `.coordination/daily/<data>.md`, produced by [☀️ Daily Loop](../loops/11-daily-operations.md). Read the *blocked* section first and answer the one that has a deadline today. The remaining sections are reading, not action.
+2. **Pending checkpoints.** Respond to accumulated H. Each one arrives with an evidence pack; if it hasn't arrived, it's not ready to be responded to — returning it for that reason is a valid response.
+3. **Open escalations.** Check what has stopped waiting for a decision. An unanswered escalation for more than one daily cycle reappears prominently in the following day's briefing.
+4. **Dispatch.** Start what was prioritized, with the complete mission identity.
+5. **Nothing else.** If after that there is nothing waiting for you, the flow is healthy. Monitoring ongoing execution is not an operation — it is anxiety with the appearance of rigor.
 
-### O que cada papel abre
+### What each role opens
 
-| Papel | Primeiro | Depois |
+| Paper | First | After |
 |---|---|---|
-| **PM** | bloqueios de produto e H1/H2 pendentes | fila de triagem, melhorias aguardando ordenação |
-| **UX** | H2 pendente e aceites de experiência | itens em discovery aguardando evidência |
-| **Tech Lead** | escalonamentos técnicos, H3/H4/H5 | saúde dos gates, itens em rollout, harness |
+| **PM** | product blocks and pending H1/H2 | sorting queue, improvements awaiting ordering |
+| **UX** | Pending H2 and experience acceptances | items in discovery awaiting evidence |
+| **Tech Lead** | technical escalations, H3/H4/H5 | gates health, rollout items, harness |
 
 ---
 
-## Despachar uma missão
+## Dispatch a mission
 
-Uma missão só deve ser executada com identidade completa. **Campo ausente é autorização em branco** — o agente preencherá a lacuna com a suposição mais plausível, e a suposição só aparecerá na crítica ou, pior, no gate de CI.
+A mission should only be performed with full identity. **Missing field is blank authorization** — the agent will fill in the gap with the most plausible assumption, and the assumption will only appear in the critique or, worse, in the CI gate.
 
-| Bloco | O que declarar |
+| Block | What to declare |
 |---|---|
-| Identificação | missão, Work Item, etapa e papel do agente |
-| Autoridade | sponsor humano e owner da decisão |
-| Direção | objetivo, resultado esperado, escopo e **fora de escopo** |
-| Fontes | fontes canônicas, artefatos de entrada e de saída |
-| Verificação | critérios de aceite e gates aplicáveis |
-| Limites | classe de risco, autonomia autorizada, tools, permissões e budget |
-| Parada | condição de parada e para quem escalar |
+| Identification | mission, Work Item, step and agent role |
+| Authority | human sponsor and owner of the decision |
+| Direction | objective, expected result, scope and **out of scope** |
+| Sources | canonical sources, input and output artifacts |
+| Verification | acceptance criteria and applicable gates |
+| Limits | risk class, authorized autonomy, tools, permissions and budget |
+| Stop | stopping condition and for those who climb |
 
-Antes de despachar, o item precisa satisfazer a *Definition of Ready* descrita em [Papéis](01-papeis.md). Despachar sem ela não acelera nada: transfere a ambiguidade para dentro da execução, onde descobri-la custa uma volta externa.
+Before shipping, the item must satisfy the *Definition of Ready* described in [Papers](01-papeis.md). Dispatching without it doesn't speed up anything: it transfers the ambiguity to the inside of the execution, where discovering it costs an external turn.
 
-O campo mais negligenciado é **fora de escopo**. Ele não é redundante com o escopo: é o que impede que o agente resolva um problema adjacente que ninguém pediu, e que agora precisa ser revisado.
+The most neglected field is **out of scope**. It is not redundant with the scope: it is what prevents the agent from solving an adjacent problem that no one asked for, and which now needs to be revised.
 
 ---
 
-## Ler uma saída sem reler a execução
+## Read an output without rereading the execution
 
-Toda missão termina em um envelope padronizado. Ele existe para que ninguém precise reler a sessão inteira para saber o que aconteceu.
+Every mission ends in a standardized envelope. It exists so that no one needs to reread the entire session to find out what happened.
 
-| Campo | O que observar |
+| Field | What to watch out for |
 |---|---|
-| `status` | `completed`, `partial` ou `blocked` — `partial` exige leitura das pendências |
-| `confidence` | `low` nunca deve ser aprovado sem verificação adicional |
-| `skills_used` | skill aderente não utilizada é sinal de procedimento reinventado |
-| `sources_used` | fonte não canônica é sinal de contexto reconstruído por suposição |
+| `status` | `completed`, `partial` or `blocked` — `partial` requires reading of pending issues |
+| `confidence` | `low` should never be approved without additional verification |
+| `skills_used` | unused sticky skill is a sign of a reinvented procedure |
+| `sources_used` | non-canonical source is a sign of context reconstructed by assumption |
 
-### Ler um evidence pack
+### Read an evidence pack
 
-O evidence pack sustenta a decisão. A leitura eficiente segue três movimentos, nesta ordem: **delta** (o que mudou desde a última vez que você olhou), **pendências** (o que permanece em aberto e por quê) e **evidências** (o resultado bruto dos gates, consultado apenas se algo nos dois anteriores não fechar).
+The evidence pack supports the decision. Efficient reading follows three movements, in this order: **delta** (what has changed since the last time you looked), **pending** (what remains open and why) and **evidence** (the raw result of the gates, consulted only if something in the previous two does not add up).
 
-O teste de qualidade do pacote é objetivo: **outra pessoa consegue refazer a verificação sem perguntar nada a quem a produziu?** Se precisa de contexto adicional, o que chegou é um resumo, não evidência — e devolver por essa razão é a resposta correta.
+Package quality testing is objective: **can someone else redo the check without asking anyone who produced it?** If you need additional context, what you got is a summary, not evidence — and returning it for that reason is the correct answer.
 
 ---
 
-## Responder a um escalonamento
+## Respond to an escalation
 
-Um agente escala quando encontra requisito contraditório ou sem owner, confiança abaixo do limite, duas ou mais tentativas de correção sem progresso, mudança fora do escopo aprovado, necessidade de novo acesso, falha não reproduzível, decisão irreversível, ou divergência entre agentes sem critério objetivo de desempate.
+An agent escalates when it encounters a contradictory or unowned requirement, confidence below the threshold, two or more correction attempts without progress, change outside the approved scope, need for new access, non-reproducible failure, irreversible decision, or divergence between agents without objective tiebreaker criteria.
 
-As respostas válidas são cinco. Escolher entre elas é a operação mais frequente do modelo.
+There are five valid answers. Choosing between them is the most frequent operation of the model.
 
-| Resposta | Quando | O que registrar |
+| Answer | When | What to register |
 |---|---|---|
-| **Decidir** | a informação existe e a decisão é sua | a decisão e a razão |
-| **Esclarecer** | falta contexto, e o agente pode seguir com ele | o esclarecimento como parte do artefato, não como mensagem |
-| **Reduzir escopo** | parte do trabalho é executável e parte não | novo fora de escopo, explicitamente |
-| **Devolver a um loop anterior** | o problema nasceu antes desta etapa | a pergunta que motivou a devolução |
-| **Encerrar** | o item não deve prosseguir | a razão, e o vínculo se foi absorvido por outro item |
+| **Decide** | the information exists and the decision is yours | the decision and the reason |
+| **Clarify** | context is missing, and the agent can go with it | enlightenment as part of the artifact, not as a message |
+| **Reduce scope** | some of the work is executable and some is not | new out of scope, explicitly |
+| **Return to a previous loop** | the problem was born before this stage | the question that prompted the return |
+| **Close** | item should not proceed | the reason, and the bond if it was absorbed by another item |
 
-O que **não** é resposta válida: mandar tentar de novo sem mudar nada. Se nada mudou na entrada, a saída será a mesma, e o custo da volta é real.
+What is **not** a valid answer: having them try again without changing anything. If nothing has changed at the input, the output will be the same, and the cost of the return is real.
 
 ---
 
-## Intervir sem quebrar o fluxo
+## Intervene without breaking the flow
 
-Intervenções são normais e previstas. O que as torna seguras é o registro — uma intervenção não registrada some do histórico e distorce a telemetria que o [🌙 Dream Loop](../loops/10-continuous-improvement.md) usa para melhorar o desenho dos loops.
+Interventions are normal and expected. What makes them safe is the registration — an unregistered intervention disappears from the history and distorts the telemetry that [🌙 Dream Loop](../loops/10-continuous-improvement.md) uses to improve the design of the loops.
 
-| Intervenção | Efeito | Quem pode | Registro |
+| Intervention | Effect | Who can | Registration |
 |---|---|---|---|
-| **Parar** um loop em curso | interrompe antes do próximo handoff | owner do loop | razão e estado em que parou |
-| **Reverter** um rollout | remove a exposição | Tech Lead | sinal observado e decisão |
-| **Reduzir escopo** | preserva o avanço parcial | PM | novo fora de escopo |
-| **Elevar risco** | acrescenta gates e aprovações | qualquer um do trio | o que motivou a elevação |
-| **Abrir exceção** | libera o avanço com dívida declarada | Tech Lead | ADR com prazo e plano de reversão |
-| **Rebaixar autonomia** | reintroduz checkpoints | Tech Lead | a métrica que motivou |
+| **Stop** a loop in progress | interrupts before next handoff | loop owner | reason and state in which it stopped |
+| **Revert** a rollout | removes exposure | Tech Lead | observed signal and decision |
+| **Reduce scope** | preserves partial advance | PM | new out of scope |
+| **Increase risk** | adds gates and approvals | any of the trio | what motivated the increase |
+| **Open exception** | releases the advance with declared debt | Tech Lead | ADR with term and reversion plan |
+| **Downgrade autonomy** | reintroduces checkpoints | Tech Lead | the metric that motivated |
 
-Sobre a linha mais delicada: **abrir exceção é diferente de ignorar o gate.** A exceção declara a dívida, nomeia o prazo e descreve como se sai dela. Um bypass sem esses três elementos não é exceção — é o gate deixando de existir para aquele caso, e nada no sistema registrará isso.
+About the finer line: **making an exception is different from ignoring the gate.** The exception declares the debt, names the deadline and describes how to get out of it. A bypass without these three elements is no exception — it is the gate ceasing to exist for that case, and nothing in the system will register this.
 
-E sobre a última: **rebaixar autonomia é operação normal**, não fracasso. A autonomia sobe por evidência e desce pela mesma via. Um sistema em que ela só sobe está medindo mal.
-
----
-
-## O que fazer quando o modelo parece atrapalhar
-
-Três situações recorrentes, com a leitura correta de cada uma.
-
-**"O checkpoint chegou sem o que eu preciso para decidir."** O evidence pack está incompleto. Devolver é a resposta correta, e a devolução é um dado: se acontece com frequência, o problema está no template do pacote, não na etapa. Encaminhar como melhoria.
-
-**"O gate reprovou algo que está certo."** É um falso positivo, e falsos positivos são medidos. Um gate com índice alto não é rigor — é ruído que treina o time a ignorar sinal. Registrar a ocorrência e levar a mudança do gate ao caminho próprio, que exige revisor independente.
-
-**"Eu resolveria isso mais rápido na mão."** Provavelmente sim, uma vez. A pergunta relevante é se o caso se repete. Se sim, ele é uma skill ou uma automação faltando, e resolver na mão é o que impede que isso apareça. Se não, resolver na mão é legítimo — desde que o resultado chegue à fonte canônica como qualquer outro artefato.
+And about the last one: **decreasing autonomy is normal operation**, not failure. Autonomy rises through evidence and descends through the same route. A system in which it only goes up is measuring poorly.
 
 ---
 
-## O que nunca fazer
+## What to do when the model seems to get in the way
 
-| Nunca | Por quê |
+Three recurring situations, with the correct reading of each one.
+
+**"The checkpoint arrived without what I need to decide."** The evidence pack is incomplete. Returning is the correct answer, and returning is a given: if it happens frequently, the problem is with the package template, not the step. Forward as improvement.
+
+**"The gate failed something that is okay."** It's a false positive, and false positives are measured. A gate with a high index is not rigor — it is noise that trains the team to ignore the signal. Record the occurrence and take the change from the gate to the appropriate path, which requires an independent reviewer.
+
+**"I would resolve this faster by hand."** Probably yes, once. The relevant question is whether the case repeats itself. If so, it is a missing skill or automation, and resolving it manually is what prevents this from appearing. If not, resolving it by hand is legitimate — as long as the result reaches the canonical source like any other artifact.
+
+---
+
+## What to never do
+
+| Never | Why |
 |---|---|
-| Aprovar sem evidence pack | a aprovação passa a se basear no resumo de quem produziu |
-| Deixar um checkpoint sem resposta como forma de recusa | silêncio não é aprovação, mas também não é decisão — o item apenas para |
-| Ampliar o escopo de uma missão em curso | o risco foi classificado sobre o escopo original |
-| Editar um artefato aprovado sem reabrir a decisão | mudança material invalida a aprovação relacionada |
-| Resolver um conflito de domínio por consenso sem owner | reaparece como retrabalho na primeira contestação |
-| Alterar um gate dentro do fluxo que ele está avaliando | é a definição de juiz em causa própria |
+| Approve without evidence pack | approval is now based on the summary of whoever produced |
+| Leaving a checkpoint unanswered as a form of refusal | silence is not approval, but it is also not a decision — the item just for |
+| Expand the scope of an ongoing mission | the risk was classified according to the original scope |
+| Edit an approved artifact without reopening the decision | material change invalidates related approval |
+| Resolve a domain conflict by consensus without owner | reappears as a rework in the first dispute |
+| Change a gate within the flow it is evaluating | is the definition of a judge in his own case |
 
 ---
 
-*Anterior: [Ritmos e cadências](04-ritmos-e-cadencias.md) · Próximo: [Jornada comentada](06-jornada-comentada.md).*
+*Previous: [Rhythms and cadences](04-ritmos-e-cadencias.md) · Next: [Commented journey](06-jornada-comentada.md).*

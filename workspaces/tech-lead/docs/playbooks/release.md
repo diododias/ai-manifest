@@ -1,8 +1,8 @@
 # Release
 
-1. Confirme Work Items validados e evidências associadas.
-2. Verifique versão, migrações, compatibilidade e rollback.
-3. Execute os checks exigidos por cada repositório.
-4. Registre aprovação humana quando o risco exigir.
-5. Publique e acompanhe sinais operacionais.
-6. Atualize status, evidências e comunicação do projeto.
+1. Confirm validated Work Items and associated evidence.
+2. Check version, migrations, compatibility and rollback.
+3. Perform the checks required by each repository.
+4. Register human approval when the risk requires it.
+5. Post and track operational signals.
+6. Update project status, evidence, and communication.

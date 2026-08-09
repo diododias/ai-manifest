@@ -1,185 +1,185 @@
 ---
-title: Workspace do Tech Lead
+title: Tech Lead Workspace
 aliases:
-  - Estrutura do workspace do Tech Lead
+  - Tech Lead workspace structure
 status: proposed
-owner: Tech Lead
+owner: TechLead
 updated_at: 2026-08-08
 tags:
   - agent-team
   - workspace
   - tech-lead
-  - multiagente
+  - multi-agent
 ---
 
-# Agent Team — workspace do Tech Lead
+# Agent Team — Tech Lead workspace
 
-> Estrutura operacional do workspace compartilhado pelos agentes do Tech Lead. Complementa o [sistema operacional do trio humano](../rules/operating-model.md), o [catálogo de agentes](../../../../agents/catalog.md) e o [modelo operacional 90/10](../rules/operating-model-90-10.md).
+> Operational structure of the workspace shared by Tech Lead agents. Complements [human trio operating system](../rules/operating-model.md), [agent catalog](../../../../agents/catalog.md), and [90/10 operating model](../rules/operating-model-90-10.md).
 >
-> Uma implementação navegável deste contrato está disponível em [`workspaces/tech-lead/`](../../WORKSPACE.md).
-> Os workflows reutilizáveis ficam no [catálogo global](../workflows/README.md); este workspace mantém apenas seus bindings locais e os artefatos de execução por projeto.
+> A browsable implementation of this agreement is available at [`workspaces/tech-lead/`](../../WORKSPACE.md).
+> Reusable workflows are in the [global catalog](../workflows/README.md); This workspace maintains only your local bindings and execution artifacts per project.
 
-## 1. Objetivo
+## 1. Objective
 
-Organizar o contexto, o planejamento, a execução e o aprendizado de todos os projetos sob responsabilidade do Tech Lead em um único workspace, compartilhado pelos seus agentes.
+Organize the context, planning, execution and learning of all projects under the responsibility of the Tech Lead in a single workspace, shared by its agents.
 
-O modelo separa explicitamente:
+The model explicitly separates:
 
-- conhecimento global, válido para vários projetos;
-- fonte de verdade de cada projeto;
-- código-fonte e checkouts dos repositórios GitHub;
-- coordenação do trabalho entre agentes;
-- memória operacional;
-- aprendizados ainda candidatos e conhecimento já validado.
+- global knowledge, valid for several projects;
+- source of truth for each project;
+- source code and checkouts from GitHub repositories;
+- coordination of work between agents;
+- working memory;
+- learning still candidates and knowledge already validated.
 
-O princípio central é: **o projeto é a unidade principal de organização do trabalho, enquanto o repositório é a unidade de organização do código**. Um projeto pode envolver vários repositórios e um repositório pode atender mais de um projeto.
+The central principle is: **the project is the main unit of organization of the work, while the repository is the unit of organization of the code**. A project can involve multiple repositories and a repository can serve more than one project.
 
-## 2. Estrutura recomendada
+## 2. Recommended structure
 
 ```text
 tech-lead/
 ├── AGENTS.md
 ├── WORKSPACE.md
-├── BOARD.md
+├──BOARD.md
 │
 ├── docs/
-│   ├── portfolio/
-│   │   └── PROJECTS.md
-│   ├── standards/
-│   │   ├── architecture.md
-│   │   ├── coding.md
-│   │   ├── testing.md
-│   │   └── security.md
-│   ├── playbooks/
-│   │   ├── create-project.md
-│   │   ├── incident-response.md
-│   │   ├── release.md
-│   │   └── technical-discovery.md
-│   ├── workflows/
-│   │   └── README.md          # bindings locais para workflows canônicos
-│   └── templates/
-│       ├── adr.md
-│       ├── plan.md
-│       ├── spec.md
-│       ├── work-item.md
-│       └── handoff.md
+│ ├── portfolio/
+│ │ └── PROJECTS.md
+│ ├── standards/
+│ │ ├── architecture.md
+│ │ ├── coding.md
+│ │ ├── testing.md
+│ │ └── security.md
+│ ├── playbooks/
+│ │ ├── create-project.md
+│ │ ├── incident-response.md
+│ │ ├── release.md
+│ │ └── technical-discovery.md
+│ ├── workflows/
+│ │ └── README.md # local bindings for canonical workflows
+│ └── templates/
+│ ├── adr.md
+│ ├── plan.md
+│ ├── spec.md
+│ ├── work-item.md
+│ └── handoff.md
 │
 ├── projects/
-│   ├── README.md
-│   └── <project-slug>/
-│       ├── README.md
-│       ├── CONTEXT.md
-│       ├── STATUS.md
-│       │
-│       ├── product/
-│       │   ├── prd/
-│       │   ├── requirements/
-│       │   └── glossary.md
-│       │
-│       ├── ux/
-│       │   ├── research/
-│       │   ├── flows/
-│       │   └── handoffs/
-│       │
-│       ├── engineering/
-│       │   ├── architecture/
-│       │   ├── adr/
-│       │   ├── specs/
-│       │   ├── api/
-│       │   ├── diagrams/
-│       │   └── repositories.yaml
-│       │
-│       ├── plans/
-│       │   ├── active/
-│       │   ├── archive/
-│       │   └── assets/
-│       │       └── <workflow>/
-│       │           └── <data>-<session-id>/
-│       │
-│       ├── work-items/
-│       │   ├── WI-001.md
-│       │   ├── WI-002.md
-│       │   └── README.md
-│       │
-│       ├── execution/
-│       │   ├── handoffs/
-│       │   ├── reviews/
-│       │   └── evidence/
-│       │
-│       ├── LEARNINGS.md
-│       │   ├── candidates/
-│       │   └── accepted/
-│       │
-│       └── memory/
-│           ├── current-state.md
-│           ├── decisions-summary.md
-│           └── history/
+│ ├── README.md
+│ └── <project-slug>/
+│ ├── README.md
+│ ├── CONTEXT.md
+│ ├── STATUS.md
+│ │
+│ ├── product/
+│ │ ├── prd/
+│ │ ├── requirements/
+│ │ └── glossary.md
+│ │
+│ ├── ux/
+│ │ ├── research/
+│ │ ├── flows/
+│ │ └── handoffs/
+│ │
+│ ├── engineering/
+│ │ ├── architecture/
+│ │ ├── adr/
+│ │ ├── specs/
+│ │ ├── api/
+│ │ ├── diagrams/
+│ │ └── repositories.yaml
+│ │
+│ ├── plans/
+│ │ ├── active/
+│ │ ├── archive/
+│ │ └── assets/
+│ │ └── <workflow>/
+│ │ └── <data>-<session-id>/
+│ │
+│ ├── work-items/
+│ │ ├── WI-001.md
+│ │ ├── WI-002.md
+│ │ └── README.md
+│ │
+│ ├── execution/
+│ │ ├── handoffs/
+│ │ ├── reviews/
+│ │ └── evidence/
+│ │
+│ ├── LEARNINGS.md
+│ │ ├── candidates/
+│ │ └── accepted/
+│ │
+│ └── memory/
+│ ├── current-state.md
+│ ├── decisions-summary.md
+│ └── history/
 │
 ├── repos/
-│   ├── README.md
-│   ├── registry.yaml
-│   ├── github/
-│   │   └── <organization>/
-│   │       └── <repository>/
-│   └── worktrees/
-│       └── <organization>/
-│           └── <repository>/
-│               └── <work-item>/
+│ ├── README.md
+│ ├── registry.yaml
+│ ├── github/
+│ │ └── <organization>/
+│ │ └── <repository>/
+│ └── worktrees/
+│ └── <organization>/
+│ └── <repository>/
+│ └── <work-item>/
 │
 ├── .coordination/
-│   ├── active/
-│   ├── handoffs/
-│   ├── blockers/
-│   └── inbox/
+│ ├── active/
+│ ├── handoffs/
+│ ├── blockers/
+│ └── inbox/
 │
 ├── memory/
-│   ├── workspace.md
-│   ├── agents/
-│   └── history/
+│ ├── workspace.md
+│ ├── agents/
+│ └── history/
 │
-└── archive/
+└──archive/
 ```
 
-## 3. Responsabilidade de cada área
+## 3. Responsibility of each area
 
-### 3.1 `docs/` — conhecimento global
+### 3.1 `docs/` — global knowledge
 
-Armazena somente conteúdo aplicável a vários projetos:
+Stores only content applicable to multiple projects:
 
-- padrões de arquitetura, código, testes e segurança;
-- playbooks operacionais;
-- bindings locais para os [workflows canônicos](../workflows/README.md), com versão, permissões e integrações autorizadas;
+- architecture, code, testing and security standards;
+- operational playbooks;
+- local bindings for [canonical workflows](../workflows/README.md), with authorized version, permissions and integrations;
 - templates;
-- visão do portfólio.
+- portfolio view.
 
-PRDs, specs e decisões específicas não devem ser duplicados aqui. Eles pertencem ao projeto correspondente.
+PRDs, specs and specific decisions should not be duplicated here. They belong to the corresponding project.
 
-O diretório `docs/workflows/` não armazena saídas de execução. `PLAN.md`, `SPEC.md`, `ADR.md`, Work Items, reviews, evidence packs e handoffs persistentes pertencem a `projects/<project>/`; `coordination/` serve apenas para a comunicação transitória entre agentes.
+The `docs/workflows/` directory does not store execution output. `PLAN.md`, `SPEC.md`, `ADR.md`, Work Items, reviews, evidence packs and persistent handoffs belong to `projects/<project>/`; `coordination/` is only for transient communication between agents.
 
-### 3.2 `projects/<project-slug>/` — fonte de verdade do projeto
+### 3.2 `projects/<project-slug>/` — project source of truth
 
-Centraliza todo o material específico do projeto:
+Centralizes all project-specific material:
 
-- contexto e status;
-- PRDs e requisitos;
-- pesquisa e especificações de UX;
-- arquitetura, ADRs, APIs e specs técnicas;
-- planos ativos e arquivados;
-- itens de trabalho;
-- handoffs, reviews e evidências;
-- aprendizados e memória operacional do projeto.
+- context and status;
+- PRDs and requirements;
+- UX research and specifications;
+- architecture, ADRs, APIs and technical specs;
+- active and archived plans;
+- work items;
+- handoffs, reviews and evidence;
+- learning and working memory of the project.
 
-Um agente deve conseguir entrar nessa pasta e encontrar o contexto necessário sem pesquisar o workspace inteiro.
+An agent should be able to go into this folder and find the necessary context without searching the entire workspace.
 
-### 3.3 `repos/` — código-fonte dos repositórios GitHub
+### 3.3 `repos/` — source code from GitHub repositories
 
-Contém os clones locais dos repositórios usados pelos agentes. A organização recomendada preserva a identidade do GitHub:
+Contains the local clones of the repositories used by the agents. The recommended organization preserves GitHub's identity:
 
 ```text
 repos/github/<organization>/<repository>/
 ```
 
-Exemplo:
+Example:
 
 ```text
 repos/github/acme/checkout-api/
@@ -187,17 +187,17 @@ repos/github/acme/checkout-web/
 repos/github/acme/design-system/
 ```
 
-O diretório `repos/` não substitui `projects/`:
+The `repos/` directory does not replace `projects/`:
 
-| Conceito | Responsabilidade |
+| Concept | Responsibility |
 |---|---|
-| `projects/` | Por que, o que e quando será construído |
-| `repos/` | Onde o código é implementado e versionado |
-| GitHub | Remote oficial, colaboração, PRs, checks e releases |
+| `projects/` | Why, what and when will it be built |
+| `repos/` | Where the code is implemented and versioned |
+| GitHub | Official remote, collaboration, PRs, checks and releases |
 
-Não devem existir clones duplicados dentro de cada projeto. A ligação é declarada em `projects/<project>/engineering/repositories.yaml`.
+There must be no duplicate clones within each project. The binding is declared in `projects/<project>/engineering/repositories.yaml`.
 
-Exemplo:
+Example:
 
 ```yaml
 project: checkout
@@ -219,9 +219,9 @@ repositories:
     required: false
 ```
 
-#### Registro global de repositórios
+#### Global repository registry
 
-`repos/registry.yaml` é o inventário operacional dos clones disponíveis:
+`repos/registry.yaml` is the operational inventory of available clones:
 
 ```yaml
 repositories:
@@ -236,56 +236,56 @@ repositories:
     status: active
 ```
 
-Esse registro deve armazenar metadados e relações, não informações voláteis como o SHA atual ou se o checkout está limpo. Estado Git deve ser consultado diretamente no repositório.
+This record should store metadata and relationships, not volatile information like the current SHA or whether the checkout is clean. Git status must be queried directly in the repository.
 
-#### Worktrees para agentes concorrentes
+#### Worktrees for competing agents
 
-O clone em `repos/github/` é a cópia canônica local. Quando mais de um agente precisar atuar no mesmo repositório, cada missão deve usar um worktree isolado:
+The clone in `repos/github/` is the local canonical copy. When more than one agent needs to act on the same repository, each mission must use an isolated worktree:
 
 ```text
 repos/worktrees/<organization>/<repository>/<work-item>/
 ```
 
-Exemplo:
+Example:
 
 ```text
 repos/worktrees/acme/checkout-api/WI-031/
 repos/worktrees/acme/checkout-api/WI-044/
 ```
 
-O Work Item deve registrar `repository`, `worktree`, `branch` e `base_branch`. Worktrees encerrados devem ser removidos somente depois de confirmar que commits e evidências foram preservados.
+The Work Item must register `repository`, `worktree`, `branch` and `base_branch`. Terminated worktrees should be removed only after confirming that commits and evidence have been preserved.
 
-#### Cuidados de armazenamento e indexação
+#### Storage and indexing precautions
 
-- `repos/` deve permanecer em disco local confiável; evitar pastas sincronizadas que possam corromper ou degradar `.git`;
-- excluir `.git/`, `node_modules/`, artefatos de build, caches e dependências da indexação documental;
-- não copiar segredos, arquivos `.env` ou credenciais para documentação, memória ou handoffs;
-- cada repositório mantém seu próprio `AGENTS.md`, README, regras de build e instruções locais;
-- `repos/README.md` explica como clonar, atualizar, criar worktrees e validar os repositórios deste workspace.
+- `repos/` must remain on a trusted local disk; avoid synchronized folders that may corrupt or degrade `.git`;
+- exclude `.git/`, `node_modules/`, build artifacts, caches and document indexing dependencies;
+- do not copy secrets, `.env` files or credentials for documentation, memory or handoffs;
+- each repository maintains its own `AGENTS.md`, README, build rules and local instructions;
+- `repos/README.md` explains how to clone, update, create worktrees and validate the repositories of this workspace.
 
-### 3.4 `plans/` — planejamento dentro do projeto
+### 3.4 `plans/` — planning within the project
 
-Planos globais perdem rapidamente a ligação com contexto, execução e evidências. Por isso, cada projeto possui:
+Global plans quickly lose connection to context, execution, and evidence. Therefore, each project has:
 
-- `active/`: planos em elaboração ou execução;
-- `archive/`: planos concluídos, cancelados ou substituídos;
-- `assets/`: material bruto que sustenta análises e discussões do workflow — transcrições, printscreens, e-mails, PDFs, documentos Word e afins.
+- `active/`: plans in preparation or execution;
+- `archive/`: plans completed, canceled or replaced;
+- `assets/`: raw material that supports workflow analysis and discussions — transcriptions, printscreens, e-mails, PDFs, Word documents and the like.
 
-Todo plano deve declarar projeto, status, responsável e Work Items relacionados.
+Every plan must declare project, status, responsible and related Work Items.
 
-#### `plans/assets/` — material bruto isolado por sessão
+#### `plans/assets/` — isolated raw material per session
 
-Cada execução de um workflow (intake, discovery, especificação técnica etc.) grava seu material bruto em uma pasta própria, para que uma nova tentativa nunca colida com a anterior:
+Each execution of a workflow (intake, discovery, technical specification, etc.) saves its raw material in its own folder, so that a new attempt never collides with the previous one:
 
 ```text
 plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/
 ```
 
-- `<workflow>` identifica o workflow ou a skill que gerou o material, por exemplo `01-discovery-and-research` ou `technical-discovery`.
-- `<session-id>` é um identificador curto e único da execução (`mission_id` ou run id). Reexecutar um workflow por resultado insatisfatório cria uma nova pasta; a anterior permanece no histórico, mas deixa de ser referenciada.
-- Dentro da pasta da sessão, use subpastas por tipo somente quando houver mais de um arquivo do mesmo tipo: `transcripts/`, `screenshots/`, `emails/`, `documents/`.
-- `plans/assets/` nunca é fonte canônica. A conclusão, decisão ou requisito extraído do material vai para o artefato do domínio correto (`product/`, `ux/`, `engineering/` ou o plano); o asset fica como rastro auditável, referenciado por caminho.
-- O `STATUS.md` ou o Work Item correspondente deve indicar qual sessão de `plans/assets/` sustenta a versão vigente de um artefato quando isso não for óbvio.
+- `<workflow>` identifies the workflow or skill that generated the material, for example `01-discovery-and-research` or `technical-discovery`.
+- `<session-id>` is a short and unique run identifier (`mission_id` or run id). Re-executing a workflow due to unsatisfactory results creates a new folder; the previous one remains in the history, but is no longer referenced.
+- Within the session folder, use subfolders by type only when there is more than one file of the same type: `transcripts/`, `screenshots/`, `emails/`, `documents/`.
+- `plans/assets/` is never canonical source. The conclusion, decision or requirement extracted from the material goes to the correct domain artifact (`product/`, `ux/`, `engineering/` or the plan); the asset remains as an auditable trail, referenced by path.
+- `STATUS.md` or the corresponding Work Item must indicate which session of `plans/assets/` supports the current version of an artifact when this is not obvious.
 
 ```yaml
 ---
@@ -300,64 +300,64 @@ updated_at: 2026-08-08
 ---
 ```
 
-### 3.5 `memory/` — memória operacional
+### 3.5 `memory/` — operational memory
 
-A memória ajuda os agentes a continuar uma execução. Pode conter:
+Memory helps agents continue an execution. May contain:
 
-- estado observado;
-- resumos de sessões;
-- contexto temporário;
-- comandos úteis;
-- ponteiros para documentos oficiais.
+- observed state;
+- session summaries;
+- temporary context;
+- useful commands;
+- pointers to official documents.
 
-Memória não é fonte de verdade. Quando uma informação se torna durável, deve ser promovida:
+Memory is not a source of truth. When information becomes durable, it must be promoted:
 
-| Informação | Destino oficial |
+| Information | Official destination |
 |---|---|
-| Decisão técnica | ADR |
-| Requisito | PRD ou spec |
-| Trabalho necessário | Work Item |
-| Evidência de execução | `execution/evidence/` |
-| Aprendizado validado | `LEARNINGS.md (aceitos)` ou `docs/` |
+| Technical decision | ADR |
+| Requirement | PRD or spec |
+| Work needed | Work Item |
+| Evidence of execution | `execution/evidence/` |
+| Validated learning | `LEARNINGS.md (aceitos)` or `docs/` |
 
-A memória da raiz contém apenas informações do workspace. Memória específica permanece dentro do projeto.
+Root memory contains only workspace information. Specific memory remains within the project.
 
-### 3.6 `LEARNINGS.md` — aprendizado curado
+### 3.6 `LEARNINGS.md` — curated learning
 
-Possui dois estágios:
+It has two stages:
 
-- `candidates/`: observações ainda não confirmadas;
-- `accepted/`: aprendizados validados e reutilizáveis no projeto.
+- `candidates/`: observations not yet confirmed;
+- `accepted/`: validated and reusable learning in the project.
 
-Quando um aprendizado passa a valer para vários projetos, ele deve ser promovido para `docs/standards/` ou `docs/playbooks/`.
+When a learning becomes effective for multiple projects, it should be promoted to `docs/standards/` or `docs/playbooks/`.
 
-### 3.7 `coordination/` — comunicação entre agentes
+### 3.7 `coordination/` — communication between agents
 
-Guarda somente coordenação transversal e temporária:
+It only stores transversal and temporary coordination:
 
-- `active/`: missões em andamento e seus responsáveis;
-- `handoffs/`: passagem explícita de contexto entre agentes;
-- `blockers/`: impedimentos que precisam de resolução externa;
-- `inbox/`: entradas ainda não triadas.
+- `active/`: missions in progress and those responsible;
+- `handoffs/`: explicit context passing between agents;
+- `blockers/`: impediments that require external resolution;
+- `inbox/`: entries not yet screened.
 
-Depois da conclusão, o conteúdo durável deve ser incorporado ao projeto e o material transitório pode ser arquivado.
+Upon completion, durable content must be incorporated into the project and transitional material can be archived.
 
-## 4. BOARD e Work Items
+## 4. BOARD and Work Items
 
-O `BOARD.md` não deve ser o banco de dados principal. Vários agentes editando o mesmo arquivo aumentam o risco de conflito e sobrescrita.
+`BOARD.md` should not be the primary database. Multiple agents editing the same file increases the risk of conflict and overwriting.
 
-A fonte de verdade é um arquivo por Work Item:
+The source of truth is one file per Work Item:
 
 ```text
 projects/checkout/work-items/WI-031.md
 ```
 
-### 4.1 Modelo de Work Item
+### 4.1 Work Item Model
 
 ```markdown
 ---
 id: WI-031
-title: Implementar idempotência no processamento do pagamento
+title: Implement idempotence in payment processing
 project: checkout
 status: implementation
 priority: high
@@ -374,35 +374,35 @@ blocked_by: []
 updated_at: 2026-08-08T14:30:00-03:00
 ---
 
-## Objetivo
+## Objective
 
-Impedir processamento duplicado de eventos de pagamento.
+Prevent duplicate processing of payment events.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- [ ] Eventos repetidos não geram nova cobrança
-- [ ] Estado permanece consistente após retry
-- [ ] Testes cobrem concorrência e redelivery
+- [ ] Repeated events do not generate new charges
+- [ ] State remains consistent after retry
+- [ ] Tests cover competition and redelivery
 
-## Plano relacionado
+## Related plan
 
 `PLAN-014`
 
-## Evidências
+## Evidence
 
-Preencher durante a implementação.
+Fill in during implementation.
 
-## Histórico
+## History
 
-- 2026-08-08: item refinado pelo agente de arquitetura.
+- 2026-08-08: item refined by architecture agent.
 ```
 
-### 4.2 Papel do `BOARD.md`
+### 4.2 Role of `BOARD.md`
 
-O board da raiz oferece uma visão consolidada do portfólio:
+The root board offers a consolidated view of the portfolio:
 
 ```markdown
-# Board
+#Board
 
 ## Backlog
 
@@ -420,22 +420,22 @@ O board da raiz oferece uma visão consolidada do portfólio:
 
 - `WI-009` — catalog
 
-## Blocked
+##Blocked
 
-- `WI-014` — identity — aguardando decisão de segurança
+- `WI-014` — identity — awaiting security decision
 
-## Review
+##Review
 
 - `WI-028` — checkout
 
-## Done
+##Done
 
 - `WI-007` — catalog
 ```
 
-Idealmente, esse arquivo deve ser regenerável a partir do campo `status` dos Work Items. Para reduzir contenção, agentes atualizam seus próprios Work Items; um agente coordenador atualiza ou regenera o board.
+Ideally, this file should be regenerable from the Work Items field `status`. To reduce contention, agents update their own Work Items; a coordinating agent updates or regenerates the board.
 
-## 5. Workflow multiagente
+## 5. Multi-agent workflow
 
 ```mermaid
 flowchart LR
@@ -454,112 +454,112 @@ flowchart LR
     X --> B
 ```
 
-### 5.1 Contrato de saída por etapa
+### 5.1 Stage exit contract
 
-| Etapa | Condição de saída |
+| Step | Exit condition |
 |---|---|
-| Intake | Work Item criado e associado a um projeto |
-| Refinement | Escopo, critérios de aceite, risco e dependências definidos |
-| Ready | Sem dúvida ou bloqueio relevante para iniciar |
-| Planning | Plano técnico e divisão do trabalho registrados |
-| Implementation | Artefatos produzidos e evidências coletadas |
-| Technical Review | Revisão técnica registrada e pendências resolvidas |
-| Validation | Critérios de aceite comprovados |
-| Done | Resultado entregue e documentação atualizada |
+| Intake | Work Item created and associated with a project |
+| Refinement | Scope, acceptance criteria, risk and dependencies defined |
+| Ready | No doubt or relevant block to start |
+| Planning | Technical plan and division of labor registered |
+| Implementation | Artifacts produced and evidence collected |
+| Technical Review | Technical review registered and pending issues resolved |
+| Validation | Proven acceptance criteria |
+| Done | Result delivered and documentation updated |
 
-`Blocked` não é uma etapa normal: é um estado de exceção. Todo bloqueio deve informar causa, impacto, responsável pela resolução e próxima ação.
+`Blocked` is not a normal step: it is an exception state. Every blockage must inform the cause, impact, person responsible for the resolution and next action.
 
-## 6. Arquivos fundamentais
+## 6. Fundamental files
 
 ### 6.1 `WORKSPACE.md`
 
-É a porta de entrada. Deve explicar:
+It's the gateway. It should explain:
 
-- como navegar pelo workspace;
-- quais são os projetos ativos;
-- onde cada tipo de informação pertence;
-- como iniciar e concluir uma missão;
-- quais documentos são fontes de verdade.
+- how to navigate the workspace;
+- what are the active projects;
+- where each type of information belongs;
+- how to start and complete a mission;
+- which documents are sources of truth.
 
 ### 6.2 `AGENTS.md`
 
-Define regras obrigatórias para todos os agentes:
+Defines mandatory rules for all agents:
 
-1. Ler `WORKSPACE.md` e o `AGENTS.md` aplicável.
-2. Ler `CONTEXT.md` e `STATUS.md` antes de atuar em um projeto.
-3. Consultar `engineering/repositories.yaml` para localizar os repositórios envolvidos.
-4. Ler o `AGENTS.md` e as instruções locais de cada repositório antes de alterar código.
-5. Criar ou assumir um Work Item antes de modificar artefatos.
-6. Declarar repositório, branch, worktree e escopo da mudança.
-7. Verificar o estado Git e preservar alterações preexistentes.
-8. Não sobrescrever trabalho de outro agente.
-9. Registrar decisões, validações e evidências.
-10. Produzir handoff explícito ao trocar de agente.
-11. Não transformar memória temporária em fonte de verdade.
-12. Não marcar um item como concluído sem comprovar os critérios de aceite.
+1. Read `WORKSPACE.md` and the applicable `AGENTS.md`.
+2. Read `CONTEXT.md` and `STATUS.md` before working on a project.
+3. Query `engineering/repositories.yaml` to find the repositories involved.
+4. Read `AGENTS.md` and local instructions for each repository before changing code.
+5. Create or assume a Work Item before modifying artifacts.
+6. Declare repository, branch, worktree and scope of change.
+7. Check Git status and preserve pre-existing changes.
+8. Do not overwrite another agent's work.
+9. Record decisions, validations and evidence.
+10. Produce explicit handoff when changing agents.
+11. Do not transform temporary memory into a source of truth.
+12. Do not mark an item as completed without checking the acceptance criteria.
 
 ### 6.3 `projects/<project>/CONTEXT.md`
 
-Explica o projeto de forma relativamente estável:
+Explains the project in a relatively stable way:
 
-- problema e objetivo;
-- usuários e stakeholders;
-- limites de escopo;
-- arquitetura atual;
-- sistemas e repositórios relacionados;
-- glossário e restrições relevantes.
+- problem and objective;
+- users and stakeholders;
+- scope limits;
+- current architecture;
+- related systems and repositories;
+- glossary and relevant restrictions.
 
 ### 6.4 `projects/<project>/STATUS.md`
 
-É um resumo executivo curto e atual:
+It is a short and current executive summary:
 
 ```markdown
 # Status
 
-- Fase: implementação
-- Objetivo atual: tornar pagamentos idempotentes
-- Plano ativo: `PLAN-014`
-- Itens em execução: `WI-031`, `WI-032`
-- Bloqueios: definição do prazo de retenção
-- Última atualização: 2026-08-08
+- Phase: implementation
+- Current goal: make payments idempotent
+- Active plan: `PLAN-014`
+- Running items: `WI-031`, `WI-032`
+- Blocks: definition of the retention period
+- Last updated: 2026-08-08
 ```
 
-## 7. Regras de fonte de verdade
+## 7. Source of truth rules
 
-| Assunto | Fonte de verdade |
+| Subject | Source of truth |
 |---|---|
-| Prioridade entre projetos | `BOARD.md` e `docs/portfolio/PROJECTS.md` |
-| Contexto de um projeto | `projects/<project>/CONTEXT.md` |
-| Estado atual do projeto | `projects/<project>/STATUS.md` |
-| Requisito de produto | `product/prd/` ou `product/requirements/` |
-| Experiência do usuário | `ux/` |
-| Decisão arquitetural | `engineering/adr/` |
-| Especificação técnica | `engineering/specs/` |
-| Relação entre projeto e repositórios | `projects/<project>/engineering/repositories.yaml` |
-| Inventário dos clones locais | `repos/registry.yaml` |
-| Código-fonte e estado do checkout | repositório em `repos/github/` ou worktree ativo |
-| Remote, PRs, checks e releases | GitHub |
-| Estratégia de execução | `plans/active/` |
-| Material bruto de uma sessão de workflow | `plans/assets/<workflow>/<data>-<session-id>/` (não autoritativo) |
-| Estado de uma unidade de trabalho | arquivo em `work-items/` |
-| Prova de conclusão | `execution/evidence/` |
-| Contexto temporário do agente | `memory/` |
+| Priority between projects | `BOARD.md` and `docs/portfolio/PROJECTS.md` |
+| Context of a project | `projects/<project>/CONTEXT.md` |
+| Current status of the project | `projects/<project>/STATUS.md` |
+| Product Requirement | `product/prd/` or `product/requirements/` |
+| User Experience | `ux/` |
+| Architectural decision | `engineering/adr/` |
+| Technical specification | `engineering/specs/` |
+| Relationship between project and repositories | `projects/<project>/engineering/repositories.yaml` |
+| Inventory of local clones | `repos/registry.yaml` |
+| Source code and checkout status | repository on `repos/github/` or active worktree |
+| Remote, PRs, checks and releases | GitHub |
+| Execution strategy | `plans/active/` |
+| Raw material from a workflow session | `plans/assets/<workflow>/<data>-<session-id>/` (non-authoritative) |
+| Status of a work unit | file in `work-items/` |
+| Completion test | `execution/evidence/` |
+| Agent Temporary Context | `memory/` |
 
-Uma informação não deve existir como conteúdo autoritativo em dois locais. Arquivos de resumo devem apontar para a fonte original.
+Information should not exist as authoritative content in two places. Summary files must point to the original source.
 
-## 8. Convenções operacionais
+## 8. Operating conventions
 
-### 8.1 Identificadores
+### 8.1 Identifiers
 
-- projeto: slug estável, por exemplo `checkout`;
-- plano: `PLAN-NNN`;
+- project: stable slug, for example `checkout`;
+- plan: `PLAN-NNN`;
 - Work Item: `WI-NNN`;
 - ADR: `ADR-NNN`;
 - handoff: `HANDOFF-<work-item>-<origem>-<destino>.md`.
 
-Quando identificadores puderem colidir entre projetos, usar o prefixo do projeto, como `CHK-WI-031`.
+When identifiers may collide between projects, use the project prefix, such as `CHK-WI-031`.
 
-### 8.2 Estados permitidos
+### 8.2 Allowed states
 
 ```text
 backlog
@@ -574,37 +574,37 @@ done
 cancelled
 ```
 
-Os valores devem ser estáveis e escritos sempre da mesma forma para permitir automação.
+Values ​​must be stable and always written in the same way to allow automation.
 
-### 8.3 Handoff mínimo
+### 8.3 Minimum handoff
 
-Todo handoff deve registrar:
+Every handoff must record:
 
-- missão e Work Item;
-- repositórios, branches, worktrees e commits envolvidos;
-- o que foi feito;
-- arquivos alterados;
-- decisões tomadas;
-- evidências disponíveis;
-- pendências e riscos;
-- próxima ação esperada;
-- agente ou papel de destino.
+- mission and Work Item;
+- repositories, branches, worktrees and commits involved;
+- what was done;
+- changed files;
+- decisions made;
+- available evidence;
+- pending issues and risks;
+- next expected action;
+- agent or target role.
 
-### 8.4 Concorrência entre agentes
+### 8.4 Competition between agents
 
-- cada missão ativa possui um único agente responsável;
-- responsabilidade e horário de início ficam registrados no Work Item;
-- dois agentes não editam simultaneamente o mesmo artefato sem divisão explícita;
-- agentes concorrentes no mesmo repositório usam branches e worktrees separados por Work Item;
-- alterações locais preexistentes nunca são descartadas ou incorporadas sem autorização;
-- o board é consolidado por um coordenador, não editado livremente por todos;
-- achados transitórios são registrados em arquivos separados, evitando um grande arquivo compartilhado de anotações.
+- each active mission has a single responsible agent;
+- responsibility and start time are recorded in the Work Item;
+- two agents cannot simultaneously edit the same artifact without explicit division;
+- competing agents in the same repository use branches and worktrees separated by Work Item;
+- pre-existing local changes are never discarded or incorporated without authorization;
+- the board is consolidated by a coordinator, not freely edited by everyone;
+- transient findings are recorded in separate files, avoiding a large shared file of notes.
 
-## 9. Implantação incremental
+## 9. Incremental deployment
 
-### Fase 1 — contrato mínimo
+### Phase 1 — minimum contract
 
-Criar somente:
+Create only:
 
 ```text
 AGENTS.md
@@ -624,41 +624,41 @@ projects/<piloto>/
 └── execution/evidence/
 ```
 
-### Fase 2 — templates e coordenação
+### Phase 2 — templates and coordination
 
-- adicionar templates de plano, ADR, Work Item e handoff;
-- introduzir `.coordination/`;
-- padronizar metadados e estados;
-- padronizar branches e worktrees por Work Item;
-- validar o fluxo com um projeto real.
+- add plan, ADR, Work Item and handoff templates;
+- enter `.coordination/`;
+- standardize metadata and states;
+- standardize branches and worktrees by Work Item;
+- validate the flow with a real project.
 
-### Fase 3 — memória e aprendizado
+### Phase 3 — memory and learning
 
-- adicionar memória por projeto;
-- criar o fluxo `candidate -> accepted -> promoted`;
-- definir retenção e arquivamento de contexto temporário.
+- add memory per project;
+- create the `candidate -> accepted -> promoted` flow;
+- set temporary context retention and archiving.
 
-### Fase 4 — automação
+### Phase 4 — automation
 
-- regenerar `BOARD.md` a partir dos Work Items;
-- detectar itens sem owner, critérios ou evidências;
-- validar links e identificadores;
-- verificar divergências entre `registry.yaml`, projetos e clones existentes;
-- detectar worktrees órfãos e branches sem Work Item relacionado;
-- gerar relatórios de status e bloqueios;
-- avisar quando memória contém decisão ainda não promovida.
+- regenerate `BOARD.md` from Work Items;
+- detect items without owner, criteria or evidence;
+- validate links and identifiers;
+- check divergences between `registry.yaml`, existing projects and clones;
+- detect orphaned worktrees and branches without related Work Item;
+- generate status and blocking reports;
+- warn when memory contains decision not yet promoted.
 
-## 10. Decisão recomendada
+## 10. Recommended decision
 
-Adotar `projects/<project>/` como unidade central do trabalho, mover `plans/` para dentro de cada projeto e usar `repos/` como localização canônica dos checkouts de código.
+Adopt `projects/<project>/` as the central unit of work, move `plans/` within each project and use `repos/` as the canonical location of code checkouts.
 
-Manter na raiz apenas elementos transversais:
+Keep only transverse elements at the root:
 
-- `docs/`: conhecimento global curado;
-- `repos/`: repositórios GitHub e worktrees locais;
-- `.coordination/`: comunicação temporária entre agentes;
-- `memory/`: memória do workspace;
-- `BOARD.md`: visão consolidada do portfólio;
-- `archive/`: material global desativado.
+- `docs/`: curated global knowledge;
+- `repos/`: GitHub repositories and local worktrees;
+- `.coordination/`: temporary communication between agents;
+- `memory/`: workspace memory;
+- `BOARD.md`: consolidated view of the portfolio;
+- `archive/`: global material disabled.
 
-Essa divisão separa claramente documentação, planejamento e código; reduz duplicidade; melhora a navegação; limita conflitos entre agentes; e torna explícita a fonte de verdade de cada informação.
+This division clearly separates documentation, planning and code; reduces duplicity; improves navigation; limits conflicts between agents; and makes the source of truth of each information explicit.

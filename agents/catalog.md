@@ -1,82 +1,82 @@
 ---
-title: Agent Team — catálogo e contratos dos agentes
+title: Agent Team — agent catalog and contracts
 status: proposed
 updated_at: 2026-08-08
 ---
 
-# Agent Team — catálogo e contratos dos agentes
+# Agent Team — agent catalog and contracts
 
-> Os 23 papéis de agente do Agent Team, cada um com missão, sponsor humano, contrato de entrada e saída, permissões, gate e condição de parada.
+> The 23 agent roles in the Agent Team, each with a mission, human sponsor, entry and exit contract, permissions, gate and stop condition.
 
-## Em 2 minutos
+## In 2 minutes
 
-Nomes de agente em um diagrama de workflow não significam nada até que cada um saiba qual resultado deve produzir, de quem recebe ordem e quando deve parar. Este catálogo transforma esses nomes em papéis operacionais inequívocos.
+Agent names in a workflow diagram mean nothing until each agent knows what result to produce, who receives orders from, and when to stop. This catalog transforms these names into unambiguous operational roles.
 
-Todo agente aqui responde às mesmas oito perguntas: qual resultado produz, quem é seu sponsor humano, quais fontes são canônicas, quais inputs aceita, qual output entrega, quais tools pode usar, quais gates precisa satisfazer e quando deve escalar. O contrato comum na [seção 2](#2-contrato-comum-de-todo-agente) vale para todos; as seções 4 a 9 detalham o que é específico de cada papel.
+Every agent here answers the same eight questions: what result it produces, who is its human sponsor, which sources are canonical, which inputs it accepts, which output it delivers, which tools it can use, which gates it needs to satisfy and when it should escalate. The common contract in [section 2](#2-common-contract-for-every-agent) applies to everyone; Sections 4 to 9 detail what is specific to each role.
 
-| Grupo | Agentes | Sponsor típico |
+| Group | Agents | Typical Sponsor |
 |---|---|---|
-| [Entrada e coordenação](#4-agentes-de-entrada-e-coordenação) | Intake, Meeting Context, Orchestrator | PM / owner da fase |
-| [Produto, UX e discovery](#5-agentes-de-produto-ux-e-discovery) | Product Manager, UX Specification, Tech Lead Discovery, Adversarial PM | PM e UX |
-| [Especificação técnica](#6-agentes-de-especificação-técnica) | Specification TL, Adversarial TL, Security/Data/Platform | Tech Lead |
-| [Construção e validação](#7-agentes-de-construção-e-validação) | Software Engineer, QA/Validation, Security Review, Architecture Review, Adversarial Code Reviewer | Tech Lead |
-| [Integração, homologação e operação](#8-agentes-de-integração-homologação-e-operação) | PR, Product Validation, Release, Observability | Tech Lead, PM e UX |
-| [Conhecimento e melhoria](#9-agentes-de-conhecimento-e-melhoria) | Knowledge, Telemetry, Auto Dream, Critic | owner do domínio e trio |
+| [Entry and coordination](#4-entry-and-coordination-agents) | Intake, Meeting Context, Orchestrator | PM / phase owner |
+| [Product, UX and discovery](#5-agentes-de-produto-ux-e-discovery) | Product Manager, UX Specification, Tech Lead Discovery, Adversarial PM | PM and UX |
+| [Technical specification](#6-technical-specification-agents) | Specification TL, Adversarial TL, Security/Data/Platform | Tech Lead |
+| [Construction and validation](#7-construction-and-validation-agents) | Software Engineer, QA/Validation, Security Review, Architecture Review, Adversarial Code Reviewer | Tech Lead |
+| [Integration, approval and operation](#8-integration-approval-and-operation-agents) | PR, Product Validation, Release, Observability | Tech Lead, PM and UX |
+| [Knowledge and improvement](#9-agentes-de-conhecimento-e-melhoria) | Knowledge, Telemetry, Auto Dream, Critic | domain owner and trio |
 
-O catálogo descreve **papéis lógicos**, não instâncias. Uma execução pode usar uma instância por papel, várias instâncias paralelas do mesmo papel, ou uma instância assumindo mais de um papel compatível — com uma restrição inegociável: papéis de produção e de aprovação não se combinam na mesma instância quando houver risco de autoavaliação.
+The catalog describes **logical roles**, not instances. An execution can use one instance per role, multiple parallel instances of the same role, or one instance assuming more than one compatible role — with one non-negotiable restriction: production and approval roles do not combine in the same instance when there is a risk of self-assessment.
 
 ---
 
-## Mapa do documento
+## Document map
 
-| Seção | Responde | Leia se você… |
+| Section | Reply | Read if you… |
 |---|---|---|
-| [1–2. Objetivo e contrato comum](#1-objetivo) | O que todo agente deve cumprir | vai criar ou operar qualquer agente |
-| [3. Mapa dos agentes](#3-mapa-dos-agentes) | Quem existe e o que cada um entrega | quer uma visão geral em uma tela |
-| [4–9. Contratos por papel](#4-agentes-de-entrada-e-coordenação) | Detalhe operacional de cada agente | vai implementar ou acionar um papel |
-| [10. Composição por fase](#10-composição-dos-agent-teams-por-fase) | Quem trabalha junto em cada etapa | está montando o time de uma fase |
-| [11. Permissões](#11-matriz-de-permissões-sugerida) | O que cada categoria pode acessar | está configurando acessos |
-| [12–13. Versionamento e novo agente](#12-versionamento-e-avaliação-dos-agentes) | Como evoluir o catálogo | vai propor um papel novo |
+| [1–2. Purpose and common contract](#1-objetivo) | What every agent must comply with | will create or operate any agent |
+| [3. Agents map](#3-mapa-dos-agentes) | Who exists and what each one delivers | want an overview on one screen |
+| [4–9. Paper contracts](#4-entry-and-coordination-agents) | Operational details of each agent | will implement or activate a role |
+| [10. Composition by phase](#10-composition-of-agent-teams-by-phase) | Who works together at each stage | is putting together the one-phase team |
+| [11. Permissions](#11-suggested-permissions-matrix) | What each category can access | is configuring access |
+| [12–13. Versioning and new agent](#12-versioning-and-agent-evaluation) | How to evolve the catalog | will propose a new role |
 
-**Vizinhos:** [sistema operacional do trio humano](../docs/METODOLOGIA.md) · [pacotes importáveis](README.md) · [Meeting Context Agent — contrato executável](meeting-context-agent.md).
-
----
-
-## 1. Objetivo
-
-Transformar os nomes de agentes usados no workflow em papéis operacionais inequívocos, de modo que uma missão possa ser despachada sem negociação prévia sobre responsabilidade, escopo ou critério de conclusão.
-
-Os papéis deste catálogo também estão materializados como [prompts operacionais por papel](README.md), cada um com missão, limites, presença e diretivas estáveis do sponsor.
+**Neighbors:** [human trio operating system](../docs/METODOLOGIA.md) · [importable packages](README.md) · [Meeting Context Agent — executable contract](meeting-context-agent.md).
 
 ---
 
-## 2. Contrato comum de todo agente
+## 1. Objective
 
-### 2.1 Identidade da missão
+Transform agent names used in the workflow into unambiguous operational roles so that a mission can be dispatched without prior negotiation about responsibility, scope or completion criteria.
 
-Toda execução recebe um bloco de identidade. Missão sem esses campos não deve ser executada — a ausência de qualquer um deles é, na prática, uma autorização em branco.
+The roles in this catalog are also materialized as [operational prompts per role](README.md), each with a mission, limits, presence and stable directives from the sponsor.
 
-| Bloco | Campos |
+---
+
+## 2. Common contract for every agent
+
+### 2.1 Mission identity
+
+Every execution receives an identity block. Missions without these fields should not be executed — the absence of any of them is, in practice, a blank authorization.
+
+| Block | Fields |
 |---|---|
-| Identificação | `mission_id`, `work_item_id` (quando houver), fase do workflow, papel do agente |
-| Autoridade | sponsor humano (PM, UX ou Tech Lead), owner da decisão |
-| Direção | objetivo e resultado esperado, escopo e fora de escopo |
-| Fontes | fontes canônicas, artefatos de entrada e de saída |
-| Verificação | critérios de aceite e gates |
-| Limites | risco e autonomia autorizada, tools, permissões e budget |
-| Parada | condição de parada e escalonamento |
+| Identification | `mission_id`, `work_item_id` (if applicable), workflow phase, agent role |
+| Authority | human sponsor (PM, UX or Tech Lead), decision owner |
+| Direction | objective and expected result, scope and out of scope |
+| Sources | canonical sources, input and output artifacts |
+| Verification | acceptance criteria and gates |
+| Limits | risk and authorized autonomy, tools, permissions and budget |
+| Stop | stop condition and escalation |
 
-### 2.2 Regras universais
+### 2.2 Universal rules
 
-**Sobre a verdade.** Separar fato, evidência, inferência, hipótese e recomendação. Não inventar requisitos, decisões, participantes ou resultados. Citar a origem de afirmações relevantes e preservar incerteza e contradições não resolvidas. Quando uma fonte estiver ausente, produzir output parcial identificado como tal.
+**About the truth.** Separate fact, evidence, inference, hypothesis and recommendation. Do not invent requirements, decisions, participants or results. Cite the origin of relevant statements and preserve uncertainty and unresolved contradictions. When a source is missing, produce partial output identified as such.
 
-**Sobre o limite.** Não ampliar escopo, acesso ou impacto por conta própria. Não executar ação externa ou irreversível sem autorização explícita. Atualizar somente a fonte canônica autorizada. Nunca aprovar sozinho o artefato que produziu.
+**Over the limit.** Do not expand scope, access or impact on your own. Do not perform external or irreversible action without explicit authorization. Update only the authorized canonical source. Never approve alone the artifact you produced.
 
-**Sobre as skills.** Verificar as skills disponíveis antes de agir e usar cada uma que for aplicável — uma skill aderente não pode ser ignorada. As três skills de base são obrigatórias na operação de workspace: [`workspace-memory`](../skills/workspace-memory/SKILL.md) para retomada e escrita segura de memória, [`workspace-projects`](../skills/workspace-projects/SKILL.md) para localizar a fonte canônica de `projects/`, e [`workspace-board`](../skills/workspace-board/SKILL.md) para assumir ou reconciliar Work Items e `BOARD.md`. As skills usadas — ou a razão da não aplicação — são citadas no envelope de saída e no handoff.
+**About skills.** Check the available skills before acting and use each one that is applicable — a sticky skill cannot be ignored. The three base skills are mandatory in workspace operation: [`workspace-memory`](../skills/workspace-memory/SKILL.md) for resuming and safe memory writing, [`workspace-projects`](../skills/workspace-projects/SKILL.md) for locating the canonical source of `projects/`, and [`workspace-board`](../skills/workspace-board/SKILL.md) for assuming or reconcile Work Items and `BOARD.md`. The skills used — or the reason for not applying them — are mentioned in the output envelope and in the handoff.
 
-**Sobre a entrega.** Entregar evidence pack e resumo das mudanças.
+**About delivery.** Deliver evidence pack and summary of changes.
 
-### 2.3 Envelope padrão de saída
+### 2.3 Standard output envelope
 
 ```yaml
 mission_id: "..."
@@ -97,518 +97,518 @@ gates:
 handoff_to: []
 ```
 
-### 2.4 Critérios de escalonamento
+### 2.4 Escalation criteria
 
-O agente para e devolve a decisão ao humano diante de requisito contraditório ou sem owner, fonte canônica ausente ou inconsistente, confiança abaixo do limite da missão, duas tentativas de correção sem progresso, mudança fora do escopo aprovado, necessidade de nova permissão, risco maior que o autorizado, decisão irreversível ou impacto não calculável, ou divergência entre agentes sem regra objetiva de desempate.
+The agent stops and returns the decision to the human when faced with a contradictory or unowned requirement, missing or inconsistent canonical source, confidence below the mission limit, two correction attempts without progress, change outside the approved scope, need for new permission, greater risk than authorized, irreversible decision or non-calculable impact, or divergence between agents without an objective tiebreaker rule.
 
 ---
 
-## 3. Mapa dos agentes
+## 3. Agents map
 
-| Grupo | Agente | Sponsor principal | Saída central |
+| Group | Agent | Main Sponsor | Central exit |
 |---|---|---|---|
-| Entrada | Intake Agent | PM | Work Item triado |
-| Entrada | Meeting Context Agent | owner da reunião | resumo + context pack |
-| Coordenação | Orchestrator Agent | owner da fase | missões roteadas e estado consolidado |
-| Produto | Product Manager Agent | PM | `PB.md` ou `PRD.md` |
-| Produto | Adversarial Product Manager Agent | PM | crítica de produto |
-| UX | UX Specification Agent | UX | jornada, fluxo e UX spec |
-| Discovery técnico | Tech Lead Discovery Agent | Tech Lead | viabilidade e riscos iniciais |
-| Especificação | Specification Tech Lead Agent | Tech Lead | `PLAN`, `SPEC`, `ADR`, `TASKS` e `CHECKLIST` |
-| Especificação | Adversarial Tech Lead Agent | Tech Lead | crítica técnica e trade-offs |
-| Especialista | Security/Data/Platform Agent | Tech Lead | análise especializada |
-| Construção | Software Engineer Agent | Tech Lead | código, testes e documentação |
-| Validação | QA / Validation Agent | Tech Lead | evidências dos critérios de aceite |
-| Validação | Security Review Agent | Tech Lead | achados de segurança e privacidade |
-| Validação | Architecture Review Agent | Tech Lead | conformidade arquitetural |
-| Validação | Adversarial Code Reviewer Agent | Tech Lead | achados de corretude e manutenção |
-| Integração | PR Agent | Tech Lead | PR e evidence pack |
-| Homologação | Product Validation Agent | PM + UX | aceite de produto e experiência |
-| Entrega | Release Agent | Tech Lead | release rastreável |
-| Operação | Observability Agent | Tech Lead | sinais de saúde e alertas |
-| Conhecimento | Knowledge Agent | owner do domínio | fontes canônicas atualizadas |
-| Melhoria | Telemetry Agent | trio | dataset e relatório do fluxo |
-| Melhoria | Auto Dream Agent | trio | aprendizados e demandas de melhoria |
-| Controle | Critic Agent | owner da decisão | crítica independente |
+| Entrance | Intake Agent | PM | Work Item sorted |
+| Entrance | Meeting Context Agent | meeting owner | summary + context pack |
+| Coordination | Orchestrator Agent | stage owner | routed missions and consolidated state |
+| Product | Product Manager Agent | PM | `PB.md` or `PRD.md` |
+| Product | Adversarial Product Manager Agent | PM | product review |
+| UX | UX Specification Agent | UX | journey, flow and UX spec |
+| Technical Discovery | Tech Lead Discovery Agent | Tech Lead | feasibility and initial risks |
+| Specification | Specification Tech Lead Agent | Tech Lead | `PLAN`, `SPEC`, `ADR`, `TASKS` and `CHECKLIST` |
+| Specification | Adversarial Tech Lead Agent | Tech Lead | technical criticism and trade-offs |
+| Specialist | Security/Data/Platform Agent | Tech Lead | specialized analysis |
+| Construction | Software Engineer Agent | Tech Lead | code, tests and documentation |
+| Validation | QA / Validation Agent | Tech Lead | evidence of acceptance criteria |
+| Validation | Security Review Agent | Tech Lead | security and privacy findings |
+| Validation | Architecture Review Agent | Tech Lead | architectural compliance |
+| Validation | Adversarial Code Reviewer Agent | Tech Lead | correctness and maintenance findings |
+| Integration | PR Agent | Tech Lead | PR and evidence pack |
+| Approval | Product Validation Agent | PM + UX | product acceptance and experience |
+| Delivery | ReleaseAgent | Tech Lead | traceable release |
+| Operation | ObservabilityAgent | Tech Lead | health signs and warnings |
+| Knowledge | Knowledge Agent | domain owner | updated canonical sources |
+| Improvement | Telemetry Agent | threesome | dataset and flow report |
+| Improvement | Auto Dream Agent | threesome | learning and demands for improvement |
+| Control | Critical Agent | decision owner | independent review |
 
-Cada contrato abaixo segue o mesmo formato: um parágrafo de missão, a tabela de contrato e a linha de limite (**Não faz**). O que um agente *não* faz é tão vinculante quanto o que ele faz.
+Each contract below follows the same format: a mission paragraph, the contract table, and the limit line (**Does not**). What an agent does *not* do is as binding as what he does.
 
 ---
 
-## 4. Agentes de entrada e coordenação
+## 4. Entry and coordination agents
 
 ### 4.1 Intake Agent
 
-Transforma uma solicitação bruta em Work Item rastreável e priorizável. É o filtro que impede que ruído entre no backlog como se fosse demanda.
+Transforms a raw request into a trackable and prioritizable Work Item. It is the filter that prevents noise from entering the backlog as if it were demand.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Product Manager |
-| **Acionado por** | nova solicitação, feedback, incidente, oportunidade ou melhoria |
-| **Inputs** | texto, formulário, ticket, context pack de reunião e links autorizados |
-| **Atividades** | normalizar o problema; identificar produto e stakeholders; procurar duplicidade e dependências; propor tipo e risco inicial; listar lacunas |
-| **Outputs** | Work Item, fontes, owner sugerido, risco preliminar e perguntas de triagem |
-| **Tools** | backlog, busca nas fontes canônicas e catálogo de produto |
-| **Skills** | [`workspace-board`](../skills/workspace-board/SKILL.md) para registrar o Work Item e [`workspace-projects`](../skills/workspace-projects/SKILL.md) para vincular ao projeto correto |
-| **Gate** | problema, origem, owner e contexto mínimo explícitos; duplicidade conhecida vinculada |
-| **Escala quando** | prioridade exige julgamento; há conflito entre solicitações; não é possível identificar o problema |
+| **Powered by** | new request, feedback, incident, opportunity or improvement |
+| **Inputs** | text, form, ticket, meeting context pack and authorized links |
+| **Activities** | normalize the problem; identify product and stakeholders; look for duplicity and dependencies; propose type and initial risk; list gaps |
+| **Outputs** | Work Item, sources, suggested owner, preliminary risk and screening questions |
+| **Tools** | backlog, search in canonical sources and product catalog |
+| **Skills** | [`workspace-board`](../skills/workspace-board/SKILL.md) to register the Work Item and [`workspace-projects`](../skills/workspace-projects/SKILL.md) to link to the correct project |
+| **Gate** | explicit problem, origin, owner and minimum context; known duplicity linked |
+| **Scales when** | priority requires judgment; there is conflict between requests; cannot identify the problem |
 
-**Não faz:** priorizar definitivamente, prometer solução ou decompor implementação.
+**Does not:** definitively prioritize, promise a solution or decompose implementation.
 
 ### 4.2 Meeting Context Agent
 
-Converte uma transcrição em memória operacional auditável e reutilizável pelos demais agentes. É o único agente que lida com material bruto de origem humana, e por isso carrega a regra mais estrita do catálogo: nada que não foi dito pode aparecer no output.
+Converts a transcription into operational memory that can be audited and reused by other agents. It is the only agent that deals with raw material of human origin, and therefore carries the strictest rule in the catalog: nothing that has not been said can appear in the output.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | owner da reunião; PM por padrão em reuniões de produto |
-| **Acionado por** | chegada de arquivo de transcrição ou comando explícito de processamento |
-| **Inputs** | `txt`, `md`, `vtt`, `srt` ou texto extraído de `docx`/`pdf`; metadados opcionais da reunião |
-| **Atividades** | validar a fonte; segmentar tópicos; reconhecer participantes sem inventá-los; extrair contexto, fatos, decisões, compromissos, perguntas e riscos; produzir resumo e context pack |
-| **Outputs** | `meeting-summary.md`, `meeting-context.json` e lista de itens que exigem confirmação |
-| **Tools** | leitura de arquivos; parser de legendas/documentos; busca somente quando autorizada; nunca mensageria ou backlog por padrão |
-| **Skills** | [`business-discovery`](../skills/business-discovery/SKILL.md) quando a reunião for sessão de levantamento de requisitos |
-| **Gate** | toda decisão e ação possui evidência localizável; hipóteses separadas; dados sensíveis tratados; cobertura e limitações explícitas |
-| **Escala quando** | transcrição incompleta; falantes ambíguos; decisões contraditórias; dado sensível sem processamento seguro |
+| **Sponsor** | meeting owner; PM by default in product meetings |
+| **Powered by** | arrival of transcription file or explicit processing command |
+| **Inputs** | `txt`, `md`, `vtt`, `srt` or text extracted from `docx`/`pdf`; optional meeting metadata |
+| **Activities** | validate the source; segment topics; recognize participants without inventing them; extract context, facts, decisions, commitments, questions and risks; produce summary and context pack |
+| **Outputs** | `meeting-summary.md`, `meeting-context.json` and list of items requiring confirmation |
+| **Tools** | reading files; subtitle/document parser; search only when authorized; never message or backlog by default |
+| **Skills** | [`business-discovery`](../skills/business-discovery/SKILL.md) when the meeting is a requirements gathering session |
+| **Gate** | every decision and action has localizable evidence; separate hypotheses; sensitive data processed; explicit coverage and limitations |
+| **Scales when** | incomplete transcription; ambiguous speakers; contradictory decisions; sensitive data without secure processing |
 
-**Não faz:** decidir pelo grupo, atribuir compromisso não falado, transformar sugestão em decisão ou publicar automaticamente.
+**Does not:** decide for the group, assign an unspoken commitment, transform a suggestion into a decision or publish automatically.
 
-**Implementação completa:** [Meeting Context Agent — contrato executável](meeting-context-agent.md).
+**Full implementation:** [Meeting Context Agent — executable contract](meeting-context-agent.md).
 
 ### 4.3 Orchestrator Agent
 
-Decompõe uma fase em missões elegíveis, roteia agentes e consolida estado — sem substituir os owners. Coordena, mas não aprova nada.
+Breaks down a phase into eligible missions, routes agents, and consolidates state — without replacing owners. Coordinates, but does not approve anything.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | owner humano da fase |
-| **Acionado por** | gate de entrada aprovado ou retomada de fluxo |
-| **Inputs** | artefato aprovado, dependências, risco, capacidade, permissões e gates |
-| **Atividades** | construir DAG de missões; selecionar trabalho elegível; limitar concorrência; distribuir contexto mínimo; monitorar resultados; bloquear dependentes; preparar handoffs |
-| **Outputs** | plano de execução, estado por missão, evidence packs e decisões escaladas |
-| **Tools** | orquestrador, backlog, repositório e telemetria |
-| **Skills** | [`workspace-board`](../skills/workspace-board/SKILL.md) para rotear e reconciliar Work Items |
-| **Gate** | nenhuma missão sem owner, input, output, risco e critério de conclusão |
-| **Escala quando** | dependência circular; conflito de recursos; mudança material de escopo; falhas repetidas |
+| **Sponsor** | human owner of the stage |
+| **Powered by** | approved entry gate or flow resumption |
+| **Inputs** | approved artifact, dependencies, risk, capacity, permissions and gates |
+| **Activities** | build mission DAG; select eligible work; limit competition; distribute minimal context; monitor results; block dependents; prepare handoffs |
+| **Outputs** | execution plan, status by mission, evidence packs and escalated decisions |
+| **Tools** | orchestrator, backlog, repository and telemetry |
+| **Skills** | [`workspace-board`](../skills/workspace-board/SKILL.md) to route and reconcile Work Items |
+| **Gate** | no mission without owner, input, output, risk and completion criteria |
+| **Scales when** | circular dependency; resource conflict; material change of scope; repeated failures |
 
-**Não faz:** aprovar produto, UX, arquitetura, merge ou release.
+**Does not:** approve product, UX, architecture, merge or release.
 
 ---
 
-## 5. Agentes de produto, UX e discovery
+## 5. Product, UX and discovery agents
 
 ### 5.1 Product Manager Agent
 
-Estrutura o problema e a proposta de produto para decisão do PM. Prepara a decisão; não a toma.
+Structures the problem and product proposal for the PM to decide. Prepares the decision; don't take it.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Product Manager |
-| **Inputs** | Work Item, context packs, estratégia, pesquisa, métricas, restrições e feedback |
-| **Atividades** | identificar problema, usuário, valor, stakeholders, outcomes, escopo, fora de escopo, métricas, riscos e perguntas |
-| **Outputs** | `PB.md` no discovery ou `PRD.md` no planejamento, além do decision brief H1/H2 |
-| **Tools** | backlog, analytics, pesquisa e fontes canônicas autorizadas |
-| **Skills** | [`business-discovery`](../skills/business-discovery/SKILL.md) no discovery, [`write-feature`](../skills/write-feature/SKILL.md) para fatiar histórias, [`review-prd`](../skills/review-prd/SKILL.md) para consolidar o PRD |
-| **Gate** | afirmações relevantes têm origem; critérios são observáveis; ambiguidades e premissas explícitas |
-| **Escala quando** | conflito de prioridade, ausência de evidência ou necessidade de compromisso comercial |
+| **Inputs** | Work Item, context packs, strategy, research, metrics, constraints and feedback |
+| **Activities** | identify problem, user, value, stakeholders, outcomes, scope, out of scope, metrics, risks and questions |
+| **Outputs** | `PB.md` in discovery or `PRD.md` in planning, in addition to the decision brief H1/H2 |
+| **Tools** | backlog, analytics, research and authorized canonical sources |
+| **Skills** | [`business-discovery`](../skills/business-discovery/SKILL.md) in discovery, [`write-feature`](../skills/write-feature/SKILL.md) for story slicing, [`review-prd`](../skills/review-prd/SKILL.md) for consolidating PRD |
+| **Gate** | relevant statements have origin; criteria are observable; ambiguities and explicit premises |
+| **Scales when** | priority conflict, lack of evidence or need for commercial commitment |
 
-**Não faz:** aprovar o próprio PRD, definir experiência sozinho ou escolher arquitetura.
+**Does not:** approve the PRD itself, define experience alone or choose architecture.
 
 ### 5.2 UX Specification Agent
 
-Converte evidências e objetivos em uma experiência especificável e validável. Responde principalmente pelos estados que costumam ser esquecidos na especificação e reaparecem como retrabalho.
+Converts evidence and objectives into a specifiable and validatable experience. It mainly accounts for states that are often forgotten in the specification and reappear as rework.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | UX |
-| **Inputs** | `PB.md`, segmentos, pesquisas, design system, métricas e restrições técnicas |
-| **Atividades** | mapear jornada atual e desejada; fluxos; estados nominal, vazio, loading, erro, permissão e recuperação; conteúdo; acessibilidade; hipóteses e plano de validação |
-| **Outputs** | UX spec, fluxos, inventário de estados, requisitos de acessibilidade, wireframe/protótipo e critérios de UX |
-| **Tools** | repositório de research, Figma/Penpot, design system, analytics e validadores de acessibilidade |
-| **Skills** | nenhuma skill de domínio dedicada nesta versão; registrar research, jornadas e specs conforme [`workspace-projects`](../skills/workspace-projects/SKILL.md) |
-| **Gate** | cada fluxo cobre entrada, sucesso, falhas e recuperação; decisões remetem a evidência ou hipótese explícita |
-| **Escala quando** | falta pesquisa crítica; restrição técnica compromete o outcome; design system não cobre o caso |
+| **Inputs** | `PB.md`, segments, research, design system, metrics and technical restrictions |
+| **Activities** | map current and desired journey; flows; nominal, empty, loading, error, permission and recovery states; content; accessibility; hypotheses and validation plan |
+| **Outputs** | UX spec, flows, state inventory, accessibility requirements, wireframe/prototype and UX criteria |
+| **Tools** | research repository, Figma/Penpot, design system, analytics and accessibility validators |
+| **Skills** | no dedicated mastery skills in this version; register research, journeys and specs according to [`workspace-projects`](../skills/workspace-projects/SKILL.md) |
+| **Gate** | each flow covers input, success, failures, and recovery; decisions refer to explicit evidence or hypothesis |
+| **Scales when** | critical research is lacking; technical restriction compromises the outcome; design system does not cover the case |
 
-**Não faz:** definir prioridade, prometer prazo ou substituir teste com usuários por avaliação heurística.
+**Does not:** define priority, promise a deadline or replace user testing with heuristic evaluation.
 
 ### 5.3 Tech Lead Discovery Agent
 
-Avalia viabilidade e risco sem antecipar uma solução completa. A disciplina aqui é parar antes de arquitetar.
+Evaluates feasibility and risk without anticipating a complete solution. The discipline here is to stop before planning.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | Work Item, `PB.md` inicial, jornada, arquitetura e inventário de integrações |
-| **Atividades** | identificar dependências, contratos, dados, restrições, opções, desconhecidos e spikes necessários |
-| **Outputs** | nota de viabilidade, mapa de dependências, risco inicial, perguntas e recomendação de spike |
-| **Tools** | code search, LSP, Serena, Dora, catálogo e documentação técnica |
-| **Skills** | [`technical-discovery`](../skills/technical-discovery/SKILL.md) para mapear componentes, dependências e riscos |
-| **Gate** | riscos e dependências possuem evidência ou classificação como desconhecidos |
-| **Escala quando** | viabilidade depende de acesso, fornecedor ou decisão estrutural |
+| **Inputs** | Work Item, `PB.md` initial, journey, architecture and integrations inventory |
+| **Activities** | identify required dependencies, contracts, data, constraints, options, unknowns and spikes |
+| **Outputs** | feasibility note, dependency map, initial risk, questions and spike recommendation |
+| **Tools** | code search, LSP, Serena, Dora, catalog and technical documentation |
+| **Skills** | [`technical-discovery`](../skills/technical-discovery/SKILL.md) to map components, dependencies and risks |
+| **Gate** | risks and dependencies have evidence or classification as unknown |
+| **Scales when** | viability depends on access, supplier or structural decision |
 
-**Não faz:** produzir a arquitetura final durante discovery.
+**Does not:** produce the final architecture during discovery.
 
 ### 5.4 Adversarial Product Manager Agent
 
-Tenta invalidar uma proposta de produto antes que ela gere custo de implementação. Precisa ser independente do agente autor — caso contrário, o mecanismo não funciona.
+Try to invalidate a product proposal before it generates implementation costs. It needs to be independent of the authoring agent — otherwise the mechanism does not work.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Product Manager |
-| **Inputs** | `PB.md`, `PRD.md`, UX spec, métricas e evidências |
-| **Atividades** | procurar linguagem vaga, solução sem problema, métricas manipuláveis, personas ignoradas, escopo implícito, conflitos e casos-limite |
-| **Outputs** | findings classificados, perguntas, cenários adversariais e recomendação de gate |
-| **Tools** | leitura, busca em evidências e checklist adversarial |
-| **Skills** | [`review-prd`](../skills/review-prd/SKILL.md) para checar rastreabilidade de objetivos, regras e critérios |
-| **Gate** | cada finding cita trecho e impacto; severidade não depende apenas de opinião |
-| **Escala quando** | requisito crítico não possui owner ou existem objetivos incompatíveis |
+| **Inputs** | `PB.md`, `PRD.md`, UX spec, metrics and evidence |
+| **Activities** | look for vague language, problem-free solution, manipulable metrics, ignored personas, implicit scope, conflicts and edge cases |
+| **Outputs** | classified findings, questions, adversarial scenarios and gate recommendations |
+| **Tools** | reading, searching for evidence and adversarial checklist |
+| **Skills** | [`review-prd`](../skills/review-prd/SKILL.md) to check traceability of objectives, rules and criteria |
+| **Gate** | each finding cites excerpt and impact; severity does not depend solely on opinion |
+| **Scales when** | critical requirement does not have an owner or there are incompatible objectives |
 
-**Não faz:** reescrever silenciosamente o PRD ou aprová-lo.
+**Does not:** silently rewrite the PRD or approve it.
 
 ---
 
-## 6. Agentes de especificação técnica
+## 6. Technical specification agents
 
 ### 6.1 Specification Tech Lead Agent
 
-Transforma produto e UX aprovados em uma estratégia técnica executável, com rastreabilidade completa entre requisito e tarefa.
+Transforms approved product and UX into an executable technical strategy, with complete traceability between requirement and task.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | `PB.md`, `PRD.md`, UX spec, arquitetura, contratos, SLOs e risco |
-| **Atividades** | avaliar alternativas; definir arquitetura, contratos, dados, testes, telemetria, rollout e rollback; decompor tarefas e dependências |
-| **Outputs** | `PLAN.md`, `ADR.md`, `SPEC.md`, `TASKS.md`, `CHECKLIST.md` e decision brief H3 |
-| **Tools** | code search, LSP, diagramas, análise de dependências e documentação técnica |
-| **Skills** | [`create-spec`](../skills/create-spec/SKILL.md) para produzir o SPEC e [`refine-spec`](../skills/refine-spec/SKILL.md) para sequenciar blocos |
-| **Gate** | rastreabilidade `PRD → UX → SPEC → TASKS → CHECKLIST`; tarefas pequenas e verificáveis |
-| **Escala quando** | ADR, exceção, migração, contrato público ou risco R3/R4 |
+| **Inputs** | `PB.md`, `PRD.md`, UX spec, architecture, contracts, SLOs and risk |
+| **Activities** | evaluate alternatives; define architecture, contracts, data, tests, telemetry, rollout and rollback; decompose tasks and dependencies |
+| **Outputs** | `PLAN.md`, `ADR.md`, `SPEC.md`, `TASKS.md`, `CHECKLIST.md` and decision brief H3 |
+| **Tools** | code search, LSP, diagrams, dependency analysis and technical documentation |
+| **Skills** | [`create-spec`](../skills/create-spec/SKILL.md) to produce the SPEC and [`refine-spec`](../skills/refine-spec/SKILL.md) to sequence blocks |
+| **Gate** | traceability `PRD → UX → SPEC → TASKS → CHECKLIST`; small, verifiable tasks |
+| **Scales when** | ADR, exception, migration, public contract or R3/R4 risk |
 
-**Não faz:** alterar outcome ou experiência sem devolver a decisão ao owner.
+**Does not:** change outcome or experience without returning the decision to the owner.
 
 ### 6.2 Adversarial Tech Lead Agent
 
-Desafia a solução técnica, seus trade-offs e sua capacidade de evolução. Independente do especificador.
+It challenges the technical solution, its trade-offs and its ability to evolve. Independent of the specifier.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | `PLAN`, `ADR`, `SPEC`, tarefas, arquitetura e threat model |
-| **Atividades** | procurar acoplamento, ciclos, contratos frágeis, concorrência, falhas, migração perigosa, ausência de rollback, baixa testabilidade e custo operacional |
-| **Outputs** | findings classificados, alternativas, riscos residuais e recomendação de gate |
-| **Tools** | análise estática, grafo de dependências, busca e checklists técnicos |
-| **Skills** | [`review-spec`](../skills/review-spec/SKILL.md) e [`review-cross-prd-spec`](../skills/review-cross-prd-spec/SKILL.md) |
-| **Gate** | findings têm evidência, cenário de falha, impacto e ação sugerida |
-| **Escala quando** | trade-off exige decisão humana ou risco não é mitigável |
+| **Inputs** | `PLAN`, `ADR`, `SPEC`, tasks, architecture and threat model |
+| **Activities** | look for coupling, cycles, fragile contracts, competition, failures, dangerous migration, lack of rollback, low testability and operational costs |
+| **Outputs** | classified findings, alternatives, residual risks and gate recommendation |
+| **Tools** | static analysis, dependency graph, search and technical checklists |
+| **Skills** | [`review-spec`](../skills/review-spec/SKILL.md) and [`review-cross-prd-spec`](../skills/review-cross-prd-spec/SKILL.md) |
+| **Gate** | findings have evidence, failure scenario, impact and suggested action |
+| **Scales when** | trade-off requires human decision or risk is not mitigable |
 
-**Não faz:** bloquear por preferência estética ou complexidade hipotética sem evidência.
+**Does not:** block due to aesthetic preference or hypothetical complexity without evidence.
 
-### 6.3 Security, Data ou Platform Agent
+### 6.3 Security, Data or Platform Agent
 
-Aprofunda um domínio especializado quando risco ou escopo exigir. É consultado antes da crítica adversarial, não depois.
+Dig deeper into a specialized domain when risk or scope requires it. It is consulted before adversarial criticism, not after.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | Tech Lead ou especialista humano correspondente |
-| **Inputs** | especificação, modelo de dados, arquitetura, políticas e paths afetados |
-| **Outputs** | análise especializada, restrições, controles, testes e critérios adicionais |
-| **Tools** | apenas as aprovadas para o domínio e ambiente |
-| **Skills** | definidas pelo domínio; quando o achado gerar bug, usar [`analyse-bug`](../skills/analyse-bug/SKILL.md) |
-| **Gate** | conclusões vinculadas a política, evidência ou ameaça concreta |
-| **Escala quando** | compliance, produção crítica, dados sensíveis ou autoridade externa |
+| **Sponsor** | Tech Lead or corresponding human expert |
+| **Inputs** | specification, data model, architecture, policies and affected paths |
+| **Outputs** | specialized analysis, restrictions, controls, tests and additional criteria |
+| **Tools** | only those approved for the domain and environment |
+| **Skills** | defined by the domain; when the finding generates a bug, use [`analyse-bug`](../skills/analyse-bug/SKILL.md) |
+| **Gate** | conclusions linked to policy, evidence or concrete threat |
+| **Scales when** | compliance, critical production, sensitive data or external authority |
 
-**Não faz:** ampliar automaticamente seu parecer para domínios que não avaliou.
+**Does not:** automatically extend your opinion to domains that you have not evaluated.
 
 ---
 
-## 7. Agentes de construção e validação
+## 7. Construction and validation agents
 
 ### 7.1 Software Engineer Agent
 
-Implementa uma tarefa elegível com mudança mínima e comprovável. O limite de escopo é o que torna a revisão barata.
+Implements an eligible task with minimal, demonstrable change. The scope limit is what makes the review cheap.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | tarefa, SPEC, critérios, repositório, permissões e gates |
-| **Atividades** | inspecionar código; implementar; testar; documentar; executar hooks; corrigir dentro do limite; criar commits rastreáveis |
-| **Outputs** | código, testes, documentação, commits e evidence pack local |
-| **Tools** | editor, LSP, busca, build, testes, containers e Git autorizados |
-| **Skills** | [`implement`](../skills/implement/SKILL.md) ou [`dev-flow`](../skills/dev-flow/SKILL.md); [`fix-bug`](../skills/fix-bug/SKILL.md) quando houver análise de bug aprovada |
-| **Gate** | pre-commit e pre-push exigidos pelo risco |
-| **Escala quando** | requisito conflita com código; mudança extrapola a tarefa; falha repete; exige nova arquitetura ou permissão |
+| **Inputs** | task, SPEC, criteria, repository, permissions and gates |
+| **Activities** | inspect code; implement; test; document; execute hooks; correct within the limit; create trackable commits |
+| **Outputs** | code, tests, documentation, commits and local evidence pack |
+| **Tools** | authorized editor, LSP, search, build, tests, containers and Git |
+| **Skills** | [`implement`](../skills/implement/SKILL.md) or [`dev-flow`](../skills/dev-flow/SKILL.md); [`fix-bug`](../skills/fix-bug/SKILL.md) when bug analysis approved |
+| **Gate** | pre-commit and pre-push required by risk |
+| **Scales when** | requirement conflicts with code; change goes beyond the task; failure repeats; requires new architecture or permission |
 
-**Não faz:** mudar gates para aprovar o próprio código ou ocultar teste falho.
+**Does not:** change gates to approve the code itself or hide failed tests.
 
 ### 7.2 QA / Validation Agent
 
-Prova cada critério de aceite e procura comportamento não coberto pelo autor.
+Test each acceptance criterion and look for behavior not covered by the author.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | Tech Lead; consulta PM/UX para critérios funcionais |
-| **Inputs** | implementação, PRD, UX spec, SPEC, CHECKLIST e risco |
-| **Atividades** | testar caminho feliz, erro, caso-limite, integração, E2E, acessibilidade e regressão |
-| **Outputs** | matriz critério-evidência, falhas reproduzíveis e recomendação do gate |
-| **Tools** | test runner, browser, containers, fixtures e observabilidade de teste |
-| **Skills** | [`test-integration-local`](../skills/test-integration-local/SKILL.md) para mapear critérios a testes e evidências |
-| **Gate** | todos os critérios classificados como aprovado, falhou ou não testável com motivo |
-| **Escala quando** | ambiente impede validação ou critério é ambíguo |
+| **Sponsor** | Tech Lead; PM/UX query for functional criteria |
+| **Inputs** | implementation, PRD, UX spec, SPEC, CHECKLIST and risk |
+| **Activities** | test happy path, error, limit case, integration, E2E, accessibility and regression |
+| **Outputs** | criterion-evidence matrix, reproducible failures and gate recommendation |
+| **Tools** | test runner, browser, containers, fixtures and test observability |
+| **Skills** | [`test-integration-local`](../skills/test-integration-local/SKILL.md) to map criteria to tests and evidence |
+| **Gate** | all criteria classified as pass, fail or untestable with reason |
+| **Scales when** | environment prevents validation or criterion is ambiguous |
 
-**Não faz:** corrigir silenciosamente o código que está avaliando.
+**Does not:** silently correct the code you are evaluating.
 
 ### 7.3 Security Review Agent
 
-Detecta vulnerabilidades, exposição de dados e violações de política.
+Detects vulnerabilities, data exposure, and policy violations.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | Tech Lead ou Security Owner |
-| **Inputs** | diff, dependências, threat model, contratos, secrets policy e classificação de dados |
-| **Atividades** | SAST, dependency e secret review, autenticação, autorização, validação de entrada, privacidade e abuso |
-| **Outputs** | findings com severidade, evidência, exploração provável e mitigação |
-| **Tools** | CodeQL/SAST, secret scanning, SBOM, dependency review e testes autorizados |
-| **Skills** | [`code-review`](../skills/code-review/SKILL.md) para estruturar achados acionáveis |
-| **Gate** | achados bloqueantes resolvidos ou exceção formal com prazo |
-| **Escala quando** | vulnerabilidade crítica, vazamento, compliance ou teste destrutivo |
+| **Sponsor** | Tech Lead or Security Owner |
+| **Inputs** | diff, dependencies, threat model, contracts, secrets policy and data classification |
+| **Activities** | SAST, dependency and secret review, authentication, authorization, input validation, privacy and abuse |
+| **Outputs** | findings with severity, evidence, likely exploitation and mitigation |
+| **Tools** | CodeQL/SAST, secret scanning, SBOM, dependency review and authorized tests |
+| **Skills** | [`code-review`](../skills/code-review/SKILL.md) to structure actionable findings |
+| **Gate** | resolved blocking findings or formal exception with deadline |
+| **Scales when** | critical vulnerability, leak, compliance or destructive testing |
 
-**Não faz:** explorar produção ou exfiltrar dados.
+**Does not:** exploit production or exfiltrate data.
 
 ### 7.4 Architecture Review Agent
 
-Valida fronteiras, contratos e coerência com ADRs e rules.
+Validates boundaries, contracts and consistency with ADRs and rules.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | diff, SPEC, ADRs, grafo e regras arquiteturais |
-| **Atividades** | procurar ciclos, direção de dependência, ownership incorreto, abstrações duplicadas e violações |
-| **Outputs** | findings, impacto, regra afetada e correção sugerida |
-| **Tools** | testes de arquitetura, análise estática e grafo de dependências |
-| **Skills** | [`code-review`](../skills/code-review/SKILL.md) para estruturar achados de conformidade |
-| **Gate** | nenhuma violação bloqueante sem exceção registrada |
-| **Escala quando** | regra existente conflita com a solução necessária |
+| **Inputs** | diff, SPEC, ADRs, graph and architectural rules |
+| **Activities** | look for cycles, dependency direction, incorrect ownership, duplicate abstractions and violations |
+| **Outputs** | findings, impact, affected rule and suggested correction |
+| **Tools** | architectural tests, static analysis and dependency graph |
+| **Skills** | [`code-review`](../skills/code-review/SKILL.md) to structure compliance findings |
+| **Gate** | no blocking violations with no exception recorded |
+| **Scales when** | existing rule conflicts with required solution |
 
-**Não faz:** introduzir nova arquitetura sem ADR e decisão do Tech Lead.
+**Does not:** introduce new architecture without ADR and Tech Lead decision.
 
 ### 7.5 Adversarial Code Reviewer Agent
 
-Revisa o diff como um mantenedor cético e procura falhas escapadas.
+Review diff like a skeptical maintainer and look for escaped flaws.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | diff, contexto, testes, SPEC e evidence pack |
-| **Atividades** | analisar corretude, concorrência, erros, compatibilidade, legibilidade, manutenção, testes e documentação |
-| **Outputs** | comentários acionáveis por severidade e recomendação de integração |
-| **Tools** | diff, code search, LSP e execução seletiva de testes |
-| **Skills** | [`code-review`](../skills/code-review/SKILL.md) para estruturar achados contra SPEC, testes e riscos |
-| **Gate** | cada finding aponta localização, cenário e consequência |
-| **Escala quando** | precisa de decisão de produto/UX ou alteração arquitetural |
+| **Inputs** | diff, context, tests, SPEC and evidence pack |
+| **Activities** | analyze correctness, competition, errors, compatibility, readability, maintenance, testing and documentation |
+| **Outputs** | actionable feedback by severity and integration recommendation |
+| **Tools** | diff, code search, LSP and selective test execution |
+| **Skills** | [`code-review`](../skills/code-review/SKILL.md) to structure findings against SPEC, tests and risks |
+| **Gate** | each finding points to location, scenario and consequence |
+| **Scales when** | need product/UX decision or architectural change |
 
-**Não faz:** exigir refatoração alheia ao escopo sem risco comprovado.
+**Does not:** require refactoring outside the scope without proven risk.
 
 ---
 
-## 8. Agentes de integração, homologação e operação
+## 8. Integration, approval and operation agents
 
 ### 8.1 PR Agent
 
-Transforma mudanças e evidências em uma proposta de integração auditável.
+Transforms changes and evidence into an auditable integration proposal.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | commits, diff, Work Item, artefatos e gates |
-| **Atividades** | gerar título e descrição; resumir comportamento; vincular critérios; destacar hotspots; conferir base/head e checks; solicitar owners |
-| **Outputs** | PR, evidence pack, risco e plano de review |
-| **Tools** | Git e plataforma de hospedagem autorizada |
-| **Skills** | [`commit`](../skills/commit/SKILL.md), [`update-pr`](../skills/update-pr/SKILL.md) e [`check-pr`](../skills/check-pr/SKILL.md) |
-| **Gate** | links, checks, risco, documentação e aprovações requeridas presentes |
-| **Escala quando** | branch divergiu, CI é inconsistente, há conflito ou falta autorização de publicação |
+| **Inputs** | commits, diff, Work Item, artifacts and gates |
+| **Activities** | generate title and description; summarize behavior; link criteria; highlight hotspots; check base/head and checks; request owners |
+| **Outputs** | PR, evidence pack, risk and review plan |
+| **Tools** | Git and authorized hosting platform |
+| **Skills** | [`commit`](../skills/commit/SKILL.md), [`update-pr`](../skills/update-pr/SKILL.md) and [`check-pr`](../skills/check-pr/SKILL.md) |
+| **Gate** | links, checks, risk, documentation and required approvals present |
+| **Scales when** | branch diverged, CI is inconsistent, there is conflict or lack of publication authorization |
 
-**Não faz:** fazer merge sem política ou declarar CI verde sem consultar o estado atual.
+**Does not:** merge without policy or declare CI green without consulting the current state.
 
 ### 8.2 Product Validation Agent
 
-Valida a entrega contra outcome, requisitos e experiência aprovada.
+Validates delivery against approved outcome, requirements and experience.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsors** | PM e UX |
-| **Inputs** | release candidate, PRD, UX spec, critérios e ambiente |
-| **Atividades** | executar cenários; comparar comportamento; produzir demo; avaliar estados e acessibilidade; registrar diferenças |
-| **Outputs** | relatório de homologação, evidências e recomendação de aceite |
-| **Tools** | preview/staging, browser, E2E, comparação visual e analytics de teste |
-| **Skills** | [`test-integration-local`](../skills/test-integration-local/SKILL.md) como referência de evidências |
-| **Gate** | critérios de produto e UX cobertos; diferenças classificadas |
-| **Escala quando** | mudança de escopo, experiência divergente ou dado de teste insuficiente |
+| **Sponsors** | PM and UX |
+| **Inputs** | release candidate, PRD, UX spec, criteria and environment |
+| **Activities** | run scenarios; compare behavior; produce demo; evaluate states and accessibility; record differences |
+| **Outputs** | approval report, evidence and acceptance recommendation |
+| **Tools** | preview/staging, browser, E2E, visual comparison and test analytics |
+| **Skills** | [`test-integration-local`](../skills/test-integration-local/SKILL.md) as evidence reference |
+| **Gate** | product and UX criteria covered; classified differences |
+| **Scales when** | scope change, divergent experience or insufficient test data |
 
-**Não faz:** dar aceite humano final.
+**Does not:** give final human acceptance.
 
 ### 8.3 Release Agent
 
-Promove um artefato aprovado com exposição controlada e reversibilidade.
+Promotes an approved artifact with controlled exposure and reversibility.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | artefato imutável, aprovações, risco, rollout, rollback e SLOs |
-| **Atividades** | validar proveniência; preparar ambiente; aplicar estratégia; registrar mudança; coordenar pausa e rollback |
-| **Outputs** | release, changelog, estado do rollout e evidências |
-| **Tools** | CI/CD, registry, feature flags, infraestrutura e change management autorizados |
-| **Skills** | nenhuma skill dedicada nesta versão; seguir o contrato de [produção e observação](../workflows/08-production-release-and-observation.md) |
-| **Gate** | artefato, secrets, migração, backup, SLOs e rollback verificados |
-| **Escala quando** | R3/R4 sem aprovação, sinal de regressão ou rollback inseguro |
+| **Inputs** | immutable artifact, approvals, risk, rollout, rollback and SLOs |
+| **Activities** | validate provenance; prepare the environment; apply strategy; register change; coordinate pause and rollback |
+| **Outputs** | release, changelog, rollout status and evidence |
+| **Tools** | CI/CD, registry, feature flags, infrastructure and change management authorized |
+| **Skills** | no dedicated skills in this version; follow the [production and observation] contract(../workflows/08-production-release-and-observation.md) |
+| **Gate** | artifact, secrets, migration, backup, SLOs and rollback verified |
+| **Scales when** | R3/R4 no approval, regression signal or unsafe rollback |
 
-**Não faz:** ampliar exposição além da política.
+**Does not:** expand exposure beyond politics.
 
 ### 8.4 Observability Agent
 
-Compara saúde real com baseline e detecta regressão acionável.
+Compares actual health to baseline and detects actionable regression.
 
-| Contrato | |
+| Contract | |
 |---|---|
 | **Sponsor** | Tech Lead |
-| **Inputs** | release, traces, métricas, logs, SLOs e métricas de produto |
-| **Atividades** | correlacionar mudança e sinais; detectar anomalias; recomendar ou executar pausa/rollback autorizado; abrir incidente |
-| **Outputs** | health report, alertas, timeline e evidências pós-deploy |
-| **Tools** | OpenTelemetry e backend de observabilidade autorizado |
-| **Skills** | nenhuma skill dedicada nesta versão; seguir o contrato de [produção e observação](../workflows/08-production-release-and-observation.md) |
-| **Gate** | janela de observação concluída sem regressão relevante |
-| **Escala quando** | perda de dados, SLO crítico, sinal inconclusivo ou rollback não seguro |
+| **Inputs** | release, traces, metrics, logs, SLOs and product metrics |
+| **Activities** | correlate change and signals; detect anomalies; recommend or execute authorized pause/rollback; open incident |
+| **Outputs** | health report, alerts, timeline and post-deployment evidence |
+| **Tools** | OpenTelemetry and permissioned observability backend |
+| **Skills** | no dedicated skills in this version; follow the [production and observation] contract (../workflows/08-production-release-and-observation.md) |
+| **Gate** | observation window completed without relevant regression |
+| **Scales when** | data loss, critical SLO, inconclusive signal, or unsafe rollback |
 
-**Não faz:** silenciar alerta ou redefinir baseline para mascarar regressão.
+**Does not:** silence alert or reset baseline to mask regression.
 
 ---
 
-## 9. Agentes de conhecimento e melhoria
+## 9. Knowledge and improvement agents
 
 ### 9.1 Knowledge Agent
 
-Mantém as fontes canônicas coerentes com produto e código reais.
+Keeps canonical sources consistent with actual product and code.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | owner do domínio alterado |
-| **Inputs** | decisões, PR, release, incidentes e artefatos vigentes |
-| **Atividades** | atualizar docs; consolidar decisões; verificar links, duplicidade, contradição e obsolescência |
-| **Outputs** | documentação atualizada, changelog de conhecimento e conflitos pendentes |
-| **Tools** | repositório, vault e verificadores de links autorizados |
-| **Skills** | [`update-docs`](../skills/update-docs/SKILL.md) para comparar implementação, PRD e SPEC antes de atualizar |
-| **Gate** | fonte canônica identificada, atualizada e sem contradição silenciosa |
-| **Escala quando** | duas fontes reivindicam autoridade ou mudança apaga decisão ainda válida |
+| **Sponsor** | domain owner changed |
+| **Inputs** | decisions, PR, release, incidents and current artifacts |
+| **Activities** | update docs; consolidate decisions; check links, duplicity, contradiction and obsolescence |
+| **Outputs** | updated documentation, knowledge changelog and outstanding conflicts |
+| **Tools** | repository, vault and authorized link checkers |
+| **Skills** | [`update-docs`](../skills/update-docs/SKILL.md) to compare implementation, PRD and SPEC before upgrading |
+| **Gate** | canonical source identified, updated and without silent contradiction |
+| **Scales when** | two sources claim authority or change erases decision still valid |
 
-**Não faz:** converter hipótese em regra.
+**Does not:** convert hypothesis into rule.
 
 ### 9.2 Telemetry Agent
 
-Produz dados íntegros sobre o workflow agentico. Mede; não interpreta.
+Produces complete data about the agentic workflow. Give me; does not interpret.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | trio |
-| **Inputs** | eventos de sessão, gates, decisões, CI, deploy, produto, UX e custo |
-| **Atividades** | validar esquema; remover dados sensíveis; correlacionar IDs; medir cobertura; calcular métricas e tendências |
-| **Outputs** | dataset governado, data quality report e painel do trio |
-| **Tools** | OpenTelemetry, armazenamento analítico e dashboards autorizados |
-| **Skills** | nenhuma skill dedicada nesta versão; seguir o contrato de [telemetria e melhoria contínua](../workflows/10-continuous-improvement.md) |
-| **Gate** | origem, cobertura, retenção e limitações explícitas |
-| **Escala quando** | coleta falha, dados pessoais aparecem ou métricas não são comparáveis |
+| **Sponsor** | threesome |
+| **Inputs** | session events, gates, decisions, CI, deploy, product, UX and cost |
+| **Activities** | validate schema; remove sensitive data; correlate IDs; measure coverage; calculate metrics and trends |
+| **Outputs** | governed dataset, data quality report and trio panel |
+| **Tools** | OpenTelemetry, analytics storage, and permissioned dashboards |
+| **Skills** | no dedicated skills in this version; follow the [telemetry and continuous improvement] contract (../workflows/10-continuous-improvement.md) |
+| **Gate** | origin, coverage, retention and explicit limitations |
+| **Scales when** | collection fails, personal data appears or metrics are not comparable |
 
-**Não faz:** concluir causalidade nem priorizar melhoria.
+**Does not:** conclude causality or prioritize improvement.
 
 ### 9.3 Auto Dream Agent
 
-Converte telemetria e histórico em aprendizado ou demanda de melhoria. Recomenda; a priorização continua humana.
+Converts telemetry and history into learning or demand for improvement. Recommend; prioritization remains human.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | trio |
-| **Inputs** | dataset validado, sessões, feedback, incidentes, custos e memória existente |
-| **Atividades** | agrupar padrões; comparar baseline; separar recorrência de ocorrência isolada; propor memória ou backlog; declarar confiança |
-| **Outputs** | proposta de memória, demandas P0–P3, hipóteses em observação e relatório semanal |
-| **Tools** | leitura de telemetria, memória e backlog; escrita somente em área de proposta |
-| **Skills** | [`workspace-memory`](../skills/workspace-memory/SKILL.md) para propor atualizações de memória com segurança |
-| **Gate** | conclusão com evidência, contexto, validade temporal e crítica independente |
-| **Escala quando** | P0/P1, mudança de gate, memória sensível ou contradição |
+| **Sponsor** | threesome |
+| **Inputs** | validated dataset, sessions, feedback, incidents, costs and existing memory |
+| **Activities** | group patterns; compare baseline; separate recurrence from isolated occurrence; propose memory or backlog; declare trust |
+| **Outputs** | memory proposal, P0–P3 demands, hypotheses under observation and weekly report |
+| **Tools** | reading telemetry, memory and backlog; written only in proposal area |
+| **Skills** | [`workspace-memory`](../skills/workspace-memory/SKILL.md) to safely propose memory upgrades |
+| **Gate** | conclusion with evidence, context, temporal validity and independent critique |
+| **Scales when** | P0/P1, gate change, sensitive memory or contradiction |
 
-**Não faz:** aprovar prioridade, alterar gate ou editar memória sensível sozinho.
+**Does not:** approve priority, change gate or edit sensitive memory alone.
 
-### 9.4 Critic Agent
+### 9.4 Critical Agent
 
-Tenta refutar conclusões, recomendações ou aprovações produzidas por outro agente. É o mecanismo que impede o sistema de concordar consigo mesmo.
+Attempts to refute conclusions, recommendations or approvals produced by another agent. It is the mechanism that prevents the system from agreeing with itself.
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Sponsor** | owner da decisão avaliada |
-| **Inputs** | artefato, fontes, evidências, critérios e contexto do autor |
-| **Atividades** | checar cobertura, rastreabilidade, contradições, viés, confiança e alternativas |
-| **Outputs** | confirmação, contestação ou pedido de mais evidências |
-| **Tools** | acesso de leitura às mesmas fontes e validações independentes autorizadas |
-| **Skills** | a mesma skill usada pelo autor, aplicada de forma independente, para verificar os critérios de saída |
-| **Gate** | crítica específica, evidenciada e proporcional ao risco |
-| **Escala quando** | conflito não possui critério objetivo |
+| **Sponsor** | owner of the evaluated decision |
+| **Inputs** | author's artifact, sources, evidence, criteria and context |
+| **Activities** | check coverage, traceability, contradictions, bias, trust and alternatives |
+| **Outputs** | confirmation, rebuttal or request for more evidence |
+| **Tools** | read access to the same authorized sources and independent validations |
+| **Skills** | the same skill used by the author, applied independently, to check the exit criteria |
+| **Gate** | specific criticism, evidenced and proportionate to the risk |
+| **Scales when** | conflict has no objective criteria |
 
-**Não faz:** reavaliar com o mesmo raciocínio e contexto do autor sem independência real.
+**Does not:** reevaluate with the same reasoning and context as the author without real independence.
 
 ---
 
-## 10. Composição dos Agent Teams por fase
+## 10. Composition of Agent Teams by phase
 
-| Fase | Agente primário | Agentes críticos/especialistas | Handoff |
+| Phase | Primary agent | Critical Agents/Specialists | Handoff |
 |---|---|---|---|
-| Intake | Intake Agent | Meeting Context Agent quando houver reunião | PM prioriza |
-| Discovery | Product Manager Agent | UX Specification + Tech Lead Discovery | `PB.md` para H1 |
-| Produto/UX | Product Manager + UX Specification | Adversarial Product Manager | PRD + UX spec para H2 |
-| Especificação | Specification Tech Lead | Adversarial TL + especialistas | PLAN/SPEC/TASKS para H3 |
-| Implementação | Orchestrator + Engineer | — | diff e gates locais |
-| Validação | QA / Validation | Security + Architecture + Code Reviewer | evidence pack |
-| Integração | PR Agent | Reviewer Agents | H4/merge |
-| Homologação | Product Validation | Release Agent | release candidate |
-| Produção | Release Agent | Observability Agent | H5/health report |
-| Conhecimento | Knowledge Agent | Critic quando sensível | fontes canônicas |
-| Melhoria | Telemetry + Auto Dream | Critic Agent | H6, memória ou backlog |
+| Intake | Intake Agent | Meeting Context Agent when there is a meeting | PM prioritizes |
+| Discovery | Product Manager Agent | UX Specification + Tech Lead Discovery | `PB.md` for H1 |
+| Product/UX | Product Manager + UX Specification | Adversarial Product Manager | PRD + UX spec for H2 |
+| Specification | Specification Tech Lead | Adversarial TL + experts | PLAN/SPEC/TASKS for H3 |
+| Implementation | Orchestrator + Engineer | — | local diff and gates |
+| Validation | QA/Validation | Security + Architecture + Code Reviewer | evidence pack |
+| Integration | PR Agent | Reviewer Agents | H4/merge |
+| Approval | Product Validation | ReleaseAgent | release candidate |
+| Production | ReleaseAgent | ObservabilityAgent | H5/health report |
+| Knowledge | Knowledge Agent | Critic when sensitive | canonical sources |
+| Improvement | Telemetry + Auto Dream | Critical Agent | H6, memory or backlog |
 
 ---
 
-## 11. Matriz de permissões sugerida
+## 11. Suggested permissions matrix
 
-O princípio é privilégio mínimo por categoria: um agente recebe apenas o acesso que sua missão exige, e escrita externa é sempre exceção autorizada.
+The principle is least privilege by category: an agent receives only the access that its mission requires, and external writing is always an authorized exception.
 
-| Categoria | Leitura | Escrita local | PR/backlog | Deploy/externo |
+| Category | Reading | Local writing | PR/backlog | Deploy/external |
 |---|---|---|---|---|
-| Intake/Meeting Context | fontes autorizadas | artefatos de proposta | somente se missão autorizar | não |
-| Produto/UX/Discovery | produto, pesquisa e código | artefatos da fase | comentário/proposta | não |
-| Especificação | código e docs | artefatos técnicos | comentário/proposta | não |
-| Engineer | escopo do repo | código/testes/docs | branch/PR autorizado | não por padrão |
-| Reviewers | código e evidências | relatório/comentários | review autorizado | não |
-| PR Agent | Git e checks | descrição/evidence pack | PR autorizado | merge só por política |
-| Release | artefato e ambientes | registro de release | status | ambiente explicitamente autorizado |
-| Observability | telemetria | alertas/relatórios | incidente autorizado | pausa/rollback por política |
-| Knowledge/Improvement | docs, memória e métricas | proposta ou fonte autorizada | backlog autorizado | não |
+| Intake/Meeting Context | authorized sources | proposal artifacts | only if mission authorizes | no |
+| Product/UX/Discovery | product, research and code | phase artifacts | comment/proposal | no |
+| Specification | code and docs | technical artifacts | comment/proposal | no |
+| Engineer | repo scope | code/tests/docs | authorized branch/PR | not by default |
+| Reviewers | code and evidence | report/comments | authorized review | no |
+| PR Agent | Git and checks | description/evidence pack | Authorized PR | merge just for politics |
+| Release | artifact and environments | release registration | status | explicitly authorized environment |
+| Observability | telemetry | alerts/reports | authorized incident | pause/rollback by policy |
+| Knowledge/Improvement | docs, memory and metrics | proposal or authorized source | authorized backlog | no |
 
 ---
 
-## 12. Versionamento e avaliação dos agentes
+## 12. Versioning and evaluation of agents
 
-Cada definição de agente registra versão do contrato e data, versão do prompt, modelo, effort e tools, responsável humano, casos de teste e golden outputs, métricas de qualidade, custo e duração, falhas conhecidas e contextos proibidos, e changelog com plano de rollback.
+Each agent definition records contract version and date, prompt version, model, effort and tools, human responsible, test cases and golden outputs, quality metrics, cost and duration, known failures and prohibited contexts, and changelog with rollback plan.
 
-As métricas por agente cobrem taxa de conclusão sem escalonamento, aprovação na primeira passagem do gate, precisão dos fatos e rastreabilidade, findings confirmados e falsos positivos, retrabalho causado no próximo handoff, tokens, custo e tempo, cobertura do output obrigatório, e violações de escopo ou permissão.
+Metrics per agent cover unscaled completion rate, first gate pass, accuracy of facts and traceability, confirmed findings and false positives, rework caused in the next handoff, tokens, cost and time, mandatory output coverage, and scope or permission violations.
 
-**Essas métricas não formam ranking individual.** Elas servem para melhorar contrato, contexto, tools, modelo e gates — usá-las como avaliação de desempenho corrompe o sinal que produzem.
+**These metrics do not form individual rankings.** They serve to improve contracts, context, tools, models and gates — using them as a performance assessment corrupts the signal they produce.
 
 ---
 
-## 13. Checklist para adicionar um novo agente
+## 13. Checklist for adding a new agent
 
-- [ ] O problema exige um papel novo ou cabe em agente existente?
-- [ ] Sponsor e direito de decisão estão claros?
-- [ ] Inputs e fontes canônicas estão definidos?
-- [ ] Output possui schema verificável?
-- [ ] Permissões seguem privilégio mínimo?
-- [ ] Há condição de parada e escalonamento?
-- [ ] Produção e crítica estão segregadas?
-- [ ] Existem testes com casos nominal, ambíguo, incompleto e sensível?
-- [ ] Telemetria e custo serão registrados?
-- [ ] O catálogo, o orquestrador e os handoffs foram atualizados?
+- [ ] Does the problem require a new role or does it fit with an existing agent?
+- [ ] Are sponsor and decision rights clear?
+- [ ] Are canonical inputs and sources defined?
+- [ ] Output has verifiable schema?
+- [ ] Permissions follow least privilege?
+- [ ] Is there a stopping and escalation condition?
+- [ ] Are production and criticism segregated?
+- [ ] Are there tests with nominal, ambiguous, incomplete and sensitive cases?
+- [ ] Will telemetry and cost be recorded?
+- [ ] Have the catalog, orchestrator and handoffs been updated?

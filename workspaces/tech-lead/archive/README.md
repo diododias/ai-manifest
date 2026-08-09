@@ -1,3 +1,3 @@
-# Arquivo global
+# Global file
 
-Materiais globais desativados ficam aqui com motivo, data e substituto quando existir. Conteúdo arquivado não volta a orientar decisões sem promoção explícita.
+Deactivated global materials are here with reason, date and replacement when available. Archived content does not return to guide decisions without explicit promotion.

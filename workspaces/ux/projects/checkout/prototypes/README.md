@@ -1,3 +1,3 @@
-# Protótipos
+# Prototypes
 
-O exemplo não inclui arquivo visual. Um protótipo real deve registrar versão, ferramenta, owner, estados cobertos e vínculo com `UX-SPEC-001`; exportações não substituem o arquivo-fonte.
+The example does not include a visual file. A real prototype must register version, tool, owner, covered states and link to `UX-SPEC-001`; exports do not overwrite the source file.

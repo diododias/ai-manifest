@@ -1,6 +1,6 @@
-# Estado atual da arquitetura
+# Current state of the architecture
 
-O `checkout-api` expõe a criação de pagamentos, persiste seu estado e chama um provedor externo. A idempotência será aplicada na fronteira da aplicação e garantida por uma restrição única no armazenamento.
+`checkout-api` exposes payment creation, persists its state, and calls an external provider. Idempotence will be enforced at the application boundary and guaranteed by a unique constraint on storage.
 
 ```mermaid
 flowchart LR
@@ -9,4 +9,4 @@ flowchart LR
     A --> P["Provedor de pagamento"]
 ```
 
-O diagrama registra a topologia, não o estado operacional dos checkouts locais.
+The diagram records the topology, not the operational state of local checkouts.

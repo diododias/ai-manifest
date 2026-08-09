@@ -1,60 +1,60 @@
 ---
-title: Workflow 05 — validação adversarial
+title: Workflow 05 — adversarial validation
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 05 — validação adversarial
+# Workflow 05 — adversarial validation
 
-> Bloco executável do [⚔️ Red Team Loop](../docs/loops/05-adversarial-validation.md): perspectivas independentes atacam a mudança em paralelo e convergem em um evidence pack reproduzível, sem permitir que o consolidador silencie findings.
+> [⚔️ Red Team Loop](../docs/loops/05-adversarial-validation.md) executable block: independent perspectives attack change in parallel and converge into a reproducible evidence pack, without allowing the consolidator to silence findings.
 
-O autor demonstrou que a mudança pode funcionar; este workflow procura como ela falha. Cobertura nasce do `CHECKLIST.md`, dos contratos e do risco — não dos testes escolhidos pelo implementador.
+The author demonstrated that change can work; this workflow looks for how it fails. Coverage comes from `CHECKLIST.md`, contracts, and risk — not from tests chosen by the implementer.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma rodada fechada classifica cada critério como `passed`, `failed` ou `not_testable` com motivo, registra findings por domínio e prova revalidações. O QA Agent monta a visão única, mas o reviewer de origem mantém autoridade sobre o próprio finding.
+A closed round classifies each criterion as `passed`, `failed` or `not_testable` with reason, records findings by domain and proves revalidations. The QA Agent assembles the single view, but the source reviewer maintains authority over the finding itself.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | cobertura obrigatória executada e nenhum bloqueador aberto |
-| **Agentes** | QA, Code, Security e Architecture atuaram com independência e fronteiras explícitas |
-| **Repositório/CI** | diff e baseline validados correspondem aos commits que seguirão ao PR |
-| **Workspace** | reviews, evidence pack, Work Item, `STATUS.md` e board estão reconciliados |
-| **Retorno** | correção material invalida apenas evidências afetadas e volta ao Ralph Loop com finding reproduzível |
+| **Loop** | Mandatory coverage executed and no blockers open |
+| **Agents** | QA, Code, Security and Architecture acted with independence and explicit boundaries |
+| **Repository/CI** | validated diff and baseline correspond to the commits that will follow the PR |
+| **Workspace** | reviews, evidence pack, Work Item, `STATUS.md` and board are reconciled |
+| **Return** | material correction invalidates only affected evidence and returns to Ralph Loop with reproducible finding |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 5 — construção e validação |
-| **Unidade de execução** | conjunto imutável de commits/diffs por Work Item e `validation_run_id` |
-| **Consolida** | [QA & Validation Agent](../agents/qa-validation-agent/AGENT.md) |
-| **Revisores** | [Security Review](../agents/security-review-agent/AGENT.md); [Architecture Review](../agents/architecture-review-agent/AGENT.md); [Adversarial Code Reviewer](../agents/adversarial-code-reviewer-agent/AGENT.md) |
-| **Owners humanos** | Tech Lead; PM/UX para ambiguidades dos próprios critérios; Security Owner para exceções correspondentes |
-| **Entrada** | diff/commits, PRD, UX spec, SPEC, CHECKLIST, evidências locais, risco e matriz de paths |
-| **Saída** | reviews independentes, matriz critério-evidência, findings, CI e recomendação de gate |
-| **Gate de conteúdo** | todos os checks obrigatórios aprovados e nenhum finding bloqueante aberto |
-| **Gate do bloco** | conteúdo + independência + baseline estável + evidence pack reproduzível + estado reconciliado |
-| **Volta dominante** | média/externa — correções voltam ao Ralph Loop e CI executa lanes por risco/path |
-| **Próximo workflow** | [06 — PR e merge](06-pr-and-merge.md) |
+| **Step** | 5 — construction and validation |
+| **Execution unit** | immutable set of commits/diffs by Work Item and `validation_run_id` |
+| **Consolidates** | [QA & Validation Agent](../agents/qa-validation-agent/AGENT.md) |
+| **Reviewers** | [Security Review](../agents/security-review-agent/AGENT.md); [Architecture Review](../agents/architecture-review-agent/AGENT.md); [Adversarial Code Reviewer](../agents/adversarial-code-reviewer-agent/AGENT.md) |
+| **Human Owners** | Tech Lead; PM/UX for ambiguities in the criteria themselves; Security Owner for matching exceptions |
+| **Input** | diff/commits, PRD, UX spec, SPEC, CHECKLIST, local evidence, risk and path matrix |
+| **Exit** | independent reviews, criteria-evidence matrix, findings, CI and gate recommendations |
+| **Content gate** | all mandatory checks approved and no blocking findings open |
+| **Block Gate** | content + independence + stable baseline + reproducible evidence pack + reconciled state |
+| **Dominant lap** | medium/outer — fixes return to Ralph Loop and CI runs lanes by risk/path |
+| **Next workflow** | [06 — PR and merge](06-pr-and-merge.md) |
 
 ---
 
-## Preflight de validação
+## Validation preflight
 
-1. Fixar `validation_run_id`, Work Item, repositórios, commits/base e diff exato. Novo commit material invalida o run afetado.
-2. Confirmar que o autor/instância implementadora não será usado como reviewer independente.
-3. Ler PRD, UX spec, SPEC, CHECKLIST, ADRs, políticas e evidence packs locais; registrar revisões.
-4. Derivar matriz de cobertura por requisito, path e classe de risco.
-5. Selecionar reviewers obrigatórios por política. `not_applicable` exige justificativa baseada em paths/risco; não é omissão silenciosa.
-6. Resolver ambientes e permissões. Teste destrutivo, produção ou dado sensível exige autorização específica.
-7. Criar arquivos de review separados; nenhum reviewer edita código ou review alheio.
+1. Fix `validation_run_id`, Work Item, repositories, commits/base and exact diff. New material commit invalidates the affected run.
+2. Confirm that the author/implementing instance will not be used as an independent reviewer.
+3. Read PRD, UX spec, SPEC, CHECKLIST, ADRs, policies and local evidence packs; record reviews.
+4. Derive coverage matrix by requirement, path and risk class.
+5. Select mandatory reviewers by policy. `not_applicable` requires path/risk-based justification; It is not a silent omission.
+6. Resolve environments and permissions. Destructive testing, production or sensitive data requires specific authorization.
+7. Create separate review files; No reviewer edits other people's code or reviews.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 validation_run_id: "REDTEAM-<id>"
@@ -76,149 +76,149 @@ stop_conditions: []
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[Baseline imutável + CHECKLIST] --> B1[QA<br/>critérios e cenários]
-    A --> B2[Security<br/>ameaças e dados]
-    A --> B3[Architecture<br/>fronteiras e contratos]
-    A --> B4[Code Reviewer<br/>corretude e manutenção]
-    B1 --> C[QA<br/>matriz + evidence pack]
+TD flowchart
+    A[Immutable Baseline + CHECKLIST] --> B1[QA<br/>criteria and scenarios]
+    A --> B2[Security<br/>threats and data]
+    A --> B3[Architecture<br/>borders and contracts]
+    A --> B4[Code Reviewer<br/>correctness and maintenance]
+    B1 --> C[QA<br/>matrix + evidence pack]
     B2 --> C
     B3 --> C
     B4 --> C
     C --> D[CI<br/>fast/deep lanes]
-    D --> E{Gate do bloco}
-    E -- finding corrigível --> F[Ralph Loop]
-    F --> G[Revalidar domínios afetados]
+    D --> E{Block gate}
+    E -- finding fixable --> F[Ralph Loop]
+    F --> G[Revalidate affected domains]
     G --> C
-    E -- exceção/divergência --> H[Owner humano]
-    E -- aprovado --> I[Gatekeeper Loop]
+    E -- exception/divergence --> H[Human owner]
+    E -- approved --> I[Gatekeeper Loop]
 ```
 
-| Missão | Responsável | Recorte independente | Saída |
+| Mission | Responsible | Independent cropping | Output |
 |---|---|---|---|
-| M1 — cobertura funcional | QA Agent | nominal, erro, recuperação, limite, integração, E2E, acessibilidade e regressão | matriz critério-evidência e falhas reproduzíveis |
-| M2 — segurança | Security Review | SAST, dependências, secrets, authn/authz, entrada, privacidade e abuso | findings e exceções do domínio |
-| M3 — arquitetura | Architecture Review | fronteiras, direção de dependência, ADRs, contratos e ownership | violações/recomendação arquitetural |
-| M4 — código | Adversarial Code Reviewer | corretude, concorrência, erro, compatibilidade, manutenção, testes e docs | comentários acionáveis por severidade |
-| M5 — consolidação | QA Agent | montagem, não veredito sobre review alheio | evidence pack único e gaps explícitos |
-| M6 — CI | automação | lanes requeridas por risco/path | resultados brutos vinculados ao baseline |
-| M7 — revalidação | reviewer de origem + QA | apenas domínios/evidências invalidados pela correção | finding resolvido, aberto ou exceção |
+| M1 — functional coverage | QA Agent | nominal, error, recovery, limit, integration, E2E, reachability and regression | criterion-evidence matrix and reproducible failures |
+| M2 — security | Security Review | SAST, dependencies, secrets, authn/authz, input, privacy and abuse | domain findings and exceptions |
+| M3 — architecture | Architecture Review | borders, direction of dependence, ADRs, contracts and ownership | violations/architectural recommendation |
+| M4 — code | Adversarial Code Reviewer | correctness, concurrency, error, compatibility, maintenance, tests and docs | actionable comments by severity |
+| M5 — consolidation | QA Agent | assembly, not a verdict on someone else's review | single evidence pack and explicit gaps |
+| M6 — CI | automation | lanes required by risk/path | raw results linked to baseline |
+| M7 — revalidation | source reviewer + QA | only domains/evidence invalidated by the fix | finding resolved, open or exception |
 
-M1–M4 rodam em paralelo contra o mesmo baseline. Se qualquer missão alterar o código, sua independência foi quebrada e o run deve ser descartado/reaberto.
+M1–M4 run in parallel against the same baseline. If any mission changes the code, its independence has been broken and the run must be discarded/reopened.
 
 ---
 
-## Ownership dos findings
+## Ownership of findings
 
-Todo finding possui ID estável, reviewer, localização, cenário, evidência, severidade, impacto, ação sugerida e estado.
+Every finding has a stable ID, reviewer, location, scenario, evidence, severity, impact, suggested action and status.
 
-| Estado | Quem pode atribuir | Requisito |
+| Status | Who can assign | Requirement |
 |---|---|---|
-| `open` | reviewer de origem | evidência e reprodução suficientes |
-| `resolved` | reviewer de origem após revalidação | link para correção e nova evidência |
-| `exception` | owner humano autorizado | justificativa, prazo, compensação e risco residual |
-| `false_positive` | reviewer de origem ou owner da política | prova de inaplicabilidade, nunca preferência do autor |
+| `open` | source reviewer | sufficient evidence and reproduction |
+| `resolved` | origin reviewer after revalidation | link to correction and new evidence |
+| `exception` | authorized human owner | justification, deadline, compensation and residual risk |
+| `false_positive` | source reviewer or policy owner | proof of inapplicability, never author preference |
 
-O QA não fecha finding de Security, Architecture ou Code Review. Divergência sem regra objetiva permanece no evidence pack e escala.
+QA does not close Security, Architecture or Code Review findings. Divergence without an objective rule remains in the evidence pack and scale.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | QA | `test-integration-local`, `analyse-bug`, `update-docs` |
 | Security | `code-review`, `technical-discovery`, `analyse-bug` |
 | Architecture | `review-spec`, `code-review`, `technical-discovery` |
 | Code Reviewer | `code-review`, `review-spec`, `analyse-bug` |
 
-Cada envelope registra `skills_used`. Reviewers recebem o mesmo baseline e apenas as políticas/contextos necessários ao domínio. Resultados e logs do autor são referência secundária, não substituto para reprodução independente.
+Each envelope records `skills_used`. Reviewers receive the same baseline and only the policies/contexts necessary for the domain. Results and author logs are secondary reference, not a substitute for independent reproduction.
 
 ---
 
-## Matriz critério-evidência
+## Criterion-evidence matrix
 
-O QA consolida sem resumir demais:
+QA consolidates without over-summarizing:
 
-| Critério | Baseline | Procedimento | Ambiente | Resultado | Evidência | Reviewer | Estado |
+| Criterion | Baseline | Procedure | Environment | Result | Evidence | Reviewer | Status |
 |---|---|---|---|---|---|---|---|
-| `<CHECK-id>` | `<sha>` | comando/cenário exato | versão/configuração | observado | link bruto | agente | passed/failed/not_testable |
+| `<CHECK-id>` | `<sha>` | exact command/scenario | version/configuration | observed | raw link | agent | passed/failed/not_testable |
 
-`not_testable` nunca equivale a aprovado; registra motivo, impacto e decisão solicitada. O evidence pack precisa permitir reprodução sem conversa com o autor ou com o QA.
-
----
-
-## Invalidação e revalidação
-
-Uma correção material cria novo `head_commit` e invalida:
-
-- testes que executaram código/paths alterados;
-- findings cuja reprodução depende do comportamento modificado;
-- lanes de CI cujo input mudou;
-- conclusões de segurança/arquitetura afetadas pelo novo contrato.
-
-O QA produz um mapa de impacto e solicita revalidação proporcional. Evidência não afetada pode ser preservada com justificativa e baseline composto explícito; copiar o status verde do run anterior é proibido.
+`not_testable` never equates to approved; records motive, impact and requested decision. The evidence pack must allow reproduction without conversation with the author or QA.
 
 ---
 
-## Persistência e ordem de fechamento
+## Invalidation and revalidation
 
-| Artefato | Destino | Writer |
+A material fix creates new `head_commit` and invalidates:
+
+- tests that executed changed code/paths;
+- findings whose reproduction depends on modified behavior;
+- CI lanes whose input has changed;
+- security/architectural conclusions affected by the new contract.
+
+QA produces an impact map and requests proportional revalidation. Unaffected evidence can be preserved with justification and explicit composite baseline; copying the green status from the previous run is prohibited.
+
+---
+
+## Persistence and closing order
+
+| Artifact | Destination | Writer |
 |---|---|---|
 | code review | `execution/reviews/code-<WI-id>.md` | Code Reviewer |
 | security review | `execution/reviews/security-<WI-id>.md` | Security Reviewer |
 | architecture review | `execution/reviews/architecture-<WI-id>.md` | Architecture Reviewer |
-| evidence pack consolidado | `execution/evidence/<WI-id>.md` | QA Agent |
-| logs/artefatos reprodutíveis | `execution/evidence/<WI-id>/` | agente/automação produtora |
-| Work Item | `work-items/<WI-id>.md` | owner autorizado; links e estado |
-| exceções ativas | `.coordination/blockers/` até decisão/promoção | executor |
-| `STATUS.md` e `BOARD.md` | workspace Tech Lead | executor autorizado, após Work Item |
+| consolidated evidence pack | `execution/evidence/<WI-id>.md` | QA Agent |
+| reproducible logs/artifacts | `execution/evidence/<WI-id>/` | agent/production automation |
+| Work Item | `work-items/<WI-id>.md` | authorized owner; links and status |
+| active exceptions | `.coordination/blockers/` until decision/promotion | executor |
+| `STATUS.md` and `BOARD.md` | workspace Tech Lead | authorized executor, after Work Item |
 
-Ordem: persistir reviews individuais → gerar matriz/evidence pack → incorporar CI → revalidar resoluções → atualizar Work Item → `STATUS.md` → board → handoff ao PR Agent. Achado aberto em qualquer review bloqueia o gate.
+Order: persist individual reviews → generate matrix/evidence pack → incorporate CI → revalidate resolutions → update Work Item → `STATUS.md` → board → handoff to PR Agent. Open finding in any review blocks the gate.
 
 ---
 
 ## Gates
 
-### Gate adversarial
+### Adversarial gate
 
-- [ ] todo item obrigatório do CHECKLIST está `passed`, `failed` ou `not_testable` com motivo;
-- [ ] cenários nominais, falhas, recuperação, limites e regressão foram derivados independentemente;
-- [ ] reviewers obrigatórios atuaram ou possuem `not_applicable` justificado;
-- [ ] findings trazem localização, cenário, consequência e reprodução;
-- [ ] CI requerido por risco/path passou no mesmo baseline;
-- [ ] nenhum bloqueador permanece `open`.
+- [ ] every mandatory item in the CHECKLIST is `passed`, `failed` or `not_testable` with reason;
+- [ ] nominal scenarios, failures, recovery, thresholds and regression were independently derived;
+- [ ] mandatory reviewers acted or have `not_applicable` justified;
+- [ ] findings bring location, setting, consequence and reproduction;
+- [ ] CI required by risk/path passed the same baseline;
+- [ ] no blocker remains `open`.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] reviewer e implementador são instâncias independentes;
-- [ ] reviews foram escritos separadamente e o QA não alterou vereditos alheios;
-- [ ] correções materiais tiveram impacto e revalidação registrados;
-- [ ] evidence pack reproduz a verificação e referencia resultados brutos;
-- [ ] Work Item, reviews, evidence, `STATUS.md` e board estão coerentes;
-- [ ] handoff carrega baseline exato, riscos residuais e exceções válidas.
+- [ ] reviewer and implementer are independent instances;
+- [ ] reviews were written separately and QA did not change other people's verdicts;
+- [ ] material corrections had impact and revalidation recorded;
+- [ ] evidence pack reproduces the verification and references raw results;
+- [ ] Work Item, reviews, evidence, `STATUS.md` and board are coherent;
+- [ ] handoff carries exact baseline, residual risks and valid exceptions.
 
 ---
 
-## Retornos e escalonamento
+## Returns and scaling
 
-| Condição | Destino |
+| Condition | Destination |
 |---|---|
-| defeito corrigível | Ralph Loop, com finding e reprodução |
-| requisito de produto/UX ausente ou ambíguo | Studio Loop |
-| contrato/SPEC inadequado | Drafting Loop |
-| falso positivo ou divergência sem regra | Tech Lead/owner da política |
-| exceção de risco | owner autorizado, com prazo e compensação |
-| ambiente impede teste obrigatório | `blocked`; não converter em aprovação |
-| vulnerabilidade crítica/dado exposto | interromper testes, preservar evidência com segurança e escalar imediatamente |
+| correctable defect | Ralph Loop, with finding and playback |
+| missing or ambiguous product/UX requirement | StudioLoop |
+| inadequate contract/SPEC | Drafting Loop |
+| false positive or divergence without rule | Tech Lead/policy owner |
+| risk exception | authorized owner, with term and compensation |
+| environment prevents mandatory testing | `blocked`; does not convert into approval |
+| critical vulnerability/exposed data | Stop Testing, Securely Preserve Evidence, and Scale Immediately |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 validation_run_id: "REDTEAM-<id>"
@@ -252,4 +252,4 @@ gates:
 handoff_to: []
 ```
 
-`ready_for_pr` exige que o head validado seja exatamente o head entregue ao Gatekeeper Loop.
+`ready_for_pr` requires that the validated head is exactly the head delivered to the Gatekeeper Loop.

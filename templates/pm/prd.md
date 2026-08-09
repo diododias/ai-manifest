@@ -6,20 +6,20 @@ owner: product-manager
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Resultado de produto>
+# <Product result>
 
-## Problema, usuário e outcome
+## Problem, user and outcome
 
-<Contrato aprovado.>
+<Contract approved.>
 
-## Escopo e fora de escopo
+## Scope and out of scope
 
-<Limites explícitos.>
+<Explicit limits.>
 
-## Requisitos e critérios
+## Requirements and criteria
 
-- <Comportamento observável>
+- <Observable behavior>
 
-## Métricas, riscos e dependências
+## Metrics, risks and dependencies
 
-<Como decidir se funcionou e o que pode impedir.>
+<How to decide if it worked and what might stop it.>

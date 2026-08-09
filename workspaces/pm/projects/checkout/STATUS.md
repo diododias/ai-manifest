@@ -1,10 +1,10 @@
 # Status — Checkout
 
-- Fase: implementation
-- Outcome: repetição segura sem cobrança duplicada
-- Product Brief: `PB-001` aprovado
-- PRD: `PRD-001` aprovado
-- Item ativo: `PM-WI-001`
-- Bloqueios: nenhum
-- Próxima decisão do PM: aceite de produto após evidências técnicas e de UX
-- Última atualização: 2026-08-08
+- Phase: implementation
+- Outcome: safe repeat without double billing
+- Product Brief: `PB-001` approved
+- PRD: `PRD-001` approved
+- Active item: `PM-WI-001`
+- Blocks: none
+- PM's next decision: product acceptance after technical and UX evidence
+- Last updated: 2026-08-08

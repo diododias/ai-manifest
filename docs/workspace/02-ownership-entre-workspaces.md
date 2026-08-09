@@ -1,46 +1,46 @@
-# 02 — Ownership entre workspaces
+#02 — Ownership between workspaces
 
-> Qual workspace é a fonte canônica de cada tipo de verdade, o que os demais recebem, e como um agente busca contexto de outro domínio sem duplicá-lo.
+> Which workspace is the canonical source of each type of truth, what others receive, and how an agent seeks context from another domain without duplicating it.
 
-Três workspaces independentes só funcionam se a pergunta "qual é a versão correta?" tiver sempre uma resposta única. Esta página estabelece a regra que garante isso.
-
----
-
-## Uma verdade, um dono
-
-O princípio que governa a relação entre os três workspaces é simples e rígido: **uma informação autoritativa não deve ser mantida em dois lugares**. Cada tipo de verdade tem exatamente um workspace dono, e os demais recebem apenas o que precisam para operar — uma decisão aprovada, um handoff, um snapshot.
-
-A razão é evitar o pior problema de documentação distribuída: duas versões da mesma verdade que divergem silenciosamente com o tempo, sem que ninguém saiba qual vale. Com um dono único por domínio, sempre há uma resposta objetiva para essa pergunta — o mesmo raciocínio que sustenta o compromisso "artefato só existe na fonte canônica", descrito em [Metodologia](../METODOLOGIA.md).
-
-## O mapa de ownership
-
-A tabela abaixo é a referência. Ela diz, para cada domínio de verdade, qual workspace é a fonte canônica e o que os outros dois recebem dele.
-
-| Domínio | Fonte canônica | Os demais recebem |
-|---|---|---|
-| Valor, prioridade, outcome e requisitos | `pm/` | decisão aprovada e handoff de produto |
-| Evidência de usuário, jornada e experiência | `ux/` | UX spec, critérios e handoff de experiência |
-| Arquitetura, implementação e risco operacional | `tech-lead/` | viabilidade, contratos técnicos e evidence pack |
-
-Repare que esta é a mesma [tabela de direitos de decisão](../metodologia/01-papeis.md#direitos-de-decisão) da metodologia, agora expressa em termos de arquivos e pastas. O PM é dono do valor tanto na decisão quanto no disco; o UX, da experiência; o Tech Lead, da técnica. A organização física do trabalho espelha a autoridade humana — não por coincidência, mas porque uma delas foi desenhada a partir da outra.
-
-## Como um agente busca contexto de outro domínio
-
-Na prática, um agente frequentemente precisa de contexto que pertence a outro workspace. Um Software Engineer Agent, operando no workspace do Tech Lead, precisa consultar o PRD, que vive no workspace do PM. Como fazer isso sem criar uma cópia que vai divergir?
-
-A regra admite duas opções, ambas seguras.
-
-| Opção | Quando usar | Cuidado |
-|---|---|---|
-| **Seguir o link até a fonte** | sempre que o artefato estiver acessível | ler onde ele realmente vive, no workspace dono — nunca reproduzir o conteúdo |
-| **Usar um snapshot não autoritativo** | quando o link direto não for viável | identificar explicitamente como não autoritativo e confirmar validade antes de agir |
-
-O que nunca se faz, em nenhuma das duas opções, é copiar a informação para o próprio workspace e passar a tratá-la como verdade local. No dia em que a original mudar, a cópia mente — e ninguém é avisado disso.
-
-## Por que os exemplos são fictícios
-
-Se você abrir os workspaces de exemplo em [`workspaces/`](../../workspaces/README.md), encontrará nomes, organizações, repositórios e estados fictícios. Isso é intencional: eles demonstram a estrutura, não o trabalho de produção de uma equipe real. Ao copiar a estrutura para o seu time, esses valores devem ser substituídos pelos seus — mas o princípio de ownership único não muda com a substituição.
+Three independent workspaces only work if the question "which is the right version?" always have a unique answer. This page sets out the rule that ensures this.
 
 ---
 
-*Anterior: [Estrutura do workspace](01-estrutura-do-workspace.md) · Próximo: [Harness do workspace](03-harness-do-workspace.md).*
+## One truth, one owner
+
+The principle that governs the relationship between the three workspaces is simple and rigid: **authoritative information should not be kept in two places**. Each type of truth has exactly one workspace owner, and the others receive only what they need to operate — an approved decision, a handoff, a snapshot.
+
+The reason is to avoid the worst problem of distributed documentation: two versions of the same truth that silently diverge over time, without anyone knowing which one is valid. With a single owner per domain, there is always an objective answer to this question — the same reasoning that supports the "artifact only exists in canonical source" compromise described in [Methodology](../METODOLOGIA.md).
+
+## The ownership map
+
+The table below is the reference. It tells you, for each truth domain, which workspace is the canonical source and what the other two receive from it.
+
+| Domain | Canonical source | The rest receive |
+|---|---|---|
+| Value, priority, outcome and requirements | `pm/` | approved decision and product handoff |
+| User, journey and experience evidence | `ux/` | UX spec, criteria and experience handoff |
+| Architecture, implementation and operational risk | `tech-lead/` | feasibility, technical contracts and evidence pack |
+
+Note that this is the same [table of decision rights](../metodologia/01-papeis.md#decision-rights) from the methodology, now expressed in terms of files and folders. The PM owns the value in both the decision and the disk; UX, of experience; the Tech Lead, from the technique. The physical organization of work mirrors human authority — not by coincidence, but because one was designed from the other.
+
+## How an agent fetches context from another domain
+
+In practice, an agent often needs context that belongs to another workspace. A Software Engineer Agent, operating in the Tech Lead's workspace, needs to consult the PRD, which lives in the PM's workspace. How to do this without creating a copy that will diverge?
+
+The rule allows two options, both safe.
+
+| Option | When to use | Caution |
+|---|---|---|
+| **Follow the link to the source** | whenever the artifact is accessible | read where he really lives, in the owner's workspace — never reproduce the content |
+| **Use a non-authoritative snapshot** | when the direct link is not viable | explicitly identify as non-authoritative and confirm validity before acting |
+
+What is never done, in either option, is to copy the information to the workspace itself and start treating it as local truth. The day the original changes, the copy lies — and no one is told about it.
+
+## Why the examples are fictitious
+
+If you open the example workspaces in [`workspaces/`](../../workspaces/README.md), you will find fictitious names, organizations, repositories, and states. This is intentional: they demonstrate the structure, not the production work of an actual team. When copying the structure to your team, these values ​​must be replaced with yours — but the principle of single ownership does not change with the replacement.
+
+---
+
+*Previous: [Workspace Structure](01-estrutura-do-workspace.md) · Next: [Workspace Harness](03-harness-do-workspace.md).*

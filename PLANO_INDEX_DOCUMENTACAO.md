@@ -7,72 +7,72 @@ work_items: []
 updated_at: 2026-08-09
 ---
 
-# Documentacao imersiva do Agent Team em `index.html`
+# Immersive Agent Team documentation at `index.html`
 
-## Resultado esperado
+## Expected result
 
-Disponibilizar na raiz do repositorio um `index.html` estatico, navegavel e responsivo que apresente a documentacao vigente do Agent Team em uma experiencia dark, imersiva e orientada a descoberta. A pagina inicial deve evidenciar as macrosecoes do projeto e uma piramide interativa; a selecao de uma camada deve abrir sua pagina de secao, revelar as subsecoes relacionadas e manter uma URL navegavel por hash.
+Make a static, navigable and responsive `index.html` available at the root of the repository that presents the current Agent Team documentation in a dark, immersive and discovery-oriented experience. The home page must highlight the project’s macrosections and an interactive pyramid; Selecting a layer should open its section page, reveal related subsections, and maintain a hash-navigable URL.
 
-O HTML sera uma camada de apresentacao gerada a partir dos Markdown existentes. Os documentos do repositorio continuam sendo a fonte de verdade, evitando divergencia entre a documentacao visual e a documentacao versionada.
+HTML will be a presentation layer generated from existing Markdown. The documents in the repository continue to be the source of truth, avoiding divergences between visual documentation and versioned documentation.
 
-## Contexto e ponto de partida
+## Context and starting point
 
-- A reorganizacao documental atual define seis pilares, da base ao topo: **Harness, Agentes, Skills, Loops, Metodologia e Workspace**.
-- A raiz ja possui `scripts/build-docs-site.py`, que converte Markdown em uma pagina unica, preserva diagramas Mermaid, reescreve links e oferece busca.
-- O gerador atual aponta para caminhos antigos e emite `docs/site.html`; ele deve ser evoluido, nao substituido por uma nova stack.
-- O repositorio nao possui uma aplicacao web ou infraestrutura de hosting dedicada. O primeiro incremento sera estatico, sem framework, backend, autenticacao ou persistencia.
-- Ha uma reorganizacao ampla em andamento na arvore de trabalho. A implementacao deve preservar essas alteracoes e se basear na estrutura documental nova.
+- The current document reorganization defines six pillars, from base to top: **Harness, Agents, Skills, Loops, Methodology and Workspace**.
+- The root already has `scripts/build-docs-site.py`, which converts Markdown into a single page, preserves Mermaid diagrams, rewrites links and offers search.
+- The current generator points to old paths and issues `docs/site.html`; it must be evolved, not replaced by a new stack.
+- The repository does not have a web application or dedicated hosting infrastructure. The first increment will be static, without framework, backend, authentication or persistence.
+- There is a broad reorganization underway in the work tree. The implementation must preserve these changes and be based on the new document structure.
 
-## Escopo do primeiro incremento
+## Scope of the first increment
 
-### Incluido
+### Included
 
-- Gerar `index.html` na raiz do repositorio.
-- Tema dark como identidade principal, usando cinza-chumbo e ciano.
-- Home editorial com proposta do Agent Team, pontos de entrada e piramide interativa.
-- Navegacao em drilldown: macrosecao → subsecoes → documento.
-- Rotas por hash, deep link e suporte aos botoes voltar/avancar do navegador.
-- Busca global por titulo, caminho e texto dos documentos incluidos.
-- Sumario local do documento e destaque da secao ativa.
-- Renderizacao de Markdown, tabelas, codigo e diagramas Mermaid.
-- Layout responsivo para desktop, tablet e celular.
-- Navegacao completa por teclado, foco visivel, semantica e modo de movimento reduzido.
-- Espacos visuais preparados para novos infograficos sem exigir reestruturacao da navegacao.
+- Generate `index.html` in the root of the repository.
+- Dark theme as the main identity, using charcoal gray and cyan.
+- Editorial home with Agent Team proposal, entry points and interactive pyramid.
+- Drilldown navigation: macrosection → subsections → document.
+- Routes by hash, deep link and support for browser back/forward buttons.
+- Global search by title, path and text of included documents.
+- Local summary of the document and highlighting of the active section.
+- Rendering of Markdown, tables, code and Mermaid diagrams.
+- Responsive layout for desktop, tablet and cell phone.
+- Full keyboard navigation, visible focus, semantics and reduced movement mode.
+- Visual spaces prepared for new infographics without requiring navigation restructuring.
 
-### Fora do escopo deste incremento
+### Outside the scope of this increment
 
-- CMS, edicao de conteudo pela interface, login ou dados persistentes.
-- Publicacao em um provedor de hosting.
-- Reescrita editorial de todos os documentos Markdown.
-- Producao dos infograficos finais alem da piramide; entram somente componentes e slots preparados para recebe-los.
-- Multiplos arquivos HTML ou uma aplicacao com roteamento de servidor.
-- Tema claro ou seletor de tema.
+- CMS, content editing through the interface, login or persistent data.
+- Publication on a hosting provider.
+- Editorial rewriting of all Markdown documents.
+- Production of final infographics in addition to the pyramid; Only components and slots prepared to receive them enter.
+- Multiple HTML files or an application with server routing.
+- Clear theme or theme selector.
 
-## Arquitetura da informacao
+## Information architecture
 
-A home nao sera apenas um indice. Ela funcionara como mapa mental do sistema: a piramide explica a dependencia entre as camadas, enquanto os cards de acesso rapido atendem quem ja sabe o que procura.
+The home will not just be an index. It will function as a mental map of the system: the pyramid explains the dependence between the layers, while the quick access cards serve those who already know what they are looking for.
 
-| Nivel | Macrosecao | Pergunta respondida | Drilldown inicial |
+| Level | Macrosecation | Question answered | Initial Drilldown |
 |---:|---|---|---|
-| 6, topo | **Workspace** | Onde o trabalho e os artefatos vivem? | overview, estrutura, ownership, harness do workspace, board e Work Items |
-| 5 | **Metodologia** | Como as pessoas operam o sistema? | papeis, checkpoints, gatilhos, ritmos, manual, jornada e documentacao |
-| 4 | **Loops** | Em que ordem os agentes colaboram e quando param? | overview, 12 loops da jornada, caminhos de falha e workflows executaveis |
-| 3 | **Skills** | Como uma tarefa recorrente e executada corretamente? | overview, catalogo, contrato de artefatos e 22 procedimentos executaveis |
-| 2 | **Agentes** | Quem executa, com qual autoridade e limite? | overview, grupos do catalogo, 23 contratos e prompts operacionais |
-| 1, base | **Harness** | O que torna um repositorio operavel por agentes? | overview, tools, rules, sensors, gates, documentation e MCPs |
+| 6, top | **Workspace** | Where do the work and artifacts live? | overview, structure, ownership, workspace harness, board and Work Items |
+| 5 | **Methodology** | How do people operate the system? | roles, checkpoints, triggers, rhythms, manual, journey and documentation |
+| 4 | **Loops** | In what order do agents collaborate and when do they stop? | overview, 12 journey loops, failure paths and executable workflows |
+| 3 | **Skills** | As a recurring and correctly executed task? | overview, catalogue, artifact contract and 22 executable procedures |
+| 2 | **Agents** | Who executes, with what authority and limits? | overview, catalog groups, 23 contracts and operational prompts |
+| 1, base | **Harness** | What makes a repository operable by agents? | overview, tools, rules, sensors, gates, documentation and MCPs |
 
-### Conteudos transversais
+### Transversal content
 
-- **Skills** possuem uma camada propria e tambem aparecem como recursos relacionados nas etapas em que sao executadas.
-- **Workflows** aparecem no drilldown de Loops, distinguindo conceito (`docs/loops/`) de contrato executavel (`workflows/`).
-- **Templates e exemplos de workspaces** aparecem como recursos relacionados dentro das secoes correspondentes.
-- **Visao geral** permanece como rota propria e ponto de retorno da piramide.
+- **Skills** have their own layer and also appear as related resources in the steps in which they are executed.
+- **Workflows** appear in the Loops drilldown, distinguishing concept (`docs/loops/`) from executable contract (`workflows/`).
+- **Templates and workspace examples** appear as related resources within the corresponding sections.
+- **Overview** remains its own route and return point for the pyramid.
 
-## Modelo de navegacao
+## Navigation model
 
-### Rotas propostas
+### Proposed routes
 
-O site usara hash routing para funcionar tanto por duplo clique quanto em hosting estatico:
+The site will use hash routing to work both via double click and static hosting:
 
 ```text
 #/                                      home
@@ -85,188 +85,188 @@ O site usara hash routing para funcionar tanto por duplo clique quanto em hostin
 #/busca?q=autonomia                    resultados
 ```
 
-### Comportamentos
+### Behaviors
 
-1. Ao abrir o site, a home apresenta a piramide, uma explicacao curta do modelo e acessos rapidos.
-2. Hover, foco ou toque em um nivel realca a camada e mostra sua pergunta central e relacao com os niveis adjacentes.
-3. Clique ou `Enter` atualiza a rota, executa uma transicao curta e abre a pagina da macrosecao.
-4. A pagina de secao apresenta um cabecalho marcante, resumo, mapa de subsecoes e trilha de leitura recomendada.
-5. Clique em uma subsecao abre o documento no mesmo shell, mantendo breadcrumb, menu contextual e sumario local.
-6. Voltar/avancar restaura rota, selecao, titulo da pagina e posicao de leitura quando aplicavel.
-7. Em telas pequenas, a navegacao lateral se transforma em drawer; a piramide continua tocavel sem depender de hover.
+1. When opening the website, the home page displays the pyramid, a short explanation of the model and quick access.
+2. Hovering, focusing, or tapping a level highlights the layer and shows its central question and relationship to adjacent levels.
+3. Click or `Enter` updates the route, performs a short transition and opens the macrosection page.
+4. The section page features a striking header, summary, subsection map, and recommended reading track.
+5. Clicking on a subsection opens the document in the same shell, keeping the breadcrumb, contextual menu and summary local.
+6. Back/forward restores route, selection, page title and reading position when applicable.
+7. On small screens, the side navigation becomes a drawer; the pyramid remains playable without relying on hover.
 
-## Direcao visual
+## Visual direction
 
-### Paleta base
+### Base palette
 
-| Token | Cor proposta | Uso |
+| Token | Proposed color | Usage |
 |---|---|---|
-| `--bg-deep` | `#0B0F12` | fundo principal |
-| `--bg-charcoal` | `#161C21` | paineis e navegacao |
-| `--bg-elevated` | `#20282E` | cards, codigo e superficies elevadas |
-| `--line` | `#31404A` | bordas e separadores |
-| `--cyan` | `#22D3EE` | acao, foco e nivel selecionado |
-| `--cyan-strong` | `#06B6D4` | contraste e estados ativos |
-| `--text` | `#E8F0F3` | texto principal |
-| `--text-muted` | `#93A4AE` | texto secundario |
+| `--bg-deep` | `#0B0F12` | main background |
+| `--bg-charcoal` | `#161C21` | panels and navigation |
+| `--bg-elevated` | `#20282E` | cards, code and raised surfaces |
+| `--line` | `#31404A` | borders and separators |
+| `--cyan` | `#22D3EE` | action, focus and level selected |
+| `--cyan-strong` | `#06B6D4` | contrast and active states |
+| `--text` | `#E8F0F3` | main text |
+| `--text-muted` | `#93A4AE` | secondary text |
 
-### Linguagem visual
+### Visual language
 
-- Fundo cinza-chumbo com grade tecnica muito sutil, halos ciano controlados e superficies em camadas.
-- Tipografia editorial de alta legibilidade, com titulos amplos e numeracao tecnica nas macrosecoes.
-- Bordas finas, brilho ciano apenas em foco/estado ativo e contraste suficiente para leitura longa.
-- Transicoes entre 160 e 280 ms; nenhuma animacao impede leitura ou navegacao.
-- Cards de macrosecao com hierarquia clara, resumo curto e acao explicita, sem indicadores quantitativos.
-- Infograficos futuros compartilham tokens de cor, tipografia, legenda, controles de zoom e comportamento responsivo.
+- Lead gray background with very subtle technical grid, controlled cyan halos and layered surfaces.
+- Highly readable editorial typography, with broad titles and technical numbering in macrosections.
+- Thin edges, cyan glow only in focus/active state and enough contrast for long reading.
+- Transitions between 160 and 280 ms; No animations impede reading or browsing.
+- Macrosection cards with clear hierarchy, short summary and explicit action, without quantitative indicators.
+- Future infographics share color tokens, typography, caption, zoom controls, and responsive behavior.
 
-## Camadas interativas
+## Interactive layers
 
-As camadas serao construidas com HTML semantico e CSS, sem imagem fixa, para preservar responsividade, acessibilidade e estados interativos.
+The layers will be built with semantic HTML and CSS, without fixed images, to preserve responsiveness, accessibility and interactive states.
 
-Cada camada sera um `button`/link real com:
+Each layer will be a real `button`/link with:
 
-- nome e numero da camada;
-- descricao acessivel;
-- estado normal, hover, foco, ativo e visitado;
-- area de toque minima de 44 px;
-- relacao visual com a camada anterior e a seguinte;
-- destino direto para a rota da macrosecao;
-- suporte a teclado e leitor de tela.
+- layer name and number;
+- accessible description;
+- normal, hover, focus, active and visited status;
+- minimum touch area of ​​44 px;
+- visual relationship with the previous and next layers;
+- direct destination for the macrosection route;
+- keyboard and screen reader support.
 
-No desktop, o titulo ocupa o topo do primeiro viewport e as camadas ficam ao lado do manifesto do projeto. No mobile, elas se reorganizam verticalmente sem perder a leitura da base para a operacao. Com `prefers-reduced-motion`, os movimentos sao removidos, mantendo apenas mudancas instantaneas de contraste.
+On the desktop, the title occupies the top of the first viewport and the layers are next to the project manifest. On mobile, they are reorganized vertically without losing the reading of the base for the operation. With `prefers-reduced-motion`, movements are removed, keeping only instantaneous contrast changes.
 
-## Estrategia tecnica
+## Technical strategy
 
-### Fonte e geracao
+### Source and generation
 
-- Manter Markdown como fonte canonica.
-- Atualizar o manifesto de paginas do gerador para os caminhos vigentes.
-- Trocar a saida de `docs/site.html` para `index.html` na raiz.
-- Modelar cada entrada com `id`, `macrosecao`, `grupo`, `titulo`, `ordem`, `rota`, `arquivo`, `status` e `relacionados`.
-- Embutir no HTML o conteudo convertido e o indice de busca, permitindo uso local sem servidor.
-- Preservar reescrita de links, ids de headings, tabelas, blocos de codigo e Mermaid.
-- Exibir aviso de build para documento ausente ou rota duplicada; uma macrosecao obrigatoria ausente deve falhar a geracao.
+- Keep Markdown as the canonical source.
+- Update the generator page manifest for the current paths.
+- Change the output from `docs/site.html` to `index.html` at the root.
+- Model each input with `id`, `macrosection`, `group`, `title`, `order`, `route`, `file`, `status` and `related`.
+- Embed the converted content and search index in HTML, allowing local use without a server.
+- Preserve link rewriting, heading ids, tables, code blocks and Mermaid.
+- Display build warning for missing document or duplicate route; A missing mandatory macrosection must fail generation.
 
-### Shell da aplicacao
+### Application shell
 
-- `header`: marca, busca global e retorno para a home.
-- `nav`: macrosecoes e contexto da secao ativa.
-- `main`: home, pagina de secao, pagina de documento ou resultados.
-- `aside` contextual: subsecoes e sumario local, recolhivel em telas menores.
-- `footer`: pagina anterior/proxima e fonte Markdown correspondente.
+- `header`: brand, global search and return to home.
+- `nav`: macrosections and context of the active section.
+- `main`: home, section page, document page or results.
+- `aside` contextual: subsections and local summary, collapsible on smaller screens.
+- `footer`: previous/next page and corresponding Markdown font.
 
-### Estado no navegador
+### Status in browser
 
-O JavaScript sera pequeno e sem framework. O hash sera a fonte de verdade da navegacao; estado efemero sera limitado a busca, drawer, zoom de diagramas e restauracao de scroll. Nenhum dado do usuario sera persistido.
+JavaScript will be small and without a framework. The hash will be the source of truth for navigation; ephemeral state will be limited to search, drawer, diagram zoom and scroll restoration. No user data will be persisted.
 
-## Etapas de implementacao
+## Implementation steps
 
-### 1. Inventario e contrato de conteudo
+### 1. Inventory and content contract
 
-- [x] Reconciliar todos os caminhos do gerador com a estrutura documental vigente.
-- [x] Definir a ordem explicita de macrosecoes, grupos, subsecoes e documentos.
-- [x] Resolver duplicidades conceituais entre `docs/loops/` e `workflows/` por rotulo e contexto, sem apagar conteudo.
-- [x] Definir quais artefatos operacionais entram integralmente e quais aparecem apenas como recursos relacionados.
-- [x] Validar ids, titulos, front matter, links internos e documentos obrigatorios.
+- [x] Reconcile all generator paths with the current document structure.
+- [x] Define the explicit order of macrosections, groups, subsections and documents.
+- [x] Resolve conceptual duplications between `docs/loops/` and `workflows/` by label and context, without deleting content.
+- [x] Define which operational artifacts are fully included and which appear only as related resources.
+- [x] Validate ids, titles, front matter, internal links and mandatory documents.
 
-**Saida verificavel:** manifesto de conteudo sem caminhos obsoletos, ids duplicados ou macrosecoes vazias.
+**Verifiable output:** content manifest without obsolete paths, duplicate ids or empty macrosections.
 
-### 2. Evolucao do gerador
+### 2. Evolution of the generator
 
-- [x] Refatorar `scripts/build-docs-site.py` para emitir `index.html` na raiz.
-- [x] Separar dados de navegacao, conteudo convertido e template visual dentro do gerador.
-- [x] Implementar rotas por hash e resolucao de links Markdown para rotas internas.
-- [x] Preservar fallback legivel para Mermaid quando a renderizacao visual nao estiver disponivel.
-- [x] Produzir erros claros para referencias obrigatorias ausentes.
+- [x] Refactor `scripts/build-docs-site.py` to emit `index.html` in the root.
+- [x] Separate navigation data, converted content and visual template within the generator.
+- [x] Implement hash routes and Markdown link resolution for internal routes.
+- [x] Preserve readable fallback for Mermaid when visual rendering is not available.
+- [x] Produce clear errors for missing mandatory references.
 
-**Saida verificavel:** um comando reproduz o mesmo `index.html` a partir dos Markdown atuais.
+**Verifiable output:** a command reproduces the same `index.html` from current Markdown.
 
-### 3. Home e sistema visual
+### 3. Home and visual system
 
-- [x] Implementar tokens chumbo/ciano e shell responsivo.
-- [x] Construir hero editorial, acessos rapidos e indicadores do acervo.
-- [x] Construir a piramide interativa com os seis niveis canonicos.
-- [x] Implementar estados de foco, selecao, toque e movimento reduzido.
-- [x] Reservar componentes reutilizaveis para infograficos posteriores.
+- [x] Implement lead/cyan tokens and responsive shell.
+- [x] Build editorial hero, quick access and collection indicators.
+- [x] Build the interactive pyramid with the six canonical levels.
+- [x] Implement focus, selection, touch and reduced movement states.
+- [x] Reserve reusable components for later infographics.
 
-**Saida verificavel:** a home comunica o modelo em um viewport e permite acessar qualquer macrosecao por mouse, toque ou teclado.
+**Verifiable output:** home communicates the model in a viewport and allows access to any macrosection by mouse, touch or keyboard.
 
-### 4. Drilldown e leitura
+### 4. Drilldown and reading
 
-- [x] Implementar pagina de macrosecao com resumo, mapa de subsecoes e trilha recomendada.
-- [x] Implementar pagina de documento com breadcrumb, sumario local e anterior/proximo.
-- [x] Sincronizar rota, titulo, estado ativo e historico do navegador.
-- [x] Integrar busca global e estados de vazio/sem resultado.
-- [x] Tratar links externos, links para arquivos nao incluidos e ancoras profundas.
+- [x] Implement macrosection page with summary, subsection map and recommended trail.
+- [x] Implement document page with breadcrumb, local summary and previous/next.
+- [x] Synchronize route, title, active state and browser history.
+- [x] Integrate global search and empty/no result states.
+- [x] Treat external links, links to files not included and deep anchors.
 
-**Saida verificavel:** compartilhar uma rota abre diretamente o mesmo documento e contexto de navegacao.
+**Verifiable output:** sharing a route directly opens the same document and navigation context.
 
-### 5. Infograficos e diagramas
+### 5. Infographics and diagrams
 
-- [x] Aplicar o mesmo container visual a Mermaid e aos futuros infograficos.
-- [x] Preservar zoom, ajuste a largura, legenda e acesso ao conteudo textual.
-- [x] Criar um slot demonstrativo de infografico na home sem inventar conteudo novo.
-- [x] Verificar que a piramide continua funcional sem animacao ou JavaScript de efeitos.
+- [x] Apply the same visual container to Mermaid and future infographics.
+- [x] Preserve zoom, adjust width, caption and access to textual content.
+- [x] Create a demonstrative infographic slot on the home page without inventing new content.
+- [x] Check that the pyramid remains functional without animation or effects JavaScript.
 
-**Saida verificavel:** diagramas existentes sao legiveis e novos infograficos podem ser adicionados via manifesto/componente.
+**Verifiable output:** existing diagrams are readable and new infographics can be added via manifest/component.
 
-### 6. Validacao e entrega
+### 6. Validation and delivery
 
-- [x] Gerar o HTML duas vezes e confirmar saida deterministica, exceto metadados de data explicitamente definidos.
-- [x] Verificar todas as rotas, links internos, arquivos relacionados e ancoras.
-- [ ] Testar em larguras de 360, 768, 1024 e 1440 px.
-- [ ] Testar teclado, foco, leitor de tela basico, contraste e `prefers-reduced-motion`.
-- [ ] Confirmar busca, deep link, voltar/avancar, refresh e abertura via `file://`.
-- [ ] Validar ausencia de erros no console e comportamento quando Mermaid estiver indisponivel.
-- [x] Atualizar o `README.md` com o acesso ao `index.html` e o comando de regeneracao.
+- [x] Generate HTML twice and confirm deterministic output, except explicitly defined date metadata.
+- [x] Check all routes, internal links, related files and anchors.
+- [ ] Test at widths of 360, 768, 1024 and 1440 px.
+- [ ] Test keyboard, focus, basic screen reader, contrast and `prefers-reduced-motion`.
+- [ ] Confirm search, deep link, back/forward, refresh and opening via `file://`.
+- [ ] Validate the absence of errors in the console and behavior when Mermaid is unavailable.
+- [x] Update `README.md` with access to `index.html` and the regeneration command.
 
-**Saida verificavel:** criterios de aceite atendidos e HTML reproduzivel a partir das fontes do repositorio.
+**Verifiable output:** acceptance criteria met and HTML reproducible from repository sources.
 
-## Criterios de aceite
+## Acceptance criteria
 
-- [x] Existe um `index.html` funcional na raiz do repositorio.
-- [x] A primeira tela evidencia o Agent Team, as seis macrosecoes e a piramide interativa.
-- [x] A interface usa tema dark com predominancia de cinza-chumbo e ciano.
-- [x] Cada nivel da piramide leva a sua pagina de secao e exibe as subsecoes relacionadas.
-- [x] Cada macrosecao tambem pode ser acessada sem usar a piramide.
-- [x] Uma subsecao pode ser aberta diretamente por URL e permanece correta apos refresh.
-- [x] Voltar e avancar do navegador refletem a navegacao feita no site.
-- [x] Busca, sumario local, breadcrumbs e anterior/proximo funcionam sem recarregar a pagina.
-- [x] O conteudo exibido e gerado dos Markdown vigentes, sem copia editorial paralela.
-- [x] Tabelas, codigo, links e Mermaid possuem apresentacao legivel no tema dark.
-- [x] Toda acao essencial funciona por mouse, toque e teclado, com foco visivel.
-- [ ] O layout nao produz rolagem horizontal indevida nas larguras alvo.
-- [x] O movimento respeita `prefers-reduced-motion`.
-- [x] O gerador falha ou alerta de forma explicita para rotas duplicadas e conteudos obrigatorios ausentes.
-- [x] A geracao e reproduzivel e nao altera os documentos fonte.
+- [x] There is a working `index.html` in the root of the repository.
+- [x] The first screen highlights the Agent Team, the six macrosections and the interactive pyramid.
+- [x] The interface uses a dark theme with a predominance of charcoal gray and cyan.
+- [x] Each level of the pyramid leads to its section page and displays related subsections.
+- [x] Each macrosection can also be accessed without using the pyramid.
+- [x] A subsection can be opened directly by URL and remains correct after refresh.
+- [x] Back and forth of the browser reflect the navigation carried out on the website.
+- [x] Search, local summary, breadcrumbs and previous/next work without reloading the page.
+- [x] The content displayed is generated from the current Markdown, without parallel editorial copy.
+- [x] Tables, code, links and Mermaid have readable presentation in the dark theme.
+- [x] Every essential action works via mouse, touch and keyboard, with visible focus.
+- [ ] The layout does not produce undue horizontal scrolling at target widths.
+- [x] The movement respects `prefers-reduced-motion`.
+- [x] The generator fails or explicitly alerts for duplicate routes and missing mandatory content.
+- [x] The generation is reproducible and does not alter the source documents.
 
-## Riscos e mitigacoes
+## Risks and mitigations
 
-| Risco | Impacto | Mitigacao |
+| Risk | Impact | Mitigation |
 |---|---|---|
-| O gerador atual referencia documentos removidos | secoes ausentes e links quebrados | fazer inventario antes do redesign e validar o manifesto no build |
-| Duplicidade entre documentacao conceitual e executavel | leitor nao entende qual fonte seguir | rotular tipo e fonte, agrupar relacionados e manter a hierarquia canonica |
-| Imersao visual prejudicar leitura longa | documentacao cansativa ou inacessivel | limitar brilho/movimento, preservar largura de leitura e testar contraste |
-| Camadas dependerem apenas de forma/hover | falha em mobile, teclado ou leitor de tela | usar controles semanticos, texto visivel e alternativa por cards/menu |
-| HTML unico crescer com todo o acervo | carregamento e busca lentos | manter indice compacto, evitar assets pesados e medir tamanho/tempo no build |
-| Mermaid depender de recurso externo | diagramas indisponiveis offline | manter fonte textual acessivel e fallback legivel |
-| Alteracoes documentais continuarem durante a implementacao | manifesto ficar obsoleto rapidamente | centralizar ordem/metadados e tornar ausencia/duplicidade detectavel pelo gerador |
+| Current generator references removed documents | missing sections and broken links | take inventory before redesign and validate the manifest at build |
+| Duplicity between conceptual and executable documentation | reader does not understand which source to follow | label type and source, group related and maintain canonical hierarchy |
+| Visual immersion harms long reading | tiring or inaccessible documentation | limit brightness/motion, preserve reading width and test contrast |
+| Layers only depend on shape/hover | mobile, keyboard or screen reader failure | use semantic controls, visible text and alternatives via cards/menu |
+| Unique HTML grow with the entire collection | slow loading and searching | keep index compact, avoid heavy assets and measure size/time in build |
+| Mermaid depend on external resource | diagrams unavailable offline | keep textual font accessible and fallback readable |
+| Documentary changes continue during implementation | manifesto quickly become obsolete | centralize order/metadata and make absence/duplicity detectable by the generator |
 
-## Decisoes assumidas para este plano
+## Decisions made for this plan
 
-- `index.html` sera um artefato gerado na raiz, nao um arquivo mantido manualmente.
-- A experiencia sera uma SPA estatica em um unico HTML, com hash routing.
-- A piramide tera seis niveis, conforme `docs/README.md`; Skills possui camada propria e conexoes transversais.
-- O tema inicial sera exclusivamente dark.
-- O site deve funcionar localmente sem servidor; hosting pode ser tratado em demanda posterior.
-- A implementacao comeca somente depois da aprovacao deste plano.
+- `index.html` will be a root-generated artifact, not a manually maintained file.
+- The experience will be a static SPA in a single HTML, with hash routing.
+- The pyramid will have six levels, according to `docs/README.md`; Skills have their own layer and transversal connections.
+- The initial theme will be exclusively dark.
+- The website must work locally without a server; hosting can be handled on later demand.
+- Implementation begins only after approval of this plan.
 
-## Arquivos previstos para a implementacao
+## Files planned for implementation
 
-| Arquivo | Mudanca esperada |
+| Archive | Expected change |
 |---|---|
-| `scripts/build-docs-site.py` | atualizar fontes, modelo de informacao, template, router, busca e destino de geracao |
-| `index.html` | artefato estatico gerado |
-| `README.md` | adicionar acesso ao site e instrucao de regeneracao |
+| `scripts/build-docs-site.py` | update sources, information model, template, router, search and generation destination |
+| `index.html` | generated static artifact |
+| `README.md` | add site access and regeneration instruction |
 
-Novos arquivos de aplicacao, repositorios ou projetos nao sao necessarios para este incremento.
+New application files, repositories or projects are not required for this increment.

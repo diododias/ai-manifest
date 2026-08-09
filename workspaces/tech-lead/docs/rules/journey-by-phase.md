@@ -1,25 +1,25 @@
 ---
-title: Agent Team — jornada por fases
+title: Agent Team — journey in phases
 status: reference
 updated_at: 2026-08-08
 ---
 
-# Agent Team — jornada por fases
+# Agent Team — journey in phases
 
-> Visão fragmentada do [fluxo completo](end-to-end-journey.md), desenhada para análise por partes e uso em slides. Os contratos de interação entre os agentes estão no [mapa de workflows](../workflows/README.md).
+> Fragmented view of [complete flow](end-to-end-journey.md), designed for analysis in parts and use in slides. The interaction contracts between agents are in [workflow map](../workflows/README.md).
 
-## Mapa dos blocos
+## Block map
 
 ```mermaid
 flowchart LR
-    P1["Bloco 1<br/>Produto e descoberta<br/>Etapas 0–2"]
-    P2["Bloco 2<br/>Especificação técnica<br/>Etapa 3"]
-    P3["Bloco 3<br/>Construção e validação<br/>Etapas 4–5"]
-    P4["Bloco 4<br/>Integração e entrega<br/>Etapas 6–8"]
-    P5["Bloco 5<br/>Conhecimento e melhoria<br/>Etapas 9–10"]
+    P1["Block 1<br/>Product and discovery<br/>Steps 0–2"]
+    P2["Block 2<br/>Technical specification<br/>Step 3"]
+    P3["Block 3<br/>Construction and validation<br/>Steps 4–5"]
+    P4["Block 4<br/>Integration and delivery<br/>Steps 6–8"]
+    P5["Block 5<br/>Knowledge and improvement<br/>Steps 9–10"]
 
     P1 --> P2 --> P3 --> P4 --> P5
-    P5 -. "melhorias retornam ao backlog" .-> P1
+    P5 -. "improvements return to the backlog" .-> P1
 
     classDef phase fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     class P1,P2,P3,P4,P5 phase;
@@ -27,46 +27,46 @@ flowchart LR
 
 ---
 
-## Bloco 1 — produto e descoberta
+## Block 1 — product and discovery
 
-### Escopo
+### Scope
 
-- Workflows: [intake](../workflows/00-intake-and-triage.md), [discovery e research](../workflows/01-discovery-and-research.md) e [planejamento de produto e UX](../workflows/02-product-and-ux-planning.md)
-- Etapa 0: backlog e triagem
-- Etapa 1: discovery multiagente
-- Etapa 2: planejamento de produto
-- Checkpoints humanos: H1 e H2
-- Artefatos principais: `PB.md` e `PRD.md`
+- Workflows: [intake](../workflows/00-intake-and-triage.md), [discovery and research](../workflows/01-discovery-and-research.md) and [product and UX planning](../workflows/02-product-and-ux-planning.md)
+- Step 0: backlog and triage
+- Step 1: multi-agent discovery
+- Step 2: Product Planning
+- Human checkpoints: H1 and H2
+- Main artifacts: `PB.md` and `PRD.md`
 
 ```mermaid
 flowchart LR
-    IN([Problema ou oportunidade])
+    IN([Problem or opportunity])
 
-    S0["0. Backlog e triagem<br/>Intake + PM Agents"]
-    G0{{"Gate<br/>contexto, owner, duplicidade e risco"}}
+    S0["0. Backlog and triage<br/>Intake + PM Agents"]
+    G0{{"Gate<br/>context, owner, duplicity and risk"}}
 
     S1["1. Discovery<br/>PM + UX Spec + Tech Lead"]
-    G1{{"Gate<br/>problema, usuário, experiência e viabilidade"}}
-    H1{"H1 · Vale investir?"}
+    G1{{"Gate<br/>problem, user, experience and feasibility"}}
+    H1{"H1 · Is it worth investing?"}
 
-    S2["2. Planejamento<br/>PM + Adversarial PM"]
-    G2{{"Gate<br/>clareza, aceite, escopo e métricas"}}
-    H2{"H2 · É isto que<br/>construiremos?"}
+    S2["2. Planning<br/>PM + Adversarial PM"]
+    G2{{"Gate<br/>clarity, acceptance, scope and metrics"}}
+    H2{"H2 · Is this what<br/>we will build?"}
 
-    OUT([PRD aprovado])
+    OUT([PRD approved])
 
     IN --> S0 --> G0
-    G0 -- "incompleto" --> S0
-    G0 -- "aprovado" --> S1 --> G1
+    G0 -- "incomplete" --> S0
+    G0 -- "approved" --> S1 --> G1
     G1 -- "gap" --> S1
-    G1 -- "aprovado" --> H1
-    H1 -- "ajustar" --> S1
-    H1 -- "adiar" --> S0
-    H1 -- "avançar" --> S2 --> G2
-    G2 -- "ambiguidade" --> S2
-    G2 -- "aprovado" --> H2
-    H2 -- "revisar" --> S2
-    H2 -- "aprovar" --> OUT
+    G1 -- "approved" --> H1
+    H1 -- "adjust" --> S1
+    H1 -- "postpone" --> S0
+    H1 -- "forward" --> S2 --> G2
+    G2 -- "ambiguity" --> S2
+    G2 -- "approved" --> H2
+    H2 -- "review" --> S2
+    H2 -- "approve" --> OUT
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -78,41 +78,41 @@ flowchart LR
     class IN,OUT terminal;
 ```
 
-### Foco da discussão
+### Focus of the discussion
 
-- O problema está claro antes de discutir solução?
-- Usuário, experiência e viabilidade foram analisados juntos?
-- O adversarial PM encontrou ambiguidades reais?
-- Os humanos decidiram valor e escopo, não detalhes operacionais?
+- Is the problem clear before discussing the solution?
+- Were user, experience and feasibility analyzed together?
+- Did the adversarial PM find real ambiguities?
+- Did humans decide value and scope, not operational details?
 
 ---
 
-## Bloco 2 — especificação técnica
+## Block 2 — technical specification
 
-### Escopo
+### Scope
 
-- Workflow: [especificação técnica](../workflows/03-technical-specification.md)
-- Etapa 3: especificação e crítica técnica
-- Checkpoint humano: H3 condicional
-- Artefatos: `PLAN.md`, `ADR.md`, `SPEC.md`, `TASKS.md` e `CHECKLIST.md`
+- Workflow: [technical specification](../workflows/03-technical-specification.md)
+- Step 3: specification and technical criticism
+- Human checkpoint: conditional H3
+- Artifacts: `PLAN.md`, `ADR.md`, `SPEC.md`, `TASKS.md` and `CHECKLIST.md`
 
 ```mermaid
 flowchart LR
-    IN([PRD aprovado])
-    S3["3. Especificação técnica<br/>Specification TL"]
-    ADV["Crítica técnica<br/>Adversarial TL"]
-    G3{{"Gate<br/>rastreabilidade, riscos, tarefas e trade-offs"}}
-    RISK{"Nova ADR, exceção<br/>ou risco R3/R4?"}
-    H3{"H3 · Aceitamos<br/>os trade-offs?"}
-    OUT([Especificação executável])
+    IN([PRD approved])
+    S3["3. Technical Specification<br/>Specification TL"]
+    ADV["Technical review<br/>Adversarial TL"]
+    G3{{"Gate<br/>traceability, risks, tasks and trade-offs"}}
+    RISK{"New ADR, exception<br/>or R3/R4 risk?"}
+    H3{"H3 · Do we accept<br/>the trade-offs?"}
+    OUT([Executable specification])
 
     IN --> S3 --> ADV --> G3
     G3 -- "gap" --> S3
-    G3 -- "aprovado" --> RISK
-    RISK -- "não" --> OUT
-    RISK -- "sim" --> H3
-    H3 -- "revisar" --> S3
-    H3 -- "aceitar" --> OUT
+    G3 -- "approved" --> RISK
+    RISK -- "no" --> OUT
+    RISK -- "yes" --> H3
+    H3 -- "review" --> S3
+    H3 -- "accept" --> OUT
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -124,42 +124,42 @@ flowchart LR
     class IN,OUT terminal;
 ```
 
-### Foco da discussão
+### Focus of the discussion
 
-- A solução responde ao PRD sem ampliar o escopo?
-- Alternativas e trade-offs foram registrados?
-- As tarefas podem ser implementadas e validadas isoladamente?
-- H3 está reservado a decisões realmente estruturais ou arriscadas?
+- Does the solution respond to the PRD without expanding the scope?
+- Have alternatives and trade-offs been recorded?
+- Can tasks be implemented and validated in isolation?
+- Is H3 reserved for truly structural or risky decisions?
 
 ---
 
-## Bloco 3 — construção e validação
+## Block 3 — construction and validation
 
-### Escopo
+### Scope
 
-- Workflows: [implementação autônoma](../workflows/04-autonomous-implementation.md) e [validação adversarial](../workflows/05-adversarial-validation.md)
-- Etapa 4: implementação autônoma
-- Etapa 5: validação adversarial
-- Intervenção humana somente por exceção
-- Saída: mudança pronta para PR
+- Workflows: [standalone implementation](../workflows/04-autonomous-implementation.md) and [adversarial validation](../workflows/05-adversarial-validation.md)
+- Step 4: Standalone implementation
+- Step 5: adversarial validation
+- Human intervention only by exception
+- Output: change ready for PR
 
 ```mermaid
 flowchart LR
-    IN([Tarefa elegível])
-    S4["4. Implementação<br/>Orchestrator + Engineer Agents"]
-    LOCAL{{"Hooks locais<br/>pre-commit + pre-push"}}
-    S5["5. Validação adversarial<br/>QA + Security + Architecture"]
-    CI{{"CI fast + deep lanes<br/>checks conforme risco"}}
-    HUMAN["Escalonar com<br/>evidências e contexto"]
-    OUT([Mudança pronta para PR])
+    IN([Eligible task])
+    S4["4. Implementation<br/>Orchestrator + Engineer Agents"]
+    LOCAL{{"Local hooks<br/>pre-commit + pre-push"}}
+    S5["5. Adversarial validation<br/>QA + Security + Architecture"]
+    CI{{"CI fast + deep lanes<br/>checks according to risk"}}
+    HUMAN["Scale with<br/>evidence and context"]
+    OUT([Change ready for PR])
 
     IN --> S4 --> LOCAL
-    LOCAL -- "falhou" --> S4
-    LOCAL -- "aprovado" --> S5 --> CI
-    CI -- "falhou e corrigível" --> S4
-    CI -- "falhou repetidamente" --> HUMAN
-    HUMAN -- "decisão" --> S4
-    CI -- "aprovado" --> OUT
+    LOCATION -- "failed" --> S4
+    LOCATION -- "approved" --> S5 --> CI
+    CI -- "failed and correctable" --> S4
+    CI -- "failed repeatedly" --> HUMAN
+    HUMAN -- "decision" --> S4
+    CI -- "approved" --> OUT
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -171,54 +171,54 @@ flowchart LR
     class IN,OUT terminal;
 ```
 
-### Foco da discussão
+### Focus of the discussion
 
-- Quais falhas podem ser corrigidas automaticamente?
-- Quais checks pertencem ao hook local ou à CI?
-- A deep lane é acionada por risco e paths alterados?
-- O escalonamento entrega uma decisão objetiva ao humano?
+- Which faults can be automatically corrected?
+- Which checks belong to the local hook or the CI?
+- Is the deep lane triggered by risk and altered paths?
+- Does scheduling deliver an objective decision to the human?
 
 ---
 
-## Bloco 4 — integração e entrega
+## Block 4 — integration and delivery
 
-### Escopo
+### Scope
 
-- Workflows: [PR e merge](../workflows/06-pr-and-merge.md), [homologação](../workflows/07-release-candidate-validation.md) e [produção e observação](../workflows/08-production-release-and-observation.md)
-- Etapa 6: PR e decisão de merge
-- Etapa 7: homologação automatizada
-- Etapa 8: produção e observação inicial
-- Checkpoints humanos: H4 e H5
+- Workflows: [PR and merge](../workflows/06-pr-and-merge.md), [approval](../workflows/07-release-candidate-validation.md) and [production and observation](../workflows/08-production-release-and-observation.md)
+- Step 6: PR and merge decision
+- Step 7: automated approval
+- Stage 8: production and initial observation
+- Human checkpoints: H4 and H5
 
 ```mermaid
 flowchart LR
-    IN([Mudança validada])
+    IN([Change validated])
     S6["6. PR + evidence pack<br/>PR + Reviewer Agents"]
-    H4{"H4 · Podemos integrar?"}
-    MERGE["Merge protegido<br/>checks + approvals"]
-    S7["7. Homologação<br/>preview + E2E + evidências"]
-    G7{{"Gate<br/>release candidate aprovado"}}
-    RISK{"Política exige<br/>aprovação de produção?"}
-    H5{"H5 · Podemos expor<br/>o risco?"}
-    S8["8. Produção<br/>rollout progressivo"]
-    HEALTH{{"Gate pós-deploy<br/>SLOs + métricas"}}
-    BACK["Rollback ou<br/>pausa automática"]
-    REWORK([Retorno à etapa 4])
-    OUT([Entrega saudável])
+    H4{"H4 · Can we integrate?"}
+    MERGE["Protected merge<br/>checks + approvals"]
+    S7["7. Homologation<br/>preview + E2E + evidence"]
+    G7{{"Gate<br/>release candidate approved"}}
+    RISK{"Policy requires<br/>production approval?"}
+    H5{"H5 · Can we expose<br/>the risk?"}
+    S8["8. Production<br/>progressive rollout"]
+    HEALTH{{"Post-deploy gate<br/>SLOs + metrics"}}
+    BACK["Rollback or<br/>automatic pause"]
+    REWORK([Return to step 4])
+    OUT([Healthy Delivery])
 
     IN --> S6 --> H4
-    H4 -- "ajustar" --> REWORK
-    H4 -- "aprovar" --> MERGE --> S7 --> G7
-    G7 -- "falhou" --> REWORK
-    G7 -- "aprovado" --> RISK
-    RISK -- "não" --> S8
-    RISK -- "sim · R3/R4" --> H5
-    H5 -- "revisar" --> S7
-    H5 -- "aprovar" --> S8
+    H4 -- "adjust" --> REWORK
+    H4 -- "approve" --> MERGE --> S7 --> G7
+    G7 -- "failed" --> REWORK
+    G7 -- "approved" --> RISK
+    RISK -- "no" --> S8
+    RISK -- "yes · R3/R4" --> H5
+    H5 -- "review" --> S7
+    H5 -- "approve" --> S8
     S8 --> HEALTH
-    HEALTH -- "regressão" --> BACK
+    HEALTH -- "regression" --> BACK
     BACK --> REWORK
-    HEALTH -- "saudável" --> OUT
+    HEALTH -- "healthy" --> OUT
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -232,52 +232,52 @@ flowchart LR
     class BACK failure;
 ```
 
-### Foco da discussão
+### Focus of the discussion
 
-- O evidence pack permite review sem ler todo o diff?
-- H4 varia corretamente conforme a classe de risco?
-- A homologação comprova critérios de aceite?
-- Deploy e rollback foram automatizados antes de reduzir H5?
+- Does the evidence pack allow review without reading the entire diff?
+- Does H4 vary correctly depending on the risk class?
+- Does the approval prove acceptance criteria?
+- Were deployment and rollback automated before reducing H5?
 
 ---
 
-## Bloco 5 — conhecimento e melhoria contínua
+## Block 5 — knowledge and continuous improvement
 
-### Escopo
+### Scope
 
-- Workflows: [curadoria de conhecimento](../workflows/09-knowledge-curation.md) e [telemetria e melhoria contínua](../workflows/10-continuous-improvement.md)
-- Etapa 9: conhecimento específico da entrega
-- Etapa 10: Auto Dream semanal
-- Checkpoint humano: H6 condicional ou por amostragem
-- Saídas: `MEMORY.md` e demandas de melhoria
+- Workflows: [knowledge curation](../workflows/09-knowledge-curation.md) and [telemetry and continuous improvement](../workflows/10-continuous-improvement.md)
+- Step 9: specific knowledge of the delivery
+- Step 10: Weekly Auto Dream
+- Human checkpoint: H6 conditional or by sampling
+- Outputs: `MEMORY.md` and improvement demands
 
 ```mermaid
 flowchart LR
-    IN([Entrega e sessões concluídas])
-    S9["9. Conhecimento da entrega<br/>Knowledge Agent"]
-    OBS["Sessões + feedback + gates<br/>falhas + retries + métricas"]
-    WEEK([Agenda semanal])
-    S10["10. Auto Dream<br/>análise do sistema de trabalho"]
-    CRITIC["Critic Agent<br/>confirma ou contesta conclusões"]
-    SENSITIVE{"Memória sensível, P0/P1<br/>ou mudança de gate?"}
-    H6{"H6 · O sistema aprendeu<br/>corretamente?"}
-    TYPE{"Resultado analisado"}
-    MEMORY["Aprendizado validado<br/>atualizar MEMORY.md"]
-    DEMAND["Falha ou atrito<br/>gerar demanda no backlog"]
-    BACKLOG([Próximo ciclo])
+    IN([Delivery and sessions completed])
+    S9["9. Delivery Knowledge<br/>Knowledge Agent"]
+    NOTE["Sessions + feedback + gates<br/>failures + retries + metrics"]
+    WEEK([Weekly schedule])
+    S10["10. Auto Dream<br/>work system analysis"]
+    CRITIC["Critic Agent<br/>confirms or disputes conclusions"]
+    SENSITIVE{"Sensitive memory, P0/P1<br/>or gate switching?"}
+    H6{"H6 · Did the system learn<br/>correctly?"}
+    TYPE{"Analyzed result"}
+    MEMORY["Learning validated<br/>update MEMORY.md"]
+    DEMAND["Failure or friction<br/>generate demand in the backlog"]
+    BACKLOG([Next cycle])
 
-    IN --> S9 --> OBS
-    IN --> OBS
+    IN --> S9 --> NOTE
+    IN --> NOTE
     WEEK --> S10
     OBS --> S10 --> CRITIC --> SENSITIVE
-    SENSITIVE -- "sim" --> H6
-    SENSITIVE -- "não ou amostragem" --> TYPE
-    H6 -- "aprovar" --> TYPE
-    H6 -- "mais evidências" --> S10
-    TYPE -- "funcionou" --> MEMORY
-    TYPE -- "deu errado" --> DEMAND
-    MEMORY -. "contexto reutilizável" .-> BACKLOG
-    DEMAND -- "melhoria priorizável" --> BACKLOG
+    SENSITIVE -- "yes" --> H6
+    SENSITIVE -- "no or sampling" --> TYPE
+    H6 -- "approve" --> TYPE
+    H6 -- "more evidence" --> S10
+    TYPE -- "worked" --> MEMORY
+    TYPE -- "went wrong" --> DEMAND
+    MEMORY -. "reusable context" .-> BACKLOG
+    DEMAND -- "prioritizable improvement" --> BACKLOG
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -291,29 +291,29 @@ flowchart LR
     class IN,BACKLOG terminal;
 ```
 
-### Foco da discussão
+### Focus of the discussion
 
-- O aprendizado possui evidência e contexto de aplicação?
-- O Critic Agent é independente de quem gerou a conclusão?
-- Problemas recorrentes viram demandas acionáveis?
-- H6 protege somente mudanças sensíveis sem virar gargalo?
-- As melhorias retornam efetivamente ao backlog?
+- Does the learning have evidence and context of application?
+- Is Critic Agent independent of who generated the conclusion?
+- Recurring problems become actionable demands?
+- H6 only protects sensitive changes without becoming a bottleneck?
+- Do improvements effectively return to the backlog?
 
 ---
 
-## Legenda comum
+## Common caption
 
-- **Azul:** Agent Teams e agentes especializados
-- **Verde:** automações, gates, hooks e decisões por política
-- **Amarelo:** decisão ou intervenção humana
-- **Roxo:** conhecimento, telemetria e melhoria contínua
-- **Vermelho:** recuperação ou rollback
-- **Cinza:** entrada ou saída do bloco
+- **Blue:** Agent Teams and specialized agents
+- **Green:** automations, gates, hooks and policy decisions
+- **Yellow:** human decision or intervention
+- **Purple:** knowledge, telemetry and continuous improvement
+- **Red:** recovery or rollback
+- **Gray:** block entry or exit
 
-## Uso sugerido
+## Suggested use
 
-- Usar o mapa dos blocos para apresentar a jornada completa
-- Usar um bloco por slide durante o detalhamento
-- Discutir primeiro objetivos e decisões humanas
-- Depois detalhar agentes, automações e gates
-- Manter a numeração alinhada ao fluxo completo
+- Use the block map to present the complete journey
+- Use one block per slide when detailing
+- Discuss human goals and decisions first
+- Then detail agents, automations and gates
+- Keep the numbering aligned with the complete flow

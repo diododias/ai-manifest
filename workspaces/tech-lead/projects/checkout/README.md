@@ -1,17 +1,17 @@
 # Checkout
 
-Projeto fictício que demonstra como produto, UX, engenharia, planejamento, execução e aprendizado se conectam no workspace do Tech Lead.
+Fictional project that demonstrates how product, UX, engineering, planning, execution and learning connect in the Tech Lead workspace.
 
-## Navegação
+## Navigation
 
-- [`CONTEXT.md`](CONTEXT.md): visão relativamente estável;
-- [`STATUS.md`](STATUS.md): estado executivo atual;
-- [`product/`](product/README.md): requisitos e glossário;
-- [`ux/`](ux/README.md): pesquisa, fluxos e handoffs;
-- [`engineering/`](engineering/README.md): arquitetura, decisões, specs e repositórios;
-- [`plans/active/PLAN-014.md`](plans/active/PLAN-014.md): estratégia atual;
-- [`plans/assets/`](plans/assets/README.md): material bruto de sessões (transcrições, prints, e-mails, documentos), isolado por execução;
-- [`work-items/WI-031.md`](work-items/WI-031.md): unidade de trabalho ativa;
-- [`execution/`](execution/README.md): handoffs, reviews e evidências;
-- [`LEARNINGS.md`](LEARNINGS.md): aprendizado em curadoria;
-- `MEMORY.md`: contexto operacional não autoritativo.
+- [`CONTEXT.md`](CONTEXT.md): relatively stable vision;
+- [`STATUS.md`](STATUS.md): current executive status;
+- [`product/`](product/README.md): requirements and glossary;
+- [`ux/`](ux/README.md): search, flows and handoffs;
+- [`engineering/`](engineering/README.md): architecture, decisions, specs and repositories;
+- [`plans/active/PLAN-014.md`](plans/active/PLAN-014.md): current strategy;
+- [`plans/assets/`](plans/assets/README.md): raw session material (transcripts, prints, emails, documents), isolated by execution;
+- [`work-items/WI-031.md`](work-items/WI-031.md): active work unit;
+- [`execution/`](execution/README.md): handoffs, reviews and evidence;
+- [`LEARNINGS.md`](LEARNINGS.md): learning in curation;
+- `MEMORY.md`: non-authoritative operational context.

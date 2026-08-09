@@ -1,61 +1,61 @@
 ---
-title: Workflow 08 — produção e observação
+title: Workflow 08 — production and observation
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 08 — produção e observação
+# Workflow 08 — production and observation
 
-> Bloco executável do [🐤 Canary Loop](../docs/loops/08-production-release-and-observation.md): promove o release candidate aprovado por estágios de exposição e usa sinais independentes para avançar, pausar ou reverter.
+> [🐤 Canary Loop](../docs/loops/08-production-release-and-observation.md) executable block: promotes the approved release candidate through exposure stages and uses independent signals to fast forward, pause or roll back.
 
-O Release Agent executa a política; o Observability Agent julga saúde contra um baseline fixado antes do rollout. Separar execução e interpretação impede que o desejo de concluir transforme regressão em “ruído provável”.
+The Release Agent executes the policy; the Observability Agent judges health against a baseline set before rollout. Separating execution and interpretation prevents the desire to conclude from transforming regression into “probable noise”.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada comprova qual artefato foi exposto, em que proporção, com quais autorizações e sinais, e por que a exposição avançou ou recuou. O loop só termina após a janela pós-deploy; “deploy aceito pela plataforma” é início da observação, não conclusão.
+A closed execution proves which artifact was exposed, in what proportion, with what authorizations and signs, and why the exhibition advanced or retreated. The loop only ends after the post-deploy window; “deploy accepted by the platform” is the beginning of the observation, not the conclusion.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | todos os estágios autorizados passaram seus health gates ou rollback/pausa foi concluído |
-| **Agentes** | Release executou; Observability interpretou sem mover baseline ou silenciar alerta |
-| **Plataforma** | release/digest, configuração, exposição e resultado foram consultados/registrados |
-| **Workspace** | Work Item, health report, changelog, `STATUS.md` e board estão reconciliados |
-| **Aprendizado** | desvios e decisões geraram candidatos ligados à evidência, sem promoção automática a conhecimento |
+| **Loop** | all authorized stages have passed their health gates or rollback/pause has been completed |
+| **Agents** | Release executed; Observability interpreted without moving baseline or silencing alert |
+| **Platform** | release/digest, configuration, exposure and result were consulted/recorded |
+| **Workspace** | Work Item, health report, changelog, `STATUS.md` and board are reconciled |
+| **Learning** | deviations and decisions generated candidates linked to evidence, without automatic promotion to knowledge |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 8 — release e operação |
-| **Unidade de execução** | um `release_id` + digest + estratégia de exposição + janela declarada |
-| **Consolida operação** | [Release Agent](../agents/release-agent/AGENT.md) |
-| **Interpreta saúde** | [Observability Agent](../agents/observability-agent/AGENT.md) |
-| **Owner humano** | Tech Lead; PM coaprova R3/R4 e impacto material de produto |
-| **Entrada** | RC homologado, rollout/rollback, SLOs, métricas, alertas, baseline e autorizações |
-| **Saída** | release, health report, changelog, timeline e rollback/pausa/incidente quando aplicável |
-| **Gate pré-exposição** | proveniência, ambiente, secrets, migração, backup, capacidade de rollback e H5/política |
-| **Gate por estágio** | sinais dentro dos limites durante janela mínima; alerta crítico explicado ou exposição parada |
-| **Gate final** | janela pós-deploy completa sem regressão relevante e estado persistido |
-| **Volta dominante** | externa — cada estágio observa produção; regressão retorna por pausa/rollback |
-| **Próximo workflow** | [09 — curadoria de conhecimento](09-knowledge-curation.md), para aprendizados candidatos |
+| **Step** | 8 — release and operation |
+| **Execution unit** | a `release_id` + digest + exposure strategy + declared window |
+| **Consolidates operation** | [Release Agent](../agents/release-agent/AGENT.md) |
+| **Interprets health** | [Observability Agent](../agents/observability-agent/AGENT.md) |
+| **Human owner** | Tech Lead; PM co-approves R3/R4 and product material impact |
+| **Input** | Approved RC, rollout/rollback, SLOs, metrics, alerts, baseline and authorizations |
+| **Exit** | release, health report, changelog, timeline and rollback/pause/incident when applicable |
+| **Pre-exposure gate** | provenance, environment, secrets, migration, backup, rollback capacity and H5/policy |
+| **Gate by internship** | signals within limits during minimum window; critical alert explained or exposure stopped |
+| **Final gate** | post-deploy window complete with no relevant regression and persisted state |
+| **Dominant lap** | external — each stage observes production; regression returns by pause/rollback |
+| **Next workflow** | [09 — knowledge curation](09-knowledge-curation.md), for learning candidates |
 
 ---
 
-## Preflight de produção
+## Production preflight
 
-1. Confirmar `release_id`, RC/digest homologado, source commit, registro de H4 e aceite do Rehearsal.
-2. Consultar estado atual do ambiente de destino, release em curso, mudanças concorrentes e janela operacional.
-3. Verificar secrets autorizados sem expor valores, compatibilidade de config, migrations, backups e capacidade testada de rollback/roll-forward.
-4. Capturar baseline antes da exposição: SLOs, erros, latência, saturação, métricas de produto e janelas comparáveis.
-5. Fixar estágios, percentuais/coortes, duração mínima, health gates, thresholds, pause/rollback triggers e owner de incidente.
-6. Confirmar autorizações externas e H5 conforme risco. R3/R4 nunca entram em produção por silêncio.
-7. Abrir evidence pack/timeline antes da primeira ação externa.
+1. Confirm `release_id`, RC/digest approved, source commit, H4 registration and Rehearsal acceptance.
+2. Consult the current state of the target environment, current release, concurrent changes and operational window.
+3. Verify authorized secrets without exposing values, config compatibility, migrations, backups and tested rollback/roll-forward capacity.
+4. Capture baseline before exposure: SLOs, errors, latency, saturation, product metrics and comparable windows.
+5. Set stages, percentages/cohorts, minimum duration, health gates, thresholds, pause/rollback triggers and incident owner.
+6. Confirm external authorizations and H5 according to risk. R3/R4 never go into production due to silence.
+7. Open evidence pack/timeline before the first external action.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "CANARY-<id>"
@@ -83,142 +83,142 @@ stop_conditions: []
 
 ---
 
-## Plano de missões e estágios
+## Mission and internship plan
 
 ```mermaid
-flowchart TD
-    A[RC aprovado + baseline] --> B{H5/política satisfeita?}
-    B -- não --> C[Bloquear e escalar]
-    B -- sim --> D[Release Agent<br/>expõe estágio N]
-    D --> E[Observability Agent<br/>compara sinais]
+TD flowchart
+    A[RC approved + baseline] --> B{H5/policy satisfied?}
+    B -- no --> C[Block and climb]
+    B -- yes --> D[Release Agent<br/>exposes stage N]
+    D --> E[Observability Agent<br/>compares signals]
     E --> F{Health gate}
-    F -- saudável e janela completa --> G{Mais estágios?}
-    G -- sim --> D
-    G -- não --> H[Fechar janela pós-deploy]
-    F -- alerta crítico/limite --> I[Pausar exposição]
-    I --> J{Rollback seguro?}
-    J -- sim --> K[Rollback + evidência]
-    J -- não --> L[Incidente + owner humano]
-    H --> M[Changelog, status e handoff]
+    F -- healthy and full window --> G{More internships?}
+    G -- yes --> D
+    G -- no --> H[Close post-deploy window]
+    F -- critical/threshold alert --> I[Pause exposure]
+    I --> J{Safe rollback?}
+    J -- yes --> K[Rollback + evidence]
+    J -- no --> L[Incident + human owner]
+    H --> M[Changelog, status and handoff]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — preparar release | Release Agent | verificações pré-exposição e plano materializado |
-| M2 — capturar baseline | Observability Agent | janela, consultas, valores e limitações |
-| M3 — expor estágio | Release Agent | ação, coorte/percentual, versão e timestamp confirmados pela plataforma |
-| M4 — observar estágio | Observability Agent | comparação, anomalias, confiança e recomendação |
-| M5 — decidir transição | política/Tech Lead conforme risco | avançar, manter, pausar ou reverter |
-| M6 — responder regressão | Release + Observability + incident owner | contenção, rollback/roll-forward, timeline e impacto |
-| M7 — fechar janela | Release Agent | release final, changelog, health report e estado reconciliado |
+| M1 — prepare release | ReleaseAgent | pre-exposure checks and materialized plan |
+| M2 — capture baseline | ObservabilityAgent | window, queries, values ​​and limitations |
+| M3 — exhibit internship | ReleaseAgent | action, cohort/percentage, version and timestamp confirmed by the platform |
+| M4 — observe internship | ObservabilityAgent | comparison, anomalies, trust and recommendation |
+| M5 — decide transition | policy/Tech Lead according to risk | fast forward, hold, pause or reverse |
+| M6 — reply regression | Release + Observability + incident owner | containment, rollback/roll-forward, timeline and impact |
+| M7 — close window | ReleaseAgent | final release, changelog, health report and reconciled status |
 
-M3 e M4 não são paralelos: primeiro a plataforma confirma exposição; depois o observador avalia a janela. M4 pode ler múltiplos sinais em paralelo, mas produz uma recomendação única com divergências explícitas.
+M3 and M4 are not parallel: first the platform confirms exposure; then the observer evaluates the window. M4 can read multiple signals in parallel, but produces a single recommendation with explicit divergences.
 
 ---
 
-## Health gate por estágio
+## Health gate by stage
 
-Cada estágio declara:
+Each stage states:
 
-| Campo | Exemplo de função |
+| Field | Function example |
 |---|---|
-| exposição/coorte | limita blast radius |
-| início e duração mínima | impede conclusão cedo demais |
-| baseline comparável | evita atribuir sazonalidade ao release |
-| métricas e SLOs | define sucesso operacional e de produto |
-| thresholds/warning/critical | elimina interpretação oportunista |
-| decisão automática permitida | pausa/rollback apenas quando autorizados |
-| owner para sinal inconclusivo | garante parada com decisão, não avanço por silêncio |
+| exposure/cohort | limits blast radius |
+| start and minimum duration | prevents conclusion too early |
+| comparable baseline | avoids attributing seasonality to the release |
+| metrics and SLOs | defines operational and product success |
+| thresholds/warning/critical | eliminates opportunistic interpretation |
+| automatic decision allowed | pause/rollback only when authorized |
+| owner to inconclusive signal | guarantees stopping with decision, not advancing through silence |
 
-Baseline não é recalculado para acomodar regressão. Mudança de baseline durante o rollout exige motivo externo comprovado e nova decisão.
+Baseline is not recalculated to accommodate regression. Changing the baseline during rollout requires a proven external reason and a new decision.
 
 ---
 
-## Fronteiras de autoridade
+## Authority boundaries
 
-| Participante | Faz | Não faz |
+| Participant | Do | Doesn't |
 |---|---|---|
-| Release Agent | verifica proveniência, executa estágio autorizado, pausa/rollback autorizado e registra release | amplia exposição além da política ou interpreta sozinho sinal contraditório |
-| Observability Agent | correlaciona sinais, compara baseline, recomenda e executa apenas pausa/rollback previamente autorizado | silencia alerta, redefine baseline ou aprova release |
-| Tech Lead/PM | autorizam H5, exceção e continuidade em risco material | têm consentimento inferido por ausência |
-| incident owner | assume comando quando impacto ultrapassa rollout | deixa incidente apenas em log transitório após estabilização |
+| ReleaseAgent | checks provenance, executes authorized stage, authorized pause/rollback and records release | expands exposure beyond politics or interprets a contradictory signal alone |
+| ObservabilityAgent | correlates signals, compares baseline, recommends and only executes previously authorized pause/rollback | silence alert, reset baseline or approve release |
+| Tech Lead/PM | authorize H5, exception and continuity in material risk | have consent inferred by absence |
+| incident owner | takes command when impact exceeds rollout | leaves incident only in transient log after stabilization |
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
-| Release Agent | `check-pr`, `update-pr`, `dev-flow`, `update-docs` |
-| Observability Agent | `analyse-bug`, `technical-discovery`, `update-docs` |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
+| ReleaseAgent | `check-pr`, `update-pr`, `dev-flow`, `update-docs` |
+| ObservabilityAgent | `analyse-bug`, `technical-discovery`, `update-docs` |
 
-Cada envelope registra `skills_used`. Release recebe artefato, política e controles; Observability recebe release/timeline, consultas, SLOs e métricas. Segredos nunca entram em envelopes/evidence pack.
+Each envelope records `skills_used`. Release receives artifact, policy and controls; Observability receives release/timeline, queries, SLOs and metrics. Secrets never go in envelopes/evidence packs.
 
 ---
 
-## Persistência e evidência
+## Persistence and evidence
 
-| Artefato | Fonte canônica | Writer |
+| Artifact | Canonical source | Writer |
 |---|---|---|
-| registro/changelog da release | sistema autorizado de release | Release Agent |
-| health report e timeline | `<tech-lead-workspace>/projects/<project>/execution/evidence/<release-id>/health-report.md` | Observability Agent |
-| evidência de rollout | `execution/evidence/<release-id>/rollout/` | Release Agent |
-| evidence pack de rollback | `execution/evidence/<release-id>/rollback/` | Release + Observability |
-| Work Item/STATUS/BOARD | workspace Tech Lead | executor autorizado, após estado externo confirmado |
-| candidatos a aprendizado | `projects/<project>/LEARNINGS.md` | owner autorizado; com links, ainda não conhecimento canônico |
-| incidente/alerta em curso | `.coordination/` até promoção | incident owner |
+| release record/changelog | authorized release system | ReleaseAgent |
+| health report and timeline | `<tech-lead-workspace>/projects/<project>/execution/evidence/<release-id>/health-report.md` | ObservabilityAgent |
+| rollout evidence | `execution/evidence/<release-id>/rollout/` | ReleaseAgent |
+| rollback evidence pack | `execution/evidence/<release-id>/rollback/` | Release + Observability |
+| Work Item/STATUS/BOARD | workspace Tech Lead | authorized executor, after external status confirmed |
+| apprenticeship candidates | `projects/<project>/LEARNINGS.md` | authorized owner; with links, not yet canonical knowledge |
+| ongoing incident/alert | `.coordination/` until promotion | incident owner |
 
-Toda ação externa registra intent, ator, parâmetros não secretos, resposta da plataforma, timestamp e resultado observado. Após estabilização, incidente material é promovido à fonte oficial; não permanece apenas em `.coordination/`.
+Every external action records intent, actor, non-secret parameters, platform response, timestamp and observed result. After stabilization, incident material is promoted to the official source; it doesn't just stay in `.coordination/`.
 
 ---
 
 ## Gates
 
-### Gate pré-exposição
+### Pre-exposure gate
 
-- [ ] digest homologado é o digest a promover;
-- [ ] ambiente, config, secrets autorizados e mudanças concorrentes foram verificados;
-- [ ] migração/backup e rollback ou roll-forward são executáveis;
-- [ ] baseline, thresholds, estágios e janela estão fixados;
-- [ ] owners, permissões e H5 aplicáveis estão registrados.
+- [ ] approved digest is the digest to be promoted;
+- [ ] environment, config, authorized secrets and concurrent changes were checked;
+- [ ] migration/backup and rollback or roll-forward are executable;
+- [ ] baseline, thresholds, stages and window are fixed;
+- [ ] applicable owners, permissions and H5 are registered.
 
-### Gate por estágio/final
+### Gate per stage/end
 
-- [ ] plataforma confirmou versão e exposição pretendidas;
-- [ ] janela mínima decorreu e sinais foram comparados ao baseline;
-- [ ] alertas warning/critical têm explicação/evidência ou exposição foi pausada;
-- [ ] sinais de produto e operação foram considerados conforme risco;
-- [ ] estágio só avançou por política/decisão autorizada;
-- [ ] janela final terminou sem regressão relevante.
+- [ ] platform confirmed intended version and exposure;
+- [ ] minimum window elapsed and signals were compared to the baseline;
+- [ ] warning/critical alerts have explanation/evidence or exposure has been paused;
+- [ ] product and operation signs were considered according to risk;
+- [ ] internship was only advanced by authorized policy/decision;
+- [ ] final window ended without relevant regression.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] executor e intérprete permaneceram separados;
-- [ ] cada estágio está na timeline com decisão e evidência;
-- [ ] rollback/pausa foi acionado quando threshold exigiu;
-- [ ] release, health report, Work Item, `STATUS.md` e board concordam;
-- [ ] candidatos a aprendizado preservam fato/hipótese e links.
+- [ ] executor and interpreter remained separate;
+- [ ] each stage is on the timeline with decision and evidence;
+- [ ] rollback/pause was triggered when threshold required;
+- [ ] release, health report, Work Item, `STATUS.md` and board agree;
+- [ ] learning candidates preserve fact/hypothesis and links.
 
 ---
 
-## Regressão e escalonamento
+## Regression and scaling
 
-| Condição | Ação |
+| Condition | Action |
 |---|---|
-| alerta crítico não explicado | pausar imediatamente; não ampliar exposição |
-| regressão com rollback seguro | executar rollback autorizado e comprovar recuperação |
-| rollback inseguro/migração irreversível | abrir incidente e Tech Lead decide contenção/roll-forward |
-| sinais contraditórios | manter/pausar exposição; Observability registra confiança e escala |
-| perda de dados/SLO crítico | incidente imediato, preservação segura de evidência e comunicação |
-| defeito confirmado | Ralph Loop; novo artefato percorre validação/PR/homologação |
-| impacto excede plano | owner humano assume; automação não expande escopo de mitigação |
+| critical alert not explained | pause immediately; do not expand exposure |
+| regression with safe rollback | perform authorized rollback and prove recovery |
+| unsafe rollback/irreversible migration | open incident and Tech Lead decides containment/roll-forward |
+| contradictory signals | hold/pause exposure; Observability records trust and scale |
+| data loss/critical SLO | immediate incident, secure preservation of evidence and communication |
+| confirmed defect | Ralph Loop; new artifact goes through validation/PR/approval |
+| impact exceeds plan | human owner takes over; automation does not expand scope of mitigation |
 
-O loop não fecha enquanto saúde não tiver sido restabelecida e comprovada, mesmo que o rollback tenha sido aceito pela plataforma.
+The loop does not close until health has been reestablished and proven, even if the rollback has been accepted by the platform.
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "CANARY-<id>"
@@ -250,4 +250,4 @@ gates:
 handoff_to: []
 ```
 
-`released_stable` exige janela completa e estado externo confirmado; deploy bem-sucedido sozinho nunca satisfaz o bloco.
+`released_stable` requires full window and confirmed external state; Successful deploy alone never satisfies the block.

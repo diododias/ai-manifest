@@ -1,60 +1,60 @@
 ---
-title: Workflow 03 — especificação técnica
+title: Workflow 03 — technical specification
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 03 — especificação técnica
+# Workflow 03 — technical specification
 
-> Bloco executável do [🗺️ Drafting Loop](../docs/loops/03-technical-specification.md): transforma o baseline aprovado de produto e UX em estratégia técnica, tarefas isoláveis e critérios que as próximas etapas conseguem executar e verificar sem renegociação.
+> [🗺️ Drafting Loop](../docs/loops/03-technical-specification.md) executable block: transforms the approved product and UX baseline into a technical strategy, isolatable tasks and criteria that the next steps can execute and verify without renegotiation.
 
-O Drafting Loop é a fronteira entre intenção e execução. Seu produto não é apenas uma `SPEC`: é um pacote coerente em que `PRD → UX → SPEC → TASKS → CHECKLIST` mantém rastreabilidade, writers, dependências e condições de parada explícitas.
+The Drafting Loop is the boundary between intention and execution. Your product is not just a `SPEC`: it is a coherent package in which `PRD → UX → SPEC → TASKS → CHECKLIST` maintains explicit traceability, writers, dependencies and stopping conditions.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada deixa plano ativo, especificação, decisões estruturais, tarefas elegíveis e checklist de validação sincronizados. O Ralph Loop deve conseguir distribuir as tarefas sem dois agentes disputarem o mesmo arquivo ou contrato; o Red Team deve conseguir provar cobertura usando o checklist sem perguntar ao autor o que ele quis dizer.
+A closed execution leaves the active plan, specification, structural decisions, eligible tasks and validation checklist synchronized. Ralph Loop must be able to distribute tasks without two agents competing for the same file or contract; the Red Team should be able to prove coverage using the checklist without asking the author what he meant.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | alternativas, contratos, dados, testes, telemetria, rollout e rollback foram tratados proporcionalmente ao risco |
-| **Agentes** | especialistas contribuíram antes da crítica; Adversarial TL independente atacou o pacote; especificador respondeu findings |
-| **Workspace** | plano, SPEC, ADR, reviews, Work Items, `STATUS.md`, `MEMORY.md` e board estão reconciliados |
-| **Execução seguinte** | tarefas têm owner possível, dependências, escopo de escrita, repositório e evidência de conclusão |
-| **Decisão** | H3 foi registrado quando houve ADR, exceção, contrato público, migração ou risco R3/R4 |
+| **Loop** | alternatives, contracts, data, tests, telemetry, rollout and rollback were treated proportionally to the risk |
+| **Agents** | experts contributed before critique; Adversarial independent TL attacked the package; specifier responded findings |
+| **Workspace** | plan, SPEC, ADR, reviews, Work Items, `STATUS.md`, `MEMORY.md` and board are reconciled |
+| **Next execution** | tasks have possible owner, dependencies, writing scope, repository and evidence of completion |
+| **Decision** | H3 was recorded when there was an ADR, exception, public contract, migration or R3/R4 risk |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 3 — especificação |
-| **Unidade de execução** | Work Item de produto/UX com baseline H2 e `mission_id` técnico |
-| **Consolida** | [Specification Tech Lead Agent](../agents/specification-tech-lead-agent/AGENT.md) |
-| **Especializa** | [Security, Data & Platform Specialist](../agents/specialist-security-data-platform-agent/AGENT.md), por domínio e risco explícitos |
-| **Desafia** | [Adversarial Tech Lead](../agents/adversarial-tech-lead-agent/AGENT.md), independente do especificador |
-| **Owner humano** | Tech Lead |
-| **Entrada** | `PB.md`, `PRD.md`, UX spec, arquitetura, repositórios, contratos, SLOs, políticas e risco |
-| **Saída** | `PLAN`, `SPEC`, `TASKS`, `CHECKLIST`, ADR e estratégias de teste, observabilidade, rollout e rollback |
-| **Gate de conteúdo** | rastreabilidade completa, tarefas pequenas/verificáveis e trade-offs/gaps críticos tratados |
-| **Gate do bloco** | conteúdo + crítica independente + persistência/reconciliação + elegibilidade dos Work Items + H3 quando aplicável |
-| **Volta dominante** | média — a solução é atacada antes de qualquer tarefa ficar `ready` |
-| **Próximo workflow** | [04 — implementação autônoma](04-autonomous-implementation.md) |
+| **Step** | 3 — specification |
+| **Execution unit** | Work Product/UX item with baseline H2 and technical `mission_id` |
+| **Consolidates** | [Specification Tech Lead Agent](../agents/specification-tech-lead-agent/AGENT.md) |
+| **Specializes** | [Security, Data & Platform Specialist](../agents/specialist-security-data-platform-agent/AGENT.md), by explicit domain and risk |
+| **Challenge** | [Adversarial Tech Lead](../agents/adversarial-tech-lead-agent/AGENT.md), independent of specifier |
+| **Human owner** | Tech Lead |
+| **Input** | `PB.md`, `PRD.md`, UX spec, architecture, repositories, contracts, SLOs, policies and risk |
+| **Exit** | `PLAN`, `SPEC`, `TASKS`, `CHECKLIST`, ADR and testing strategies, observability, rollout and rollback |
+| **Content gate** | full traceability, small/verifiable tasks and critical trade-offs/gaps addressed |
+| **Block Gate** | content + independent critique + persistence/reconciliation + eligibility of Work Items + H3 when applicable |
+| **Dominant lap** | average — the solution is attacked before any task becomes `ready` |
+| **Next workflow** | [04 — standalone implementation](04-autonomous-implementation.md) |
 
 ---
 
-## Preflight técnico
+## Technical Preflight
 
-1. Resolver o workspace de Tech Lead, projeto e Work Item; ler `AGENTS.md`, `WORKSPACE.md`, `CONTEXT.md`, `STATUS.md` e memória permitida.
-2. Fixar as revisões aprovadas de `PRD.md` e UX spec. Contradição ou requisito ambíguo devolve ao Studio Loop.
-3. Consultar `engineering/repositories.yaml`, instruções locais dos repositórios, arquitetura vigente, contratos, ADRs, SLOs e políticas aplicáveis.
-4. Confirmar classe de risco, permissões, domínios especializados e gatilhos de H3. O agente não reduz risco para evitar checkpoint.
-5. Criar pasta de sessão em `plans/assets/03-technical-specification/<date>-<mission-id>/`; rascunhos e transcrições permanecem ali até o gate.
-6. Registrar no Work Item a assunção da missão e o baseline técnico antes de alterar artefatos.
+1. Resolve the Tech Lead, project and Work Item workspace; read `AGENTS.md`, `WORKSPACE.md`, `CONTEXT.md`, `STATUS.md` and memory allowed.
+2. Fix approved revisions of `PRD.md` and UX spec. Contradiction or ambiguous requirement returns to Studio Loop.
+3. Consult `engineering/repositories.yaml`, local repository instructions, current architecture, contracts, ADRs, SLOs and applicable policies.
+4. Confirm risk class, permissions, specialized domains, and H3 triggers. The agent does not reduce risk to avoid checkpoint.
+5. Create session folder in `plans/assets/03-technical-specification/<date>-<mission-id>/`; drafts and transcripts remain there until the gate.
+6. Record in the Work Item the assumption of the mission and the technical baseline before changing artifacts.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "DRAFTING-<id>"
@@ -75,161 +75,161 @@ mode: "execute | dry-run"
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[PRD + UX + arquitetura + risco] --> B[Specification TL<br/>alternativas e pacote inicial]
-    B --> C{Domínio especializado?}
-    C -- sim --> D1[Security]
-    C -- sim --> D2[Data]
-    C -- sim --> D3[Platform]
-    C -- não --> E[Integrar restrições]
+TD flowchart
+    A[PRD + UX + architecture + risk] --> B[Specification TL<br/>alternatives and starter package]
+    B --> C{Specialized domain?}
+    C -- yes --> D1[Security]
+    C -- yes --> D2[Date]
+    C -- yes --> D3[Platform]
+    C -- no --> E[Integrate constraints]
     D1 --> E
     D2 --> E
     D3 --> E
-    E --> F[Adversarial TL<br/>cenários de falha]
-    F --> G[Specification TL<br/>respostas e revisão]
-    G --> H[Decompor TASKS + CHECKLIST]
-    H --> I{Gate do bloco}
-    I -- requisito ambíguo --> J[Studio Loop]
-    I -- ADR/exceção/R3-R4 --> K[H3 Tech Lead]
-    I -- padrão --> L[Work Items ready]
-    K -- aceitar --> L
-    K -- revisar --> B
+    E --> F[Adversarial TL<br/>failure scenarios]
+    F --> G[Specification TL<br/>answers and review]
+    G --> H[Decompose TASKS + CHECKLIST]
+    H --> I{Block gate}
+    I -- ambiguous requirement --> J[Studio Loop]
+    I -- ADR/exception/R3-R4 --> K[H3 Tech Lead]
+    I -- default --> L[Work Items ready]
+    K -- accept --> L
+    K -- review --> B
 ```
 
-| Missão | Responsável | Depende de | Entrega |
+| Mission | Responsible | Depends on | Delivery |
 |---|---|---|---|
-| M1 — alternativas e desenho inicial | Specification TL | baseline | opções, trade-offs, contratos, dados, falhas e estratégia operacional |
-| M2 — análises especializadas | especialistas independentes por domínio | M1 | restrições, controles, testes e critérios adicionais |
-| M3 — integração de domínio | Specification TL | M2 | `PLAN`/`SPEC` candidatos e ADRs propostas |
-| M4 — ataque técnico | Adversarial TL | M3 | findings com evidência, cenário, impacto, alternativa e severidade |
-| M5 — resposta | Specification TL | M4 | resolução ou risco residual por finding; revisão do pacote |
-| M6 — decomposição | Specification TL | M5 | `TASKS`, `CHECKLIST` e Work Items com DAG executável |
-| M7 — gate/H3 | automação + Tech Lead quando acionado | M6 | baseline técnico aprovado ou retorno explícito |
+| M1 — alternatives and initial design | Specification TL | baseline | options, trade-offs, contracts, data, failures and operational strategy |
+| M2 — specialized analysis | independent experts by domain | M1 | additional restrictions, controls, tests and criteria |
+| M3 — domain integration | Specification TL | M2 | `PLAN`/`SPEC` candidates and proposed ADRs |
+| M4 — technical attack | Adversarial TL | M3 | findings with evidence, scenario, impact, alternative and severity |
+| M5 — answer | Specification TL | M4 | resolution or residual risk by finding; package review |
+| M6 — decomposition | Specification TL | M5 | `TASKS`, `CHECKLIST` and Work Items with executable DAG |
+| M7 — gate/H3 | automation + Tech Lead when triggered | M6 | approved technical baseline or explicit feedback |
 
-Análises de Security, Data e Platform podem rodar em paralelo entre si, cada uma com fronteira declarada. A crítica adversarial só começa depois que restrições aceitas foram incorporadas; caso contrário, ela avaliaria uma solução já obsoleta.
+Security, Data and Platform analyzes can run in parallel with each other, each with a declared boundary. Adversarial criticism only begins after accepted constraints have been incorporated; otherwise, it would evaluate an already obsolete solution.
 
 ---
 
-## Contrato da decomposição
+## Decomposition contract
 
-Cada tarefa que alimenta o Ralph Loop declara:
+Each task that powers Ralph Loop states:
 
-| Campo | Por que é obrigatório |
+| Field | Why is it mandatory |
 |---|---|
-| objetivo e critério de conclusão | impede agente de girar sem saber quando parar |
-| requisitos/SPEC rastreados | prova que a tarefa implementa algo autorizado |
-| repositório, paths e contratos afetados | permite detectar colisão de escrita antes da distribuição |
-| dependências e bloqueios | forma a DAG real de execução |
-| inputs e outputs esperados | define a fronteira do handoff |
-| testes e evidências | permite validação independente |
-| risco e permissões | limita autonomia e ações externas |
-| condição de retry/escalonamento | impede repetição infinita |
+| objective and completion criteria | prevents agent from spinning without knowing when to stop |
+| requirements/SPEC tracked | proves that the task implements something authorized |
+| repository, paths and contracts affected | allows you to detect write collisions before distribution |
+| dependencies and blocks | forms the actual execution DAG |
+| expected inputs and outputs | defines the handoff boundary |
+| tests and evidence | allows independent validation |
+| risk and permissions | limits autonomy and external actions |
+| retry/escalation condition | prevents infinite repetition |
 
-Tarefas paralelas não podem possuir o mesmo writer scope. Quando duas mudanças precisam do mesmo arquivo ou contrato, elas são serializadas, fundidas ou recebem uma divisão explícita de ownership.
+Parallel tasks cannot have the same writer scope. When two changes need the same file or contract, they are serialized, merged, or given an explicit division of ownership.
 
 ---
 
-## Fronteiras de autoridade
+## Authority boundaries
 
-| Participante | Faz | Não faz |
+| Participant | Do | Doesn't |
 |---|---|---|
-| Specification TL | escreve e consolida plano, SPEC, tarefas, checklist e proposta de ADR | altera outcome/UX, aprova o próprio pacote ou reduz risco |
-| especialista | emite parecer limitado ao domínio declarado | amplia conclusão a domínios não avaliados ou edita SPEC diretamente |
-| Adversarial TL | modela falhas, acoplamentos, migração, rollback, teste e custo operacional | bloqueia por preferência estética ou reescreve artefato do autor |
-| Tech Lead humano | decide H3, exceções, risco e trade-offs estruturais | tem aprovação presumida por silêncio |
-| executor/orquestrador | controla DAG, envelopes e reconciliação | escolhe arquitetura ou fecha finding em nome do writer |
+| Specification TL | writes and consolidates plan, SPEC, tasks, checklist and ADR proposal | changes outcome/UX, approves the package itself or reduces risk |
+| expert | issues opinion limited to the declared domain | extends completion to unevaluated domains or edits SPEC directly |
+| Adversarial TL | models failures, couplings, migration, rollback, testing and operational cost | blocks due to aesthetic preference or rewrites the author's artifact |
+| Human Tech Lead | decides H3, exceptions, risk and structural trade-offs | has presumed approval due to silence |
+| executor/orchestrator | controls DAG, envelopes and reconciliation | choose architecture or close finding on behalf of the writer |
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Participante | Skills prioritárias |
+| Participant | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme a operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on the operation |
 | Specification TL | `technical-discovery`, `create-spec`, `refine-spec`, `review-spec` |
-| especialista | `technical-discovery`, `analyse-bug`, `review-spec` |
+| expert | `technical-discovery`, `analyse-bug`, `review-spec` |
 | Adversarial TL | `review-spec`, `review-cross-prd-spec`, `technical-discovery` |
 
-Cada envelope registra `skills_used`. Especialistas recebem somente SPEC candidata, políticas, paths e perguntas do domínio; o adversarial recebe o pacote integrado e não os raciocínios privados do especificador.
+Each envelope records `skills_used`. Experts receive only SPEC candidate, policies, paths, and domain questions; the adversarial receives the integrated package and not the specifier's private reasoning.
 
 ---
 
-## Rastreabilidade e coerência
+## Traceability and coherence
 
-O evidence pack mantém a cadeia:
+The evidence pack maintains the chain:
 
 ```text
 PB outcome
-  → PRD requisito
-    → UX fluxo/estado
-      → SPEC contrato/comportamento
-        → TASK unidade executável
-          → CHECKLIST prova independente
+  → PRD requirement
+    → UX flow/state
+      → SPEC contract/behavior
+        → TASK executable unit
+          → CHECKLIST independent proof
 ```
 
-Todo elo usa IDs ou links estáveis. Uma `TASK` sem item do checklist correspondente não fica `ready`; um item de checklist sem comportamento autorizado denuncia escopo extra. Mudança em contrato público, modelo de dados ou estratégia de migração exige revisar os elos descendentes.
+Every link uses IDs or stable links. A `TASK` without a corresponding checklist item does not become `ready`; a checklist item without authorized behavior indicates extra scope. Changing a public contract, data model or migration strategy requires reviewing downstream links.
 
 ---
 
-## Persistência e ordem de promoção
+## Persistence and promotion order
 
-| Artefato | Fonte canônica | Writer |
+| Artifact | Canonical source | Writer |
 |---|---|---|
-| plano ativo | `<tech-lead-workspace>/projects/<project>/plans/active/<PLAN-id>.md` | Specification TL |
-| SPEC final | `engineering/specs/<SPEC-id>.md` | Specification TL |
-| ADR | `engineering/adr/<ADR-id>.md` | Specification TL após decisão H3 quando aplicável |
-| review adversarial | `execution/reviews/spec-<SPEC-id>.md` | Adversarial TL |
-| parecer especializado | `execution/reviews/<domain>-<SPEC-id>.md` | especialista do domínio |
-| Work Items | `work-items/<WI-id>.md` | Specification TL; fonte de estado/ownership |
-| evidence pack técnico | `execution/evidence/spec-<SPEC-id>.md` | gerado de gates, reviews e rastreabilidade |
-| rascunhos/transcrições | `plans/assets/03-technical-specification/<date>-<mission-id>/` | agente da sessão |
-| estado | `STATUS.md`, `BOARD.md`, `MEMORY.md` | executor autorizado, nessa ordem de autoridade |
+| active plan | `<tech-lead-workspace>/projects/<project>/plans/active/<PLAN-id>.md` | Specification TL |
+| Final SPEC | `engineering/specs/<SPEC-id>.md` | Specification TL |
+| ADR | `engineering/adr/<ADR-id>.md` | Specification TL after H3 decision when applicable |
+| adversarial review | `execution/reviews/spec-<SPEC-id>.md` | Adversarial TL |
+| expert opinion | `execution/reviews/<domain>-<SPEC-id>.md` | domain expert |
+| Work Items | `work-items/<WI-id>.md` | Specification TL; state/ownership source |
+| technical evidence pack | `execution/evidence/spec-<SPEC-id>.md` | generated from gates, reviews and traceability |
+| drafts/transcriptions | `plans/assets/03-technical-specification/<date>-<mission-id>/` | session agent |
+| status | `STATUS.md`, `BOARD.md`, `MEMORY.md` | authorized executor, in that order of authority |
 
-Promoção: integrar especialistas → responder review → persistir SPEC/ADR/PLAN → criar Work Items → gerar evidence pack → atualizar `STATUS.md` e memória durável → reconciliar `BOARD.md`. `MEMORY.md` registra decisões e trade-offs com links; não substitui as fontes acima.
+Promotion: integrate experts → respond review → persist SPEC/ADR/PLAN → create Work Items → generate evidence pack → update `STATUS.md` and durable memory → reconcile `BOARD.md`. `MEMORY.md` records decisions and trade-offs with links; does not replace the above sources.
 
 ---
 
 ## Gates
 
-### Gate técnico
+### Technical gate
 
-- [ ] há pelo menos uma alternativa descartada com custo e consequência;
-- [ ] contratos, dados, concorrência, segurança, observabilidade, teste, rollout e rollback foram cobertos proporcionalmente ao risco;
-- [ ] decisões estruturais possuem ADR proposta/aceita, nunca comentário perdido na SPEC;
-- [ ] cadeia `PRD → UX → SPEC → TASKS → CHECKLIST` está completa;
-- [ ] tarefas são pequenas, isoláveis, ordenadas e verificáveis;
-- [ ] riscos residuais possuem owner e tratamento explícito.
+- [ ] there is at least one alternative discarded with cost and consequences;
+- [ ] contracts, data, competition, security, observability, testing, rollout and rollback were covered proportionally to the risk;
+- [ ] structural decisions have proposed/accepted ADR, never lost comment in SPEC;
+- [ ] chain `PRD → UX → SPEC → TASKS → CHECKLIST` is complete;
+- [ ] tasks are small, isolatable, ordered and verifiable;
+- [ ] residual risks have explicit ownership and treatment.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] especialistas necessários atuaram antes do Adversarial TL;
-- [ ] cada finding possui resposta, evidência e estado;
-- [ ] nenhum reviewer alterou artefato do especificador;
-- [ ] writer scopes paralelos não colidem;
-- [ ] Work Items registram dependências, repositórios, paths, gates e condições de parada;
-- [ ] plano, SPEC, ADR, Work Items, `STATUS.md`, memória e board estão reconciliados;
-- [ ] H3 foi executado somente quando acionado e sua decisão está ligada ao baseline.
+- [ ] necessary specialists acted before the Adversarial TL;
+- [ ] each finding has an answer, evidence and status;
+- [ ] no reviewer changed the specifier artifact;
+- [ ] parallel writer scopes do not collide;
+- [ ] Work Items record dependencies, repositories, paths, gates and stopping conditions;
+- [ ] plan, SPEC, ADR, Work Items, `STATUS.md`, memory and board are reconciled;
+- [ ] H3 was executed only when triggered and its decision is linked to the baseline.
 
 ---
 
-## H3, falhas e retornos
+## H3, failures and returns
 
-| Condição | Destino |
+| Condition | Destination |
 |---|---|
-| pacote padrão, sem gatilho H3 | Work Items `ready` para Ralph Loop |
-| ADR, exceção, contrato público, migração ou R3/R4 | H3 obrigatório com alternativas e recomendação |
-| requisito/UX ambíguo | Studio Loop; não interpretar tecnicamente |
-| acesso, fornecedor ou política externa | bloquear e escalar ao owner autorizado |
-| risco sem mitigação suficiente | H3 pode aceitar, revisar ou encerrar; agente não reclassifica |
-| finding crítico aberto | especificação permanece em revisão |
-| mudança material após gate | invalidar tarefas/checklist afetados e reabrir o bloco |
+| standard package, without trigger H3 | Work Items `ready` for Ralph Loop |
+| ADR, exception, public contract, migration or R3/R4 | Mandatory H3 with alternatives and recommendation |
+| ambiguous requirement/UX | StudioLoop; not interpret technically |
+| access, supplier or external policy | block and escalate to authorized owner |
+| risk without sufficient mitigation | H3 may accept, revise or terminate; agent does not reclassify |
+| critical finding open | specification remains under review |
+| material change after gate | invalidate affected tasks/checklist and reopen the block |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "DRAFTING-<id>"
@@ -261,4 +261,4 @@ gates:
 handoff_to: []
 ```
 
-`ready_for_implementation` exige que toda tarefa elegível seja executável e verificável sem decisão arquitetural improvisada pelo agente implementador.
+`ready_for_implementation` requires that every eligible task is executable and verifiable without improvised architectural decision by the implementing agent.

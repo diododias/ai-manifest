@@ -7,22 +7,22 @@ source: PB-001
 updated_at: 2026-08-08
 ---
 
-# Checkout confiável
+# Reliable checkout
 
-## Resultado
+## Result
 
-O cliente pode repetir uma tentativa após timeout sem nova cobrança para a mesma operação.
+The client can repeat an attempt after a timeout without being charged again for the same operation.
 
-## Requisitos
+## Requirements
 
-- Repetições equivalentes retornam o resultado original.
-- Uma tentativa conflitante não altera o pagamento original.
-- A experiência comunica processamento, sucesso, falha e recuperação.
+- Equivalent repetitions return the original result.
+- A conflicting attempt does not change the original payment.
+- Experience communicates processing, success, failure and recovery.
 
-## Fora de escopo
+## Out of scope
 
-Troca de provedor e redesenho integral do checkout.
+Change of provider and complete redesign of the checkout.
 
-## Aceite
+## Accept
 
-PM valida o comportamento de produto; UX valida experiência e acessibilidade; Tech Lead valida integridade técnica e risco operacional.
+PM validates product behavior; UX validates experience and accessibility; Tech Lead validates technical integrity and operational risk.

@@ -1,7 +1,7 @@
 # Handoff PM → UX
 
-- Problema: incerteza após timeout e medo de cobrança duplicada.
-- Segmento: clientes concluindo uma compra.
-- Outcome: retry seguro e compreensível.
-- Fonte: [`../../../../pm/projects/checkout/handoffs/to-ux.md`](../../../../pm/projects/checkout/handoffs/to-ux.md).
-- Decisão de experiência: owner de UX.
+- Problem: uncertainty after timeout and fear of double billing.
+- Segment: customers completing a purchase.
+- Outcome: safe and understandable retry.
+- Source: [`../../../../pm/projects/checkout/handoffs/to-ux.md`](../../../../pm/projects/checkout/handoffs/to-ux.md).
+- Experience decision: UX owner.

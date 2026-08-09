@@ -1,5 +1,5 @@
-# Projetos de UX
+# UX projects
 
-- [`checkout/`](checkout/README.md): exemplo de uma experiência de recuperação após timeout.
+- [`checkout/`](checkout/README.md): example of a recovery experience after timeout.
 
-Cada projeto concentra evidências, jornadas, fluxos, especificações e validações de experiência.
+Each project concentrates evidence, journeys, flows, specifications and experience validations.

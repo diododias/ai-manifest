@@ -1,31 +1,31 @@
-# 04 — Board e Work Items
+#04 — Board and Work Items
 
-> Por que `BOARD.md` não é a fonte de verdade de um workspace, qual arquivo é, e como vários agentes atualizam o mesmo trabalho sem se sobrescrever.
+> Why `BOARD.md` is not the source of truth for a workspace, what file it is, and how multiple agents update the same work without overwriting each other.
 
 ---
 
-## Por que o board não é o banco de dados principal
+## Why the board is not the main database
 
-`BOARD.md` oferece uma visão consolidada do que está em andamento em um workspace — útil para uma leitura rápida, mas perigosa como registro autoritativo. Vários agentes editando o mesmo arquivo de texto ao mesmo tempo aumentam o risco de conflito e sobrescrita silenciosa, exatamente a falha de coordenação descrita em [Harness do workspace](03-harness-do-workspace.md). Por isso, `BOARD.md` é tratado como **índice regenerável**, nunca como origem do dado.
+`BOARD.md` provides a consolidated view of what's happening in a workspace — useful for a quick read, but dangerous as an authoritative record. Multiple agents editing the same text file at the same time increases the risk of conflict and silent overwrite, exactly the coordination failure described in [Workspace Harness](03-harness-do-workspace.md). Therefore, `BOARD.md` is treated as a **regenerable index**, never as the origin of the data.
 
 ```markdown
-# Board
+#Board
 
-Visão consolidada. O estado autoritativo permanece no arquivo de cada Work Item.
+Consolidated vision. The authoritative state remains in the file for each Work Item.
 
 ## Implementation
 
-- [`WI-031` — Idempotência no processamento de pagamentos](projects/checkout/work-items/WI-031.md) — checkout
+- [`WI-031` — Idempotence in payment processing](projects/checkout/work-items/WI-031.md) — checkout
 ```
 
-## A fonte de verdade é um arquivo por Work Item
+## The source of truth is one file per Work Item
 
-Cada unidade de trabalho é um arquivo em `projects/<project>/work-items/`, e é esse arquivo — não o board — que registra estado, owner, escopo, dependências e evidências.
+Each unit of work is a file in `projects/<project>/work-items/`, and it is this file — not the board — that records state, owner, scope, dependencies, and evidence.
 
 ```markdown
 ---
 id: WI-031
-title: Implementar idempotência no processamento do pagamento
+title: Implement idempotence in payment processing
 project: checkout
 status: implementation
 priority: high
@@ -41,63 +41,63 @@ blocked_by: []
 updated_at: 2026-08-08T14:30:00-03:00
 ---
 
-## Objetivo
+## Objective
 
-Impedir processamento duplicado de eventos de pagamento.
+Prevent duplicate processing of payment events.
 
-## Critérios de aceite
+## Acceptance criteria
 
-- [ ] Eventos repetidos não geram nova cobrança
-- [ ] Estado permanece consistente após retry
+- [ ] Repeated events do not generate new charges
+- [ ] State remains consistent after retry
 
-## Evidências
+## Evidence
 
-Registradas em `execution/evidence/WI-031.md`.
+Registered in `execution/evidence/WI-031.md`.
 
-## Histórico
+## History
 
-- 2026-08-08 14:00 — item assumido por `agent-backend`.
+- 2026-08-08 14:00 — item taken over by `agent-backend`.
 ```
 
-Um exemplo completo, com histórico e evidência ligados a um plano real, está em [`workspaces/tech-lead/projects/checkout/work-items/WI-031.md`](../../workspaces/tech-lead/projects/checkout/work-items/WI-031.md). A skill [`workspace-board`](../../skills/workspace-board/SKILL.md) é o procedimento que aplica exatamente esta regra de autoridade: primeiro atualiza ou confirma o Work Item, só depois reconcilia o board.
+A complete example, with history and evidence linked to a real plan, is in [`workspaces/tech-lead/projects/checkout/work-items/WI-031.md`](../../workspaces/tech-lead/projects/checkout/work-items/WI-031.md). The skill [`workspace-board`](../../skills/workspace-board/SKILL.md) is the procedure that applies exactly this authority rule: first updates or confirms the Work Item, and only then reconciles the board.
 
-## Estados permitidos
+## Allowed states
 
-Os valores de `status` devem ser estáveis e escritos sempre da mesma forma, porque é isso que permite consolidar `BOARD.md` automaticamente a partir dos Work Items.
+The `status` values must be stable and always written in the same way, because this is what allows `BOARD.md` to be automatically consolidated from the Work Items.
 
 ```text
 backlog · refinement · ready · planning · implementation · review · validation · blocked · done · cancelled
 ```
 
-`blocked` não é um estado como os demais — é uma exceção. Um Work Item bloqueado deve registrar causa, impacto, responsável pela resolução e próxima ação, do jeito que a [Metodologia](../METODOLOGIA.md) exige de qualquer bloqueio que dependa de decisão humana.
+`blocked` is not a state like the others — it is an exception. A blocked Work Item must record cause, impact, person responsible for resolution and next action, in the way that [Methodology](../METODOLOGIA.md) requires of any block that depends on human decision.
 
-## Identificadores
+## Identifiers
 
-Identificadores estáveis são o que permite automatizar qualquer verificação sobre o workspace — de contagem de itens abertos a auditoria de rastreabilidade.
+Stable identifiers are what allow you to automate any check about your workspace — from counting open items to auditing traceability.
 
-| Entidade | Formato |
+| Entity | Format |
 |---|---|
-| Projeto | slug estável, por exemplo `checkout` |
-| Plano | `PLAN-NNN` |
+| Project | stable slug, for example `checkout` |
+| Plan | `PLAN-NNN` |
 | Work Item | `WI-NNN` |
 | ADR | `ADR-NNN` |
 | Handoff | `HANDOFF-<work-item>-<origem>-<destino>.md` |
 
-Quando identificadores puderem colidir entre projetos, adota-se o prefixo do projeto — `CHK-WI-031`.
+When identifiers may collide between projects, the project prefix — `CHK-WI-031` — is adopted.
 
-## Contenção entre agentes
+## Containment between agents
 
-O risco em um workspace multiagente é a sobrescrita silenciosa do board, não do Work Item individual — cada Work Item já pertence a um único agente responsável. As regras abaixo existem para tornar cada conflito visível antes que ele destrua trabalho de outro agente.
+The risk in a multi-agent workspace is the silent overwriting of the board, not the individual Work Item — each Work Item already belongs to a single responsible agent. The rules below exist to make each conflict visible before it destroys another agent's work.
 
-| Regra | Evita |
+| Rule | Avoid |
 |---|---|
-| Cada missão ativa tem um único agente responsável, registrado no Work Item | dois agentes editando o mesmo artefato sem divisão explícita |
-| O board é consolidado por um agente coordenador, não editado livremente por todos | conflito de escrita concorrente no mesmo arquivo |
-| Achados transitórios ficam em arquivos separados, nunca em um log compartilhado único | um grande arquivo vira ponto de conflito garantido |
-| Um Work Item só é marcado `done` com evidência de todos os critérios de aceite | avanço de estado por impressão, não por comprovação |
+| Each active mission has a single responsible agent, registered in the Work Item | two agents editing the same artifact without explicit division |
+| The board is consolidated by a coordinating agent, not freely edited by everyone | concurrent writing conflict in the same file |
+| Transient findings are in separate files, never in a single shared log | a large file becomes a guaranteed point of conflict |
+| A Work Item is only marked `done` with evidence of all acceptance criteria | status advancement by printing, not by proof |
 
-Essa última regra conecta esta página ao restante da documentação: um Work Item concluído sem evidência é exatamente o tipo de "pronto" que o [Gatekeeper Loop](../loops/06-pr-and-merge.md) e os checkpoints humanos de [Metodologia](../metodologia/02-checkpoints-humanos.md) existem para impedir.
+That last rule connects this page to the rest of the documentation: a completed Work Item without evidence is exactly the kind of "done" that [Gatekeeper Loop](../loops/06-pr-and-merge.md) and the human checkpoints of [Methodology](../metodologia/02-checkpoints-humanos.md) exist to prevent.
 
 ---
 
-*Anterior: [Harness do workspace](03-harness-do-workspace.md) · Volta ao hub: [Workspace](../WORKSPACE.md).*
+*Previous: [Workspace harness](03-harness-do-workspace.md) · Back to hub: [Workspace](../WORKSPACE.md).*

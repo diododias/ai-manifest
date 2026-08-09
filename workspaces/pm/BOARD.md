@@ -1,13 +1,13 @@
-# Board de produto
+# Product Board
 
-Resumo consolidado; o estado autoritativo permanece em cada Work Item.
+Consolidated summary; the authoritative state remains on each Work Item.
 
 ## Implementation
 
-- [`PM-WI-001` — Acompanhar entrega do checkout confiável](projects/checkout/work-items/PM-WI-001.md) — checkout
+- [`PM-WI-001` — Track reliable checkout delivery](projects/checkout/work-items/PM-WI-001.md) — checkout
 
-## Demais estados
+## Other states
 
-Não há itens de exemplo nos demais estados.
+There are no example items in the other states.
 
-Última consolidação: 2026-08-08.
+Last consolidation: 2026-08-08.

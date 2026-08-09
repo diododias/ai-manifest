@@ -1,6 +1,6 @@
-# Memória do workspace de PM
+# PM workspace memory
 
-- Prioridade ilustrativa: checkout.
-- Próxima decisão: aceite após evidências.
+- Illustrative priority: checkout.
+- Next decision: accepted after evidence.
 
-Confirme sempre `PORTFOLIO.md`, `BOARD.md` e o projeto antes de agir.
+Always confirm `PORTFOLIO.md`, `BOARD.md` and the project before taking action.

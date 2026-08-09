@@ -6,4 +6,4 @@
 - [`work-item.md`](work-item.md)
 - [`handoff.md`](handoff.md)
 
-Copie o template para a fonte de verdade do projeto e substitua todos os campos entre `<...>`.
+Copy the template to the project's source of truth and replace all fields with `<...>`.

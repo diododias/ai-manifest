@@ -3,13 +3,13 @@
 # requires-python = ">=3.10"
 # dependencies = ["Markdown>=3.7,<4"]
 # ///
-"""Gera index.html: a documentação navegável e autocontida do Agent Team.
+"""Generates index.html: Agent Team's navigable, self-contained documentation.
 
 Uso:
     uv run scripts/build-docs-site.py
 
-Os Markdown do repositório são a fonte de verdade. O arquivo gerado pode ser
-aberto diretamente, sem servidor; Mermaid usa CDN com fallback para o código-fonte.
+Repository Markdown files are the source of truth. The generated file can be
+opened directly, without a server; Mermaid uses a CDN with a source-code fallback.
 """
 
 from __future__ import annotations
@@ -33,43 +33,43 @@ SECTIONS = [
         "id": "harness",
         "number": "01",
         "title": "Harness",
-        "question": "O que torna um repositório operável por agentes?",
-        "summary": "Contexto, ferramentas, regras e verificações transformam conhecimento tácito em uma base operacional confiável.",
+        "question": "What makes a repository operable by agents?",
+        "summary": "Context, tools, rules, and verification turn tacit knowledge into a reliable operating foundation.",
     },
     {
         "id": "agentes",
         "number": "02",
-        "title": "Agentes",
-        "question": "Quem executa, com qual autoridade e limite?",
-        "summary": "Papéis especializados com missão, contexto, permissões, verificação e um contrato explícito de saída.",
+        "title": "Agents",
+        "question": "Who executes, with what authority and limits?",
+        "summary": "Specialized roles with a mission, context, permissions, verification, and an explicit output contract.",
     },
     {
         "id": "skills",
         "number": "03",
         "title": "Skills",
-        "question": "Como uma tarefa recorrente é executada corretamente?",
-        "summary": "Procedimentos verificáveis reduzem improviso e mantêm artefatos, evidências e critérios consistentes.",
+        "question": "How is a recurring task executed correctly?",
+        "summary": "Verifiable procedures reduce improvisation and keep artifacts, evidence, and criteria consistent.",
     },
     {
         "id": "loops",
         "number": "04",
         "title": "Loops",
-        "question": "Em que ordem os agentes colaboram e quando param?",
-        "summary": "Contratos de colaboração organizam tentativas, crítica, convergência, handoffs e gates ao longo da jornada.",
+        "question": "In what order do agents collaborate, and when do they stop?",
+        "summary": "Collaboration contracts organize attempts, critique, convergence, handoffs, and gates across the journey.",
     },
     {
         "id": "metodologia",
         "number": "05",
-        "title": "Metodologia",
-        "question": "Como as pessoas operam o sistema no dia a dia?",
-        "summary": "Papéis humanos, checkpoints, gatilhos e cadências mantêm intenção, risco e aprovação sob controle.",
+        "title": "Methodology",
+        "question": "How do people operate the system day to day?",
+        "summary": "Human roles, checkpoints, triggers, and cadences keep intent, risk, and approval under control.",
     },
     {
         "id": "workspace",
         "number": "06",
         "title": "Workspace",
-        "question": "Onde o trabalho e os artefatos vivem?",
-        "summary": "O espaço operacional preserva ownership, estado, decisões, memória de retomada e evidências de cada execução.",
+        "question": "Where do work and artifacts live?",
+        "summary": "The operating space preserves ownership, state, decisions, resumption memory, and evidence for every execution.",
     },
 ]
 
@@ -116,37 +116,37 @@ def page(path: str, section: str, group: str, title: str | None = None) -> dict[
 
 
 PAGES = [
-    page("README.md", "overview", "Comece aqui", "O que é o Agent Team"),
-    page("docs/README.md", "overview", "Comece aqui", "Índice da documentação"),
-    page("docs/REPO_HARNESS.md", "harness", "Fundamentos", "Harness do repositório"),
-    page("docs/TOOLS.md", "harness", "Controles do repositório", "Tools"),
-    page("docs/RULES.md", "harness", "Controles do repositório", "Rules"),
-    page("docs/SENSORS.md", "harness", "Controles do repositório", "Sensors"),
-    page("docs/GATES.md", "harness", "Controles do repositório", "Gates"),
-    page("docs/DOCUMENTATION.md", "harness", "Controles do repositório", "Documentation"),
-    page("docs/MCPS.md", "harness", "Controles do repositório", "MCPs"),
-    page("docs/AGENTES.md", "agentes", "Fundamentos", "Como os agentes funcionam"),
-    page("docs/agentes/README.md", "agentes", "Fundamentos", "Catálogo de contratos"),
-    page("agents/README.md", "agentes", "Artefatos executáveis", "Prompts operacionais"),
-    page("agents/catalog.md", "agentes", "Artefatos executáveis", "Catálogo materializado"),
-    page("agents/meeting-context-agent.md", "agentes", "Materiais de apoio", "Meeting context agent"),
-    page("docs/SKILLS.md", "skills", "Fundamentos", "Como as skills funcionam"),
-    page("skills/README.md", "skills", "Fundamentos", "Catálogo de skills"),
-    page("skills/references/workflow-contract.md", "skills", "Contratos compartilhados", "Contrato de artefatos"),
-    page("docs/LOOPS.md", "loops", "Fundamentos", "Como os loops funcionam"),
-    page("docs/loops/README.md", "loops", "Fundamentos", "Catálogo de loops"),
-    page("workflows/README.md", "loops", "Workflows executáveis", "Mapa dos workflows"),
-    page("docs/METODOLOGIA.md", "metodologia", "Fundamentos", "Ciclo de desenvolvimento"),
-    page("docs/metodologia/README.md", "metodologia", "Fundamentos", "Páginas da metodologia"),
-    page("docs/WORKSPACE.md", "workspace", "Fundamentos", "Onde o trabalho vive"),
-    page("docs/workspace/README.md", "workspace", "Fundamentos", "Páginas do workspace"),
-    page("workspaces/README.md", "workspace", "Implementações de referência", "Workspaces de exemplo"),
-    page("templates/README.md", "workspace", "Templates", "Catálogo de templates"),
+    page("README.md", "overview", "Start here", "What is Agent Team?"),
+    page("docs/README.md", "overview", "Start here", "Documentation index"),
+    page("docs/REPO_HARNESS.md", "harness", "Fundamentals", "Repository harness"),
+    page("docs/TOOLS.md", "harness", "Repository controls", "Tools"),
+    page("docs/RULES.md", "harness", "Repository controls", "Rules"),
+    page("docs/SENSORS.md", "harness", "Repository controls", "Sensors"),
+    page("docs/GATES.md", "harness", "Repository controls", "Gates"),
+    page("docs/DOCUMENTATION.md", "harness", "Repository controls", "Documentation"),
+    page("docs/MCPS.md", "harness", "Repository controls", "MCPs"),
+    page("docs/AGENTES.md", "agentes", "Fundamentals", "How agents work"),
+    page("docs/agentes/README.md", "agentes", "Fundamentals", "Contract catalog"),
+    page("agents/README.md", "agentes", "Executable artifacts", "Operational prompts"),
+    page("agents/catalog.md", "agentes", "Executable artifacts", "Materialized catalog"),
+    page("agents/meeting-context-agent.md", "agentes", "Supporting materials", "Meeting context agent"),
+    page("docs/SKILLS.md", "skills", "Fundamentals", "How skills work"),
+    page("skills/README.md", "skills", "Fundamentals", "Skills catalog"),
+    page("skills/references/workflow-contract.md", "skills", "Shared contracts", "Artifact contract"),
+    page("docs/LOOPS.md", "loops", "Fundamentals", "How loops work"),
+    page("docs/loops/README.md", "loops", "Fundamentals", "Loop catalog"),
+    page("workflows/README.md", "loops", "Executable workflows", "Workflow map"),
+    page("docs/METODOLOGIA.md", "metodologia", "Fundamentals", "Development cycle"),
+    page("docs/metodologia/README.md", "metodologia", "Fundamentals", "Methodology pages"),
+    page("docs/WORKSPACE.md", "workspace", "Fundamentals", "Where work lives"),
+    page("docs/workspace/README.md", "workspace", "Fundamentals", "Workspace pages"),
+    page("workspaces/README.md", "workspace", "Reference implementations", "Example workspaces"),
+    page("templates/README.md", "workspace", "Templates", "Template catalog"),
     page(
         "workspaces/tech-lead/docs/diagrams/tech-lead-workspace.md",
         "workspace",
-        "Infográficos e diagramas",
-        "Anatomia do workspace do Tech Lead",
+        "Infographics and diagrams",
+        "Anatomy of the Tech Lead workspace",
     ),
 ]
 
@@ -159,16 +159,16 @@ def extend(pattern: str, section: str, group: str, excluded: set[str] | None = N
             PAGES.append(page(relative, section, group))
 
 
-extend("docs/agentes/*.md", "agentes", "Contratos individuais", {"docs/agentes/README.md"})
-extend("agents/*/AGENT.md", "agentes", "Prompts executáveis")
-extend("skills/*/SKILL.md", "skills", "Procedimentos executáveis")
-extend("docs/loops/[0-9][0-9]-*.md", "loops", "Contratos da jornada")
-extend("workflows/[0-9][0-9]-*.md", "loops", "Workflows executáveis")
-extend("docs/metodologia/[0-9][0-9]-*.md", "metodologia", "Operação humana")
-extend("docs/workspace/[0-9][0-9]-*.md", "workspace", "Estrutura operacional")
+extend("docs/agentes/*.md", "agentes", "Individual contracts", {"docs/agentes/README.md"})
+extend("agents/*/AGENT.md", "agentes", "Executable prompts")
+extend("skills/*/SKILL.md", "skills", "Executable procedures")
+extend("docs/loops/[0-9][0-9]-*.md", "loops", "Journey contracts")
+extend("workflows/[0-9][0-9]-*.md", "loops", "Executable workflows")
+extend("docs/metodologia/[0-9][0-9]-*.md", "metodologia", "Human operation")
+extend("docs/workspace/[0-9][0-9]-*.md", "workspace", "Operating structure")
 for role in ("pm", "ux", "tech-lead"):
-    PAGES.append(page(f"workspaces/{role}/README.md", "workspace", "Implementações de referência"))
-    PAGES.append(page(f"workspaces/{role}/WORKSPACE.md", "workspace", "Implementações de referência"))
+    PAGES.append(page(f"workspaces/{role}/README.md", "workspace", "Reference implementations"))
+    PAGES.append(page(f"workspaces/{role}/WORKSPACE.md", "workspace", "Reference implementations"))
     PAGES.append(page(f"templates/{role}/README.md", "workspace", "Templates"))
 
 
@@ -187,16 +187,16 @@ def restore_mermaid(rendered: str, diagrams: list[str]) -> str:
         placeholder = f"MERMAIDPLACEHOLDER{index}ENDPLACEHOLDER"
         block = (
             '<figure class="mermaid-wrap">'
-            '<div class="mermaid-head"><figcaption>Diagrama interativo</figcaption>'
+            '<div class="mermaid-head"><figcaption>Interactive diagram</figcaption>'
             '<div class="mermaid-tools">'
-            '<button type="button" data-zoom="out" aria-label="Reduzir diagrama">−</button>'
-            '<span data-zoom-label>ajustado</span>'
-            '<button type="button" data-zoom="in" aria-label="Ampliar diagrama">+</button>'
-            '<button type="button" data-zoom="fit">ajustar</button>'
+            '<button type="button" data-zoom="out" aria-label="Zoom out">−</button>'
+            '<span data-zoom-label>fitted</span>'
+            '<button type="button" data-zoom="in" aria-label="Zoom in">+</button>'
+            '<button type="button" data-zoom="fit">fit</button>'
             "</div></div>"
             f'<pre class="mermaid">{html.escape(source)}</pre>'
-            '<p class="mermaid-fallback">A visualização usa Mermaid. Se estiver offline, o código-fonte permanece disponível abaixo.</p>'
-            '<details class="mermaid-src"><summary>Ver código do diagrama</summary>'
+            '<p class="mermaid-fallback">The visualization uses Mermaid. If you are offline, the source code remains available below.</p>'
+            '<details class="mermaid-src"><summary>View diagram source code</summary>'
             f'<pre><code>{html.escape(source)}</code></pre></details>'
             "</figure>"
         )
@@ -257,7 +257,7 @@ def rewrite_links(
             return f'href="{route(page_map[key], fragment)}"'
         relative = os.path.relpath(resolved, OUTPUT.parent)
         suffix = f"#{fragment}" if fragment else ""
-        return f'href="{html.escape(relative + suffix)}" class="external-file" title="Abrir {html.escape(key)}"'
+        return f'href="{html.escape(relative + suffix)}" class="external-file" title="Open {html.escape(key)}"'
 
     return re.sub(r'href="([^"]+)"', replace, rendered)
 
@@ -269,14 +269,14 @@ def plain_text(rendered: str) -> str:
 def build() -> None:
     missing = [item["path"] for item in PAGES if not (ROOT / item["path"]).is_file()]
     if missing:
-        raise SystemExit("Documentos obrigatórios ausentes:\n- " + "\n- ".join(missing))
+        raise SystemExit("Required documents are missing:\n- " + "\n- ".join(missing))
 
     path_ids: dict[str, str] = {}
     route_ids: set[str] = set()
     for item in PAGES:
         page_id = slugify(item["path"].removesuffix(".md").replace("/", " "))
         if page_id in route_ids:
-            raise SystemExit(f"Rota duplicada: {page_id}")
+            raise SystemExit(f"Duplicate route: {page_id}")
         route_ids.add(page_id)
         path_ids[item["path"]] = page_id
 
@@ -324,7 +324,7 @@ def build() -> None:
     sections = []
     for section in SECTIONS:
         if not any(item["section"] == section["id"] for item in pages):
-            raise SystemExit(f"Macro seção vazia: {section['id']}")
+            raise SystemExit(f"Empty macro section: {section['id']}")
         sections.append(section)
 
     payload = json.dumps(
@@ -333,17 +333,17 @@ def build() -> None:
         separators=(",", ":"),
     ).replace("</", "<\\/")
     OUTPUT.write_text(TEMPLATE.replace("/*__DATA__*/", payload), encoding="utf-8")
-    print(f"site gerado: {OUTPUT.relative_to(ROOT)} ({OUTPUT.stat().st_size // 1024} KB)")
+    print(f"site generated: {OUTPUT.relative_to(ROOT)} ({OUTPUT.stat().st_size // 1024} KB)")
 
 
 TEMPLATE = r'''<!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f12">
-<meta name="description" content="Documentação interativa do Agent Team: harness, agentes, skills, loops, metodologia e workspace.">
-<title>Agent Team — documentação interativa</title>
+<meta name="description" content="Interactive Agent Team documentation: harness, agents, skills, loops, methodology, and workspace.">
+<title>Agent Team — interactive documentation</title>
 <style>
 :root {
   color-scheme: dark;
@@ -361,6 +361,7 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 .app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line-soft);background:rgba(14,20,24,.92);backdrop-filter:blur(20px);display:flex;flex-direction:column;z-index:50}
 .brand{display:flex;gap:12px;align-items:center;padding:22px 20px 18px;text-decoration:none;border-bottom:1px solid var(--line-soft)}.brand-mark{width:37px;height:37px;border:1px solid rgba(34,211,238,.42);background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));display:grid;place-items:center;color:var(--cyan);font:bold 12px var(--mono);clip-path:polygon(50% 0,100% 100%,0 100%)}.brand-copy strong{display:block;letter-spacing:-.01em}.brand-copy span{display:block;color:var(--faint);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
 .search-box{padding:15px 14px 12px;position:relative}.search-box label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.search-box input{width:100%;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:10px;padding:10px 36px 10px 12px;font:13px var(--sans);outline:0}.search-box input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}.shortcut{position:absolute;right:24px;top:25px;color:var(--faint);font:10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.language-toggle{margin:0 14px 14px;width:calc(100% - 28px);border:1px solid var(--line);background:var(--charcoal);color:var(--muted);border-radius:8px;padding:8px 10px;font:11px var(--mono);cursor:pointer}.language-toggle:hover,.language-toggle:focus-visible{border-color:var(--cyan);color:var(--text);outline:0}
 .nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
 .main{min-width:0}.view{min-height:100vh}.menu-toggle{display:none;position:fixed;z-index:70;top:14px;left:14px;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:9px;width:42px;height:42px;font-size:18px}.overlay{display:none}
 .home{max-width:1440px;margin:auto;padding:clamp(34px,5vw,76px)}.hero{min-height:calc(100vh - 152px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);column-gap:clamp(36px,6vw,92px);row-gap:clamp(30px,4vw,54px);align-items:center}.hero-heading{grid-column:1/-1;max-width:1040px}.eyebrow{color:var(--cyan);font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:28px;height:1px;background:var(--cyan)}.hero h1{font-size:clamp(52px,7.2vw,104px);line-height:.92;letter-spacing:-.06em;margin:20px 0 0;max-width:980px}.hero h1 span{color:var(--cyan)}.hero-copy{align-self:start;padding-top:8px}.hero-lede{color:var(--muted);font-size:clamp(16px,1.4vw,20px);max-width:590px;margin-top:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}.button{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:650}.button.primary{background:var(--cyan);border-color:var(--cyan);color:#062127}.button:hover{transform:translateY(-1px);border-color:var(--cyan)}.button .arrow{font-family:var(--mono)}
@@ -384,14 +385,15 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 </head>
 <body>
 <div class="reading-progress" id="reading-progress"></div>
-<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir navegação" aria-expanded="false">☰</button>
+<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
 <div class="app">
   <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#/" aria-label="Agent Team — início">
+    <a class="brand" href="#/" aria-label="Agent Team — home">
       <span class="brand-mark">AT</span><span class="brand-copy"><strong>Agent Team</strong><span>operating system</span></span>
     </a>
-    <div class="search-box"><label for="global-search">Buscar na documentação</label><input id="global-search" type="search" placeholder="Buscar conceito, agente, skill…" autocomplete="off"><span class="shortcut">/</span></div>
-    <nav class="nav-scroll" id="navigation" aria-label="Navegação principal"></nav>
+    <div class="search-box"><label for="global-search">Search documentation</label><input id="global-search" type="search" placeholder="Search concept, agent, skill…" autocomplete="off"><span class="shortcut">/</span></div>
+    <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language">PT-BR</button>
+    <nav class="nav-scroll" id="navigation" aria-label="Main navigation"></nav>
   </aside>
   <div class="overlay" id="overlay"></div>
   <main class="main"><div class="view" id="view"></div></main>
@@ -403,10 +405,27 @@ const view=document.querySelector('#view'),nav=document.querySelector('#navigati
 const searchInput=document.querySelector('#global-search'),sidebar=document.querySelector('#sidebar');
 const menuToggle=document.querySelector('#menu-toggle'),overlay=document.querySelector('#overlay');
 const progress=document.querySelector('#reading-progress');
+const languageToggle=document.querySelector('#language-toggle');
 const pagesById=new Map(DATA.pages.map(page=>[page.id,page]));
 const sectionsById=new Map(DATA.sections.map(section=>[section.id,section]));
 let activePage=null;
+let language='en';
+const PT_TEXT=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJvcGVyYXRpbmcgc3lzdGVtIjoic2lzdGVtYSBvcGVyYWNpb25hbCIsIk9wZW4gbmF2aWdhdGlvbiI6IkFicmlyIG5hdmVnYcOnw6NvIiwiQWdlbnQgVGVhbSDigJQgaG9tZSI6IkFnZW50IFRlYW0g4oCUIGluw61jaW8iLCJTZWFyY2ggZG9jdW1lbnRhdGlvbiI6IkJ1c2NhciBuYSBkb2N1bWVudGHDp8OjbyIsIlNlYXJjaCBjb25jZXB0LCBhZ2VudCwgc2tpbGzigKYiOiJCdXNjYXIgY29uY2VpdG8sIGFnZW50ZSwgc2tpbGzigKYiLCJNYWluIG5hdmlnYXRpb24iOiJOYXZlZ2HDp8OjbyBwcmluY2lwYWwiLCJJbiB0aGlzIGxheWVyIjoiTmVzdGEgY2FtYWRhIiwiRXhwbG9yZSI6IkV4cGxvcmFyIiwiT3ZlcnZpZXciOiJWaXPDo28gZ2VyYWwiLCJUaGUgc2l4IGxheWVycyI6IkFzIHNlaXMgY2FtYWRhcyIsIkxheWVyICI6IkNhbWFkYSAiLCJPcGVyYXRpb25hbCBkb2N1bWVudGF0aW9uIjoiRG9jdW1lbnRhw6fDo28gb3BlcmFjaW9uYWwiLCJBIHN5c3RlbSBmb3IgdGVhbXMgdGhhdCAiOiJVbSBzaXN0ZW1hIHBhcmEgdGltZXMgcXVlICIsImxlYWQgYWdlbnRzLiI6ImRpcmlnZW0gYWdlbnRlcy4iLCJBZ2VudCBUZWFtIHR1cm5zIGludGVudCwgY29udGV4dCwgYW5kIHZlcmlmaWNhdGlvbiBpbnRvIGFuIG9wZXJhYmxlIGRldmVsb3BtZW50IGN5Y2xlLiBFeHBsb3JlIGZyb20gdGhlIHRlY2huaWNhbCBmb3VuZGF0aW9uIHRvIHRoZSBwbGFjZSB3aGVyZSBldmVyeSBkZWNpc2lvbiBsZWF2ZXMgYSB0cmFjZS4iOiJPIEFnZW50IFRlYW0gdHJhbnNmb3JtYSBpbnRlbsOnw6NvLCBjb250ZXh0byBlIHZlcmlmaWNhw6fDo28gZW0gdW0gY2ljbG8gZGUgZGVzZW52b2x2aW1lbnRvIG9wZXLDoXZlbC4gRXhwbG9yZSBkYSBmdW5kYcOnw6NvIHTDqWNuaWNhIGFvIGx1Z2FyIG9uZGUgY2FkYSBkZWNpc8OjbyBkZWl4YSByYXN0cm8uIiwiU3RhcnQgZnJvbSB0aGUgZm91bmRhdGlvbiI6IkNvbWXDp2FyIHBlbGEgYmFzZSIsIlZpZXcgdGhlIGNvbXBsZXRlIGluZGV4IjoiVmVyIMOtbmRpY2UgY29tcGxldG8iLCJPcGVyYXRpbmcgbGF5ZXJzIjoiQ2FtYWRhcyBvcGVyYWNpb25haXMiLCJjbGljayB0byBleHBsb3JlIjoiY2xpcXVlIHBhcmEgZXhwbG9yYXIiLCJmb3VuZGF0aW9uIjoiZnVuZGHDp8OjbyIsIm9wZXJhdGlvbiI6Im9wZXJhw6fDo28iLCJQb3NpdGlvbiBpbiB0aGUgbGF5ZXJzIjoiUG9zacOnw6NvIG5hcyBjYW1hZGFzIiwib3BlbiDihpciOiJhYnJpciDihpciLCJIT01FIjoiSU7DjUNJTyIsIkxBWUVSICI6IkNBTUFEQSAiLCJvcGVyYXRpbmcgbGF5ZXIiOiJjYW1hZGEgb3BlcmFjaW9uYWwiLCJSZXR1cm4gdG8gdGhlIG1hcCI6IlZvbHRhciBhbyBtYXBhIiwiVmlldyBhbGwgc3Vic2VjdGlvbnMiOiJWZXIgdG9kYXMgYXMgc3Vic2XDp8O1ZXMiLCJJbiB0aGlzIGRvY3VtZW50IjoiTmVzdGUgZG9jdW1lbnRvIiwidXBkYXRlZCAiOiJhdHVhbGl6YWRvICIsIkFkamFjZW50IGRvY3VtZW50cyI6IkRvY3VtZW50b3MgYWRqYWNlbnRlcyIsIuKGkCBwcmV2aW91cyI6IuKGkCBhbnRlcmlvciIsIm5leHQg4oaSIjoicHLDs3hpbW8g4oaSIiwiRW50ZXIgYSBjb25jZXB0LCBhZ2VudCwgc2tpbGwsIGFydGlmYWN0LCBvciBqb3VybmV5IHN0YWdlLiI6IkRpZ2l0ZSB1bSBjb25jZWl0bywgYWdlbnRlLCBza2lsbCwgYXJ0ZWZhdG8gb3UgZXRhcGEgZGEgam9ybmFkYS4iLCJObyBkb2N1bWVudHMgZm91bmQuIFRyeSBhIGJyb2FkZXIgdGVybS4iOiJOZW5odW0gZG9jdW1lbnRvIGVuY29udHJhZG8uIFRlbnRlIHVtIHRlcm1vIG1haXMgYW1wbG8uIiwiR2xvYmFsIHNlYXJjaCI6IkJ1c2NhIGdsb2JhbCIsIlJlc3VsdHMgZm9yICI6IlJlc3VsdGFkb3MgcGFyYSAiLCJFeHBsb3JlIHRoZSBjb2xsZWN0aW9uIjoiRXhwbG9yZSBvIGFjZXJ2byIsIlNlYXJjaCBkb2N1bWVudCB0aXRsZXMsIHBhdGhzLCBhbmQgY29udGVudC4iOiJQZXNxdWlzZSBwb3IgdMOtdHVsb3MsIGNhbWluaG9zIGUgY29udGXDumRvIGRhIGRvY3VtZW50YcOnw6NvLiIsIlNlYXJjaCI6IkJ1c2NhIiwiVGhpcyByb3V0ZSBkb2VzIG5vdCBleGlzdC4iOiJFc3RhIHJvdGEgbsOjbyBleGlzdGUuIiwiVGhlIGRvY3VtZW50YXRpb24gbWF5IGhhdmUgbW92ZWQuIFJldHVybiB0byB0aGUgbWFpbiBtYXAgdG8gY29udGludWUuIjoiQSBkb2N1bWVudGF0aW9uIG1heSBoYXZlIG1vdmVkLiBSZXR1cm4gdG8gdGhlIG1haW4gbWFwIHRvIGNvbnRpbnVlLiIsIlJldHVybiBob21lIjoiVm9sdGFyIGFvIGluw61jaW8iLCJOb3QgZm91bmQg4oCUIEFnZW50IFRlYW0iOiJOw6NvIGVuY29udHJhZG8g4oCUIEFnZW50IFRlYW0iLCJJbnRlcmFjdGl2ZSBkaWFncmFtIjoiRGlhZ3JhbWEgaW50ZXJhdGl2byIsIlpvb20gb3V0IjoiUmVkdXppciBkaWFncmFtYSIsImZpdHRlZCI6ImFqdXN0YWRvIiwiWm9vbSBpbiI6IkFtcGxpYXIgZGlhZ3JhbWEiLCJmaXQiOiJhanVzdGFyIiwiVGhlIHZpc3VhbGl6YXRpb24gdXNlcyBNZXJtYWlkLiBJZiB5b3UgYXJlIG9mZmxpbmUsIHRoZSBzb3VyY2UgY29kZSByZW1haW5zIGF2YWlsYWJsZSBiZWxvdy4iOiJBIHZpc3VhbGl6YcOnw6NvIHVzYSBNZXJtYWlkLiBTZSBlc3RpdmVyIG9mZmxpbmUsIG8gY8OzZGlnby1mb250ZSBwZXJtYW5lY2UgZGlzcG9uw612ZWwgYWJhaXhvLiIsIlZpZXcgZGlhZ3JhbSBzb3VyY2UgY29kZSI6IlZlciBjw7NkaWdvIGRvIGRpYWdyYW1hIiwiT3BlbiAiOiJBYnJpciAiLCJBZ2VudCBUZWFtIOKAlCBpbnRlcmFjdGl2ZSBkb2N1bWVudGF0aW9uIjoiQWdlbnQgVGVhbSDigJQgZG9jdW1lbnRhw6fDo28gaW50ZXJhdGl2YSJ9'),char=>char.charCodeAt(0))));
+Object.assign(PT_TEXT,JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJBZ2VudCBUZWFtIHR1cm5zIGludGVudCwgY29udGV4dCwgYW5kIHZlcmlmaWNhdGlvbiBpbnRvIGFuIG9wZXJhYmxlIGRldmVsb3BtZW50IGN5Y2xlLiAiOiJPIEFnZW50IFRlYW0gdHJhbnNmb3JtYSBpbnRlbsOnw6NvLCBjb250ZXh0byBlIHZlcmlmaWNhw6fDo28gZW0gdW0gY2ljbG8gZGUgZGVzZW52b2x2aW1lbnRvIG9wZXLDoXZlbC4gIiwiRXhwbG9yZSBmcm9tIHRoZSB0ZWNobmljYWwgZm91bmRhdGlvbiB0byB0aGUgcGxhY2Ugd2hlcmUgZXZlcnkgZGVjaXNpb24gbGVhdmVzIGEgdHJhY2UuIjoiRXhwbG9yZSBkYSBmdW5kYcOnw6NvIHTDqWNuaWNhIGFvIGx1Z2FyIG9uZGUgY2FkYSBkZWNpc8OjbyBkZWl4YSByYXN0cm8uIiwiU3dpdGNoIGxhbmd1YWdlIHRvIEVuZ2xpc2giOiJNdWRhciBpZGlvbWEgcGFyYSBpbmdsw6pzIiwiU3dpdGNoIGxhbmd1YWdlIHRvIEJyYXppbGlhbiBQb3J0dWd1ZXNlIjoiTXVkYXIgaWRpb21hIHBhcmEgcG9ydHVndcOqcyBicmFzaWxlaXJvIn0='),char=>char.charCodeAt(0)))));
 const esc=value=>String(value??'').replace(/[&<>"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+function localize(){
+  const pairs=(language==='pt'?[...Object.entries(PT_TEXT)]:Object.entries(PT_TEXT).map(([en,pt])=>[pt,en])).sort((a,b)=>b[0].length-a[0].length);
+  const replace=value=>pairs.reduce((text,[from,to])=>text.split(from).join(to),value);
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(node=>{node.nodeValue=replace(node.nodeValue)});
+  document.querySelectorAll('[aria-label],[placeholder],[title]').forEach(node=>{for(const name of ['aria-label','placeholder','title'])if(node.hasAttribute(name))node.setAttribute(name,replace(node.getAttribute(name)))});
+  const heroLede=document.querySelector('.hero-lede');
+  if(heroLede){const englishLede='Agent Team turns intent, context, and verification into an operable development cycle. Explore from the technical foundation to the place where every decision leaves a trace.';heroLede.textContent=language==='pt'?PT_TEXT[englishLede]:englishLede}
+  document.documentElement.lang=language==='pt'?'pt-BR':'en';
+  languageToggle.textContent=language==='pt'?'EN':'PT-BR';
+  languageToggle.setAttribute('aria-label',replace(language==='pt'?'Switch language to English':'Switch language to Brazilian Portuguese'));
+}
 const routeFor=page=>page.section==='overview'?`#/documento/${page.id}`:`#/secao/${page.section}/${page.id}`;
 const sectionRoute=section=>`#/secao/${section.id}`;
 function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}
@@ -415,53 +434,54 @@ function renderNav(sectionId='',pageId=''){
   const layers=DATA.sections.map(section=>`<a class="nav-link ${section.id===sectionId?'active':''}" href="${sectionRoute(section)}"><span class="nav-num">${section.number}</span><span>${esc(section.title)}</span></a>`).join('');
   let context='';
   if(sectionsById.has(sectionId)){
-    context='<div class="nav-divider"></div><div class="nav-label">Nesta camada</div>';
+    context='<div class="nav-divider"></div><div class="nav-label">In this layer</div>';
     for(const [group,pages] of groupsFor(sectionId)) context+=`<details class="context-group" open><summary>${esc(group)}</summary>${pages.map(page=>`<a class="nav-link ${page.id===pageId?'active':''}" href="${routeFor(page)}">${esc(page.title)}</a>`).join('')}</details>`;
   }
-  nav.innerHTML=`<div class="nav-label">Explorar</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>Visão geral</span></a><div class="nav-label">As seis camadas</div>${layers}${context}`;
+  nav.innerHTML=`<div class="nav-label">Explore</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>Overview</span></a><div class="nav-label">The six layers</div>${layers}${context}`;
 }
 function homeMarkup(){
-  const layers=DATA.sections.map(section=>`<a class="layer" href="${sectionRoute(section)}" aria-label="Camada ${section.number}, ${esc(section.title)}: ${esc(section.question)}"><span class="layer-number">${section.number}</span><span class="layer-title">${esc(section.title)}</span><span class="layer-question">${esc(section.question)}</span></a>`).join('');
-  return `<section class="home"><div class="hero"><div class="hero-heading"><div class="eyebrow">Documentação operacional</div><h1>Um sistema para times que <span>dirigem agentes.</span></h1></div><div class="hero-copy"><p class="hero-lede">O Agent Team transforma intenção, contexto e verificação em um ciclo de desenvolvimento operável. Explore da fundação técnica ao lugar onde cada decisão deixa rastro.</p><div class="hero-actions"><a class="button primary" href="${sectionRoute(DATA.sections[0])}">Começar pela base <span class="arrow">→</span></a><a class="button" href="${routeFor(DATA.pages[1])}">Ver índice completo</a></div></div><div class="layers-panel"><div class="layers-head"><strong>Camadas operacionais</strong><span>clique para explorar</span></div><div class="layers">${layers}</div><div class="layers-base"><span>fundação</span><span>operação</span></div></div></div></section>`;
+  const layers=DATA.sections.map(section=>`<a class="layer" href="${sectionRoute(section)}" aria-label="Layer ${section.number}, ${esc(section.title)}: ${esc(section.question)}"><span class="layer-number">${section.number}</span><span class="layer-title">${esc(section.title)}</span><span class="layer-question">${esc(section.question)}</span></a>`).join('');
+  return `<section class="home"><div class="hero"><div class="hero-heading"><div class="eyebrow">Operational documentation</div><h1>A system for teams that <span>lead agents.</span></h1></div><div class="hero-copy"><p class="hero-lede">Agent Team turns intent, context, and verification into an operable development cycle. Explore from the technical foundation to the place where every decision leaves a trace.</p><div class="hero-actions"><a class="button primary" href="${sectionRoute(DATA.sections[0])}">Start from the foundation <span class="arrow">→</span></a><a class="button" href="${routeFor(DATA.pages[1])}">View the complete index</a></div></div><div class="layers-panel"><div class="layers-head"><strong>Operating layers</strong><span>click to explore</span></div><div class="layers">${layers}</div><div class="layers-base"><span>foundation</span><span>operation</span></div></div></div></section>`;
 }
-function renderHome(){activePage=null;view.innerHTML=homeMarkup();renderNav();document.title='Agent Team — documentação interativa';progress.style.width='0';window.scrollTo(0,0);renderDiagrams()}
-function trackMarkup(active){return `<div class="layer-track" aria-label="Posição nas camadas">${DATA.sections.map(s=>`<a class="track-item ${s.id===active?'active':''}" href="${sectionRoute(s)}" aria-label="${esc(s.title)}"><span>${esc(s.title)}</span></a>`).join('')}</div>`}
+function renderHome(){activePage=null;view.innerHTML=homeMarkup();renderNav();document.title='Agent Team — interactive documentation';progress.style.width='0';window.scrollTo(0,0);renderDiagrams()}
+function trackMarkup(active){return `<div class="layer-track" aria-label="Position in the layers">${DATA.sections.map(s=>`<a class="track-item ${s.id===active?'active':''}" href="${sectionRoute(s)}" aria-label="${esc(s.title)}"><span>${esc(s.title)}</span></a>`).join('')}</div>`}
 function renderSection(section){
   activePage=null;let blocks='';
-  for(const [group,pages] of groupsFor(section.id)) blocks+=`<section class="group-block"><div class="group-head"><h2>${esc(group)}</h2></div><div class="page-grid">${pages.map(page=>`<a class="page-card" href="${routeFor(page)}"><span class="card-action">abrir ↗</span><strong class="card-title">${esc(page.title)}</strong><p class="card-excerpt">${esc(page.excerpt)}</p><span class="card-path">${esc(page.path)}</span></a>`).join('')}</div></section>`;
-  view.innerHTML=`<section class="section-view"><div class="breadcrumbs"><a href="#/">INÍCIO</a><span>/</span><span>CAMADA ${section.number}</span></div><header class="section-hero"><div class="section-index">camada operacional</div><h1>${esc(section.title)}</h1><p class="section-question">${esc(section.question)}</p><p class="section-summary">${esc(section.summary)}</p></header>${trackMarkup(section.id)}${blocks}</section>`;
+  for(const [group,pages] of groupsFor(section.id)) blocks+=`<section class="group-block"><div class="group-head"><h2>${esc(group)}</h2></div><div class="page-grid">${pages.map(page=>`<a class="page-card" href="${routeFor(page)}"><span class="card-action">open ↗</span><strong class="card-title">${esc(page.title)}</strong><p class="card-excerpt">${esc(page.excerpt)}</p><span class="card-path">${esc(page.path)}</span></a>`).join('')}</div></section>`;
+  view.innerHTML=`<section class="section-view"><div class="breadcrumbs"><a href="#/">HOME</a><span>/</span><span>LAYER ${section.number}</span></div><header class="section-hero"><div class="section-index">operating layer</div><h1>${esc(section.title)}</h1><p class="section-question">${esc(section.question)}</p><p class="section-summary">${esc(section.summary)}</p></header>${trackMarkup(section.id)}${blocks}</section>`;
   renderNav(section.id);document.title=`${section.title} — Agent Team`;progress.style.width='0';window.scrollTo(0,0);closeMenu();
 }
-function tocMarkup(page){if(!page.toc.length)return page.section==='overview'?'<div class="toc-title">Visão geral</div><a href="#/">Voltar ao mapa</a>':`<div class="toc-title">Nesta camada</div><a href="${sectionRoute(sectionsById.get(page.section))}">Ver todas as subseções</a>`;return `<div class="toc-title">Neste documento</div>${page.toc.map(item=>`<a class="level-${item.level}" href="${routeFor(page)}~${encodeURIComponent(item.anchor)}">${esc(item.text)}</a>`).join('')}`}
+function tocMarkup(page){if(!page.toc.length)return page.section==='overview'?'<div class="toc-title">Overview</div><a href="#/">Return to the map</a>':`<div class="toc-title">In this layer</div><a href="${sectionRoute(sectionsById.get(page.section))}">View all subsections</a>`;return `<div class="toc-title">In this document</div>${page.toc.map(item=>`<a class="level-${item.level}" href="${routeFor(page)}~${encodeURIComponent(item.anchor)}">${esc(item.text)}</a>`).join('')}`}
 function renderDocument(page,anchor=''){
-  activePage=page;const siblings=DATA.pages.filter(item=>item.section===page.section);const index=siblings.findIndex(item=>item.id===page.id),previous=siblings[index-1],next=siblings[index+1];const section=sectionsById.get(page.section),sectionTitle=section?.title||'Visão geral',sectionHref=section?sectionRoute(section):'#/';
+  activePage=page;const siblings=DATA.pages.filter(item=>item.section===page.section);const index=siblings.findIndex(item=>item.id===page.id),previous=siblings[index-1],next=siblings[index+1];const section=sectionsById.get(page.section),sectionTitle=section?.title||'Overview',sectionHref=section?sectionRoute(section):'#/';
   const badge=page.status?`<span class="badge ${esc(page.status)}">${esc(page.status)}</span>`:'';
-  const updated=page.updated?`<span class="badge">atualizado ${esc(page.updated)}</span>`:'';
-  view.innerHTML=`<section class="doc-page"><div class="breadcrumbs"><a href="#/">INÍCIO</a><span>/</span><a href="${sectionHref}">${esc(sectionTitle)}</a><span>/</span><span>${esc(page.group)}</span></div><div class="doc-grid"><article class="article"><div class="doc-meta">${badge}${updated}<a class="source-path" href="${esc(page.path)}">${esc(page.path)}</a></div>${page.html}<nav class="pager" aria-label="Documentos adjacentes">${previous?`<a class="pager-link" href="${routeFor(previous)}"><span>← anterior</span><strong>${esc(previous.title)}</strong></a>`:'<span class="pager-spacer"></span>'}${next?`<a class="pager-link" href="${routeFor(next)}"><span>próximo →</span><strong>${esc(next.title)}</strong></a>`:'<span class="pager-spacer"></span>'}</nav></article><aside class="toc">${tocMarkup(page)}</aside></div></section>`;
+  const updated=page.updated?`<span class="badge">updated ${esc(page.updated)}</span>`:'';
+  view.innerHTML=`<section class="doc-page"><div class="breadcrumbs"><a href="#/">HOME</a><span>/</span><a href="${sectionHref}">${esc(sectionTitle)}</a><span>/</span><span>${esc(page.group)}</span></div><div class="doc-grid"><article class="article"><div class="doc-meta">${badge}${updated}<a class="source-path" href="${esc(page.path)}">${esc(page.path)}</a></div>${page.html}<nav class="pager" aria-label="Adjacent documents">${previous?`<a class="pager-link" href="${routeFor(previous)}"><span>← previous</span><strong>${esc(previous.title)}</strong></a>`:'<span class="pager-spacer"></span>'}${next?`<a class="pager-link" href="${routeFor(next)}"><span>next →</span><strong>${esc(next.title)}</strong></a>`:'<span class="pager-spacer"></span>'}</nav></article><aside class="toc">${tocMarkup(page)}</aside></div></section>`;
   renderNav(section?page.section:'',page.id);document.title=`${page.title} — Agent Team`;closeMenu();renderDiagrams();
   requestAnimationFrame(()=>{if(anchor){const target=document.getElementById(`${page.id}~${decodeURIComponent(anchor)}`);if(target)target.scrollIntoView()}else window.scrollTo(0,0);updateProgress()});
 }
 function score(page,term){let value=0;if(page.title.toLowerCase().includes(term))value+=12;if(page.group.toLowerCase().includes(term))value+=6;if(page.path.toLowerCase().includes(term))value+=5;if(page.text.includes(term))value+=2;return value}
 function renderSearch(term){
   activePage=null;const query=term.trim().toLowerCase();let content='';
-  if(!query)content='<div class="empty-state">Digite um conceito, agente, skill, artefato ou etapa da jornada.</div>';
-  else{const results=DATA.pages.map(page=>({page,score:score(page,query)})).filter(item=>item.score).sort((a,b)=>b.score-a.score||a.page.title.localeCompare(b.page.title)).slice(0,40);content=results.length?`<div class="result-list">${results.map(({page})=>`<a class="result" href="${routeFor(page)}"><span class="result-section">${esc(sectionsById.get(page.section)?.title||'Visão geral')}</span><span><strong>${esc(page.title)}</strong><p>${esc(page.excerpt)}</p></span><span class="result-path">${esc(page.path)}</span></a>`).join('')}</div>`:'<div class="empty-state">Nenhum documento encontrado. Tente um termo mais amplo.</div>'}
-  view.innerHTML=`<section class="search-view"><div class="eyebrow">Busca global</div><h1>${query?`Resultados para “${esc(term)}”`:'Explore o acervo'}</h1><p class="search-intro">Pesquise por títulos, caminhos e conteúdo da documentação.</p>${content}</section>`;renderNav();document.title=`Busca${term?` — ${term}`:''} — Agent Team`;progress.style.width='0';window.scrollTo(0,0);
+  if(!query)content='<div class="empty-state">Enter a concept, agent, skill, artifact, or journey stage.</div>';
+  else{const results=DATA.pages.map(page=>({page,score:score(page,query)})).filter(item=>item.score).sort((a,b)=>b.score-a.score||a.page.title.localeCompare(b.page.title)).slice(0,40);content=results.length?`<div class="result-list">${results.map(({page})=>`<a class="result" href="${routeFor(page)}"><span class="result-section">${esc(sectionsById.get(page.section)?.title||'Overview')}</span><span><strong>${esc(page.title)}</strong><p>${esc(page.excerpt)}</p></span><span class="result-path">${esc(page.path)}</span></a>`).join('')}</div>`:'<div class="empty-state">No documents found. Try a broader term.</div>'}
+  view.innerHTML=`<section class="search-view"><div class="eyebrow">Global search</div><h1>${query?`Results for “${esc(term)}”`:'Explore the collection'}</h1><p class="search-intro">Search document titles, paths, and content.</p>${content}</section>`;renderNav();document.title=`Search${term?` — ${term}`:''} — Agent Team`;progress.style.width='0';window.scrollTo(0,0);
 }
-function renderNotFound(){view.innerHTML='<section class="not-found"><strong>404</strong><h1>Esta rota não existe.</h1><p>A documentação pode ter mudado de lugar. Volte ao mapa principal para continuar.</p><a class="button primary" href="#/">Voltar ao início</a></section>';renderNav();document.title='Não encontrado — Agent Team';progress.style.width='0'}
+function renderNotFound(){view.innerHTML='<section class="not-found"><strong>404</strong><h1>This route does not exist.</h1><p>The documentation may have moved. Return to the main map to continue.</p><a class="button primary" href="#/">Return home</a></section>';renderNav();document.title='Not found — Agent Team';progress.style.width='0'}
 function parseRoute(){const raw=location.hash.slice(1)||'/';const split=raw.indexOf('~'),path=split>=0?raw.slice(0,split):raw,anchor=split>=0?raw.slice(split+1):'';return {path,anchor}}
 function route(){const {path,anchor}=parseRoute();if(path==='/'){renderHome();return}if(path.startsWith('/busca')){const query=new URLSearchParams(path.split('?')[1]||'').get('q')||'';searchInput.value=query;renderSearch(query);return}const parts=path.split('/').filter(Boolean);if(parts[0]==='documento'){const page=pagesById.get(parts[1]);if(page?.section==='overview'){renderDocument(page,anchor);return}}if(parts[0]==='secao'&&sectionsById.has(parts[1])){const section=sectionsById.get(parts[1]);if(parts.length===2){renderSection(section);return}const page=pagesById.get(parts[2]);if(page&&page.section===section.id){renderDocument(page,anchor);return}}renderNotFound()}
-async function renderDiagrams(){const wraps=[...document.querySelectorAll('.mermaid-wrap')];if(!wraps.length)return;if(!window.mermaid)return;try{const nodes=wraps.map(wrap=>wrap.querySelector('.mermaid'));await mermaid.run({nodes});wraps.forEach(wrap=>wrap.classList.add('rendered'))}catch(error){console.warn('Mermaid indisponível',error)}}
-function applyZoom(wrap,scale){const svg=wrap.querySelector('.mermaid svg');if(!svg)return;wrap.dataset.scale=String(scale);svg.style.maxWidth='none';svg.style.width=`${scale*100}%`;wrap.querySelector('[data-zoom-label]').textContent=scale===1?'ajustado':`${Math.round(scale*100)}%`}
+async function renderDiagrams(){const wraps=[...document.querySelectorAll('.mermaid-wrap')];if(!wraps.length)return;if(!window.mermaid)return;try{const nodes=wraps.map(wrap=>wrap.querySelector('.mermaid'));await mermaid.run({nodes});wraps.forEach(wrap=>wrap.classList.add('rendered'))}catch(error){console.warn('Mermaid unavailable',error)}}
+function applyZoom(wrap,scale){const svg=wrap.querySelector('.mermaid svg');if(!svg)return;wrap.dataset.scale=String(scale);svg.style.maxWidth='none';svg.style.width=`${scale*100}%`;wrap.querySelector('[data-zoom-label]').textContent=scale===1?'fitted':`${Math.round(scale*100)}%`}
 document.addEventListener('click',event=>{const button=event.target.closest('[data-zoom]');if(button){const wrap=button.closest('.mermaid-wrap');let scale=Number(wrap.dataset.scale||1);if(button.dataset.zoom==='in')scale=Math.min(2.5,scale+.25);if(button.dataset.zoom==='out')scale=Math.max(.5,scale-.25);if(button.dataset.zoom==='fit')scale=1;applyZoom(wrap,scale)}if(event.target.closest('a')&&innerWidth<=900)closeMenu()});
 function updateProgress(){if(!activePage){progress.style.width='0';return}const height=document.documentElement.scrollHeight-innerHeight;const value=height>0?Math.min(100,scrollY/height*100):0;progress.style.width=`${value}%`}
-searchInput.addEventListener('input',event=>{const term=event.target.value;history.replaceState(null,'',`#/busca?q=${encodeURIComponent(term)}`);renderSearch(term)});
+searchInput.addEventListener('input',event=>{const term=event.target.value;history.replaceState(null,'',`#/busca?q=${encodeURIComponent(term)}`);renderSearch(term);localize()});
 searchInput.addEventListener('keydown',event=>{if(event.key==='Enter')location.hash=`/busca?q=${encodeURIComponent(searchInput.value)}`});
 menuToggle.addEventListener('click',()=>{const open=sidebar.classList.toggle('open');overlay.classList.toggle('open',open);menuToggle.setAttribute('aria-expanded',String(open))});overlay.addEventListener('click',closeMenu);
+languageToggle.addEventListener('click',()=>{language=language==='en'?'pt':'en';route();localize()});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!/input|textarea/i.test(document.activeElement.tagName)){event.preventDefault();searchInput.focus()}if(event.key==='Escape'){closeMenu();if(document.activeElement===searchInput){searchInput.value='';searchInput.blur();location.hash='/'}}});
-window.addEventListener('hashchange',route);window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('load',renderDiagrams);
+window.addEventListener('hashchange',()=>{route();localize()});window.addEventListener('scroll',updateProgress,{passive:true});window.addEventListener('load',renderDiagrams);
 if(window.mermaid)mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'loose',themeVariables:{background:'#161c21',primaryColor:'#20282e',primaryTextColor:'#e8f0f3',primaryBorderColor:'#22d3ee',lineColor:'#60727d',secondaryColor:'#10161a',tertiaryColor:'#263139'}});
-route();
+route();localize();
 </script>
 </body>
 </html>

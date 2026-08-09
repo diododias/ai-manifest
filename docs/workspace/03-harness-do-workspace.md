@@ -1,50 +1,50 @@
-# 03 — Harness do workspace
+#03 — Workspace Harness
 
-> O que torna um workspace operável por agentes de forma repetível: as convenções, as skills de base e as garantias de coordenação quando vários agentes trabalham ao mesmo tempo.
+> What makes a workspace operable by agents in a repeatable way: conventions, basic skills and coordination guarantees when several agents work at the same time.
 
 ---
 
-## O que "harness do workspace" significa
+## What "workspace harness" means
 
-A palavra *harness* já apareceu em outras seções da documentação, e vale defini-la aqui com precisão, porque ela tem dois sentidos que não podem se confundir. Um harness, de forma geral, é o conjunto de arquivos, convenções e verificações que torna um espaço **compreensível e seguro** para um agente operar sem que alguém precise recitar o contexto a cada sessão.
+The word *harness* has already appeared in other sections of the documentation, and it is worth defining it here precisely, because it has two meanings that cannot be confused. A harness, in general, is the set of files, conventions and checks that makes an **understandable and safe** space for an agent to operate without someone having to recite the context every session.
 
-O **harness do workspace** é esse conjunto aplicado ao espaço de trabalho do trio — o que organiza o trabalho do agente *fora* do código. Ele é diferente do [repo harness](../REPO_HARNESS.md), que vive dentro do repositório de código e converte conhecimento tácito em arquivos versionados e verificações automatizadas. A regra de decisão que separa os dois é a mesma introduzida no [hub desta seção](../WORKSPACE.md): se a informação continua verdadeira quando outro time clona o repositório de código, ela é repo harness; se ela descreve como o trabalho está organizado — quais projetos existem, quem faz o quê esta semana, em qual Work Item —, ela é workspace.
+The **workspace harness** is this set applied to the trio's workspace — what organizes the agent's work *outside* of the code. It is different from [repo harness](../REPO_HARNESS.md), which lives inside the code repository and converts tacit knowledge into versioned files and automated checks. The decision rule that separates the two is the same as the one introduced in [the hub of this section](../WORKSPACE.md): if the information remains true when another team clones the code repository, it is repo harness; If it describes how work is organized — what projects there are, who does what this week, under which Work Item — it is workspace.
 
-## As convenções que o workspace impõe
+## The conventions that the workspace imposes
 
-O harness do workspace se materializa nas convenções já apresentadas nas páginas anteriores desta seção, agora reunidas sob um nome comum. São elas que permitem a um agente chegar a um workspace desconhecido e operar corretamente, sem negociação prévia.
+The workspace harness materializes in the conventions already presented in the previous pages of this section, now brought together under a common name. They are what allow an agent to arrive at an unknown workspace and operate correctly, without prior negotiation.
 
-| Convenção | O que garante |
+| Convention | What guarantees |
 |---|---|
-| **Cadeia de resolução** | um agente sempre resolve onde trabalhar pelo caminho `workspace do owner → projects/<project> → Work Item → fontes canônicas`, nunca por adivinhação |
-| **Separação entre persistente e trânsito** | fontes canônicas em `projects/`; auxiliares em `.coordination/` e `memory.md` — descrita em detalhe em [Estrutura do workspace](01-estrutura-do-workspace.md) |
-| **Isolamento de sessão** | cada execução usa sua própria pasta em `plans/assets/`, de modo que reexecuções não se sobrescrevem |
+| **Resolution chain** | an agent always decides where to work through the `owner workspace → projects/<project> → Work Item → canonical sources` path, never by guesswork |
+| **Separation between persistent and transit** | canonical sources in `projects/`; helpers in `.coordination/` and `memory.md` — described in detail in [Workspace Structure](01-estrutura-do-workspace.md) |
+| **Session isolation** | each run uses its own folder in `plans/assets/`, so reruns don't overwrite each other |
 
-## As skills de base são o harness em ação
+## Base skills are the harness in action
 
-Aqui as peças se encaixam. As três skills de base — [`workspace-memory`](../../skills/workspace-memory/SKILL.md), [`workspace-projects`](../../skills/workspace-projects/SKILL.md) e [`workspace-board`](../../skills/workspace-board/SKILL.md), catalogadas em [Skills](../SKILLS.md) — são, na prática, o harness do workspace executável. Elas não produzem o entregável de nenhuma fase da jornada; elas garantem que o agente respeite as convenções do workspace antes de produzir qualquer coisa.
+Here the pieces fit together. The three base skills — [`workspace-memory`](../../skills/workspace-memory/SKILL.md), [`workspace-projects`](../../skills/workspace-projects/SKILL.md) and [`workspace-board`](../../skills/workspace-board/SKILL.md), cataloged in [Skills](../SKILLS.md) — are, in practice, the harness of the executable workspace. They do not produce the deliverable for any phase of the journey; they ensure that the agent respects the workspace conventions before producing anything.
 
-| Skill de base | Convenção que aplica |
+| Basic skill | Convention that applies |
 |---|---|
-| `workspace-memory` | retomar contexto e nunca tratar `memory.md` como fonte canônica |
-| `workspace-projects` | localizar a fonte canônica correta em `projects/` e isolar assets por sessão |
-| `workspace-board` | assumir e reconciliar Work Items com evidência, sem sobrescrever trabalho alheio |
+| `workspace-memory` | resume context and never treat `memory.md` as a canonical source |
+| `workspace-projects` | find the correct canonical source in `projects/` and isolate assets by session |
+| `workspace-board` | assume and reconcile Work Items with evidence, without overwriting other people's work |
 
-Por isso elas figuram entre as regras universais de todo agente, descritas em [Agentes](../AGENTES.md#as-regras-universais): sem elas, o harness do workspace seria apenas uma convenção documentada, não uma convenção seguida.
+That's why they appear among the universal rules of every agent, described in [Agents](../AGENTES.md#as-regras-universais): without them, the workspace harness would just be a documented convention, not a followed convention.
 
-## Quando vários agentes operam ao mesmo tempo
+## When several agents operate at the same time
 
-O harness do workspace ganha importância extra quando **vários agentes** trabalham em paralelo. As falhas que aparecem nesse cenário não são de qualidade — são de coordenação, e cada uma tem uma contramedida específica.
+The workspace harness gains extra importance when **several agents** work in parallel. The failures that appear in this scenario are not of quality — they are of coordination, and each one has a specific countermeasure.
 
-| Falha de coordenação | O que acontece | Contramedida |
+| Coordination failure | What happens | Countermeasure |
 |---|---|---|
-| Sobrescrita silenciosa | dois agentes editam o mesmo arquivo; o último a salvar vence | um arquivo por unidade de trabalho; worktree por Work Item quando houver código |
-| Contenção em arquivo comum | vários agentes atualizam o mesmo board ou log | consolidação por um único agente coordenador |
-| Perda de rastro | não se sabe qual agente produziu o quê | autoria e versão registradas em cada artefato |
-| Handoff perdido | trabalho fica preso em trânsito, sem chegar à fonte canônica | handoff só se conclui quando o artefato chega à fonte canônica |
+| Silent overwrite | two agents edit the same file; the last one to save wins | one file per work unit; worktree by Work Item when there is code |
+| Containment in common file | multiple agents update the same board or log | consolidation by a single coordinating agent |
+| Loss of trail | it is not known which agent produced what | authorship and version recorded in each artifact |
+| Lost handoff | work gets stuck in transit, without reaching the canonical source | handoff is only completed when the artifact reaches the canonical source |
 
-Note o paralelo com o repo harness: lá, o mesmo tipo de problema — vários agentes sobre o mesmo código — é resolvido por worktree limpo e identidades distintas por agente, exigidos a partir do nível HL3 descrito em [Gates](../GATES.md). A ideia é a mesma dos dois lados da fronteira: **isolar a execução para que a colaboração não vire colisão.**
+Note the parallel with the repo harness: there, the same type of problem — multiple agents on the same code — is solved by clean worktree and distinct identities per agent, required from the HL3 level described in [Gates](../GATES.md). The idea is the same on both sides of the border: **isolate execution so that collaboration does not turn into collision.**
 
 ---
 
-*Anterior: [Ownership entre workspaces](02-ownership-entre-workspaces.md) · Próximo: [Board e Work Items](04-board-e-work-items.md).*
+*Previous: [Ownership between workspaces](02-ownership-entre-workspaces.md) · Next: [Board and Work Items](04-board-e-work-items.md).*

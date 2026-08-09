@@ -1,29 +1,29 @@
-# Workspaces de exemplo
+# Example workspaces
 
-Esta área contém implementações concretas dos workspaces operacionais descritos na arquitetura do Agent Team.
+This area contains concrete implementations of the operational workspaces described in the Agent Team architecture.
 
-Cada papel possui uma raiz independente para que seus contratos, exemplos e fontes de verdade possam evoluir sem misturar responsabilidades:
+Each role has an independent root so that its contracts, examples, and sources of truth can evolve without mixing responsibilities:
 
-- [`tech-lead/`](tech-lead/README.md): viabilidade, arquitetura, implementação e risco operacional;
-- [`ux/`](ux/README.md): pesquisa, experiência, acessibilidade e validação com usuários;
-- [`pm/`](pm/README.md): valor, prioridade, requisitos e resultados de produto.
+- [`tech-lead/`](tech-lead/README.md): feasibility, architecture, implementation and operational risk;
+- [`ux/`](ux/README.md): research, experience, accessibility and validation with users;
+- [`pm/`](pm/README.md): value, priority, requirements and product results.
 
-Os exemplos não são o workspace de produção de uma equipe. Nomes, organizações, repositórios e estados são fictícios e devem ser substituídos ao copiar a estrutura.
+The examples are not a team's production workspace. Names, organizations, repositories, and states are fictitious and must be replaced when copying the structure.
 
-## Workflows dentro de cada workspace
+## Workflows within each workspace
 
-Os contratos reutilizáveis ficam no [catálogo global de workflows](../workflows/README.md). Cada workspace de usuário deve manter `docs/workflows/` como camada de binding local: quais workflows estão habilitados, qual versão canônica é usada, permissões, integrações e roteamento de handoffs.
+Reusable contracts are in the [global workflow catalog](../workflows/README.md). Each user workspace must maintain `docs/workflows/` as a local binding layer: which workflows are enabled, which canonical version is used, permissions, integrations and handoff routing.
 
-Artefatos de uma execução não pertencem a `docs/workflows/`. Eles ficam em `projects/<project>/`, no workspace dono do domínio: o PM registra discovery, PRD, decisões e Work Items; UX registra research, jornadas, fluxos, especificações e validações; o Tech Lead registra planos em `projects/<project>/plans/active/`, specs, ADRs, evidências, reviews e worktrees. `..coordination/` é somente trânsito temporário.
+Artifacts from a run do not belong to `docs/workflows/`. They are located in `projects/<project>/`, in the workspace that owns the domain: the PM registers discovery, PRD, decisions and Work Items; UX records research, journeys, flows, specifications and validations; the Tech Lead records plans in `projects/<project>/plans/active/`, specs, ADRs, evidence, reviews and worktrees. `..coordination/` is temporary transit only.
 
-Material bruto que sustenta as análises e discussões de um workflow — transcrições, printscreens, e-mails, PDFs, documentos Word e afins — fica em `projects/<project>/plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/`, em qualquer um dos três workspaces. Cada execução usa sua própria pasta de sessão; reexecutar um workflow por resultado insatisfatório nunca sobrescreve ou mistura material com a tentativa anterior. `plans/assets/` não é fonte canônica — a conclusão vai para o artefato do domínio correto, e o asset permanece como rastro auditável. Ver a skill [`workspace-projects`](../skills/workspace-projects/SKILL.md) para o detalhamento completo.
+Raw material that supports the analyzes and discussions of a workflow — transcripts, printscreens, emails, PDFs, Word documents and the like — is located in `projects/<project>/plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/`, in any of the three workspaces. Each run uses its own session folder; rerunning a workflow due to unsatisfactory results never overwrites or mixes material with the previous attempt. `plans/assets/` is not a canonical source — the conclusion goes to the artifact in the correct domain, and the asset remains as an auditable trace. See the skill [`workspace-projects`](../skills/workspace-projects/SKILL.md) for full details.
 
-## Ownership entre workspaces
+## Ownership between workspaces
 
-| Domínio | Fonte canônica | Os demais workspaces recebem |
+| Domain | Canonical source | The remaining workspaces receive |
 |---|---|---|
-| Valor, prioridade, outcome e requisitos | `pm/` | decisão aprovada e handoff de produto |
-| Evidência de usuário, jornada e experiência | `ux/` | UX spec, critérios e handoff de experiência |
-| Arquitetura, implementação e risco operacional | `tech-lead/` | viabilidade, contratos técnicos e evidence pack |
+| Value, priority, outcome and requirements | `pm/` | approved decision and product handoff |
+| User, journey and experience evidence | `ux/` | UX spec, criteria and experience handoff |
+| Architecture, implementation and operational risk | `tech-lead/` | feasibility, technical contracts and evidence pack |
 
-Uma informação autoritativa não deve ser mantida em dois workspaces. Quando uma IA precisar de contexto de outro domínio, deve seguir o link até a fonte ou usar um snapshot identificado como não autoritativo e confirmar sua validade antes de agir.
+Authoritative information should not be maintained in two workspaces. When an AI needs context from another domain, it should follow the link to the source or use a snapshot identified as non-authoritative and confirm its validity before acting.

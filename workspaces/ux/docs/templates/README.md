@@ -1,8 +1,8 @@
-# Templates de UX
+# UX templates
 
 - [`research-plan.md`](research-plan.md)
 - [`ux-spec.md`](ux-spec.md)
 - [`validation-report.md`](validation-report.md)
 - [`design.md`](design.md)
 
-Copie o template para o projeto e substitua os campos entre `<...>`.
+Copy the template to the project and replace the fields with `<...>`.

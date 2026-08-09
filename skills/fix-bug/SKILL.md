@@ -1,6 +1,6 @@
 ---
 name: "fix-bug"
-description: "Corrige um bug documentado com teste de regressão e validação local. Use quando houver evidência ou análise de bug e o usuário pedir a implementação da correção; commit e PR exigem pedido de publicação."
+description: "Fixes a documented bug with regression testing and local validation. Use when there is evidence or analysis of a bug and the user asks for the fix to be implemented; commit and PR require publish request."
 ---
 
 ## User Input
@@ -13,80 +13,80 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Implementar a correção do bug seguindo o fluxo padrão (implement → test → commit → PR), garantindo cobertura por teste.
+Implement the bug fix following the standard flow (implement → test → commit → PR), ensuring coverage per test.
 
 ## Inputs
 
-- **Obrigatório:** `bugs/bug-<NOME-SLUG>.md` (análise do bug)
-- **Obrigatório:** código afetado (repositório local)
+- **Required:** `bugs/bug-<NOME-SLUG>.md` (bug analysis)
+- **Required:** affected code (local repository)
 
 ## Execution Steps
 
-### 1. Carregar análise
+### 1. Upload analysis
 
-- Leia `bug-<NOME>.md` — causa raiz e componente afetado.
-- Identifique arquivos que precisam ser modificados.
+- Read `bug-<NOME>.md` — root cause and affected component.
+- Identify files that need to be modified.
 
-### 2. Verificar se há teste que reproduz o bug
+### 2. Check if there is a test that reproduces the bug
 
-- Execute os testes existentes para o componente afetado.
-- Verifique se algum teste já cobre o cenário (e está falhando ou passando incorretamente).
-- Se não há teste que reproduza, crie um antes de corrigir (TDD).
+- Run existing tests for the affected component.
+- Check if any tests already cover the scenario (and are failing or passing incorrectly).
+- If there is no test that reproduces, create one before correcting (TDD).
 
-### 3. Criar teste de regressão
+### 3. Create regression test
 
-Crie teste que:
-- Reproduz o bug (deve falhar com o código atual).
-- Valida o comportamento correto (deve passar após a correção).
-- Segue padrão de testes do repositório.
+Create test that:
+- Reproduces the bug (should fail with current code).
+- Validates correct behavior (should pass after correction).
+- Follows repository testing standards.
 
-### 4. Implementar a correção
+### 4. Implement the fix
 
-- Siga a direção sugerida na análise (ou ajuste se necessário).
-- Mudanças mínimas e focadas — não refatore desnecessariamente.
-- Siga convenções do repositório.
+- Follow the direction suggested in the analysis (or adjust if necessary).
+- Minimal, focused changes — don't refactor unnecessarily.
+- Follow repository conventions.
 
-### 5. Validar
+### 5. Validate
 
-- Execute o teste de regressão — deve passar.
-- Execute todos os testes do componente — não deve haver regressão.
-- Verifique se o bug original está resolvido.
+- Run the regression test — it should pass.
+- Run all component tests — there should be no regression.
+- Check if the original bug is resolved.
 
-### 6. Propor publicação
+### 6. Propose publication
 
-Após a correção estar validada, informe os passos de publicação:
+After the correction is validated, inform the publication steps:
 
-1. **Commit** — use `/commit` com mensagem `fix(<escopo>): <descrição>` + `Refs #<issue>` se o usuário pedir um commit.
-2. **PR** — use `/update-pr` ou proponha um novo PR somente se o usuário pedir publicação.
+1. **Commit** — use `/commit` with message `fix(<scope>): <description>` + `Refs #<issue>` if the user requests a commit.
+2. **PR** — use `/update-pr` or propose a new PR only if the user requests publication.
 
-### 7. Atualizar análise do bug
+### 7. Update bug analysis
 
-Atualize `bugs/bug-<NOME>.md`:
-- Status: 🟡 Analisado → ✅ Corrigido
-- Adicione data de correção
-- Referencie o PR/commit
+Update `bugs/bug-<NOME>.md`:
+- Status: 🟡 Reviewed → ✅ Fixed
+- Add correction date
+- Reference the PR/commit
 
-### 8. Reportar no chat
+### 8. Report in chat
 
-- Resumo: bug corrigido, causa raiz, mudança realizada.
-- Teste de regressão criado.
-- PR/commit referenciado.
-- Se a correção é parcial ou precisa de follow-up.
+- Summary: bug fixed, root cause, change made.
+- Regression test created.
+- PR/commit referenced.
+- If the correction is partial or needs follow-up.
 
-## Convenções
+## Conventions
 
-- Sempre crie teste antes de corrigir (ou confirme que existe).
-- Correções são mínimas — não refatore durante o fix.
-- Commit segue padrão `fix(...)`.
-- Se o bug tem issue, referencie no commit e PR.
-- Português.
+- Always create test before fixing (or confirm that it exists).
+- Fixes are minimal — do not refactor during the fix.
+- Commit follows `fix(...)` pattern.
+- If the bug has an issue, reference it in the commit and PR.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] Análise do bug carregada
-- [ ] Teste de regressão criado (ou existente validado)
-- [ ] Correção implementada e validada
-- [ ] Testes executados sem regressão
-- [ ] Próximo passo de publicação informado
-- [ ] Análise do bug atualizada com status ✅
-- [ ] Resultado reportado no chat
+- [ ] Bug analysis loaded
+- [ ] Regression test created (or existing validated)
+- [ ] Correction implemented and validated
+- [ ] Tests run without regression
+- [ ] Next publication step informed
+- [ ] Updated bug analysis with status ✅
+- [ ] Result reported in chat

@@ -1,91 +1,91 @@
 # 🎨 Studio Loop
 
-> Planejamento de produto e UX — converte o problema aprovado em escopo, experiência e critérios de aceite coerentes entre si.
+> Product and UX planning — converts the approved problem into scope, experience and acceptance criteria that are coherent with each other.
 
-O Studio Loop é o único em que dois agentes consolidam artefatos distintos ao mesmo tempo: o PM é dono do `PRD.md`, o UX é dono da UX spec, e nenhum dos dois é subordinado ao outro. A coerência entre os dois documentos é o produto real desta etapa — um PRD que contradiz a UX spec passa despercebido até a implementação, quando o engenheiro precisa escolher qual dos dois obedecer.
+Studio Loop is unique in that two agents consolidate distinct artifacts at the same time: the PM owns `PRD.md`, the UX owns the UX spec, and neither is subordinate to the other. Coherence between the two documents is the real product of this step — a PRD that contradicts the UX spec goes unnoticed until implementation, when the engineer needs to choose which of the two to obey.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 2 — produto e discovery |
-| **Consolida** | [📋 Product Manager Agent](../agentes/product-manager-agent.md) para o `PRD.md`; [🧭 UX Specification Agent](../agentes/ux-specification-agent.md) para a UX spec |
-| **Colaboram** | [🥊 Adversarial PM](../agentes/adversarial-product-manager-agent.md); agentes de research, conteúdo e prototipação quando necessários |
-| **Owners humanos** | PM para produto; UX para experiência |
-| **Entrada** | `PB.md`, decisão H1, evidências de usuário e restrições conhecidas |
-| **Saída** | `PRD.md`, jornada e fluxo desejados, UX spec, protótipo proporcional, critérios de UX e de aceite |
-| **Gate de saída** | H2 — rastreabilidade `PB → PRD`, gaps críticos tratados, sucesso mensurável |
-| **Volta dominante** | média — crítica adversarial sobre ambiguidade e casos-limite |
+| **Step** | 2 — product and discovery |
+| **Consolidates** | [📋 Product Manager Agent](../agentes/product-manager-agent.md) for `PRD.md`; [🧭 UX Specification Agent](../agentes/ux-specification-agent.md) for UX spec |
+| **Collaborate** | [🥊 Adversarial PM](../agentes/adversarial-product-manager-agent.md); research, content and prototyping agents when necessary |
+| **Human Owners** | PM for product; UX for experience |
+| **Input** | `PB.md`, H1 decision, user evidence and known constraints |
+| **Exit** | `PRD.md`, desired journey and flow, UX spec, proportional prototype, UX and acceptance criteria |
+| **Exit gate** | H2 — `PB → PRD` traceability, critical gaps addressed, measurable success |
+| **Dominant lap** | average — adversarial criticism on ambiguity and borderline cases |
 
 ```mermaid
 flowchart LR
-    A[PB.md aprovado] --> B[PM Agent\nPRD candidato]
-    A --> C[UX Spec Agent\nfluxo, estados e validação]
+    A[PB.md approved] --> B[PM Agent\nPRD candidate]
+    A --> C[UX Spec Agent\nflow, states and validation]
     C --> B
-    B --> D[Adversarial PM\nambiguidades e cenários adversos]
-    D --> E[PM + UX Agents\nresposta e consolidação]
-    E --> F{Gate de produto e UX}
-    F -- aprovado --> G[H2: decisão humana]
+    B --> D[Adversarial PM\nambiguities and adverse scenarios]
+    D --> E[PM + UX Agents\nresponse and consolidation]
+    E --> F{Product and UX gate}
+    F -- approved --> G[H2: human decision]
     F -- gap --> B
-    G -- aprovar --> H[🗺️ Drafting Loop]
+    G -- approve --> H[🗺️ Drafting Loop]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O PM Agent propõe objetivo, escopo, fora de escopo, métricas e critérios de produto no `PRD.md`.
-2. O UX Specification Agent define jornada, fluxos, estados, conteúdo, acessibilidade, hipóteses e plano de validação. **Restrição descoberta no fluxo retorna ao PRD** — não é resolvida apenas na UX spec.
-3. Pesquisadores, UX writers e agentes de prototipação só entram por necessidade explícita e entregam insumos ao UX Agent, nunca versões concorrentes da fonte canônica.
-4. O Adversarial PM avalia problema, métricas, escopo implícito, casos-limite e coerência entre PRD e UX spec.
-5. PM e UX registram a resposta a cada finding; o PM consolida o `PRD.md` e H2 fixa o compromisso.
+1. PM Agent proposes objective, scope, out-of-scope, metrics and product criteria in `PRD.md`.
+2. The UX Specification Agent defines journey, flows, states, content, accessibility, hypotheses and validation plan. **Restriction discovered in the flow returns to the PRD** — is not resolved only in the UX spec.
+3. Researchers, UX writers and prototyping agents only enter out of explicit need and deliver input to the UX Agent, never competing versions of the canonical source.
+4. The Adversarial PM evaluates problem, metrics, implicit scope, limit cases and coherence between PRD and UX spec.
+5. PM and UX record the response to each finding; the PM consolidates the `PRD.md` and H2 fixes the commitment.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | `PB.md` aprovado em H1, com hipóteses ainda identificadas como hipóteses |
-| **Saída** | `PRD.md` + UX spec mutuamente consistentes, com cada critério de aceite verificável e rastreável até um item do `PB.md` |
+| **Input** | `PB.md` approved in H1, with hypotheses still identified as hypotheses |
+| **Exit** | `PRD.md` + UX spec mutually consistent, with each acceptance criteria verifiable and traceable back to a `PB.md` item |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** aprovar o próprio artefato.
+**Does not:** approve the artifact itself.
 
-Nenhum agente deste loop tem autoridade para fechar o que produziu. H2 aprova a decisão de compromisso — não edita o documento linha a linha. Quando um gate humano começa a revisar redação em vez de decidir escopo, o loop está entregando material que ainda não passou pela crítica adversarial.
+No agent in this loop has the authority to close what they have produced. H2 approves the compromise decision — does not edit the document line by line. When a human gate starts reviewing writing instead of deciding scope, the loop is delivering material that has not yet gone through adversarial critique.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| PRD e UX spec divergentes | o engenheiro pergunta qual documento vale | coerência entre os dois é finding bloqueante do Adversarial PM |
-| Critério de aceite não mensurável | "a experiência deve ser fluida" | todo critério precisa de um método de verificação declarado |
-| Escopo implícito | funcionalidade aparece na UX spec sem estar no PRD | o fora de escopo é tão obrigatório quanto o escopo |
+| PRD and UX spec divergent | the engineer asks which document is valid | coherence between the two is a blocking finding for the Adversarial PM |
+| Non-measurable acceptance criteria | "the experience must be fluid" | every criterion needs a declared verification method |
+| Implicit scope | functionality appears in the UX spec without being in the PRD | out of scope is as mandatory as in scope |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| `PRD.md` | `<pm-workspace>/projects/<project>/requirements/prd/` | sim |
-| Decisões de produto | `<pm-workspace>/projects/<project>/decisions/` | quando houver trade-off |
-| Fluxos e estados | `<ux-workspace>/projects/<project>/flows/` | sim |
-| UX spec | `<ux-workspace>/projects/<project>/specifications/` | sim |
-| Protótipo | `<ux-workspace>/projects/<project>/prototypes/` | quando proporcional ao risco |
-| Plano de validação de UX | `<ux-workspace>/projects/<project>/validation/` | sim |
-| Findings do Adversarial PM | `<pm-workspace>/projects/<project>/requirements/reviews/` | sim |
-| Handoffs entre PM e UX | `projects/<project>/handoffs/` de cada workspace | trânsito |
+| `PRD.md` | `<pm-workspace>/projects/<project>/requirements/prd/` | yes |
+| Product decisions | `<pm-workspace>/projects/<project>/decisions/` | when there is a trade-off |
+| Flows and states | `<ux-workspace>/projects/<project>/flows/` | yes |
+| UX spec | `<ux-workspace>/projects/<project>/specifications/` | yes |
+| Prototype | `<ux-workspace>/projects/<project>/prototypes/` | when proportional to the risk |
+| UX Validation Plan | `<ux-workspace>/projects/<project>/validation/` | yes |
+| Adversarial PM Findings | `<pm-workspace>/projects/<project>/requirements/reviews/` | yes |
+| Handoffs between PM and UX | `projects/<project>/handoffs/` from each workspace | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar aos owners quando produto e experiência exigirem trade-off de escopo, faltar evidência para hipótese crítica ou houver objetivo incompatível. Se a evidência de usuário contradisser o problema, o loop devolve ao [🔦 Scout Loop](01-discovery-and-research.md).
+Escalate to owners when product and experience require scope trade-off, lack of evidence for critical hypothesis or there is an incompatible objective. If user evidence contradicts the issue, the loop returns to [🔦 Scout Loop](01-discovery-and-research.md).

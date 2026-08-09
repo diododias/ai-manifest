@@ -1,11 +1,11 @@
-# Contrato de artefatos do fluxo
+# Flow artifacts contract
 
-Use este contrato nas skills de produto e engenharia.
+Use this contract in product and engineering skills.
 
-1. Antes de ler ou escrever artefatos, procure a convenção do repositório consumidor. Se houver configuração ou uma regra local, ela prevalece.
-2. Sem convenção local, use o layout padrão: `business-discovery/<feature>/requisitos.md`, `teamwork/plan/feature-plan-<feature>/`, `.agents/prd/<feature>/PRD.md` e `.agents/spec/<feature>/SPEC.md`.
-3. Só crie o diretório de um artefato de saída quando a tarefa autorizar produzir esse artefato. Nunca crie todos os diretórios preventivamente.
-4. Se o layout existente divergir do padrão, apresente o mapeamento e peça confirmação antes de escrever. Preserve artefatos e histórico existentes.
-5. Trate PRD e SPEC aprovados como baseline: registre desvios em relatório; só altere requisitos, critérios de aceite ou status após decisão explícita registrada.
+1. Before reading or writing artifacts, look up the convention of the consuming repository. If there is configuration or a local rule, it prevails.
+2. Without local convention, use the default layout: `business-discovery/<feature>/requisitos.md`, `teamwork/plan/feature-plan-<feature>/`, `.agents/prd/<feature>/PRD.md` and `.agents/spec/<feature>/SPEC.md`.
+3. Only create an output artifact directory when the task authorizes producing that artifact. Never create all directories preemptively.
+4. If the existing layout differs from the standard, present the mapping and ask for confirmation before writing. Preserve existing artifacts and history.
+5. Treat approved PRD and SPEC as baseline: record deviations in a report; only change requirements, acceptance criteria or status after an explicit decision has been recorded.
 
-Use caminhos relativos à raiz do repositório consumidor e informe os caminhos efetivamente usados no resultado.
+Use paths relative to the root of the consumer repository and inform the paths actually used in the result.

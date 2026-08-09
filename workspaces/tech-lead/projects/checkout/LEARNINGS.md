@@ -1,13 +1,13 @@
-# Aprendizados — checkout (Tech Lead)
+# Learnings — checkout (Tech Lead)
 
-Quando um aprendizado valer para vários projetos, promova-o para os documentos de modelo operacional em `docs/` ou para `docs/workflows/`.
+When a learning is valid for multiple projects, promote it to the operating model documents in `docs/` or to `docs/workflows/`.
 
-## Candidatos
-Observações que ainda precisam de validação. Registre: observação, contexto, evidência disponível, hipótese e condição necessária para aceitação. Um candidato não orienta decisões como regra confirmada.
+## Candidates
+Observations that still need validation. Record: observation, context, available evidence, hypothesis and necessary condition for acceptance. A candidate does not guide decisions as a confirmed rule.
 
-<!-- candidatos aqui -->
+<!-- candidates here -->
 
-## Aceitos
-Aprendizados validados no projeto, com evidência, alcance e data de revisão.
+## Accepted
+Learning validated in the project, with evidence, scope and review date.
 
-<!-- aprendizados aceitos aqui -->
+<!-- learnings accepted here -->

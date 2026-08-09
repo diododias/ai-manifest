@@ -1,3 +1,3 @@
-# Pesquisa
+# Search
 
-Armazene aqui descobertas específicas do checkout, com método, data, participantes anonimizados e limitações.
+Store specific checkout findings here, with method, date, anonymized participants, and limitations.

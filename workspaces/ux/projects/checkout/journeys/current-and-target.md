@@ -1,17 +1,17 @@
-# Jornada atual e desejada
+# Current and desired journey
 
-## Atual, como hipótese
+## Current, as hypothesis
 
-1. Cliente confirma pagamento.
-2. A resposta expira.
-3. Cliente não sabe se foi cobrado.
-4. Cliente abandona, repete com receio ou procura suporte.
+1. Customer confirms payment.
+2. The response expires.
+3. Customer does not know if he was charged.
+4. Customer abandons, repeats with fear or seeks support.
 
-## Desejada
+## Desired
 
-1. Cliente confirma pagamento.
-2. Interface comunica processamento sem permitir repetição acidental.
-3. Em timeout, oferece consulta ou retry seguro conforme o contrato técnico.
-4. Resultado e próxima ação ficam claros.
+1. Customer confirms payment.
+2. Interface communicates processing without allowing accidental repetition.
+3. In timeout, offers secure consultation or retry as per the technical contract.
+4. Result and next action are clear.
 
-A jornada desejada depende da validação de pesquisa e viabilidade técnica.
+The desired journey depends on research validation and technical feasibility.

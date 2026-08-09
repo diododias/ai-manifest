@@ -1,13 +1,13 @@
-# Contexto — Checkout
+# Context — Checkout
 
-Após um timeout, o cliente não sabe se o pagamento foi concluído nem se uma nova tentativa é segura. UX deve tornar processamento, resultado e recuperação compreensíveis sem prometer comportamento que o sistema não garante.
+After a timeout, the customer does not know whether the payment was completed nor whether a new attempt is safe. UX must make processing, output and recovery understandable without promising behavior that the system does not guarantee.
 
-## Outcome recebido
+## Outcome received
 
-Permitir repetição segura e reduzir incerteza sobre cobrança duplicada.
+Enable safe replay and reduce uncertainty about double billing.
 
-## Restrições conhecidas
+## Known restrictions
 
-- a confirmação do provedor pode ser assíncrona;
-- conteúdo não pode expor detalhes internos ou dados sensíveis;
-- estados precisam funcionar com teclado e tecnologia assistiva.
+- provider confirmation can be asynchronous;
+- content cannot expose internal details or sensitive data;
+- states need to work with keyboard and assistive technology.

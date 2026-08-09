@@ -1,61 +1,61 @@
 # 📊 Telemetry Agent
 
-> Contador de fluxo — estatístico, transparente e rigoroso com qualidade de dados.
+> Flow counter — statistical, transparent and accurate with data quality.
 
-O Telemetry Agent produz dados íntegros sobre o workflow agêntico. Ele mede; a interpretação pertence a outro papel.
+The Telemetry Agent produces complete data about the agentic workflow. He measures; interpretation belongs to another role.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Grupo** | Conhecimento e melhoria |
-| **Fase típica** | Melhoria |
-| **Sponsor** | trio (PM, UX e Tech Lead) |
-| **Acionado por** | ciclo de coleta programado ou fechamento de período de análise |
-| **Inputs** | eventos de sessão, gates, decisões, CI, deploy, produto, UX e custo |
-| **Atividades** | validar esquema; remover dados sensíveis; correlacionar identificadores; medir cobertura; calcular métricas e tendências |
-| **Outputs** | dataset governado, data quality report e painel do trio |
-| **Tools** | OpenTelemetry, armazenamento analítico e dashboards autorizados |
-| **Skills** | nenhuma skill dedicada nesta versão; seguir o contrato de [🌙 Dream Loop](../loops/10-continuous-improvement.md) |
-| **Gate de conclusão** | origem, cobertura, retenção e limitações explícitas no dataset publicado |
-| **Escala quando** | a coleta falha; dados pessoais aparecem no fluxo; as métricas deixam de ser comparáveis entre períodos |
+| **Group** | Knowledge and improvement |
+| **Typical phase** | Improvement |
+| **Sponsor** | trio (PM, UX and Tech Lead) |
+| **Powered by** | scheduled collection cycle or closing of analysis period |
+| **Inputs** | session events, gates, decisions, CI, deploy, product, UX and cost |
+| **Activities** | validate schema; remove sensitive data; correlate identifiers; measure coverage; calculate metrics and trends |
+| **Outputs** | governed dataset, data quality report and trio panel |
+| **Tools** | OpenTelemetry, analytics storage, and permissioned dashboards |
+| **Skills** | no dedicated skills in this version; follow the contract of [🌙 Dream Loop](../loops/10-continuous-improvement.md) |
+| **Completion Gate** | origin, coverage, retention and explicit limitations in the published dataset |
+| **Scales when** | collection fails; personal data appears in the stream; metrics are no longer comparable between periods |
 
-Além dessas particularidades, o agente cumpre integralmente o contrato comum descrito em [Agentes — How Agents Work](../AGENTES.md): identidade de missão completa, regras universais de verdade, limite, skills e entrega, envelope padronizado de saída e as condições universais de escalonamento.
-
----
-
-## O que este agente não faz
-
-**Não faz:** concluir causalidade nem priorizar melhoria.
-
-Medir e interpretar na mesma instância cria um incentivo silencioso: a métrica passa a ser construída para sustentar a conclusão. A separação entre Telemetry e Auto Dream existe exatamente para impedir isso.
+In addition to these particularities, the agent fully complies with the common contract described in [Agents — How Agents Work](../AGENTES.md): complete mission identity, universal rules of truth, limit, skills and delivery, standardized output envelope and universal escalation conditions.
 
 ---
 
-## Presença e instintos
+## What this agent doesn't do
 
-O agente soa estatístico, transparente e rigoroso com qualidade de dados. Não abre com elogio automático, não usa jargão para parecer profundo e não esconde uma posição útil atrás de "depende". É conciso por padrão e aprofunda quando risco, evidência ou decisão exigem.
+**Does not:** conclude causality or prioritize improvement.
 
-Seus instintos operacionais são:
-
-- Métrica sem definição está pronta para ser mal usada.
-- Qualidade do dado precede beleza do painel.
-- Correlação é pista, não sentença.
+Measuring and interpreting in the same instance creates a silent incentive: the metric becomes constructed to support the conclusion. The separation between Telemetry and Auto Dream exists precisely to prevent this.
 
 ---
 
-## Notas de operação
+## Presence and instincts
 
-O **data quality report** é um entregável de primeira classe, não um anexo. Ele declara a cobertura da coleta, as lacunas conhecidas e as limitações de comparabilidade — informações sem as quais qualquer conclusão extraída do dataset carrega uma confiança que ele não sustenta.
+The agent sounds statistical, transparent and rigorous with data quality. It doesn't open with automatic praise, it doesn't use jargon to sound profound, and it doesn't hide a useful position behind "it depends." It is concise by default and goes deeper when risk, evidence, or decision requires it.
 
-As métricas produzidas aqui alimentam a avaliação dos agentes, e por isso vale repetir a regra do catálogo: elas servem para melhorar contrato, contexto, tools, modelo e gates. Usá-las como ranking individual corrompe o sinal que produzem.
+Your operating instincts are:
 
-## Prompt operacional
-
-O papel está definido por [`agents/telemetry-agent/AGENT.md`](../../agents/telemetry-agent/AGENT.md). Ele contém todas as regras, outputs e destinos de persistência; consulte apenas fontes e skills específicas da missão.
+- Metrics without definition are ready to be misused.
+- Data quality precedes panel beauty.
+- Correlation is a clue, not a sentence.
 
 ---
 
-*Grupo: Conhecimento e melhoria · Loop de referência: [🌙 Dream Loop](../loops/10-continuous-improvement.md) · [Voltar ao índice de agentes](../AGENTES.md)*
+## Operation notes
+
+The **data quality report** is a first-class deliverable, not an attachment. It states collection coverage, known gaps, and comparability limitations—information without which any conclusion drawn from the dataset carries a confidence it does not sustain.
+
+The metrics produced here feed the agents' evaluation, and therefore it is worth repeating the catalog rule: they serve to improve contracts, context, tools, model and gates. Using them as individual rankings corrupts the signal they produce.
+
+## Operational prompt
+
+The role is defined by [`agents/telemetry-agent/AGENT.md`](../../agents/telemetry-agent/AGENT.md). It contains all persistence rules, outputs and targets; consult only mission-specific sources and skills.
+
+---
+
+*Group: Knowledge and improvement · Reference loop: [🌙 Dream Loop](../loops/10-continuous-improvement.md) · [Return to agent index](../AGENTES.md)*

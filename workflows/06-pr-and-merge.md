@@ -1,60 +1,60 @@
 ---
-title: Workflow 06 — PR e merge
+title: Workflow 06 — PR and merge
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 06 — PR e merge
+# Workflow 06 — PR and merge
 
-> Bloco executável do [🚪 Gatekeeper Loop](../docs/loops/06-pr-and-merge.md): transforma um baseline validado em proposta de integração auditável e prova que somente o head aprovado chegou à branch protegida.
+> [🚪 Gatekeeper Loop](../docs/loops/06-pr-and-merge.md) executable block: transforms a validated baseline into an auditable integration proposal and proves that only the approved head reached the protected branch.
 
-A PR é interface de decisão, não uma segunda implementação ou um dump do evidence pack. Ela destaca comportamento, hotspots, risco, evidências, exceções e rollback para que Code Owners decidam H4 sem reconstruir o trabalho anterior.
+The PR is a decision interface, not a second implementation or an evidence pack dump. It highlights behavior, hotspots, risk, evidence, exceptions, and rollback so that Code Owners can decide H4 without rebuilding previous work.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada liga Work Item, commits, PR, checks, reviews, decisão H4 e resultado de merge. O head validado, o head aprovado e o head integrado precisam formar uma cadeia comprovável; estado remoto atual sempre prevalece sobre memória ou snapshot local.
+A closed execution links Work Item, commits, PR, checks, reviews, H4 decision and merge result. The validated head, the approved head and the integrated head need to form a verifiable chain; Current remote state always takes precedence over local memory or snapshot.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | base atualizada, CI exigido verde, aprovações válidas e exceções resolvidas |
-| **Agentes** | PR Agent sintetizou/roteou; reviewers e Code Owners mantiveram autoridade independente |
-| **Plataforma** | branch protection/ruleset foi consultado e o merge ocorreu apenas pela política |
-| **Workspace** | Work Item, review interno, `STATUS.md` e board refletem o estado remoto |
-| **Prova** | commit integrado é descendente/head esperado na branch destino ou o bloqueio está explícito |
+| **Loop** | updated base, green required CI, valid approvals and resolved exceptions |
+| **Agents** | PR Agent synthesized/routed; reviewers and Code Owners maintained independent authority |
+| **Platform** | branch protection/ruleset was consulted and the merge occurred only by policy |
+| **Workspace** | Work Item, internal review, `STATUS.md` and board reflect remote status |
+| **Proof** | integrated commit is expected descendant/head on target branch or blocking is explicit |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 6 — construção e validação |
-| **Unidade de execução** | uma PR por conjunto coerente de Work Items e baseline validado |
-| **Consolida** | [PR Agent](../agents/pr-agent/AGENT.md) |
-| **Colaboram** | Reviewer Agents e Code Owners exigidos pelos paths, risco e política |
-| **Owner humano** | Code Owner ou Tech Lead conforme branch protection e classe de risco |
-| **Entrada** | commits/diff validados, evidence pack Red Team, checks, risco, base/head e autorização de publicação |
-| **Saída** | PR rastreável, review/decisão H4 e merge comprovado ou bloqueio reproduzível |
-| **Gate de conteúdo** | descrição, critérios, hotspots, risco, checks, rollback, fora de escopo e links completos |
-| **Gate de integração** | head atual validado; CI verde; base atualizada; approvals válidos; nenhuma exceção pendente |
-| **Volta dominante** | externa — ajuste volta ao Ralph Loop e revalida no Red Team |
-| **Próximo workflow** | [07 — homologação](07-release-candidate-validation.md), após merge comprovado |
+| **Step** | 6 — construction and validation |
+| **Execution unit** | one PR per coherent set of Work Items and validated baseline |
+| **Consolidates** | [PR Agent](../agents/pr-agent/AGENT.md) |
+| **Collaborate** | Reviewer Agents and Code Owners required by paths, risk and policy |
+| **Human owner** | Code Owner or Tech Lead depending on branch protection and risk class |
+| **Input** | validated commits/diff, evidence pack Red Team, checks, risk, base/head and publication authorization |
+| **Exit** | Trackable PR, H4 review/decision and proven merge or reproducible block |
+| **Content gate** | description, criteria, hotspots, risk, checks, rollback, out of scope and full links |
+| **Integration Gate** | head current validated; IC green; updated base; valid approvals; no pending exception |
+| **Dominant lap** | external — adjustment returns to Ralph Loop and revalidates in the Red Team |
+| **Next workflow** | [07 — approval](07-release-candidate-validation.md), after proven merge |
 
 ---
 
-## Preflight remoto
+## Remote Preflight
 
-1. Resolver Work Item, repositório, branch/base, commits e evidence pack; confirmar autorização para abrir/atualizar PR.
-2. Consultar estado remoto atual: branch destino, head publicado, PR existente, checks, reviews, conflitos e ruleset.
-3. Provar que o `head_commit` da PR é o mesmo validado pelo Red Team. Divergência bloqueia a abertura como “pronta”.
-4. Identificar Code Owners dos paths, approvals por risco, lanes CI e política de merge/auto-merge.
-5. Detectar PR duplicada para branch/Work Item antes de criar outra.
-6. Confirmar plano de rollback, migrations/ordem de deploy e arquivos sensíveis.
-7. Registrar no Work Item a transição para `review` e o identificador da PR somente após a plataforma confirmar a operação.
+1. Resolve Work Item, repository, branch/base, commits and evidence pack; confirm authorization to open/update PR.
+2. Consult current remote status: target branch, published head, existing PR, checks, reviews, conflicts and ruleset.
+3. Prove that PR's `head_commit` is the same as the one validated by the Red Team. Divergence locks the opening as “ready”.
+4. Identify Code Owners of paths, risk approvals, CI lanes and merge/auto-merge policy.
+5. Detect duplicate PR for branch/Work Item before creating another one.
+6. Confirm rollback plan, migrations/deployment order and sensitive files.
+7. Register the transition to `review` and the PR identifier in the Work Item only after the platform confirms the operation.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "GATEKEEPER-<id>"
@@ -78,151 +78,151 @@ stop_conditions: []
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[Head validado + evidence pack] --> B[PR Agent<br/>preflight remoto]
-    B --> C[PR Agent<br/>abre/atualiza PR + hotspots]
-    C --> D1[Checks CI]
+TD flowchart
+    A[Head validated + evidence pack] --> B[PR Agent<br/>remote preflight]
+    B --> C[PR Agent<br/>opens/updates PR + hotspots]
+    C --> D1[CI Checks]
     C --> D2[Reviewer Agents]
     C --> D3[Code Owners]
-    D1 --> E[PR Agent<br/>reconcilia estado]
+    D1 --> E[PR Agent<br/>reconciles state]
     D2 --> E
     D3 --> E
-    E --> F{Novo commit material?}
-    F -- sim --> G[Ralph + Red Team]
+    E --> F{New material commit?}
+    F -- yes --> G[Ralph + Red Team]
     G --> C
-    F -- não --> H{Gate H4/política}
-    H -- bloqueado --> I[Escalonamento]
-    H -- aprovado --> J[Merge protegido]
-    J --> K[Provar integração<br/>e atualizar workspace]
+    F -- no --> H{Gate H4/politics}
+    H -- blocked --> I[Scaling]
+    H -- approved --> J[Merge protected]
+    J --> K[Try integration<br/>and update workspace]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — reconciliar baseline | PR Agent | base/head/validation run e política atuais |
-| M2 — publicar síntese | PR Agent | título, comportamento, riscos, hotspots, evidências, rollback e fora de escopo |
-| M3 — verificar | CI e Reviewer Agents | checks e comentários no head atual |
-| M4 — decidir | Code Owners/Tech Lead | H4 ou resultado automático permitido pela política |
-| M5 — integrar | plataforma/ator autorizado | merge conforme estratégia protegida |
-| M6 — comprovar | PR Agent | PR/commit/branch destino e workspace reconciliados |
+| M1 — reconcile baseline | PR Agent | base/head/validation run and current policy |
+| M2 — publish summary | PR Agent | title, behavior, risks, hotspots, evidence, rollback and out of scope |
+| M3 — check | CI and Reviewer Agents | checks and comments in the current head |
+| M4 — decide | Code Owners/Tech Lead | H4 or automatic result allowed by policy |
+| M5 — integrate | authorized platform/actor | merge according to protected strategy |
+| M6 — check | PR Agent | PR/commit/branch target and workspace reconciled |
 
-Checks e reviews podem ocorrer em paralelo, mas sua validade é indexada pelo `head_sha`. Qualquer novo commit abre uma nova revisão de validade antes do gate.
-
----
-
-## Contrato da descrição da PR
-
-A descrição sintetiza:
-
-1. problema e comportamento alterado;
-2. Work Items, PRD/UX/SPEC e baseline validado;
-3. critérios de aceite e link para evidência correspondente;
-4. hotspots: paths/trechos que concentram risco e por quê;
-5. testes/checks executados, sem colar logs extensos;
-6. impacto em dados, contratos, segurança, observabilidade e operação;
-7. rollout/rollback e ordem de integração quando houver;
-8. fora de escopo, riscos residuais e exceções com prazo;
-9. owners solicitados e decisão H4 requerida.
-
-Se o reviewer precisa reler todas as sessões ou repetir o Red Team, a síntese falhou. Se não consegue chegar ao resultado bruto por link, ela esconde evidência.
+Checks and reviews can occur in parallel, but their validity is indexed by `head_sha`. Any new commit opens a new validity review before the gate.
 
 ---
 
-## Invalidação por novo head
+## PR Description Contract
 
-| Mudança após review | O que invalida |
+The description summarizes:
+
+1. problem and altered behavior;
+2. Work Items, PRD/UX/SPEC and validated baseline;
+3. acceptance criteria and link to corresponding evidence;
+4. hotspots: paths/sections that concentrate risk and why;
+5. tests/checks performed, without pasting extensive logs;
+6. impact on data, contracts, security, observability and operation;
+7. rollout/rollback and integration order when applicable;
+8. out of scope, residual risks and exceptions with deadline;
+9. owners requested and H4 decision required.
+
+If the reviewer needs to reread all the sessions or repeat the Red Team, the synthesis has failed. If it cannot reach the raw result via link, it hides evidence.
+
+---
+
+## Invalidation by new head
+
+| Change after review | What invalidates |
 |---|---|
-| formatação comprovadamente sem comportamento | somente checks definidos pela política; justificativa registrada |
-| código/teste/configuração | approvals e evidências dos paths/comportamentos afetados |
-| dependência, contrato, schema ou migração | Security/Architecture/QA/CI correspondentes e possivelmente H3/H4 |
-| escopo/outcome/UX | retorna ao Studio/Drafting, não é absorvido na PR |
-| rebase/merge da base com diferença material | checks/revalidação definidos pelo harness |
+| formatting proven to have no behavior | only checks defined by policy; registered justification |
+| code/test/configuration | approvals and evidence of affected paths/behaviors |
+| dependency, contract, schema or migration | Matching Security/Architecture/QA/CI and possibly H3/H4 |
+| scope/outcome/UX | returns to Studio/Drafting, is not absorbed into PR |
+| rebase/merge the base with material difference | checks/revalidation defined by harness |
 
-O PR Agent calcula impacto e roteia; não preserva approval por conveniência.
+PR Agent calculates impact and routes; does not preserve approval for convenience.
 
 ---
 
-## Fronteiras de autoridade
+## Authority boundaries
 
-| Participante | Faz | Não faz |
+| Participant | Do | Doesn't |
 |---|---|---|
-| PR Agent | abre/atualiza PR autorizada, sintetiza, consulta remoto, solicita owners e reconcilia | implementa correção, aprova própria PR, declara CI pela memória ou faz merge sem política |
-| Reviewer Agent | revisa o recorte do contrato no head atual | substitui Code Owner ou altera código silenciosamente |
-| Code Owner/Tech Lead | decide H4 conforme risco/política | tem aprovação inferida por ausência de resposta |
-| plataforma | aplica checks, ruleset e estratégia de merge | tem resultado reinterpretado pelo agente sem consulta atual |
+| PR Agent | opens/updates authorized PR, summarizes, consults remotely, requests owners and reconciles | implement fix, approve own PR, declare CI for memory or merge without policy |
+| Reviewer Agent | review the contract cut in the current head | replaces Code Owner or changes code silently |
+| Code Owner/Tech Lead | decides H4 according to risk/policy | has approval inferred due to lack of response |
+| platform | applies checks, ruleset and merge strategy | has result reinterpreted by agent without current consultation |
 
-Identidades de autor e aprovador permanecem distintas e são impostas pela plataforma, não apenas por prompt.
+Author and approver identities remain distinct and are enforced by the platform, not just by prompt.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Participante | Skills prioritárias |
+| Participant | Priority skills |
 |---|---|
 | PR Agent | `check-pr`, `update-pr`, `commit`, `dev-flow` |
-| agentes operando workspace | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
-| reviewer técnico acionado | skills de review do próprio contrato, já registradas no Red Team |
+| agents operating workspace | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
+| technical reviewer activated | review skills for the contract itself, already registered in the Red Team |
 
-Cada envelope registra `skills_used`. O PR Agent recebe evidence pack consolidado e hotspots; não recebe memória privada ou logs integrais sem necessidade.
+Each envelope records `skills_used`. The PR Agent receives consolidated evidence pack and hotspots; does not receive private memory or full logs unnecessarily.
 
 ---
 
-## Persistência e prova de integração
+## Persistence and proof of integration
 
-| Artefato | Destino | Regra |
+| Artifact | Destination | Rule |
 |---|---|---|
-| PR, checks, approvals e merge | plataforma de código | fonte atual do estado remoto |
-| Work Item | `work-items/<WI-id>.md` | link, base/head, status e decisão |
-| review interno | `execution/reviews/pr-<WI-id>.md` | comentários materiais, resoluções, H4 e prova de merge |
-| evidence pack | fonte existente do Red Team, referenciada | não duplicar na descrição |
-| exceção pendente | `.coordination/blockers/` até promoção formal | prazo, owner e compensação |
-| `STATUS.md` e `BOARD.md` | workspace Tech Lead | atualizados após confirmação remota |
+| PR, checks, approvals and merge | code platform | remote state current source |
+| Work Item | `work-items/<WI-id>.md` | link, base/head, status and decision |
+| internal review | `execution/reviews/pr-<WI-id>.md` | material comments, resolutions, H4 and merge proof |
+| evidence pack | existing Red Team source, referenced | do not duplicate in description |
+| pending exception | `.coordination/blockers/` until formal promotion | term, owner and compensation |
+| `STATUS.md` and `BOARD.md` | workspace Tech Lead | updated after remote confirmation |
 
-Depois do merge, registrar: PR, estratégia, commit resultante, branch destino observada, timestamp e prova de ancestralidade/contém. A ação só é concluída quando a plataforma confirma; solicitação enviada não equivale a merge.
+After the merge, record: PR, strategy, resulting commit, observed target branch, timestamp and proof of ancestry/contains. The action is only completed when the platform confirms it; Request sent is not equivalent to merge.
 
 ---
 
 ## Gates
 
-### Gate da PR
+### PR Gate
 
-- [ ] PR referencia Work Item e artefatos vigentes;
-- [ ] `head_sha` corresponde ao baseline validado;
-- [ ] descrição apresenta comportamento, critérios, hotspots, risco, evidência, rollback e fora de escopo;
-- [ ] base está atualizada conforme política e não há conflito;
-- [ ] checks exigidos estão verdes no head atual;
-- [ ] approvals/Code Owners exigidos estão válidos;
-- [ ] nenhuma exceção pendente ou finding aberto foi ocultado.
+- [ ] PR references Work Item and current artifacts;
+- [ ] `head_sha` corresponds to the validated baseline;
+- [ ] description presents behavior, criteria, hotspots, risk, evidence, rollback and out of scope;
+- [ ] base is updated according to policy and there is no conflict;
+- [ ] required checks are green in the current head;
+- [ ] required approvals/Code Owners are valid;
+- [ ] no pending exceptions or open findings were hidden.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] estado remoto foi consultado imediatamente antes da decisão;
-- [ ] novo commit invalidou e reabriu checks/reviews correspondentes;
-- [ ] H4/auto-merge obedecem à classe de risco e autonomia vigentes;
-- [ ] ausência de resposta não foi contada como approval;
-- [ ] merge foi executado por ator/política autorizados e comprovado;
-- [ ] Work Item, review, `STATUS.md` e board refletem o resultado remoto.
+- [ ] remote status was consulted immediately before the decision;
+- [ ] new commit invalidated and reopened corresponding checks/reviews;
+- [ ] H4/auto-merge comply with the current risk class and autonomy;
+- [ ] lack of response was not counted as approval;
+- [ ] merge was executed by an authorized and proven actor/policy;
+- [ ] Work Item, review, `STATUS.md` and board reflect the remote result.
 
 ---
 
-## Falhas e escalonamento
+## Failures and escalation
 
-| Condição | Destino |
+| Condition | Destination |
 |---|---|
-| comentário exige código | Ralph Loop + revalidação Red Team |
-| comentário revela escopo/UX incorreto | Studio Loop |
-| comentário revela decisão arquitetural | Drafting Loop/H3 |
-| aprovação exigida indisponível | `blocked`; owner define substituição/prazo conforme política |
-| CI inconsistente ou não reproduzível | escalar com runs, commits e ambientes; retry cego não aprova |
-| conflito entre reviewers | Code Owner/Tech Lead decide com divergência explícita |
-| exceção de política | owner autorizado, com prazo e compensação |
-| branch divergiu ou head remoto mudou | interromper e refazer preflight |
+| comment requires code | Ralph Loop + Red Team revalidation |
+| comment reveals incorrect scope/UX | StudioLoop |
+| comment reveals architectural decision | Drafting Loop/H3 |
+| approval required unavailable | `blocked`; owner defines replacement/deadline according to policy |
+| Inconsistent or non-reproducible CI | scale with runs, commits and environments; blind retry does not approve |
+| conflict between reviewers | Code Owner/Tech Lead decides with explicit divergence |
+| policy exception | authorized owner, with term and compensation |
+| branch diverged or remote head changed | interrupt and redo preflight |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "GATEKEEPER-<id>"
@@ -250,4 +250,4 @@ gates:
 handoff_to: []
 ```
 
-`merged_ready_for_rc` exige prova remota do merge do head aprovado; PR “mergeable” ou comando bem-sucedido não basta.
+`merged_ready_for_rc` requires remote proof of approved head merge; PR “mergeable” or successful command is not enough.

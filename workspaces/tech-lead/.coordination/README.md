@@ -1,10 +1,10 @@
-# Coordenação transversal
+# Cross-sectional coordination
 
-Conteúdo temporário entre agentes e projetos:
+Temporary content between agents and projects:
 
-- `active/`: missões em curso;
-- `handoffs/`: transferências transversais;
-- `blockers/`: exceções que exigem resolução;
-- `inbox/`: entradas ainda não triadas.
+- `active/`: ongoing missions;
+- `handoffs/`: transversal transfers;
+- `blockers/`: exceptions that require resolution;
+- `inbox/`: entries not yet screened.
 
-Após a conclusão, promova o conteúdo durável ao projeto e remova ou arquive o restante.
+After completion, promote the durable content to the project and remove or archive the rest.

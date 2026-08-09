@@ -1,55 +1,55 @@
-# 2. Agentes
+# 2. Agents
 
 ---
 
 ## Overview — How Agents Work
 
-Um agente é um processo que recebe uma missão delimitada, lê um contexto versionado, executa trabalho autorizado com ferramentas declaradas, submete o resultado a verificações objetivas e devolve um envelope padronizado ao owner humano. Nenhuma dessas cinco etapas é opcional, e é a combinação delas — não a capacidade do modelo — que determina se o agente é confiável.
+An agent is a process that receives a delimited mission, reads a versioned context, performs authorized work with declared tools, submits the result to objective checks and returns a standardized envelope to the human owner. None of these five steps are optional, and it is the combination of them—not the model's capabilities—that determines whether the agent is trustworthy.
 
-O ponto de partida é uma observação simples: **um nome em um diagrama não é um papel**. "Security Review Agent" é apenas um rótulo até que se defina o que ele lê, o que entrega, qual gate precisa satisfazer e em que condição para e escala. O catálogo de agentes existe para converter rótulos em papéis operacionais inequívocos, de modo que uma missão possa ser despachada sem negociação prévia sobre responsabilidade, escopo ou critério de conclusão.
+The starting point is a simple observation: **a name on a diagram is not a role**. "Security Review Agent" is just a label until you define what it reads, what it delivers, which gate it needs to satisfy and in what condition it stops and scales. The agent catalog exists to convert labels into unambiguous operational roles so that a mission can be dispatched without prior negotiation about responsibility, scope, or completion criteria.
 
-### Anatomia de um agente — o que ele consome
+### Anatomy of an agent — what it consumes
 
-Um agente não carrega conhecimento próprio sobre o repositório. Tudo o que ele sabe vem de camadas versionadas que o [repo harness](REPO_HARNESS.md) disponibiliza. Cada camada responde a uma pergunta distinta, e a ausência de qualquer uma delas produz uma classe específica de falha.
+An agent does not carry its own knowledge about the repository. Everything it knows comes from versioned layers that [repo harness](REPO_HARNESS.md) makes available. Each layer answers a distinct question, and the absence of any one of them produces a specific class of failure.
 
-| Insumo | Responde | Onde vive | Se faltar |
+| Input | Reply | Where do you live | If missing |
 |---|---|---|---|
-| **Rules** | qual é o estado desejado e por quê | [`docs/rules/`](RULES.md), `AGENTS.md` | o agente escolhe uma convenção plausível e diverge do repositório |
-| **Skills** | como executar uma tarefa recorrente do jeito certo | [`skills/<skill>/SKILL.md`](SKILLS.md) | o procedimento é reinventado a cada execução, com resultado instável |
-| **Tools** | o que pode invocar e com que limite | [`.agent/settings.json`](TOOLS.md) | qualquer ação parece autorizada |
-| **MCPs** | como alcançar sistemas externos e sob qual escopo | [`.agent/mcps.json`](MCPS.md) | efeitos externos ocorrem antes que o gate local detecte |
-| **Sensors** | o que precisa passar antes de o código sair da máquina | [`.hooks/`](SENSORS.md) | o erro barato só aparece no CI, uma volta inteira depois |
-| **Gates** | o que precisa ser verdade para avançar de etapa | [CI, merge, ambiente, pós-deploy](GATES.md) | o julgamento de "pronto" fica com quem produziu |
-| **Evidência** | como provar depois que estava correto | [`docs/evidence/<work-item>/`](DOCUMENTATION.md) | a aprovação se baseia no resumo do agente, não em fatos |
-| **Memória** | o que já foi decidido em sessões anteriores | `workspace-memory`, `MEMORY.md` | o contexto é reconstruído por suposição a cada sessão |
+| **Rules** | what is the desired state and why | [`docs/rules/`](RULES.md), `AGENTS.md` | the agent chooses a plausible convention and diverges from the repository |
+| **Skills** | how to perform a recurring task the right way | [`skills/<skill>/SKILL.md`](SKILLS.md) | the procedure is reinvented with each execution, with unstable results |
+| **Tools** | what you can invoke and with what limits | [`.agent/settings.json`](TOOLS.md) | any action appears authorized |
+| **MCPs** | how to reach external systems and under what scope | [`.agent/mcps.json`](MCPS.md) | external effects occur before the local gate detects |
+| **Sensors** | what needs to go through before the code leaves the machine | [`.hooks/`](SENSORS.md) | the cheap error only appears on the CI, an entire lap later |
+| **Gates** | what needs to be true to advance to the next stage | [CI, merge, environment, post-deploy](GATES.md) | the judgment of "ready" rests with whoever produced it |
+| **Evidence** | how to prove later that it was correct | [`docs/evidence/<work-item>/`](DOCUMENTATION.md) | approval is based on agent summary, not facts |
+| **Memory** | what has already been decided in previous sessions | `workspace-memory`, `MEMORY.md` | context is reconstructed by guesswork each session |
 
-Vale explicitar a distinção mais confundida do conjunto. **Rule descreve estado desejado; skill descreve procedimento.** "Módulos de domínio não importam de infraestrutura" é rule. "Para adicionar um adapter, crie a interface em X e a implementação em Y" é skill. Tratar uma como a outra produz rules longas que ninguém lê e skills vagas que não se consegue executar.
+It is worth clarifying the most confusing distinction in the group. **Rule describes desired state; skill describes procedure.** "Domain modules do not matter from infrastructure" is rule. "To add an adapter, create the interface in X and the implementation in Y" is a skill. Treating one like the other produces long rules that no one reads and vague skills that you can't execute.
 
-### O ciclo de execução de uma missão
+### The mission execution cycle
 
-Toda execução — de qualquer papel, em qualquer fase — percorre a mesma sequência.
+Every execution — of any role, at any stage — follows the same sequence.
 
-**1. Identidade da missão.** O agente recebe um bloco de identidade completo. A ausência de qualquer campo é, na prática, uma autorização em branco, e por isso uma missão incompleta não deve ser executada.
+**1. Mission Identity.** The agent receives a full identity block. The absence of any field is, in practice, a blank authorization, and therefore an incomplete mission should not be executed.
 
-| Bloco | Campos |
+| Block | Fields |
 |---|---|
-| Identificação | `mission_id`, `work_item_id` (quando houver), fase do workflow, papel do agente |
-| Autoridade | sponsor humano (PM, UX ou Tech Lead), owner da decisão |
-| Direção | objetivo e resultado esperado, escopo e fora de escopo |
-| Fontes | fontes canônicas, artefatos de entrada e de saída |
-| Verificação | critérios de aceite e gates |
-| Limites | risco e autonomia autorizada, tools, permissões e budget |
-| Parada | condição de parada e escalonamento |
+| Identification | `mission_id`, `work_item_id` (if applicable), workflow phase, agent role |
+| Authority | human sponsor (PM, UX or Tech Lead), decision owner |
+| Direction | objective and expected result, scope and out of scope |
+| Sources | canonical sources, input and output artifacts |
+| Verification | acceptance criteria and gates |
+| Limits | risk and authorized autonomy, tools, permissions and budget |
+| Stop | stop condition and escalation |
 
-**2. Leitura de contexto.** O agente lê `AGENTS.md`, as rules aplicáveis à tarefa, os ADRs relevantes e a memória do workspace. A leitura é sob demanda: rules não são carregadas inteiras a cada execução, porque contexto é o recurso mais escasso de uma sessão.
+**2. Context reading.** The agent reads `AGENTS.md`, the rules applicable to the task, the relevant ADRs, and the workspace memory. Reading is on demand: rules are not loaded in their entirety with each execution, because context is the scarcest resource in a session.
 
-**3. Verificação de skills.** Antes de agir, o agente inventaria as skills disponíveis e usa todas as que se aplicam. Uma skill aderente à missão não pode ser ignorada, e a skill utilizada — ou a razão da não aplicação — é registrada no envelope de saída. É isso que torna auditável se o procedimento correto foi seguido.
+**3. Skills check.** Before acting, the agent inventories the available skills and uses all that apply. A skill that adheres to the mission cannot be ignored, and the skill used — or the reason for not applying it — is recorded in the output envelope. This is what makes it auditable whether the correct procedure was followed.
 
-**4. Execução autorizada.** O agente age dentro do escopo declarado, preferindo verificações locais e reversíveis. Não amplia acesso, escopo ou impacto por conta própria, e não executa ação externa ou irreversível sem autorização explícita.
+**4. Authorized execution.** The agent acts within the declared scope, preferring local and reversible checks. Does not expand access, scope or impact on its own, and does not take external or irreversible action without explicit authorization.
 
-**5. Gates.** Sensors locais e gates de CI avaliam o resultado por critérios objetivos. O agente não declara sucesso: ele executa a verificação e registra o que ela devolveu.
+**5. Gates.** Local sensors and IC gates evaluate the result by objective criteria. The agent does not declare success: it runs the check and records what it returned.
 
-**6. Envelope de saída.** A missão termina em um formato padronizado, que permite ao orquestrador e ao owner humano entender o resultado sem reler a execução inteira.
+**6. Output envelope.** The mission ends in a standardized format, which allows the orchestrator and human owner to understand the outcome without re-reading the entire execution.
 
 ```yaml
 mission_id: "..."
@@ -70,133 +70,133 @@ gates:
 handoff_to: []
 ```
 
-Dois campos merecem atenção especial. O campo `confidence` obriga o agente a declarar quão seguro está — e confiança abaixo do limite da missão é, por si só, uma condição de escalonamento. O campo `skills_used` converte a disciplina de procedimento em algo verificável por terceiros.
+Two fields deserve special attention. The `confidence` field forces the agent to declare how safe it is — and confidence below the mission threshold is itself an escalation condition. The `skills_used` field converts the procedural discipline into something verifiable by third parties.
 
-### As regras universais
+### Universal rules
 
-Quatro conjuntos de regras valem para qualquer agente, sempre. Elas resolvem antecipadamente os comportamentos que mais comprometem confiança.
+Four sets of rules apply to any agent, always. They resolve in advance the behaviors that most compromise trust.
 
-**Sobre a verdade.** Separar fato, evidência, inferência, hipótese e recomendação. Não inventar requisitos, decisões, participantes ou resultados. Citar a origem de afirmações relevantes e preservar incerteza e contradições não resolvidas. Quando uma fonte estiver ausente, produzir output parcial identificado como tal em vez de preencher a lacuna com suposição.
+**About the truth.** Separate fact, evidence, inference, hypothesis and recommendation. Do not invent requirements, decisions, participants or results. Cite the origin of relevant statements and preserve uncertainty and unresolved contradictions. When a source is missing, produce partial output identified as such rather than filling the gap with guesswork.
 
-**Sobre o limite.** Não ampliar escopo, acesso ou impacto por conta própria. Não executar ação externa ou irreversível sem autorização explícita. Atualizar somente a fonte canônica autorizada. Nunca aprovar sozinho o artefato que produziu.
+**Over the limit.** Do not expand scope, access or impact on your own. Do not perform external or irreversible action without explicit authorization. Update only the authorized canonical source. Never approve alone the artifact you produced.
 
-**Sobre as skills.** Verificar as disponíveis antes de agir e usar cada uma que se aplique. As três skills de base são obrigatórias na operação de workspace: [`workspace-memory`](../skills/workspace-memory/SKILL.md) para retomada e escrita segura de memória, [`workspace-projects`](../skills/workspace-projects/SKILL.md) para localizar a fonte canônica de `projects/`, e [`workspace-board`](../skills/workspace-board/SKILL.md) para assumir ou reconciliar Work Items.
+**About the skills.** Check the available ones before acting and use each one that applies. The three base skills are mandatory in workspace operation: [`workspace-memory`](../skills/workspace-memory/SKILL.md) for resuming and safe memory writing, [`workspace-projects`](../skills/workspace-projects/SKILL.md) for locating the canonical source of `projects/`, and [`workspace-board`](../skills/workspace-board/SKILL.md) for assuming or reconciling Work Items.
 
-**Sobre a entrega.** Entregar sempre evidence pack e resumo das mudanças, não apenas o artefato cru.
+**About delivery.** Always deliver the evidence pack and summary of changes, not just the raw artifact.
 
-### Orquestração e times por fase
+### Orchestration and teams per phase
 
-Cada fase do workflow aciona um **time temporário de agentes, dissolvido ao final**. Isso permite manter dezenas de especializações disponíveis sem que nenhuma delas fique ociosa: não se paga por um Security Review Agent parado — ele só existe quando a validação de uma mudança sensível o exige.
+Each phase of the workflow activates a **temporary team of agents, dissolved at the end**. This allows you to keep dozens of specializations available without any of them remaining idle: you don't pay for a Security Review Agent standing still — it only exists when the validation of a sensitive change requires it.
 
-Dentro de cada time, a dinâmica se repete. Um **agente primário** conduz e consolida o artefato da fase. Um ou mais agentes **colaboram ou desafiam** a partir de uma responsabilidade explícita. Os agentes **adversariais** procuram ambiguidade, lacuna, risco e suposição frágil — sempre como instâncias independentes de quem produziu.
+Within each team, the dynamics repeat themselves. A **primary agent** leads and consolidates the phase artifact. One or more agents **collaborate or challenge** based on explicit responsibility. **Adversarial** agents look for ambiguity, gaps, risks and fragile assumptions — always as instances independent of those who produced them.
 
-| Fase | Agente primário | Agentes críticos ou especialistas | Handoff |
+| Phase | Primary agent | Critical agents or specialists | Handoff |
 |---|---|---|---|
-| Intake | Intake Agent | Meeting Context quando houver reunião | PM prioriza |
-| Discovery | Product Manager Agent | UX Specification + Tech Lead Discovery | `PB.md` para H1 |
-| Produto e UX | Product Manager + UX Specification | Adversarial Product Manager | PRD + UX spec para H2 |
-| Especificação | Specification Tech Lead | Adversarial TL + especialistas | PLAN/SPEC/TASKS para H3 |
-| Implementação | Orchestrator + Software Engineer | — | diff e gates locais |
-| Validação | QA / Validation | Security + Architecture + Code Reviewer | evidence pack |
-| Integração | PR Agent | Reviewer Agents | H4 / merge |
-| Homologação | Product Validation | Release Agent | release candidate |
-| Produção | Release Agent | Observability Agent | H5 / health report |
-| Conhecimento | Knowledge Agent | Critic quando sensível | fontes canônicas |
-| Melhoria | Telemetry + Auto Dream | Critic Agent | H6, memória ou backlog |
+| Intake | Intake Agent | Meeting Context when there is a meeting | PM prioritizes |
+| Discovery | Product Manager Agent | UX Specification + Tech Lead Discovery | `PB.md` for H1 |
+| Product and UX | Product Manager + UX Specification | Adversarial Product Manager | PRD + UX spec for H2 |
+| Specification | Specification Tech Lead | Adversarial TL + experts | PLAN/SPEC/TASKS for H3 |
+| Implementation | Orchestrator + Software Engineer | — | local diff and gates |
+| Validation | QA/Validation | Security + Architecture + Code Reviewer | evidence pack |
+| Integration | PR Agent | Reviewer Agents | H4 / ​​merge |
+| Approval | Product Validation | ReleaseAgent | release candidate |
+| Production | ReleaseAgent | ObservabilityAgent | H5 / health report |
+| Knowledge | Knowledge Agent | Critic when sensitive | canonical sources |
+| Improvement | Telemetry + Auto Dream | Critical Agent | H6, memory or backlog |
 
-Observe o padrão deliberado: em quase toda fase, quem consolida não é quem critica. Isso não é redundância — é a regra de que **quem propõe não aprova**, aplicada ao nível do time. Um agente que revisasse o próprio trabalho tenderia a confirmar as próprias suposições; a independência estrutural, e não a boa-fé do modelo, é o que faz a crítica valer.
+Note the deliberate pattern: at almost every stage, those who consolidate are not those who criticize. This is not redundancy — it is the rule that **who proposes does not approve**, applied at the team level. An agent reviewing his own work would tend to confirm his own assumptions; structural independence, not the good faith of the model, is what makes the criticism worthwhile.
 
-O Orchestrator Agent distribui contexto mínimo e controla dependências nas fases com paralelismo, mas há um limite que convém gravar: ele **não substitui** o consolidado do agente primário nem a decisão do owner humano. O orquestrador organiza o trânsito; não decide o destino.
+The Orchestrator Agent distributes minimal context and controls dependencies in the phases with parallelism, but there is a limit that is worth remembering: it **does not replace** the consolidation of the primary agent nor the decision of the human owner. The orchestrator organizes traffic; does not decide destiny.
 
-Por fim, o catálogo descreve **papéis lógicos, não instâncias**. Uma execução pode usar uma instância por papel, várias instâncias paralelas do mesmo papel, ou uma instância assumindo mais de um papel compatível. A restrição que nunca se quebra: papéis de produção e de aprovação não se combinam na mesma instância quando houver risco de autoavaliação.
+Finally, the catalog describes **logical roles, not instances**. An execution can use one instance per role, multiple parallel instances of the same role, or one instance assuming more than one compatible role. The restriction that can never be broken: production and approval roles do not combine in the same instance when there is a risk of self-evaluation.
 
-### Autonomia e escalonamento
+### Autonomy and scaling
 
-O nível de autonomia concedido a um agente não é uma escolha de configuração — é uma consequência do que o repositório consegue verificar. A regra central é que **o nível do harness é o teto da autonomia, nunca a consequência dela**. Um repositório em HL1 operando com autonomia A2 não é um repositório adiantado; é um repositório com um gate faltando que ninguém percebeu ainda. Os níveis estão detalhados em [Gates](GATES.md).
+The level of autonomy granted to an agent is not a configuration choice — it is a consequence of what the repository can verify. The central rule is that **the harness level is the ceiling of autonomy, never its consequence**. A repository in HL1 operating with A2 autonomy is not an advanced repository; it's a repository with a missing gate that no one has noticed yet. The levels are detailed in [Gates](GATES.md).
 
-Dentro do teto autorizado, o agente age com iniciativa. Fora dele, para. As condições universais de escalonamento são:
+Within the authorized ceiling, the agent acts with initiative. Out of it, stop. The universal scheduling conditions are:
 
-- Requisito contraditório ou sem owner definido
-- Fonte canônica ausente, inconsistente ou reivindicada por dois donos
-- Confiança abaixo do limite declarado para a missão
-- Duas ou mais tentativas de correção sem progresso
-- Mudança fora do escopo aprovado
-- Necessidade de nova permissão ou acesso externo
-- Risco maior que o autorizado para a missão
-- Decisão irreversível ou impacto não calculável
-- Divergência entre agentes sem critério objetivo de desempate
+- Contradictory requirement or without defined owner
+- Canonical source missing, inconsistent or claimed by two owners
+- Confidence below the stated limit for the mission
+- Two or more correction attempts without progress
+- Change outside the approved scope
+- Need for new permission or external access
+- Risk greater than authorized for the mission
+- Irreversible decision or non-calculable impact
+- Divergence between agents without objective tiebreaker criteria
 
-Essas condições não são falhas: são o sistema funcionando como projetado. A lógica por trás de todas elas é a mesma — **quando o custo de errar sozinho supera o custo de perguntar, o agente pergunta**.
+These conditions are not failures: they are the system working as designed. The logic behind them all is the same — **when the cost of making mistakes alone outweighs the cost of asking, the agent asks**.
 
-### Permissões por categoria
+### Permissions by category
 
-O princípio é privilégio mínimo: um agente recebe apenas o acesso que sua missão exige, e escrita externa é sempre exceção autorizada.
+The principle is least privilege: an agent receives only the access that its mission requires, and external writing is always an authorized exception.
 
-| Categoria | Leitura | Escrita local | PR / backlog | Deploy / externo |
+| Category | Reading | Local writing | PR / backlog | Deploy / external |
 |---|---|---|---|---|
-| Intake e Meeting Context | fontes autorizadas | artefatos de proposta | somente se a missão autorizar | não |
-| Produto, UX e Discovery | produto, pesquisa e código | artefatos da fase | comentário ou proposta | não |
-| Especificação | código e docs | artefatos técnicos | comentário ou proposta | não |
-| Software Engineer | escopo do repositório | código, testes e docs | branch ou PR autorizado | não por padrão |
-| Reviewers | código e evidências | relatório e comentários | review autorizado | não |
-| PR Agent | Git e checks | descrição e evidence pack | PR autorizado | merge só por política |
-| Release | artefato e ambientes | registro de release | status | ambiente explicitamente autorizado |
-| Observability | telemetria | alertas e relatórios | incidente autorizado | pausa ou rollback por política |
-| Knowledge e melhoria | docs, memória e métricas | proposta ou fonte autorizada | backlog autorizado | não |
+| Intake and Meeting Context | authorized sources | proposal artifacts | only if the mission authorizes | no |
+| Product, UX and Discovery | product, research and code | phase artifacts | comment or proposal | no |
+| Specification | code and docs | technical artifacts | comment or proposal | no |
+| Software Engineer | repository scope | code, tests and docs | authorized branch or PR | not by default |
+| Reviewers | code and evidence | report and comments | authorized review | no |
+| PR Agent | Git and checks | description and evidence pack | Authorized PR | merge just for politics |
+| Release | artifact and environments | release registration | status | explicitly authorized environment |
+| Observability | telemetry | alerts and reports | authorized incident | pause or rollback by policy |
+| Knowledge and improvement | docs, memory and metrics | proposal or authorized source | authorized backlog | no |
 
-### Do papel lógico ao agente executável
+### From logical role to executable agent
 
-Cada papel deste catálogo está materializado em [`agents/<agent-id>/`](../agents/README.md) por um prompt único, independente de runtime:
+Each paper in this catalog is materialized in [`agents/<agent-id>/`](../agents/README.md) by a single prompt, independent of runtime:
 
 ```text
 <agent-id>/
-└── AGENT.md     # missão, limites, presença e diretivas estáveis do sponsor
+└── AGENT.md # mission, limits, presence and stable directives of the sponsor
 ```
 
-`AGENT.md` é a única fonte de instruções executáveis do papel e inclui regras universais, output e persistência. Fontes, regras locais e skills são consultadas apenas quando forem específicas da missão; não existe prompt consolidado gerado nem artefato de sincronização de runtime.
+`AGENT.md` is the paper's only source of executable instructions and includes universal rules, output, and persistence. Sources, local rules and skills are consulted only when they are specific to the mission; There is no consolidated prompt generated or runtime synchronization artifact.
 
 ---
 
-## Agentes disponíveis
+## Available agents
 
-Os 23 papéis estão documentados individualmente em **[`agentes/`](agentes/README.md)** — um arquivo por agente, com o contrato operacional completo, os limites explícitos do papel, a personalidade e as notas de operação.
+The 23 roles are documented individually in **[`agentes/`](agentes/README.md)** — one file per agent, with the full operating agreement, explicit role limits, personality, and operating notes.
 
-O índice oficial, agrupado por função na jornada, vive nesse mesmo diretório: **[índice de contratos dos agentes](agentes/README.md)**. Ele é a fonte canônica da lista; esta página descreve o funcionamento comum a todos.
+The official index, grouped by role in the journey, lives in this same directory: **[agents' contract index](agentes/README.md)**. He is the canonical source for the list; This page describes the common operation for all.
 
-| Grupo | Papéis | Sponsor típico |
+| Group | Papers | Typical Sponsor |
 |---|---|---|
-| [Entrada e coordenação](agentes/README.md#entrada-e-coordenação) | Intake, Meeting Context, Orchestrator | PM e owner da fase |
-| [Produto, UX e discovery](agentes/README.md#produto-ux-e-discovery) | Product Manager, UX Specification, Tech Lead Discovery, Adversarial PM | PM e UX |
-| [Especificação técnica](agentes/README.md#especificação-técnica) | Specification TL, Adversarial TL, Security/Data/Platform | Tech Lead |
-| [Construção e validação](agentes/README.md#construção-e-validação) | Software Engineer, QA, Security Review, Architecture Review, Adversarial Code Reviewer | Tech Lead |
-| [Integração, homologação e operação](agentes/README.md#integração-homologação-e-operação) | PR, Product Validation, Release, Observability | Tech Lead, PM e UX |
-| [Conhecimento e melhoria](agentes/README.md#conhecimento-e-melhoria) | Knowledge, Telemetry, Auto Dream, Critic | owner do domínio e trio |
+| [Input and coordination](agentes/README.md#entry-and-coordination) | Intake, Meeting Context, Orchestrator | PM and phase owner |
+| [Product, UX and discovery](agentes/README.md#produto-ux-e-discovery) | Product Manager, UX Specification, Tech Lead Discovery, Adversarial PM | PM and UX |
+| [Technical specification](agentes/README.md#technical-specification) | Specification TL, Adversarial TL, Security/Data/Platform | Tech Lead |
+| [Construction and validation](agentes/README.md#construction-and-validation) | Software Engineer, QA, Security Review, Architecture Review, Adversarial Code Reviewer | Tech Lead |
+| [Integration, approval and operation](agentes/README.md#integration-approval-and-operation) | PR, Product Validation, Release, Observability | Tech Lead, PM and UX |
+| [Knowledge and improvement](agentes/README.md#conhecimento-e-melhoria) | Knowledge, Telemetry, Auto Dream, Critic | domain owner and trio |
 
 ---
 
-## Versionamento e avaliação
+## Versioning and evaluation
 
-Cada definição de agente registra versão do contrato e data, versão do prompt, modelo, effort e tools, responsável humano, casos de teste e golden outputs, métricas de qualidade, custo e duração, falhas conhecidas e contextos proibidos, além de changelog com plano de rollback.
+Each agent definition records contract version and date, prompt version, model, effort and tools, human responsible, test cases and golden outputs, quality metrics, cost and duration, known failures and prohibited contexts, in addition to a changelog with rollback plan.
 
-As métricas por agente cobrem taxa de conclusão sem escalonamento, aprovação na primeira passagem do gate, precisão dos fatos e rastreabilidade, findings confirmados e falsos positivos, retrabalho causado no próximo handoff, tokens, custo e tempo, cobertura do output obrigatório, e violações de escopo ou permissão.
+Metrics per agent cover unscaled completion rate, first gate pass, accuracy of facts and traceability, confirmed findings and false positives, rework caused in the next handoff, tokens, cost and time, mandatory output coverage, and scope or permission violations.
 
-**Essas métricas não formam ranking individual.** Elas servem para melhorar contrato, contexto, tools, modelo e gates — usá-las como avaliação de desempenho corrompe o sinal que produzem.
-
----
-
-## Checklist para adicionar um novo agente
-
-- [ ] O problema exige um papel novo ou cabe em um agente existente?
-- [ ] Sponsor e direito de decisão estão claros?
-- [ ] Inputs e fontes canônicas estão definidos?
-- [ ] O output possui schema verificável?
-- [ ] As permissões seguem privilégio mínimo?
-- [ ] Existe condição de parada e escalonamento?
-- [ ] Produção e crítica estão segregadas?
-- [ ] Há testes com casos nominal, ambíguo, incompleto e sensível?
-- [ ] Telemetria e custo serão registrados?
-- [ ] O catálogo, o orquestrador e os handoffs foram atualizados?
+**These metrics do not form individual rankings.** They serve to improve contracts, context, tools, models and gates — using them as a performance assessment corrupts the signal they produce.
 
 ---
 
-*Anterior: [Harness do Repositório](REPO_HARNESS.md) · Próximo: os [contratos individuais dos agentes](agentes/README.md).*
+## Checklist for adding a new agent
+
+- [ ] Does the problem require a new role or does it fit an existing agent?
+- [ ] Are sponsor and decision rights clear?
+- [ ] Are canonical inputs and sources defined?
+- [ ] Does the output have a verifiable schema?
+- [ ] Do permissions follow least privilege?
+- [ ] Is there a stopping and escalation condition?
+- [ ] Are production and criticism segregated?
+- [ ] Are there tests with nominal, ambiguous, incomplete and sensitive cases?
+- [ ] Will telemetry and cost be recorded?
+- [ ] Have the catalog, orchestrator and handoffs been updated?
+
+---
+
+*Previous: [Repository Harness](REPO_HARNESS.md) · Next: [individual agent contracts](agentes/README.md).*

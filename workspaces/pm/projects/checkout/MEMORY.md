@@ -1,3 +1,3 @@
-# Memória do projeto checkout (PM)
+# Checkout project memory (PM)
 
-`PM-WI-001` aguarda evidências de Tech Lead e UX. Confirme o estado no Work Item, no aceite de produto e nos handoffs; este arquivo não é autoritativo.
+`PM-WI-001` awaits evidence from Tech Lead and UX. Confirm the status of the Work Item, product acceptance and handoffs; this file is not authoritative.

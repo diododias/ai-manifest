@@ -1,7 +1,7 @@
 # Handoff UX → Tech Lead
 
-- Fluxo: [`../flows/payment-retry.md`](../flows/payment-retry.md).
-- Especificação: [`../specifications/UX-SPEC-001-payment-recovery.md`](../specifications/UX-SPEC-001-payment-recovery.md).
-- Estados obrigatórios: processando, sucesso, falha recuperável, indeterminado e conflito.
-- Requisitos: preservar contexto, evitar retry acidental, suportar teclado, foco e anúncio.
-- Pendência: conteúdo e hipóteses ainda exigem pesquisa e aprovação de UX.
+- Flow: [`../flows/payment-retry.md`](../flows/payment-retry.md).
+- Specification: [`../specifications/UX-SPEC-001-payment-recovery.md`](../specifications/UX-SPEC-001-payment-recovery.md).
+- Mandatory states: processing, success, recoverable failure, indeterminate and conflict.
+- Requirements: preserve context, avoid accidental retry, support keyboard, focus and advertisement.
+- Pending: content and hypotheses still require UX research and approval.

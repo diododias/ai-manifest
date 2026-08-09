@@ -1,90 +1,90 @@
 # 🐤 Canary Loop
 
-> Produção e observação — libera com exposição controlada e usa sinais operacionais para ampliar, pausar ou reverter.
+> Production and observation — releases with controlled exposure and uses operational signals to zoom, pause or reverse.
 
-O nome vem do canário na mina: uma fração pequena da exposição serve de sensor para o resto. O Canary Loop é o único da jornada cujo gate roda **depois** da mudança já estar valendo — a janela pós-deploy é uma volta como qualquer outra, e o rollback é o retorno dela.
+The name comes from the canary in the mine: a small fraction of the exhibit serves as a sensor for the rest. The Canary Loop is the only one in the journey whose gate runs **after** the change has already taken effect — the post-deploy window is a return like any other, and the rollback is its return.
 
-O Release Agent executa a política; o Observability Agent interpreta e evidencia a saúde. A separação existe porque quem está executando um rollout tem incentivo estrutural para interpretar sinal ambíguo como ruído.
+The Release Agent executes the policy; the Observability Agent interprets and highlights health. The separation exists because whoever is executing a rollout has a structural incentive to interpret ambiguous signal as noise.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 8 — release e operação |
-| **Consolida** | [🚀 Release Agent](../agentes/release-agent.md) |
-| **Colabora** | [📡 Observability Agent](../agentes/observability-agent.md) |
-| **Owner humano** | Tech Lead; PM coaprova R3/R4 |
-| **Entrada** | release candidate aprovado, planos de rollout e rollback, SLOs, alertas e autorizações |
-| **Saída** | versão liberada, health report, changelog e rollback ou pausa quando aplicável |
-| **Gate de saída** | H5 — ambiente autorizado, migração compatível e janela pós-deploy sem regressão relevante |
-| **Volta dominante** | externa — a janela pós-deploy fecha a volta; regressão dispara rollback |
+| **Step** | 8 — release and operation |
+| **Consolidates** | [🚀 Release Agent](../agentes/release-agent.md) |
+| **Collaborate** | [📡 Observability Agent](../agentes/observability-agent.md) |
+| **Human owner** | Tech Lead; PM co-approves R3/R4 |
+| **Input** | approved release candidate, rollout and rollback plans, SLOs, alerts and authorizations |
+| **Exit** | released version, health report, changelog and rollback or pause when applicable |
+| **Exit gate** | H5 — authorized environment, compatible migration and post-deployment window without relevant regression |
+| **Dominant lap** | external — the post-deploy window closes the loop; regression triggers rollback |
 
 ```mermaid
 flowchart LR
-    A[Release candidate] --> B{Política exige H5?}
-    B -- sim --> C[H5: aprovar exposição]
-    B -- não --> D[Release Agent\ncanary, flag ou rollout]
+    A[Release candidate] --> B{Politics requires H5?}
+    B -- yes --> C[H5: approve exposure]
+    B -- no --> D[Release Agent\ncanary, flag or rollout]
     C --> D
-    D --> E[Observability Agent\nSLOs, erros e baseline]
-    E --> F{Saúde do rollout}
-    F -- saudável --> G[ampliar e concluir]
-    F -- regressão --> H[pausar ou rollback]
-    H --> I[🔁 Ralph Loop ou incidente]
+    D --> E[Observability Agent\nSLOs, errors and baseline]
+    E --> F{Rollout health}
+    F -- healthy --> G[expand and conclude]
+    F -- regression --> H[pause or rollback]
+    H --> I[🔁 Ralph Loop or incident]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O Release Agent verifica artefato, ambiente, secrets autorizados, migração, backup e **capacidade de rollback** antes de qualquer exposição.
-2. H5 é aplicado conforme o risco. R3/R4 exigem aprovação explícita antes de produção.
-3. O Release Agent executa a estratégia autorizada — canary, feature flag ou rollout progressivo. O Observability Agent compara erros, latência, SLOs e métricas de produto com o baseline.
-4. Sinal de regressão dispara pausa ou rollback conforme política, com evidence pack para o Tech Lead. Estabilidade completa a janela pós-deploy.
+1. The Release Agent checks artifact, environment, authorized secrets, migration, backup and **rollback capability** before any exposure.
+2. H5 is applied depending on the risk. R3/R4 require explicit approval before production.
+3. The Release Agent executes the authorized strategy — canary, feature flag, or progressive rollout. The Observability Agent compares errors, latency, SLOs and product metrics with the baseline.
+4. Regression signal triggers pause or rollback according to policy, with evidence pack for the Tech Lead. Stability completes the post-deploy window.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | release candidate aprovado + pendências aceitas conscientemente na homologação, com owner e prazo |
-| **Saída** | health report com baseline, desvio observado e decisão tomada; candidatos a aprendizado para o [🗄️ Archivist Loop](09-knowledge-curation.md) |
+| **Input** | release candidate approved + pending issues consciously accepted upon approval, with owner and deadline |
+| **Exit** | health report with baseline, observed deviation and decision taken; apprenticeship candidates for the [🗄️ Archivist Loop](09-knowledge-curation.md) |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** ampliar exposição diante de alerta crítico não explicado.
+**Does not:** expand exposure in the face of an unexplained critical alert.
 
-"Provavelmente não é relacionado" é a frase que precede a maior parte dos incidentes evitáveis. Enquanto um sinal crítico não tiver explicação, a exposição não cresce — a decisão de seguir mesmo assim pertence ao Tech Lead, com o desvio registrado.
+"Probably unrelated" is the phrase that precedes most preventable incidents. As long as a critical signal is unexplained, exposure does not grow — the decision to follow anyway belongs to the Tech Lead, with the deviation recorded.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Rollback não testado | descobre-se na hora que a migração é irreversível | capacidade de rollback é verificada antes da exposição, não durante |
-| Baseline ausente | não há com o que comparar a métrica | o baseline é capturado antes do rollout começar |
-| Sinal contraditório resolvido pelo executor | quem faz o rollout também julga a saúde | interpretação pertence ao Observability Agent |
-| Janela pós-deploy encerrada cedo | "subiu e não quebrou" após dez minutos | a janela tem duração declarada pela classe de risco |
+| Rollback not tested | it is discovered immediately that the migration is irreversible | rollback capacity is checked before exposure, not during |
+| Missing baseline | there is nothing to compare the metric to | the baseline is captured before the rollout begins |
+| Contradictory signal resolved by the executor | whoever does the rollout also judges health | interpretation belongs to Observability Agent |
+| Post-deploy window closed early | "rose and didn't break" after ten minutes | the window has a duration declared by the risk class |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Health report da janela pós-deploy | `<tech-lead-workspace>/projects/<project>/execution/evidence/<release-id>/` | sim |
-| Changelog da versão | registro autorizado de release | sim |
-| Candidatos a aprendizado | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | quando houver |
-| Evidence pack de rollback | `execution/evidence/<release-id>/rollback/` | se houve rollback |
-| Incidente, alerta e pausa em curso | `.coordination/` até serem promovidos | trânsito |
+| Post-deploy window health report | `<tech-lead-workspace>/projects/<project>/execution/evidence/<release-id>/` | yes |
+| Version changelog | authorized release registration | yes |
+| Apprenticeship Candidates | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | when there is |
+| Rollback evidence pack | `execution/evidence/<release-id>/rollback/` | if there was rollback |
+| Incident, alert and pause in progress | `.coordination/` until they are promoted | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar quando o rollback automático não for seguro, os sinais forem contraditórios ou o impacto exceder o plano de mitigação. Incidente aberto interrompe o loop e transfere a condução ao owner humano.
+Escalate when automatic rollback is unsafe, signals are contradictory, or the impact exceeds the mitigation plan. Open incident interrupts the loop and transfers control to the human owner.

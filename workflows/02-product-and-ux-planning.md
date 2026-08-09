@@ -1,59 +1,59 @@
 ---
-title: Workflow 02 — planejamento de produto e UX
+title: Workflow 02 — product and UX planning
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 02 — planejamento de produto e UX
+# Workflow 02 — product and UX planning
 
-> Bloco executável do [🎨 Studio Loop](../docs/loops/02-product-and-ux-planning.md): transforma o problema aprovado em compromisso de produto e experiência verificável, sem subordinar uma fonte canônica à outra.
+> [🎨 Studio Loop](../docs/loops/02-product-and-ux-planning.md) executable block: transforms the approved issue into a verifiable product commitment and experience, without subordinating one canonical source to another.
 
-Este workflow tem dois consolidadores e dois artefatos autoritativos: o Product Manager Agent responde pelo `PRD.md`; o UX Specification Agent responde pela UX spec. O resultado do bloco não é qualquer um deles isoladamente, mas a coerência rastreável entre os dois.
+This workflow has two consolidators and two authoritative artifacts: the Product Manager Agent responds to `PRD.md`; the UX Specification Agent responds to the UX spec. The result of the block is not either of them in isolation, but the traceable coherence between the two.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada deixa `PRD.md` e UX spec mutuamente consistentes, critérios verificáveis, decisões de trade-off registradas e um evidence pack H2 que mostra o delta desde H1. Se um requisito existir em apenas uma fonte, ou se os artefatos apontarem para revisões diferentes, o bloco permanece aberto.
+A closed run leaves `PRD.md` and UX spec mutually consistent, verifiable criteria, recorded trade-off decisions, and an H2 evidence pack that shows the delta from H1. If a requirement exists in only one source, or if the artifacts point to different revisions, the block remains open.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | escopo, fora de escopo, outcome, fluxos, estados e validação estão cobertos |
-| **Agentes** | PM e UX consolidaram seus artefatos; crítica independente recebeu resposta por finding |
-| **Workspaces** | fontes de PM e UX estão versionadas, cruzadas pelo mesmo Work Item e reconciliadas nos boards |
-| **Decisão** | PM e UX humanos receberam H2 com trade-offs e coerência comprovada |
+| **Loop** | scope, out of scope, outcome, flows, states and validation are covered |
+| **Agents** | PM and UX consolidated their artifacts; independent critic received response by finding |
+| **Workspaces** | PM and UX sources are versioned, crossed by the same Work Item and reconciled on the boards |
+| **Decision** | Human PM and UX received H2 with trade-offs and proven coherence |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 2 — produto e discovery |
-| **Unidade de execução** | um Work Item com H1 favorável e baseline imutável do `PB.md` aprovado |
-| **Consolida produto** | [Product Manager Agent](../agents/product-manager-agent/AGENT.md) — `PRD.md` |
-| **Consolida experiência** | [UX Specification Agent](../agents/ux-specification-agent/AGENT.md) — UX spec, fluxos e validação |
-| **Desafia** | [Adversarial Product Manager](../agents/adversarial-product-manager-agent/AGENT.md), em instância independente |
-| **Owners humanos** | PM pelo compromisso de produto; UX pela experiência |
-| **Entrada** | `PB.md`, H1, evidências de usuário, restrições e hipóteses abertas |
-| **Saída** | `PRD.md`, UX spec, fluxos/estados, protótipo proporcional, validação, reviews e evidence pack H2 |
-| **Gate de conteúdo** | rastreabilidade `PB → PRD ↔ UX spec`, sucesso mensurável e gaps críticos tratados |
-| **Gate do bloco** | conteúdo + revisão cruzada + writers preservados + estado multiworkspace reconciliado + H2 registrado |
-| **Volta dominante** | média — ambiguidades, escopo implícito e casos-limite são atacados antes de H2 |
-| **Próximo workflow** | [03 — especificação técnica](03-technical-specification.md), somente com baseline H2 explícito |
+| **Step** | 2 — product and discovery |
+| **Execution unit** | a Work Item with favorable H1 and immutable baseline from `PB.md` approved |
+| **Consolidates product** | [Product Manager Agent](../agents/product-manager-agent/AGENT.md) — `PRD.md` |
+| **Consolidates experience** | [UX Specification Agent](../agents/ux-specification-agent/AGENT.md) — UX spec, flows and validation |
+| **Challenge** | [Adversarial Product Manager](../agents/adversarial-product-manager-agent/AGENT.md), in independent instance |
+| **Human Owners** | PM for product commitment; UX by experience |
+| **Input** | `PB.md`, H1, user evidence, constraints and open hypotheses |
+| **Exit** | `PRD.md`, UX spec, flows/states, proportional prototype, validation, reviews and evidence pack H2 |
+| **Content gate** | `PB → PRD ↔ UX spec` traceability, measurable success and critical gaps addressed |
+| **Block Gate** | content + cross review + writers preserved + multiworkspace state reconciled + H2 registered |
+| **Dominant lap** | average — ambiguities, implicit scope, and borderline cases are attacked before H2 |
+| **Next workflow** | [03 — technical specification](03-technical-specification.md), only with explicit H2 baseline |
 
 ---
 
-## Preflight e baseline
+## Preflight and baseline
 
-1. Confirmar H1, `PB.md` aprovado, Work Item, owners de PM/UX, risco e condição de parada.
-2. Resolver os workspaces de PM e UX; ler `CONTEXT.md`, `STATUS.md`, artefatos atuais e handoffs existentes.
-3. Registrar a revisão exata do `PB.md` usada como baseline. Mudança material no problema ou outcome devolve ao Scout Loop em vez de ser absorvida silenciosamente.
-4. Criar um `mission_id` comum e pastas de sessão separadas em cada workspace.
-5. Definir uma matriz inicial de rastreabilidade com IDs estáveis para outcomes, requisitos, fluxos, estados e critérios.
-6. Confirmar quem pode aprovar protótipo, pesquisa adicional, conteúdo sensível e trade-offs de escopo.
+1. Confirm H1, approved `PB.md`, Work Item, PM/UX owners, risk and stop condition.
+2. Resolve PM and UX workspaces; read `CONTEXT.md`, `STATUS.md`, current artifacts and existing handoffs.
+3. Record the exact revision of `PB.md` used as baseline. Material change in the problem or outcome is fed back into the Scout Loop rather than being silently absorbed.
+4. Create a common `mission_id` and separate session folders in each workspace.
+5. Define an initial traceability matrix with stable IDs for outcomes, requirements, flows, states and criteria.
+6. Confirm who can approve prototype, additional research, sensitive content, and scope trade-offs.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "STUDIO-<id>"
@@ -74,143 +74,143 @@ mode: "execute | dry-run"
 
 ---
 
-## Plano de missões e barreira de coerência
+## Mission plan and coherence barrier
 
 ```mermaid
-flowchart TD
-    A[PB + H1 + baseline] --> B1[PM Agent<br/>PRD candidato]
-    A --> B2[UX Agent<br/>fluxos, estados, validação]
-    B1 --> C[Revisão cruzada<br/>matriz PRD ↔ UX]
+TD flowchart
+    A[PB + H1 + baseline] --> B1[PM Agent<br/>PRD candidate]
+    A --> B2[UX Agent<br/>flows, states, validation]
+    B1 --> C[Cross review<br/>PRD matrix ↔ UX]
     B2 --> C
-    C --> D{Coerência alcançada?}
-    D -- não --> E1[PM corrige produto]
-    D -- não --> E2[UX corrige experiência]
+    C --> D{Coherence achieved?}
+    D -- no --> E1[PM corrects product]
+    D -- no --> E2[UX corrects experience]
     E1 --> C
     E2 --> C
-    D -- sim --> F[Adversarial PM<br/>ataque independente]
-    F --> G[PM + UX<br/>respostas por finding]
-    G --> H{Gate do bloco}
-    H -- gap de evidência --> I[Scout Loop]
-    H -- pronto --> J[H2 PM + UX]
-    J -- aprovado --> K[Baseline para Drafting Loop]
+    D -- yes --> F[Adversarial PM<br/>independent attack]
+    F --> G[PM + UX<br/>answers by finding]
+    G --> H{Block gate}
+    H -- evidence gap --> I[Scout Loop]
+    H -- ready --> J[H2 PM + UX]
+    J -- approved --> K[Baseline for Drafting Loop]
 ```
 
-| Missão | Writer | Dependência | Saída |
+| Mission | Writer | Dependency | Output |
 |---|---|---|---|
-| M1 — compromisso de produto | Product Manager Agent | baseline | outcome, escopo, fora de escopo, métricas e critérios no `PRD.md` |
-| M2 — experiência completa | UX Specification Agent | baseline | jornada, fluxos, estados, conteúdo, acessibilidade, protótipo e plano de validação |
-| M3 — revisão cruzada | PM + UX, cada um no artefato próprio | M1 e M2 | matriz `requisito ↔ fluxo/estado ↔ critério ↔ método de verificação` |
-| M4 — ataque adversarial | Adversarial PM independente | M3 coerente | findings classificados e recomendação de gate |
-| M5 — resposta | PM e UX | M4 | resolução, aceitação de risco ou escalonamento por finding |
-| M6 — pacote H2 | Product Manager Agent, com ateste do UX Agent | M5 | delta, coerência, riscos e decisões solicitadas |
-| M7 — decisão | PM + UX humanos | gate do bloco | compromisso aprovado, ajuste ou retorno |
+| M1 — product commitment | Product Manager Agent | baseline | outcome, scope, out of scope, metrics and criteria in `PRD.md` |
+| M2 — complete experience | UX Specification Agent | baseline | journey, flows, states, content, accessibility, prototype and validation plan |
+| M3 — cross review | PM + UX, each in its own artifact | M1 and M2 | matrix `requirement ↔ flow/state ↔ criterion ↔ verification method` |
+| M4 — adversarial attack | Adversarial independent PM | M3 coherent | classified findings and gate recommendation |
+| M5 — answer | PM and UX | M4 | resolution, risk acceptance or escalation by finding |
+| M6 — H2 package | Product Manager Agent, with UX Agent attestation | M5 | delta, coherence, risks and requested decisions |
+| M7 — decision | PM + UX humans | block gate | approved appointment, adjustment or return |
 
-M1 e M2 podem iniciar em paralelo. M3 é uma barreira: nenhuma trilha avança à crítica enquanto os dois artefatos não apontarem para a mesma revisão e a matriz não estiver completa.
+M1 and M2 can start in parallel. M3 is a barrier: no track advances to critique until the two artifacts point to the same revision and the matrix is ​​not complete.
 
 ---
 
-## Escrita concorrente e autoridade
+## Competitive writing and authority
 
-| Participante | Escreve | Não escreve |
+| Participant | Write | Does not write |
 |---|---|---|
-| Product Manager Agent | `PRD.md`, decisões e evidence pack H2 | UX spec, prioridade em nome do PM humano ou solução técnica |
-| UX Specification Agent | pesquisa, fluxos, UX spec, protótipos e validação | `PRD.md`, compromisso comercial ou arquitetura |
-| especialistas de research/conteúdo/prototipação | contribuições isoladas para o UX Agent | versões concorrentes da UX spec |
-| Adversarial PM | review independente | `PRD.md` ou UX spec do autor |
-| executor/orquestrador | envelopes, dependências e reconciliação | conteúdo canônico pertencente a PM/UX |
+| Product Manager Agent | `PRD.md`, decisions and evidence pack H2 | UX spec, priority on behalf of human PM or technical solution |
+| UX Specification Agent | research, flows, UX spec, prototypes and validation | `PRD.md`, commercial engagement or architecture |
+| research/content/prototyping specialists | isolated contributions to UX Agent | competing versions of the UX spec |
+| Adversarial PM | independent review | `PRD.md` or UX spec from the author |
+| executor/orchestrator | envelopes, dependencies and reconciliation | canonical content belonging to PM/UX |
 
-Restrição descoberta no fluxo retorna ao PRD. Requisito novo no PRD retorna à UX spec. Cada owner altera seu próprio artefato; ninguém resolve coerência editando a fonte alheia.
+Restriction discovered in the flow returns to the PRD. New requirement in PRD returns to UX spec. Each owner changes their own artifact; Nobody solves coherence by editing someone else's source.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação realizada |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` according to the operation performed |
 | Product Manager Agent | `business-discovery`, `write-feature`, `review-prd`, `refine-spec` |
 | UX Specification Agent | `business-discovery`, `write-feature`, `update-docs` |
 | Adversarial PM | `review-prd`, `review-cross-prd-spec`, `refine-spec` |
 
-Os envelopes registram `skills_used`. O PM recebe evidência e restrições de UX por referência; o UX recebe outcome, escopo e critérios por referência. Materiais brutos, dados pessoais e memória privada permanecem no workspace autorizado.
+The envelopes read `skills_used`. The PM receives UX evidence and constraints by reference; UX receives outcome, scope and criteria by reference. Raw materials, personal data, and private memory remain in the authorized workspace.
 
 ---
 
-## Matriz de coerência
+## Coherence matrix
 
-O bloco mantém uma matriz versionada no evidence pack H2:
+The block maintains a versioned matrix in the evidence pack H2:
 
-| Elemento | Deve apontar para |
+| Element | Should point to |
 |---|---|
-| outcome do `PB.md` | outcome e métrica do `PRD.md` |
-| requisito do `PRD.md` | fluxo/estado correspondente na UX spec |
-| estado da UX spec | comportamento esperado e requisito que o justifica |
-| critério de aceite | método, ambiente e owner da verificação |
-| fora de escopo | ausência explícita nos fluxos ou tratamento como extensão futura |
-| hipótese crítica | evidência, plano de validação ou decisão de risco |
+| outcome of `PB.md` | outcome and metrics of `PRD.md` |
+| `PRD.md` requirement | corresponding flow/state in UX spec |
+| UX spec status | expected behavior and requirement that justifies it |
+| acceptance criteria | verification method, environment and owner |
+| out of scope | explicit absence in flows or treatment as future extension |
+| critical hypothesis | evidence, validation plan or risk decision |
 
-O gate falha se um engenheiro ainda precisar escolher qual documento obedecer, se um critério usar linguagem não observável ou se um estado de erro/recuperação não tiver comportamento definido.
+The gate fails if an engineer still needs to choose which document to obey, if a criterion uses unobservable language, or if an error/recovery state has no defined behavior.
 
 ---
 
-## Persistência multiworkspace
+## Multiworkspace persistence
 
-| Artefato | Fonte canônica | Writer único |
+| Artifact | Canonical source | Single Writer |
 |---|---|---|
 | `PRD.md` | `<pm-workspace>/projects/<project>/requirements/prd/<PRD-id>.md` | Product Manager Agent |
-| decisões de trade-off | `<pm-workspace>/projects/<project>/decisions/<decision-id>.md` | Product Manager Agent após decisão humana |
-| findings adversariais | `<pm-workspace>/projects/<project>/requirements/reviews/<review-id>.md` | Adversarial PM |
-| fluxos | `<ux-workspace>/projects/<project>/flows/` | UX Specification Agent |
+| trade-off decisions | `<pm-workspace>/projects/<project>/decisions/<decision-id>.md` | Product Manager Agent after human decision |
+| adversarial findings | `<pm-workspace>/projects/<project>/requirements/reviews/<review-id>.md` | Adversarial PM |
+| flows | `<ux-workspace>/projects/<project>/flows/` | UX Specification Agent |
 | UX spec | `<ux-workspace>/projects/<project>/specifications/<UXSPEC-id>.md` | UX Specification Agent |
-| protótipo | `<ux-workspace>/projects/<project>/prototypes/` | UX Specification Agent |
-| plano/resultado de validação | `<ux-workspace>/projects/<project>/validation/` | UX Specification Agent |
-| evidence pack H2 | `<pm-workspace>/projects/<project>/requirements/evidence/<mission-id>.md` | Product Manager Agent; ateste UX referenciado |
-| handoffs persistentes | `projects/<project>/handoffs/` de PM e UX | owner remetente |
-| assets de sessão | `plans/assets/02-product-and-ux-planning/<date>-<mission-id>/` | agente da sessão |
+| prototype | `<ux-workspace>/projects/<project>/prototypes/` | UX Specification Agent |
+| validation plan/result | `<ux-workspace>/projects/<project>/validation/` | UX Specification Agent |
+| evidence pack H2 | `<pm-workspace>/projects/<project>/requirements/evidence/<mission-id>.md` | Product Manager Agent; referenced UX attestation |
+| persistent handoffs | `projects/<project>/handoffs/` of PM and UX | owner sender |
+| session assets | `plans/assets/02-product-and-ux-planning/<date>-<mission-id>/` | session agent |
 
-Fechamento: persistir fontes de UX e PM, atualizar a matriz, responder findings, registrar H2, atualizar Work Items/`STATUS.md` e somente então reconciliar ambos os boards. Handoff ao Tech Lead contém links e revisões; não duplica PRD/UX spec.
+Closing: persist UX and PM sources, update the matrix, respond to findings, register H2, update Work Items/`STATUS.md` and only then reconcile both boards. Handoff to Tech Lead contains links and reviews; does not duplicate PRD/UX spec.
 
 ---
 
 ## Gates
 
-### Gate de produto e UX
+### Product and UX gate
 
-- [ ] `PB.md`, `PRD.md` e UX spec formam uma cadeia rastreável;
-- [ ] objetivo, escopo, fora de escopo e métricas são observáveis;
-- [ ] todos os fluxos cobrem entrada, sucesso, vazio/loading, erro, permissão e recuperação quando aplicáveis;
-- [ ] conteúdo e acessibilidade fazem parte dos critérios, não do acabamento posterior;
-- [ ] cada requisito possui fluxo/estado e método de verificação correspondentes;
-- [ ] hipóteses críticas têm evidência, plano de validação ou risco aceito por owner autorizado.
+- [ ] `PB.md`, `PRD.md` and UX spec form a traceable chain;
+- [ ] objective, scope, out-of-scope and metrics are observable;
+- [ ] all flows cover entry, success, empty/loading, error, permission and recovery when applicable;
+- [ ] content and accessibility are part of the criteria, not the subsequent finishing;
+- [ ] each requirement has a corresponding flow/state and verification method;
+- [ ] critical hypotheses have evidence, validation plan or risk accepted by authorized owner.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] PM e UX escreveram somente em seus domínios;
-- [ ] matriz referencia revisões vigentes dos dois artefatos;
-- [ ] cada finding adversarial tem resposta e evidência;
-- [ ] divergências materiais foram escaladas, não niveladas pelo consolidador;
-- [ ] Work Items, `STATUS.md` e boards dos dois workspaces estão coerentes;
-- [ ] evidence pack H2 mostra delta desde H1 e decisões solicitadas;
-- [ ] PM e UX humanos registraram H2 antes do handoff técnico.
+- [ ] PM and UX wrote only in their domains;
+- [ ] matrix references current revisions of the two artifacts;
+- [ ] each adversarial finding has an answer and evidence;
+- [ ] material divergences were escalated, not leveled by the consolidator;
+- [ ] Work Items, `STATUS.md` and boards of the two workspaces are coherent;
+- [ ] evidence pack H2 shows delta from H1 and requested decisions;
+- [ ] Human PM and UX registered H2 before technical handoff.
 
 ---
 
-## H2, retornos e escalonamento
+## H2, returns and scaling
 
-| Condição | Destino |
+| Condition | Destination |
 |---|---|
-| produto e experiência coerentes; H2 aprovado | Drafting Loop com baseline congelado |
-| UX contradiz hipótese de problema | Scout Loop, preservando a nova evidência |
-| trade-off de escopo sem critério objetivo | decisão conjunta de PM e UX |
-| restrição técnica material ainda desconhecida | consulta/spike de Tech Lead Discovery antes de H2 |
-| finding crítico aberto | bloco permanece `blocked`; nenhum handoff como pronto |
-| mudança material após H2 | invalidar a parte relacionada de H2 e reabrir M1/M2/M3 |
+| coherent product and experience; H2 approved | Drafting Loop with frozen baseline |
+| UX contradicts problem hypothesis | Scout Loop, preserving new evidence |
+| scope trade-off without objective criteria | joint decision of PM and UX |
+| material technical restriction still unknown | Tech Lead Discovery query/spike before H2 |
+| critical finding open | block remains `blocked`; no handoff as ready |
+| material change after H2 | invalidate the related part of H2 and reopen M1/M2/M3 |
 
-Nenhum agente aprova o próprio artefato. H2 decide compromisso e trade-off; não é sessão de edição linha a linha.
+No agent approves the artifact itself. H2 decides compromise and trade-off; It's not a line-by-line editing session.
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "STUDIO-<id>"
@@ -240,4 +240,4 @@ gates:
 handoff_to: []
 ```
 
-`ready_for_specification` exige H2 explícito, revisões coerentes e handoff resolvível pelo Tech Lead sem interpretação oral adicional.
+`ready_for_specification` requires explicit H2, coherent reviews and resolvable handoff by the Tech Lead without additional oral interpretation.

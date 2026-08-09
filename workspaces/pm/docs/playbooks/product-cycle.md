@@ -1,10 +1,10 @@
-# Ciclo de produto
+# Product cycle
 
-1. Triar a entrada e registrar origem, problema e owner.
-2. Fazer discovery proporcional ao risco.
-3. Aprovar Product Brief e decisão H1.
-4. Trabalhar com UX e Tech Lead para resolver experiência e viabilidade.
-5. Consolidar PRD, métricas, escopo e decisão H2.
-6. Acompanhar execução sem redefinir a solução técnica.
-7. Homologar valor com evidências e registrar a decisão.
-8. Medir resultado e alimentar backlog e aprendizado.
+1. Screen the input and record origin, problem and owner.
+2. Make discovery proportional to the risk.
+3. Approve Product Brief and H1 decision.
+4. Work with UX and Tech Lead to resolve experience and feasibility.
+5. Consolidate PRD, metrics, scope and decision H2.
+6. Monitor execution without redefining the technical solution.
+7. Confirm value with evidence and record the decision.
+8. Measure results and feed backlog and learning.

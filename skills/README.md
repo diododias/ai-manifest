@@ -1,112 +1,112 @@
 ---
-title: Agent Team — catálogo de skills
+title: Agent Team — skills catalog
 status: canonical
 updated_at: 2026-08-09
 ---
 
-# Catálogo de skills
+# Skills catalog
 
-> As 22 skills do Agent Team, o que cada uma garante e em que ponto da jornada ela é obrigatória.
+> The 22 Agent Team skills, what each one guarantees and at what point in the journey it is mandatory.
 
-## Em 2 minutos
+## In 2 minutes
 
-Um agente sem skill improvisa. Ele inventa o nome do artefato, escolhe sozinho onde gravar, decide na hora o que conta como evidência — e o resultado é um repositório onde cada execução seguiu uma convenção diferente. Uma skill é o oposto disso: um procedimento nomeado, com entrada, saída e critério de conclusão, que produz o mesmo formato de artefato toda vez que roda.
+An agent without skills improvises. He invents the name of the artifact, chooses where to record it himself, decides on the spot what counts as evidence — and the result is a repository where each execution followed a different convention. A skill is the opposite of this: a named procedure, with input, output and completion criteria, that produces the same artifact shape every time it runs.
 
-Por isso a regra da operação é curta e sem exceção: **verificar as skills disponíveis antes de agir e usar todas as que se aplicam**. Uma skill aderente à missão não pode ser ignorada, e o agente cita no Work Item, no handoff e no resultado quais usou — ou o motivo de nenhuma se aplicar.
+That's why the operation rule is short and without exception: **check the available skills before acting and use all that apply**. A skill that adheres to the mission cannot be ignored, and the agent mentions in the Work Item, in the handoff and in the result which ones he used — or the reason why none of them apply.
 
-As skills se dividem em três naturezas. As **de base** governam a operação do workspace e valem para qualquer missão, em qualquer papel. As **de domínio** correspondem a uma etapa específica da jornada e produzem o artefato daquela etapa. As **de publicação** tocam Git e GitHub, e por isso só executam mediante pedido explícito.
+Skills are divided into three natures. The **base** rules govern the operation of the workspace and are valid for any mission, in any role. **domain** correspond to a specific stage of the journey and produce the artifact of that stage. **Publishing** touches Git and GitHub, and therefore only executes upon explicit request.
 
-| Natureza | Skills | Quando se aplicam |
+| Nature | Skills | When they apply |
 |---|---|---|
-| **Base de workspace** | `workspace-memory`, `workspace-projects`, `workspace-board` | toda missão, sempre |
-| **Discovery e produto** | `business-discovery`, `write-feature`, `review-prd` | etapas 01–02 |
-| **Especificação técnica** | `technical-discovery`, `create-spec`, `refine-spec`, `review-spec`, `review-cross-prd-spec` | etapa 03 |
-| **Implementação e validação** | `dev-flow`, `implement`, `test-integration-local`, `code-review` | etapas 04–05 |
-| **Correção de defeito** | `analyse-bug`, `fix-bug` | fora do ciclo, sob demanda |
-| **Publicação** | `commit`, `update-pr`, `check-pr` | etapa 06, só com autorização |
-| **Conhecimento** | `update-docs` | etapa 09 |
+| **Workspace base** | `workspace-memory`, `workspace-projects`, `workspace-board` | every mission, always |
+| **Discovery and product** | `business-discovery`, `write-feature`, `review-prd` | steps 01–02 |
+| **Technical specification** | `technical-discovery`, `create-spec`, `refine-spec`, `review-spec`, `review-cross-prd-spec` | step 03 |
+| **Implementation and validation** | `dev-flow`, `implement`, `test-integration-local`, `code-review` | steps 04–05 |
+| **Defect correction** | `analyse-bug`, `fix-bug` | off-cycle, on-demand |
+| **Publication** | `commit`, `update-pr`, `check-pr` | stage 06, only with authorization |
+| **Knowledge** | `update-docs` | step 09 |
 
 ---
 
-## Mapa deste documento
+## Map of this document
 
-| Seção | Responde | Leia se você… |
+| Section | Reply | Read if you… |
 |---|---|---|
-| [1. Skills de base](#1-skills-de-base) | O que vale para toda missão | vai operar em qualquer workspace |
-| [2. Skills por etapa](#2-skills-por-etapa-da-jornada) | Qual skill roda em qual fase | está executando uma etapa |
-| [3. Anatomia de uma skill](#3-anatomia-de-uma-skill) | Como uma skill é escrita | vai criar ou revisar uma skill |
-| [4. Limites de autonomia](#4-limites-de-autonomia) | O que exige autorização humana | vai delegar execução a um agente |
+| [1. Base Skills](#1-skills-de-base) | Which is true for every mission | will operate in any workspace |
+| [2. Skills per stage](#2-skills-por-etapa-da-jornada) | Which skill runs in which phase | is executing a step |
+| [3. Anatomy of a skill](#3-anatomy-of-a-skill) | How a skill is written | are going to create or review a skill |
+| [4. Autonomy limits](#4-limites-de-autonomia) | What requires human authorization | will delegate execution to an agent |
 
-**Vizinhos:** [modelo operacional](../docs/METODOLOGIA.md) · [workflows por etapa](../workflows/README.md) · [catálogo de agentes](../agents/catalog.md) · [contrato de artefatos](references/workflow-contract.md).
+**Neighbors:** [operational model](../docs/METODOLOGIA.md) · [workflows per step](../workflows/README.md) · [agent catalog](../agents/catalog.md) · [artifact contract](references/workflow-contract.md).
 
 ---
 
-## 1. Skills de base
+## 1. Base skills
 
-As três skills de base existem porque o erro mais caro de um agente não é escrever código ruim: é escrever o artefato certo no lugar errado, ou tratar memória operacional como fonte de verdade. Elas são obrigatórias em qualquer missão, antes de qualquer skill de domínio.
+The three basic skills exist because an agent's most expensive mistake isn't writing bad code: it's writing the right artifact in the wrong place, or treating working memory as a source of truth. They are mandatory in any mission, before any mastery skill.
 
-| Skill | Garante | Falha que ela previne |
+| Skill | Guarantee | Failure that it prevents |
 |---|---|---|
-| [`workspace-memory`](workspace-memory/SKILL.md) | Retomada de contexto e escrita segura de memória | agente tratar `memory.md` como fonte canônica |
-| [`workspace-projects`](workspace-projects/SKILL.md) | Fonte canônica correta e assets isolados por sessão | conclusão gravada no domínio errado; sessões se sobrescrevendo |
-| [`workspace-board`](workspace-board/SKILL.md) | Seleção, transição e reconciliação de Work Items | trabalho sem item, ou item movido para `done` sem evidência |
+| [`workspace-memory`](workspace-memory/SKILL.md) | Context recovery and secure memory writing | agent treat `memory.md` as canonical source |
+| [`workspace-projects`](workspace-projects/SKILL.md) | Correct canonical source and isolated assets per session | conclusion written to the wrong domain; sessions overwriting themselves |
+| [`workspace-board`](workspace-board/SKILL.md) | Selection, transition and reconciliation of Work Items | work without item, or item moved to `done` without evidence |
 
-A ordem prática ao iniciar uma missão: `workspace-memory` para recuperar contexto, `workspace-board` para assumir o item, `workspace-projects` para localizar onde o artefato pertence — e só então a skill de domínio.
+The practical order when starting a mission: `workspace-memory` to retrieve context, `workspace-board` to assume the item, `workspace-projects` to locate where the artifact belongs — and only then the mastery skill.
 
 ---
 
-## 2. Skills por etapa da jornada
+## 2. Skills per stage of the journey
 
-Cada etapa da jornada tem a skill que produz seu artefato. A tabela abaixo é a tradução direta dos [workflows](../workflows/README.md) para procedimentos executáveis.
+Each stage of the journey has the skill that produces its artifact. The table below is the direct translation of [workflows](../workflows/README.md) into executable procedures.
 
-| Etapa | Skill | Entrega |
+| Step | Skill | Delivery |
 |---|---|---|
-| [01 · Discovery](../workflows/01-discovery-and-research.md) | [`business-discovery`](business-discovery/SKILL.md) | requisitos de negócio acumulativos, com baseline, changelog e lacunas |
-| [02 · Produto e UX](../workflows/02-product-and-ux-planning.md) | [`write-feature`](write-feature/SKILL.md) | histórias fatiadas, vinculadas a regras e critérios |
-| [02 · Produto e UX](../workflows/02-product-and-ux-planning.md) | [`review-prd`](review-prd/SKILL.md) | PRD com objetivos, regras e critérios de sucesso rastreáveis |
-| [03 · Especificação](../workflows/03-technical-specification.md) | [`technical-discovery`](technical-discovery/SKILL.md) | visão técnica: componentes, dependências, riscos e decisões abertas |
-| [03 · Especificação](../workflows/03-technical-specification.md) | [`create-spec`](create-spec/SKILL.md) | SPEC com contratos, riscos e critérios técnicos verificáveis |
-| [03 · Especificação](../workflows/03-technical-specification.md) | [`refine-spec`](refine-spec/SKILL.md) | plano sequencial de blocos testáveis e suas dependências |
-| [03 · Especificação](../workflows/03-technical-specification.md) | [`review-spec`](review-spec/SKILL.md) | lacunas, ambiguidades e riscos da SPEC antes da aprovação |
-| [03 · Especificação](../workflows/03-technical-specification.md) | [`review-cross-prd-spec`](review-cross-prd-spec/SKILL.md) | cobertura, conflitos e decisões pendentes entre PRD e SPEC |
-| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`implement`](implement/SKILL.md) | um bloco do plano implementado, com validação incremental |
-| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`dev-flow`](dev-flow/SKILL.md) | condução de ponta a ponta quando a entrega não exige fase a fase |
-| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`test-integration-local`](test-integration-local/SKILL.md) | cobertura faltante criada e critérios mapeados a testes |
-| [05 · Validação](../workflows/05-adversarial-validation.md) | [`code-review`](code-review/SKILL.md) | achados acionáveis contra SPEC, testes e riscos |
-| [06 · PR e merge](../workflows/06-pr-and-merge.md) | [`commit`](commit/SKILL.md) · [`update-pr`](update-pr/SKILL.md) · [`check-pr`](check-pr/SKILL.md) | mudança registrada, descrita e verificada |
-| [09 · Conhecimento](../workflows/09-knowledge-curation.md) | [`update-docs`](update-docs/SKILL.md) | documentação alinhada ao entregue, com desvios registrados |
+| [01 · Discovery](../workflows/01-discovery-and-research.md) | [`business-discovery`](business-discovery/SKILL.md) | cumulative business requirements, with baseline, changelog and gaps |
+| [02 · Product and UX](../workflows/02-product-and-ux-planning.md) | [`write-feature`](write-feature/SKILL.md) | sliced ​​stories, linked to rules and criteria |
+| [02 · Product and UX](../workflows/02-product-and-ux-planning.md) | [`review-prd`](review-prd/SKILL.md) | PRD with traceable objectives, rules and success criteria |
+| [03 · Specification](../workflows/03-technical-specification.md) | [`technical-discovery`](technical-discovery/SKILL.md) | technical vision: components, dependencies, risks and open decisions |
+| [03 · Specification](../workflows/03-technical-specification.md) | [`create-spec`](create-spec/SKILL.md) | SPEC with verifiable contracts, risks and technical criteria |
+| [03 · Specification](../workflows/03-technical-specification.md) | [`refine-spec`](refine-spec/SKILL.md) | sequential plan of testable blocks and their dependencies |
+| [03 · Specification](../workflows/03-technical-specification.md) | [`review-spec`](review-spec/SKILL.md) | SPEC gaps, ambiguities and risks before approval |
+| [03 · Specification](../workflows/03-technical-specification.md) | [`review-cross-prd-spec`](review-cross-prd-spec/SKILL.md) | coverage, conflicts and pending decisions between PRD and SPEC |
+| [04 · Implementation](../workflows/04-autonomous-implementation.md) | [`implement`](implement/SKILL.md) | a block of the implemented plan, with incremental validation |
+| [04 · Implementation](../workflows/04-autonomous-implementation.md) | [`dev-flow`](dev-flow/SKILL.md) | end-to-end driving when delivery does not require phase-by-phase |
+| [04 · Implementation](../workflows/04-autonomous-implementation.md) | [`test-integration-local`](test-integration-local/SKILL.md) | missing coverage created and criteria mapped to tests |
+| [05 · Validation](../workflows/05-adversarial-validation.md) | [`code-review`](code-review/SKILL.md) | actionable findings against SPEC, testing and risks |
+| [06 · PR and merge](../workflows/06-pr-and-merge.md) | [`commit`](commit/SKILL.md) · [`update-pr`](update-pr/SKILL.md) · [`check-pr`](check-pr/SKILL.md) | change registered, described and verified |
+| [09 · Knowledge](../workflows/09-knowledge-curation.md) | [`update-docs`](update-docs/SKILL.md) | documentation in line with what was delivered, with deviations recorded |
 
-**Correção de defeito.** Bugs entram fora da sequência, e por isso têm par próprio: [`analyse-bug`](analyse-bug/SKILL.md) rastreia causa raiz e documenta impacto **sem tocar em código**, e [`fix-bug`](fix-bug/SKILL.md) implementa a correção com teste de regressão. A separação é deliberada — corrigir antes de entender o impacto é como a maior parte das regressões nasce.
+**Defect fix.** Bugs enter out of sequence, and therefore have their own pair: [`analyse-bug`](analyse-bug/SKILL.md) tracks root cause and documents impact **without touching code**, and [`fix-bug`](fix-bug/SKILL.md) implements the fix with regression testing. The separation is deliberate — correcting before understanding the impact is how most regressions are born.
 
 ---
 
-## 3. Anatomia de uma skill
+## 3. Anatomy of a skill
 
-Uma skill é um diretório com `SKILL.md` na raiz. O front matter declara `name` e `description`, e a descrição é o que determina se a skill será acionada: ela diz o que a skill faz e **em que situação usar**, porque é por esse texto que o agente decide se ela se aplica à missão em curso.
+A skill is a directory with `SKILL.md` at the root. The front matter declares `name` and `description`, and the description is what determines whether the skill will be activated: it says what the skill does and **in which situation to use it**, because it is through this text that the agent decides whether it applies to the current mission.
 
 ```text
-skills/<nome>/
-├── SKILL.md        # procedimento: entrada, passos, saída e critério de conclusão
-├── README.md       # contexto adicional, quando o procedimento não se explica sozinho
-├── templates/      # formatos de artefato que a skill produz
-└── agents/         # configuração de agente específica, quando houver
+skills/<name>/
+├── SKILL.md # procedure: input, steps, output and completion criteria
+├── README.md # additional context, when the procedure does not explain itself
+├── templates/ # artifact formats that the skill produces
+└── agents/ # specific agent configuration, when available
 ```
 
-Skills que compartilham convenções de artefato apontam para o [contrato de artefatos](references/workflow-contract.md), que define onde PRD, SPEC, planos e requisitos vivem e o que fazer quando o repositório consumidor diverge do layout padrão. A regra central dele: **a convenção local do repositório prevalece**, e o mapeamento é confirmado antes de escrever.
+Skills that share artifact conventions point to [artifact contract](references/workflow-contract.md), which defines where PRD, SPEC, plans, and requirements live and what to do when the consuming repository diverges from the default layout. His central rule: **the local repository convention prevails**, and the mapping is committed before writing.
 
-Diferente da documentação para humanos, `SKILL.md` é lido por um agente durante a execução. Listas densas e imperativas são intencionais ali — o [padrão de documentação](../docs/metodologia/07-workflows-de-documentacao.md) se aplica aos documentos de leitura humana, não a estas instruções.
+Unlike documentation for humans, `SKILL.md` is read by an agent at runtime. Dense, imperative lists are intentional there — the [documentation standard](../docs/metodologia/07-workflows-de-documentacao.md) applies to human-readable documents, not these instructions.
 
 ---
 
-## 4. Limites de autonomia
+## 4. Limits of autonomy
 
-Skills não ampliam permissão. Uma skill de implementação não autoriza publicar, e nenhuma delas decide sozinha o que vira baseline aprovado.
+Skills do not extend permission. An implementation skill does not authorize publishing, and none of them decides alone what becomes an approved baseline.
 
-| Ação | Exige pedido explícito |
+| Action | Requires explicit request |
 |---|---|
-| Criar branch, worktree e alterar código local | não, dentro do escopo autorizado do Work Item |
-| Criar issue, commit, push, PR, merge e limpeza de worktree | sim, cada uma separadamente |
-| Alterar requisitos, critérios de aceite ou status de PRD/SPEC aprovados | sim, com decisão registrada |
-| Mover um Work Item para `done` | não, mas só com evidência para todos os critérios |
+| Create branch, worktree and change local code | no, within the authorized scope of the Work Item |
+| Create issue, commit, push, PR, merge and worktree cleanup | yes, each one separately |
+| Change requirements, acceptance criteria or approved PRD/SPEC status | yes, with registered decision |
+| Move a Work Item to `done` | no, but only with evidence for all criteria |
 
-Desvios em relação a um baseline aprovado vão para relatório, nunca para edição silenciosa do artefato. É essa assimetria — executar com liberdade, publicar sob autorização — que sustenta os níveis de autonomia descritos no [modelo 90/10](../docs/GATES.md).
+Deviations from an approved baseline go to reporting, never to silent editing of the artifact. It is this asymmetry — executing with freedom, publishing under authorization — that sustains the levels of autonomy described in [model 90/10](../docs/GATES.md).

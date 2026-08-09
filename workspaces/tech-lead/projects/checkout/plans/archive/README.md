@@ -1,3 +1,3 @@
-# Planos arquivados
+# Archived plans
 
-Planos concluídos, cancelados ou substituídos permanecem aqui para rastreabilidade, com seu estado final preservado.
+Completed, canceled or replaced plans remain here for traceability, with their final state preserved.

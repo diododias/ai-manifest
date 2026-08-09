@@ -1,65 +1,65 @@
-# Requisitos — <Nome da feature>
+# Requirements — <Feature name>
 
-- **Épico:** <épico> · **Status:** 🟡 em descoberta
-- **Atualizado:** AAAA-MM-DD · **Agendas:** [AAAA-MM-DD]
-- **Participantes:** <nomes>
+- **Epic:** <epic> · **Status:** 🟡 under discovery
+- **Updated:** YYYY-MM-DD · **Schedules:** [YYYY-MM-DD]
+- **Participants:** <names>
 
-## Contexto & objetivo
-<Que dor resolve, pra quem, qual o resultado esperado. 2–4 linhas. A métrica
-com número fica em Critérios de sucesso (SC-XX).>
+## Context & objective
+<What pain solves, for whom, what is the expected result. 2–4 lines. The metric
+with number is in Success criteria (SC-XX).>
 
-## Glossário / domínio
-- **<Termo>** — <definição>. Marque *(existe)* se já é entidade do sistema,
-  *(novo)* se nasce aqui. Quando a agenda definir, registre identidade/unicidade
-  e atributos-chave.
+## Glossary / domain
+- **<Term>** — <definition>. Check *(exists)* if it is already a system entity,
+  *(new)* is born here. When the agenda sets, register identity/uniqueness
+  and key attributes.
 
-## User stories & cenários
-> Cada story carrega seus cenários em **Dado / Quando / Então** (Given · When ·
-> Then). O **Então** é o resultado observável — se a agenda não deu, é gap; não
-> invente o resultado.
+## User stories & scenarios
+> Each story carries its scenarios in **Given · When ·
+> Then). **So** is the observable result — if the agenda didn’t work, it’s a gap; no
+> invent the result.
 
-- **US-1** *(Prioridade: P1)* Como <papel>, quero <ação>, pra <benefício>.
-  - *Teste independente:* <como validar essa story sozinha> *(opcional)*
-  - **Cenários:**
-    1. **Dado** <estado inicial>, **Quando** <ação>, **Então** <resultado observável>.
-    2. *(exceção)* **Dado** <estado>, **Quando** <ação>, **Então** <tratamento>.
+- **US-1** *(Priority: P1)* As <role>, I want <action>, for <benefit>.
+  - *Independent test:* <how to validate this story alone> *(optional)*
+  - **Scenarios:**
+    1. **Given** <initial state>, **When** <action>, **Then** <observable result>.
+    2. *(exception)* **Given** <state>, **When** <action>, **Then** <treatment>.
 
-## Regras de negócio
-> Escreva cada RN com pré-condição + gatilho + resposta do sistema, então cláusula
-> faltando vira gap (não invente). Marcador da obrigação = "o <sistema> **deve**
-> <resposta>". Padrões:
-> - **Ubíqua:** o <sistema> deve <resposta>. *(sempre ativa, sem keyword)*
-> - **Estado:** **Enquanto** <pré-condição>, o <sistema> deve <resposta>.
-> - **Evento:** **Quando** <gatilho>, o <sistema> deve <resposta>.
-> - **Opcional:** **Onde** <feature/variante presente>, o <sistema> deve <resposta>.
-> - **Indesejado:** **Se** <gatilho>, **então** o <sistema> deve <resposta>.
-> - **Composta:** **Enquanto** <pré>, **quando** <gatilho>, o <sistema> deve <resposta>.
+## Business rules
+> Write each RN with precondition + trigger + system response, then clause
+> missing becomes a gap (don't make it up). Obligation marker = "<system> **must**
+> <response>". Patterns:
+> - **Ubiquitous:** the <system> must <response>. *(always active, no keyword)*
+> - **State:** **While** <precondition>, <system> must <response>.
+> - **Event:** **When** <trigger>, <system> must <response>.
+> - **Optional:** **Where** <feature/variant present>, <system> must <response>.
+> - **Unwanted:** **If** <trigger>, **then** <system> should <response>.
+> - **Composite:** **While** <pre>, **when** <trigger>, the <system> must <response>.
 >
-> A regra estruturada = a obrigação; o Gherkin **Dado/Quando/Então** (em Cenários)
-> = o exemplo que a testa. "Quando/Então" aparecem nas duas camadas — a RN é
-> declarativa e tem "deve"; o cenário é a sequência Dado→Quando→Então. Cada RN
-> precisa de exemplo concreto e de ≥1 cenário que a verifique (rastreio RN ↔ US).
-- **RN-1** Quando <gatilho>, o <sistema> deve <resposta>. *Ex: <exemplo concreto/numérico>.* *(verifica: US-1 cenário 1)*
+> The structured rule = the obligation; the Gherkin **Given/When/Then** (in Scenarios)
+>= the example that tests it. "When/Then" appear in both layers — the RN is
+> declarative and has "must"; the scenario is the sequence Given→When→Then. Each RN
+> needs a concrete example and ≥1 scenario that verifies it (RN ↔ US screening).
+- **RN-1** When <trigger>, <system> must <response>. *Ex: <concrete/numeric example>.* *(checks: US-1 scenario 1)*
 
-## Fluxos
-**Happy:** <jornada fim a fim>.
-**Exceções / edge cases:** <erros, limites, estados inválidos, concorrência, vazio>.
+## Flows
+**Happy:** <journey end to end>.
+**Exceptions / edge cases:** <errors, limits, invalid states, concurrency, empty>.
 
-## Critérios de sucesso (mensuráveis)
-> Resultado de negócio, com número e sem tecnologia. Diferente do cenário (que é
-> binário/testável); aqui é o alvo que diz se a feature deu certo.
-- **SC-1** <métrica com alvo>. *Ex: 30% dos inscritos convertem em 7 dias.*
+## Success criteria (measurable)
+> Business results, with numbers and without technology. Unlike the scenario (which is
+> binary/testable); here is the target that tells you whether the feature worked.
+- **SC-1** <metric with target>. *Ex: 30% of subscribers convert within 7 days.*
 
-## Fora de escopo
-<O que explicitamente NÃO é pra fazer.>
+## Out of scope
+<Which is explicitly NOT supposed to be done.>
 
-## Dúvidas em aberto
-- **DA-1** <pergunta>? *(dono: <quem> · prazo: <quando>)*
+## Open questions
+- **DA-1** <question>? *(owner: <who> · deadline: <when>)*
 
-## ⚠️ Gaps detectados na transcrição
-<Referências citadas mas não definidas; regras sem exemplo; cenários sem "Então"
-claro; adjetivos vagos sem número ("rápido", "fácil"); RN sem cenário que a
-verifique. Cada uma com "confirmar".>
+## ⚠️ Gaps detected in transcription
+<References cited but not defined; rules without example; scenarios without "Then"
+clear; vague adjectives without numbers ("quick", "easy"); RN without a scenario that
+check. Each with "confirm".>
 
-## Changelog por agenda
-- **AAAA-MM-DD** — <delta: o que entrou / mudou / contradisse>.
+## Changelog by schedule
+- **YYYY-MM-DD** — <delta: what entered / changed / contradicted>.

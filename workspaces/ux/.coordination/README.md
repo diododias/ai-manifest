@@ -1,3 +1,3 @@
-# Coordenação de UX
+# UX coordination
 
-Use esta área para recrutamento, agenda de pesquisa, decisões pendentes e handoffs transversais temporários. Dados de participantes não devem ser copiados para contexto de agentes sem necessidade e autorização.
+Use this area for recruitment, research agendas, pending decisions, and temporary cross-cutting handoffs. Participant data should not be copied to the agent context without need and authorization.

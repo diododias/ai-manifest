@@ -6,16 +6,16 @@ owner: product-manager
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Problema>
+# <Problem>
 
-## Evidência e segmento
+## Evidence and segment
 
-<Fontes, limitações e público afetado.>
+<Sources, limitations and affected audience.>
 
-## Outcome e métrica
+## Outcome and metrics
 
-<Mudança observável esperada.>
+<Expected observable change.>
 
-## Escopo candidato e perguntas
+## Candidate scope and questions
 
-<Limites iniciais e decisões ainda abertas.>
+<Initial limits and decisions still open.>

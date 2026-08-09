@@ -1,6 +1,6 @@
 # Templates
 
-Catálogo central de todos os templates de artefato documentados no repositório, organizados por papel.
+Central catalog of all artifact templates documented in the repository, organized by role.
 
 ## PM — [`pm/`](pm/README.md)
 
@@ -21,24 +21,24 @@ Catálogo central de todos os templates de artefato documentados no repositório
 - [`research-plan.md`](ux/research-plan.md)
 - [`ux-spec.md`](ux/ux-spec.md)
 - [`validation-report.md`](ux/validation-report.md)
-- [`design.md`](ux/design.md) — componentes visuais, tokens, estados e comportamentos
+- [`design.md`](ux/design.md) — visual components, tokens, states and behaviors
 
-Em qualquer um dos três, copie o template para o projeto e substitua os campos entre `<...>`.
+In any of the three, copy the template to the project and replace the fields with `<...>`.
 
-## Templates que não vivem aqui
+## Templates that don't live here
 
-Templates que são artefato de uma skill específica ficam dentro da própria skill, não neste catálogo — fazem parte da [anatomia de skill](../skills/README.md#3-anatomia-de-uma-skill) e são referenciados por caminho relativo de dentro do `SKILL.md`.
+Templates that are an artifact of a specific skill are within the skill itself, not in this catalog — they are part of the [skill anatomy](../skills/README.md#3-anatomy-of-a-skill) and are referenced by relative path from within `SKILL.md`.
 
 - [`skills/business-discovery/templates/`](../skills/business-discovery/templates/) — `requisitos.md`, `roteiro-agenda.md`, `exemplo-preenchido.md`
 
-## Originais e sincronização
+## Originals and sync
 
-Este catálogo é uma **cópia** dos templates de cada workspace. A fonte de cada arquivo continua sendo o original dentro do respectivo workspace:
+This catalog is a **copy** of the templates for each workspace. The source of each file remains the original within the respective workspace:
 
-| Papel | Original |
+| Paper | Original |
 |---|---|
 | PM | [`workspaces/pm/docs/templates/`](../workspaces/pm/docs/templates/README.md) |
 | Tech Lead | [`workspaces/tech-lead/docs/templates/`](../workspaces/tech-lead/docs/templates/README.md) |
 | UX | [`workspaces/ux/docs/templates/`](../workspaces/ux/docs/templates/README.md) |
 
-Como são duas cópias independentes, uma mudança em um template precisa ser replicada manualmente no outro lado (`templates/<papel>/` ↔ `workspaces/<papel>/docs/templates/`) para não divergir.
+As there are two independent copies, a change in a template needs to be manually replicated on the other side (`templates/<papel>/` ↔ `workspaces/<papel>/docs/templates/`) to avoid divergence.

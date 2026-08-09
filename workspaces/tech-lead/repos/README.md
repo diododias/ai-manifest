@@ -1,14 +1,14 @@
-# Repositórios locais
+# Local repositories
 
-`repos/registry.yaml` registra os clones esperados. O código fica em `github/<organização>/<repositório>/`; missões concorrentes usam `worktrees/<organização>/<repositório>/<work-item>/`.
+`repos/registry.yaml` records the expected clones. The code is in `github/<organization>/<repository>/`; competing missions use `worktrees/<organization>/<repository>/<work-item>/`.
 
-## Fluxo recomendado
+## Recommended flow
 
-1. Confirme organização, repositório e branch padrão no registro.
-2. Clone em `repos/github/` e leia as instruções do próprio repositório.
-3. Verifique o estado Git antes de criar uma missão.
-4. Crie branch e worktree identificados pelo Work Item.
-5. Registre os caminhos no Work Item antes de alterar código.
-6. Remova o worktree somente após preservar commits e evidências.
+1. Confirm organization, repository and default branch in the registry.
+2. Clone to `repos/github/` and read the instructions in the repository itself.
+3. Check the Git status before creating a mission.
+4. Create branch and worktree identified by Work Item.
+5. Record the paths in the Work Item before changing code.
+6. Remove the worktree only after preserving commits and evidence.
 
-Os checkouts são ignorados pelo `.gitignore` deste exemplo. Nunca documente SHA ou limpeza do checkout como se fossem estado permanente; consulte o Git diretamente.
+Checkouts are ignored by the `.gitignore` in this example. Never document SHA or checkout cleanliness as if they were permanent status; refer to Git directly.

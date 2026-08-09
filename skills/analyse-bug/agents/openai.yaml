@@ -1,4 +1,4 @@
 interface:
-  display_name: "Analyse Bug"
-  short_description: "Help with Analyse Bug tasks"
+  display_name: "Bug Analysis"
+  short_description: "Help with Analyze Bug tasks"
   default_prompt: "Use $analyse-bug to handle the requested task."

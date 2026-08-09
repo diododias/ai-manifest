@@ -1,8 +1,8 @@
-# Resposta a incidente
+# Incident response
 
-1. Registre impacto, severidade, responsável e linha do tempo.
-2. Priorize contenção segura e reversível.
-3. Preserve logs e demais evidências sem dados sensíveis.
-4. Comunique status e bloqueios em cadência definida.
-5. Valide a recuperação antes de encerrar.
-6. Crie Work Items para ações corretivas e aprendizado aceito.
+1. Record impact, severity, responsible, and timeline.
+2. Prioritize safe and reversible containment.
+3. Preserve logs and other evidence without sensitive data.
+4. Communicate status and blocks at a defined cadence.
+5. Validate the recovery before terminating.
+6. Create Work Items for corrective actions and accepted learning.

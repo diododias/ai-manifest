@@ -1,4 +1,4 @@
-# Templates de Tech Lead
+# Tech Lead Templates
 
 - [`adr.md`](adr.md)
 - [`plan.md`](plan.md)
@@ -6,6 +6,6 @@
 - [`work-item.md`](work-item.md)
 - [`handoff.md`](handoff.md)
 
-Copie o template para a fonte de verdade do projeto e substitua todos os campos entre `<...>`.
+Copy the template to the project's source of truth and replace all fields with `<...>`.
 
-> Cópia sincronizada de [`workspaces/tech-lead/docs/templates/`](../../workspaces/tech-lead/docs/templates/README.md). Ver [nota de sincronização](../README.md#originais-e-sincronização).
+> Synchronized copy of [`workspaces/tech-lead/docs/templates/`](../../workspaces/tech-lead/docs/templates/README.md). See [sync note](../README.md#originals-and-sync).

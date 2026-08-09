@@ -1,26 +1,26 @@
 # Sensors
 
-Sensors são verificações que rodam localmente, antes que o código deixe a máquina do agente. São a primeira camada da escada de verificação — as mais baratas de executar, as que devolvem feedback mais rápido.
+Sensors are checks that run locally, before the code leaves the agent's machine. They are the first layer of the verification ladder — the cheapest to run, the ones that return feedback the fastest.
 
-## `.hooks/` — versionados com o repositório
+## `.hooks/` — versioned with the repository
 
-Os sensors ficam em `.hooks/` e são versionados junto com o código. Qualquer clone instala sem configuração manual.
+The sensors are in `.hooks/` and are versioned along with the code. Any clone installs without manual configuration.
 
 ```bash
-# instalar os sensors do repositório
+# install sensors from the repository
 git config core.hooksPath .hooks
 ```
 
-Sensors versionados eliminam a divergência entre o que o agente verifica localmente e o que o time verifica em CI — uma das fontes mais comuns de falsos positivos e de "funciona aqui, falha lá".
+Versioned sensors eliminate the discrepancy between what the agent checks locally and what the team checks in CI — one of the most common sources of false positives and “works here, fails there.”
 
 ## Pre-commit
 
-O sensor de pre-commit roda a cada commit e deve completar em segundos. Seu escopo: checks determinísticos e de baixo custo — formatação, linting, typecheck, testes unitários afetados e verificação de secrets acidentais.
+The pre-commit sensor runs with each commit and should complete in seconds. Its scope: deterministic and low-cost checks — formatting, linting, typecheck, affected unit tests and checking for accidental secrets.
 
-Uma falha deve indicar exatamente o que está errado e como corrigir. Um sensor que apenas diz "falhou" obriga o agente a tentar novamente sem informação — cada tentativa desperdiça um ciclo.
+A failure should indicate exactly what is wrong and how to fix it. A sensor that just says "failed" forces the agent to try again without information — each attempt wastes a cycle.
 
 ## Pre-push
 
-O sensor de pre-push roda antes do push e tolera mais tempo. É o lugar certo para verificações que precisam de contexto maior: testes de integração locais, verificação de arquitetura entre módulos, e checagem de que `scripts/verify.sh` passa por completo.
+The pre-push sensor rotates before the push and tolerates more time. It's the right place for checks that need greater context: local integration tests, architecture checks between modules, and checking that `scripts/verify.sh` passes completely.
 
-O critério de posicionamento é a razão entre custo de execução e frequência de falha. Check barato que falha com frequência: pre-commit. Check que precisa de mais contexto ou tempo: pre-push.
+The positioning criterion is the ratio between execution cost and failure frequency. Cheap check that fails frequently: pre-commit. Check that needs more context or time: pre-push.

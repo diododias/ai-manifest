@@ -1,6 +1,6 @@
 ---
 name: review-cross-prd-spec
-description: Compara PRD e SPEC, identificando cobertura, conflitos e decisões pendentes sem alterar os artefatos. Use antes do planejamento de sprint ou quando for necessário comprovar o alinhamento entre negócio e solução técnica.
+description: Compares PRD and SPEC, identifying coverage, conflicts and pending decisions without changing the artifacts. Use before sprint planning or when you need to prove alignment between business and technical solution.
 ---
 
 ## User Input
@@ -13,142 +13,142 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Validar alinhamento entre PRD e SPEC, identificando requisitos do PRD não cobertos na SPEC e conflitos entre os dois artefatos.
+Validate alignment between PRD and SPEC, identifying PRD requirements not covered in SPEC and conflicts between the two artifacts.
 
-## Contrato de artefatos
+## Artifact contract
 
-Resolva PRD e SPEC conforme [o contrato compartilhado](../references/workflow-contract.md).
+Resolve PRD and SPEC as per [the shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/prd/<feature-slug>/PRD.md`
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** `.agents/prd/<feature-slug>/PRD.md`
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira dos artefatos.
-- Verifique se os arquivos de entrada existem.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from artifacts.
+- Check if the input files exist.
 
-### 2. Carregar artefatos
+### 2. Upload artifacts
 
-- Leia `PRD.md` — perspectiva de negócio.
-- Leia `SPEC.md` — perspectiva técnica.
+- Read `PRD.md` — business perspective.
+- Read `SPEC.md` — technical perspective.
 
-### 3. Revisão cruzada
+### 3. Cross review
 
-#### A. Cobertura PRD → SPEC
-Para cada elemento do PRD, verifique se existe correspondente na SPEC:
+#### A. PRD Coverage → SPEC
+For each element of the PRD, check if there is a corresponding element in the SPEC:
 
-| Elemento PRD | Tipo | Na SPEC? | Observação |
+| PRD element | Type | At SPEC? | Note |
 |-------------|------|----------|------------|
-| HIST-01 | História | ✅ / ❌ / ⚠️ Parcial | ... |
-| RN-01 | Regra | ✅ / ❌ | ... |
-| SC-01 | Critério Sucesso | ✅ / ❌ | ... |
+| HIST-01 | History | ✅ / ❌ / ⚠️ Partial | ... |
+| RN-01 | Rule | ✅ / ❌ | ... |
+| SC-01 | Success Criteria | ✅ / ❌ | ... |
 
-#### B. Conflitos PRD ↔ SPEC
-Identifique onde PRD e SPEC divergem:
+#### B. PRD ↔ SPEC Conflicts
+Identify where PRD and SPEC diverge:
 
-- **Escopo:** SPEC implementa algo fora do PRD? PRD pede algo não tratado na SPEC?
-- **Comportamento:** SPEC define comportamento diferente do que o PRD descreve?
-- **Dados:** Modelo de dados da SPEC suporta todos os fluxos do PRD?
-- **Performance:** Requisitos não-funcionais do PRD são endereçados na SPEC?
+- **Scope:** Does SPEC implement something outside the PRD? Does PRD ask for something not addressed in SPEC?
+- **Behavior:** Does SPEC define different behavior than PRD describes?
+- **Data:** SPEC data model supports all PRD flows?
+- **Performance:** Are PRD non-functional requirements addressed in the SPEC?
 
-#### C. Alinhamento de Terminologia
-- Mesmos termos usados nos dois documentos?
-- Significado consistente?
+#### C. Terminology Alignment
+- Same terms used in both documents?
+- Consistent meaning?
 
-#### D. Decisões Técnicas vs Requisitos de Negócio
-- A SPEC não deve alterar requisitos de negócio (só pode refinar como implementar).
-- Se a SPEC "muda" um requisito, é conflito — reportar.
+#### D. Technical Decisions vs Business Requirements
+- The SPEC must not change business requirements (it can only refine how to implement).
+- If the SPEC "changes" a requirement, it is a conflict — report it.
 
-### 4. Gerar relatório
+### 4. Generate report
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/review-cross.md`:
+Generates `teamwork/plan/feature-plan-<feature-slug>/review-cross.md`:
 
 ```markdown
-# Revisão Cruzada PRD ↔ SPEC — <Feature Name>
+# PRD Cross Review ↔ SPEC — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 **PRD:** .agents/prd/<feature-slug>/PRD.md
 **SPEC:** .agents/spec/<feature-slug>/SPEC.md
 
 ---
 
-## Resumo
+## Summary
 
-| Categoria | Quantidade |
+| Category | Quantity |
 |-----------|-----------|
-| ✅ Alinhados | X |
-| ⚠️ Parcialmente cobertos | X |
-| ❌ Não cobertos (PRD → SPEC) | X |
-| 🔴 Conflitos | X |
+| ✅ Aligned | X |
+| ⚠️ Partially covered | X |
+| ❌ Not covered (PRD → SPEC) | X |
+| 🔴 Conflicts | X |
 
-**Status:** 🔴 Conflitos encontrados / 🟡 Ajustes necessários / 🟢 Alinhado
+**Status:** 🔴 Conflicts found / 🟡 Adjustments required / 🟢 Aligned
 
 ---
 
-## Cobertura PRD → SPEC
+## PRD Coverage → SPEC
 
-### Histórias
-| PRD | SPEC | Status | Observação |
+### Stories
+| PRD | SPEC | Status | Note |
 |-----|------|--------|------------|
 | HIST-01 | §4.1 | ✅ / ⚠️ / ❌ | ... |
 
-### Regras de Negócio
-| RN | Status | SPEC ref | Observação |
+### Business Rules
+| RN | Status | SPEC ref | Note |
 |----|--------|----------|------------|
 | RN-01 | ✅ / ❌ | §... | ... |
 
-### Critérios de Sucesso
-| SC | Status | SPEC ref | Observação |
+### Success Criteria
+| SC | Status | SPEC ref | Note |
 |----|--------|----------|------------|
 | SC-01 | ✅ / ❌ | §... | ... |
 
 ---
 
-## Conflitos Detectados
+## Conflicts Detected
 
-### CONFLITO-01: <Título>
-- **PRD diz:** <citação do PRD>
-- **SPEC diz:** <citação da SPEC>
-- **Tipo:** Escopo / Comportamento / Dados / Performance
-- **Recomendação:** <como resolver>
+### CONFLICT-01: <Title>
+- **PRD says:** <quote from PRD>
+- **SPEC says:** <SPEC quote>
+- **Type:** Scope / Behavior / Data / Performance
+- **Recommendation:** <how to solve>
 
 ---
 
-## Pontos de Alinhamento
+## Alignment Points
 
-- <pontos onde PRD e SPEC estão bem alinhados>
+- <points where PRD and SPEC are well aligned>
 
-## Recomendações
+## Recommendations
 
-1. <ação recomendada>
-2. <ação recomendada>
+1. <recommended action>
+2. <recommended action>
 
-## Próximos Passos
+## Next Steps
 
-- Resolver conflitos antes do sprint planning
-- Atualizar artefatos conforme resoluções
+- Resolve conflicts before sprint planning
+- Update artifacts according to resolutions
 ```
 
-### 5. Reportar no chat
+### 5. Report in chat
 
-- Resumo: X alinhados, Y parcialmente cobertos, Z não cobertos, W conflitos.
-- Conflitos que bloqueiam sprint planning.
-- Recomendações prioritárias.
+- Summary: X aligned, Y partially covered, Z not covered, W conflicts.
+- Conflicts that block sprint planning.
+- Priority recommendations.
 
-## Convenções
+## Conventions
 
-- Relatório é read-only — não modifica PRD nem SPEC.
-- Conflitos são sempre reportados — nunca resolvidos silenciosamente.
-- Português.
+- Report is read-only — does not modify PRD or SPEC.
+- Conflicts are always reported — never resolved silently.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] `review-cross.md` gerado em `teamwork/plan/feature-plan-<feature-slug>/`
-- [ ] Cobertura PRD → SPEC documentada (histórias, RN, SC)
-- [ ] Conflitos detectados e classificados
-- [ ] Recomendações e próximos passos reportados
+- [ ] `review-cross.md` generated in `teamwork/plan/feature-plan-<feature-slug>/`
+- [ ] PRD coverage → Documented SPEC (stories, RN, SC)
+- [ ] Conflicts detected and classified
+- [ ] Recommendations and next steps reported
