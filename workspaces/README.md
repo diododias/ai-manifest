@@ -12,7 +12,7 @@ Os exemplos não são o workspace de produção de uma equipe. Nomes, organizaç
 
 ## Workflows dentro de cada workspace
 
-Os contratos reutilizáveis ficam no [catálogo global de workflows](../docs/workflows/README.md). Cada workspace de usuário deve manter `docs/workflows/` como camada de binding local: quais workflows estão habilitados, qual versão canônica é usada, permissões, integrações e roteamento de handoffs.
+Os contratos reutilizáveis ficam no [catálogo global de workflows](../workflows/README.md). Cada workspace de usuário deve manter `docs/workflows/` como camada de binding local: quais workflows estão habilitados, qual versão canônica é usada, permissões, integrações e roteamento de handoffs.
 
 Artefatos de uma execução não pertencem a `docs/workflows/`. Eles ficam em `projects/<project>/`, no workspace dono do domínio: o PM registra discovery, PRD, decisões e Work Items; UX registra research, jornadas, fluxos, especificações e validações; o Tech Lead registra planos em `projects/<project>/plans/active/`, specs, ADRs, evidências, reviews e worktrees. `..coordination/` é somente trânsito temporário.
 

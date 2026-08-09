@@ -14,9 +14,9 @@ tags:
 
 # Agent Team — workspace do Tech Lead
 
-> Estrutura operacional do workspace compartilhado pelos agentes do Tech Lead. Complementa o [sistema operacional do trio humano](../rules/operating-model.md), o [catálogo de agentes](../agents/catalog.md) e o [modelo operacional 90/10](../rules/operating-model-90-10.md).
+> Estrutura operacional do workspace compartilhado pelos agentes do Tech Lead. Complementa o [sistema operacional do trio humano](../rules/operating-model.md), o [catálogo de agentes](../../../../agents/catalog.md) e o [modelo operacional 90/10](../rules/operating-model-90-10.md).
 >
-> Uma implementação navegável deste contrato está disponível em [`workspaces/tech-lead/`](../../workspaces/tech-lead/WORKSPACE.md).
+> Uma implementação navegável deste contrato está disponível em [`workspaces/tech-lead/`](../../WORKSPACE.md).
 > Os workflows reutilizáveis ficam no [catálogo global](../workflows/README.md); este workspace mantém apenas seus bindings locais e os artefatos de execução por projeto.
 
 ## 1. Objetivo

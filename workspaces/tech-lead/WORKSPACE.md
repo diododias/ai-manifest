@@ -7,7 +7,7 @@ updated_at: 2026-08-08
 
 # Workspace do Tech Lead
 
-Este diretório materializa a arquitetura descrita em [`docs/diagrams/tech-lead-workspace.md`](../../docs/diagrams/tech-lead-workspace.md). O projeto `checkout`, a organização `acme` e seus estados são dados fictícios usados para mostrar o fluxo completo.
+Este diretório materializa a arquitetura descrita em [`docs/diagrams/tech-lead-workspace.md`](docs/diagrams/tech-lead-workspace.md). O projeto `checkout`, a organização `acme` e seus estados são dados fictícios usados para mostrar o fluxo completo.
 
 ## Comece por aqui
 

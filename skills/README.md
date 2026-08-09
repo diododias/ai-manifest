@@ -37,7 +37,7 @@ As skills se dividem em três naturezas. As **de base** governam a operação do
 | [3. Anatomia de uma skill](#3-anatomia-de-uma-skill) | Como uma skill é escrita | vai criar ou revisar uma skill |
 | [4. Limites de autonomia](#4-limites-de-autonomia) | O que exige autorização humana | vai delegar execução a um agente |
 
-**Vizinhos:** [modelo operacional](../docs/operating-model.md) · [workflows por etapa](../docs/workflows/README.md) · [catálogo de agentes](../docs/agents/catalog.md) · [contrato de artefatos](references/workflow-contract.md).
+**Vizinhos:** [modelo operacional](../docs/METODOLOGIA.md) · [workflows por etapa](../workflows/README.md) · [catálogo de agentes](../agents/catalog.md) · [contrato de artefatos](references/workflow-contract.md).
 
 ---
 
@@ -57,24 +57,24 @@ A ordem prática ao iniciar uma missão: `workspace-memory` para recuperar conte
 
 ## 2. Skills por etapa da jornada
 
-Cada etapa da jornada tem a skill que produz seu artefato. A tabela abaixo é a tradução direta dos [workflows](../docs/workflows/README.md) para procedimentos executáveis.
+Cada etapa da jornada tem a skill que produz seu artefato. A tabela abaixo é a tradução direta dos [workflows](../workflows/README.md) para procedimentos executáveis.
 
 | Etapa | Skill | Entrega |
 |---|---|---|
-| [01 · Discovery](../docs/workflows/01-discovery-and-research.md) | [`business-discovery`](business-discovery/SKILL.md) | requisitos de negócio acumulativos, com baseline, changelog e lacunas |
-| [02 · Produto e UX](../docs/workflows/02-product-and-ux-planning.md) | [`write-feature`](write-feature/SKILL.md) | histórias fatiadas, vinculadas a regras e critérios |
-| [02 · Produto e UX](../docs/workflows/02-product-and-ux-planning.md) | [`review-prd`](review-prd/SKILL.md) | PRD com objetivos, regras e critérios de sucesso rastreáveis |
-| [03 · Especificação](../docs/workflows/03-technical-specification.md) | [`technical-discovery`](technical-discovery/SKILL.md) | visão técnica: componentes, dependências, riscos e decisões abertas |
-| [03 · Especificação](../docs/workflows/03-technical-specification.md) | [`create-spec`](create-spec/SKILL.md) | SPEC com contratos, riscos e critérios técnicos verificáveis |
-| [03 · Especificação](../docs/workflows/03-technical-specification.md) | [`refine-spec`](refine-spec/SKILL.md) | plano sequencial de blocos testáveis e suas dependências |
-| [03 · Especificação](../docs/workflows/03-technical-specification.md) | [`review-spec`](review-spec/SKILL.md) | lacunas, ambiguidades e riscos da SPEC antes da aprovação |
-| [03 · Especificação](../docs/workflows/03-technical-specification.md) | [`review-cross-prd-spec`](review-cross-prd-spec/SKILL.md) | cobertura, conflitos e decisões pendentes entre PRD e SPEC |
-| [04 · Implementação](../docs/workflows/04-autonomous-implementation.md) | [`implement`](implement/SKILL.md) | um bloco do plano implementado, com validação incremental |
-| [04 · Implementação](../docs/workflows/04-autonomous-implementation.md) | [`dev-flow`](dev-flow/SKILL.md) | condução de ponta a ponta quando a entrega não exige fase a fase |
-| [04 · Implementação](../docs/workflows/04-autonomous-implementation.md) | [`test-integration-local`](test-integration-local/SKILL.md) | cobertura faltante criada e critérios mapeados a testes |
-| [05 · Validação](../docs/workflows/05-adversarial-validation.md) | [`code-review`](code-review/SKILL.md) | achados acionáveis contra SPEC, testes e riscos |
-| [06 · PR e merge](../docs/workflows/06-pr-and-merge.md) | [`commit`](commit/SKILL.md) · [`update-pr`](update-pr/SKILL.md) · [`check-pr`](check-pr/SKILL.md) | mudança registrada, descrita e verificada |
-| [09 · Conhecimento](../docs/workflows/09-knowledge-curation.md) | [`update-docs`](update-docs/SKILL.md) | documentação alinhada ao entregue, com desvios registrados |
+| [01 · Discovery](../workflows/01-discovery-and-research.md) | [`business-discovery`](business-discovery/SKILL.md) | requisitos de negócio acumulativos, com baseline, changelog e lacunas |
+| [02 · Produto e UX](../workflows/02-product-and-ux-planning.md) | [`write-feature`](write-feature/SKILL.md) | histórias fatiadas, vinculadas a regras e critérios |
+| [02 · Produto e UX](../workflows/02-product-and-ux-planning.md) | [`review-prd`](review-prd/SKILL.md) | PRD com objetivos, regras e critérios de sucesso rastreáveis |
+| [03 · Especificação](../workflows/03-technical-specification.md) | [`technical-discovery`](technical-discovery/SKILL.md) | visão técnica: componentes, dependências, riscos e decisões abertas |
+| [03 · Especificação](../workflows/03-technical-specification.md) | [`create-spec`](create-spec/SKILL.md) | SPEC com contratos, riscos e critérios técnicos verificáveis |
+| [03 · Especificação](../workflows/03-technical-specification.md) | [`refine-spec`](refine-spec/SKILL.md) | plano sequencial de blocos testáveis e suas dependências |
+| [03 · Especificação](../workflows/03-technical-specification.md) | [`review-spec`](review-spec/SKILL.md) | lacunas, ambiguidades e riscos da SPEC antes da aprovação |
+| [03 · Especificação](../workflows/03-technical-specification.md) | [`review-cross-prd-spec`](review-cross-prd-spec/SKILL.md) | cobertura, conflitos e decisões pendentes entre PRD e SPEC |
+| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`implement`](implement/SKILL.md) | um bloco do plano implementado, com validação incremental |
+| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`dev-flow`](dev-flow/SKILL.md) | condução de ponta a ponta quando a entrega não exige fase a fase |
+| [04 · Implementação](../workflows/04-autonomous-implementation.md) | [`test-integration-local`](test-integration-local/SKILL.md) | cobertura faltante criada e critérios mapeados a testes |
+| [05 · Validação](../workflows/05-adversarial-validation.md) | [`code-review`](code-review/SKILL.md) | achados acionáveis contra SPEC, testes e riscos |
+| [06 · PR e merge](../workflows/06-pr-and-merge.md) | [`commit`](commit/SKILL.md) · [`update-pr`](update-pr/SKILL.md) · [`check-pr`](check-pr/SKILL.md) | mudança registrada, descrita e verificada |
+| [09 · Conhecimento](../workflows/09-knowledge-curation.md) | [`update-docs`](update-docs/SKILL.md) | documentação alinhada ao entregue, com desvios registrados |
 
 **Correção de defeito.** Bugs entram fora da sequência, e por isso têm par próprio: [`analyse-bug`](analyse-bug/SKILL.md) rastreia causa raiz e documenta impacto **sem tocar em código**, e [`fix-bug`](fix-bug/SKILL.md) implementa a correção com teste de regressão. A separação é deliberada — corrigir antes de entender o impacto é como a maior parte das regressões nasce.
 
@@ -94,7 +94,7 @@ skills/<nome>/
 
 Skills que compartilham convenções de artefato apontam para o [contrato de artefatos](references/workflow-contract.md), que define onde PRD, SPEC, planos e requisitos vivem e o que fazer quando o repositório consumidor diverge do layout padrão. A regra central dele: **a convenção local do repositório prevalece**, e o mapeamento é confirmado antes de escrever.
 
-Diferente da documentação para humanos, `SKILL.md` é lido por um agente durante a execução. Listas densas e imperativas são intencionais ali — o [padrão de documentação](../docs/documentation-standard.md) se aplica aos documentos de leitura humana, não a estas instruções.
+Diferente da documentação para humanos, `SKILL.md` é lido por um agente durante a execução. Listas densas e imperativas são intencionais ali — o [padrão de documentação](../docs/metodologia/07-workflows-de-documentacao.md) se aplica aos documentos de leitura humana, não a estas instruções.
 
 ---
 
@@ -109,4 +109,4 @@ Skills não ampliam permissão. Uma skill de implementação não autoriza publi
 | Alterar requisitos, critérios de aceite ou status de PRD/SPEC aprovados | sim, com decisão registrada |
 | Mover um Work Item para `done` | não, mas só com evidência para todos os critérios |
 
-Desvios em relação a um baseline aprovado vão para relatório, nunca para edição silenciosa do artefato. É essa assimetria — executar com liberdade, publicar sob autorização — que sustenta os níveis de autonomia descritos no [modelo 90/10](../docs/operating-model-90-10.md).
+Desvios em relação a um baseline aprovado vão para relatório, nunca para edição silenciosa do artefato. É essa assimetria — executar com liberdade, publicar sob autorização — que sustenta os níveis de autonomia descritos no [modelo 90/10](../docs/GATES.md).
