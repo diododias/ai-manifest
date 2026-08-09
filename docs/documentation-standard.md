@@ -143,6 +143,7 @@ docs/
 ├── README.md                    # índice e mapa de leitura por perfil
 ├── operating-model.md           # fonte canônica: papéis, decisões e ciclo
 ├── operating-model-90-10.md     # gates, risco e autonomia progressiva
+├── repo-harness.md              # o contrato executável de um repositório
 ├── end-to-end-journey.md        # a jornada completa em um diagrama
 ├── journey-by-phase.md          # a mesma jornada, um bloco por vez
 ├── documentation-standard.md    # este padrão

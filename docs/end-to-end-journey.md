@@ -18,6 +18,7 @@ O ponto a observar na primeira leitura é a **quantidade de amarelo**. São apen
 |---|---|
 | Papéis, decisões e autonomia | [sistema operacional do trio humano](operating-model.md) |
 | Gates, risco e níveis A0–A4 | [modelo operacional 90/10](operating-model-90-10.md) |
+| O que o repositório precisa ter para sustentar o fluxo | [repo harness](repo-harness.md) |
 | O mesmo fluxo, uma fase por vez | [fluxos por fase](journey-by-phase.md) |
 | O contrato de cada etapa | [workflows multiagente](workflows/README.md) |
 

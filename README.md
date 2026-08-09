@@ -14,6 +14,7 @@ A proposta é tratar o desenvolvimento como um sistema operado por três pessoas
 | **Workflows** | Contrato de colaboração multiagente em cada uma das 11 etapas da jornada | [`docs/workflows/`](docs/workflows/README.md) |
 | **Agentes** | 23 papéis com identidade, contrato, permissões e skills esperadas | [`docs/agents/`](docs/agents/catalog.md) |
 | **Skills** | Procedimentos repetíveis de discovery, especificação, implementação e publicação | [`skills/`](skills/README.md) |
+| **Repo harness** | O que um repositório precisa ter para ser operado por agentes com segurança | [`docs/repo-harness.md`](docs/repo-harness.md) |
 | **Workspaces** | Onde PM, UX e Tech Lead efetivamente pilotam o fluxo | [`workspaces/`](workspaces/README.md) |
 
 Três ideias sustentam o resto: quem propõe uma mudança não é quem a aprova; aprovação exige evidência explícita, nunca silêncio; e autonomia só cresce quando gates e métricas demonstram que é seguro.
@@ -32,6 +33,7 @@ Escolha a trilha pelo tempo que você tem agora.
 | Executar uma etapa específica com agentes | o [workflow](docs/workflows/README.md) correspondente | 5 min por etapa |
 | Montar seus próprios agentes | [catálogo](docs/agents/catalog.md) e [pacotes importáveis](docs/agents/README.md) | 30 min |
 | Saber qual procedimento roda em cada etapa | [catálogo de skills](skills/README.md) | 15 min |
+| Preparar um repositório para ser operado por agentes | [repo harness](docs/repo-harness.md) | 20 min |
 | Copiar a estrutura de trabalho para o seu time | [workspaces de exemplo](workspaces/README.md) | 20 min |
 
 ---
@@ -93,6 +95,7 @@ As skills de domínio continuam obrigatórias quando se aplicam à missão. O ag
 ├── docs/
 │   ├── operating-model.md         # fonte canônica: papéis, decisões e ciclo
 │   ├── operating-model-90-10.md   # gates, risco e autonomia progressiva
+│   ├── repo-harness.md            # o contrato executável de um repositório
 │   ├── end-to-end-journey.md      # a jornada completa em um diagrama
 │   ├── journey-by-phase.md        # a mesma jornada, um bloco por vez
 │   ├── documentation-standard.md  # como escrever documentação aqui

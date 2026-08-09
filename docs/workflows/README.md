@@ -1,7 +1,7 @@
 ---
 title: Agent Team — workflows multiagente
 status: proposed
-updated_at: 2026-08-08
+updated_at: 2026-08-09
 ---
 
 # Workflows multiagente
@@ -12,7 +12,7 @@ updated_at: 2026-08-08
 
 O [catálogo de agentes](../agents/catalog.md) define cada papel isoladamente. Um workflow define o que acontece **entre** eles: a sequência de missões, os artefatos que atravessam as fronteiras, como contribuições independentes convergem em um único artefato, e o ponto em que uma decisão deve ser escalada ao humano responsável.
 
-Os workflows detalham a colaboração. Eles não substituem os contratos individuais do catálogo, a autoridade do [modelo operacional](../operating-model.md) nem os gates do [modelo 90/10](../operating-model-90-10.md).
+Os workflows detalham a colaboração. Eles não substituem os contratos individuais do catálogo, a autoridade do [modelo operacional](../operating-model.md) nem os gates do [modelo 90/10](../operating-model-90-10.md). O que cada repositório precisa carregar para que esses workflows rodem com agentes está no [repo harness](../repo-harness.md).
 
 Duas distinções resolvem a maior parte das dúvidas na prática:
 

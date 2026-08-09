@@ -315,7 +315,7 @@ O agente para e devolve a decisão diante de requisito contraditório ou sem own
 | Etapa | Entrega |
 |---|---|
 | **1 — Contrato mínimo** | classes de risco; responsáveis humanos; templates dos artefatos; formato do evidence pack; condições de escalonamento |
-| **2 — Harness mínimo** | `AGENTS.md`, rules e skills; pre-commit e pre-push; CI fast lane e deep lane; proteção de branch e status checks; `CODEOWNERS` para paths sensíveis |
+| **2 — Harness mínimo** | `AGENTS.md`, rules e skills; pre-commit e pre-push; CI fast lane e deep lane; proteção de branch e status checks; `CODEOWNERS` para paths sensíveis — detalhado em [repo harness](repo-harness.md) |
 | **3 — Piloto controlado** | um fluxo R1 real em autonomia A0/A1; medição de tempo humano e falhas; ajuste de gates e templates; validação de rollback e rastreabilidade |
 | **4 — Automação do roteamento** | classificação automática de risco; acionamento de Agent Teams por etapa; evidence packs automáticos; solicitação apenas dos reviewers necessários; escalonamento com contexto completo |
 | **5 — Autonomia progressiva** | auto-merge em R0; deploy automático em R0/R1; ampliação por evidência, não por expectativa; auditoria humana por amostragem |

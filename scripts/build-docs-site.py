@@ -30,6 +30,7 @@ PAGES = [
 
     ("docs/operating-model.md",               "Modelo operacional", "Sistema operacional do trio humano"),
     ("docs/operating-model-90-10.md",         "Modelo operacional", "Modelo 90/10: gates e autonomia"),
+    ("docs/repo-harness.md",                  "Modelo operacional", "Repo harness"),
     ("docs/end-to-end-journey.md",            "Modelo operacional", "Jornada de ponta a ponta"),
     ("docs/journey-by-phase.md",              "Modelo operacional", "Jornada por fases"),
     ("docs/documentation-standard.md",        "Modelo operacional", "Padrão de documentação"),

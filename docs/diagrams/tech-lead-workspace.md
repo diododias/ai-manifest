@@ -4,7 +4,7 @@ aliases:
   - Estrutura do workspace do Tech Lead
 status: proposed
 owner: Tech Lead
-updated_at: 2026-08-08
+updated_at: 2026-08-09
 tags:
   - agent-team
   - workspace
@@ -47,7 +47,20 @@ Duas regras derivam disso e valem para qualquer agente: uma informação nunca �
 | [7–8. Fonte de verdade e convenções](#7-regras-de-fonte-de-verdade) | Onde está a verdade e como nomear as coisas | vai automatizar algo sobre o workspace |
 | [9–10. Implantação](#9-implantação-incremental) | Em que ordem adotar | está começando |
 
-**Vizinhos:** [sistema operacional do trio humano](../operating-model.md) · [catálogo de agentes](../agents/catalog.md) · [modelo operacional 90/10](../operating-model-90-10.md) · [workflows canônicos](../workflows/README.md).
+**Vizinhos:** [sistema operacional do trio humano](../operating-model.md) · [catálogo de agentes](../agents/catalog.md) · [modelo operacional 90/10](../operating-model-90-10.md) · [workflows canônicos](../workflows/README.md) · [repo harness](../repo-harness.md).
+
+Este documento organiza o trabalho **fora** do código. O que cada repositório carrega dentro de si — `AGENTS.md`, rules, hooks, `CODEOWNERS` e evidência — é o [repo harness](../repo-harness.md), que trata exclusivamente do repositório de código. A fronteira entre os dois nem sempre é óbvia à primeira vista, então vale ver alguns exemplos lado a lado:
+
+| Pergunta | Mora no repo harness | Mora no workspace do Tech Lead |
+|---|---|---|
+| Como este serviço é arquitetado? | sim, em `docs/rules/` | não |
+| Quais são os projetos ativos e suas prioridades? | não | sim, em `BOARD.md` e `projects/` |
+| Qual o padrão de teste para uma mudança de contrato? | sim | não |
+| Onde está o PRD desta feature? | não | sim, em `projects/<slug>/product/` |
+| Que comando roda a suíte de integração? | sim, em `AGENTS.md` ou skill | não |
+| Qual branch e worktree este Work Item usa? | não | sim, no Work Item |
+
+O teste que resolve os casos não listados: **se a informação continua verdadeira quando outro time clona o repositório, ela pertence ao repo harness. Se depende de quem está trabalhando, em qual projeto, nesta semana, ela pertence ao workspace.**
 
 Uma implementação navegável deste contrato está em [`workspaces/tech-lead/`](../../workspaces/tech-lead/WORKSPACE.md). Os workflows reutilizáveis ficam no catálogo global; o workspace mantém apenas seus bindings locais e os artefatos de execução por projeto.
 

@@ -20,6 +20,7 @@ Cada documento carrega duas camadas: um bloco "Em 2 minutos" no topo, para avali
 | [`workflows/`](workflows/README.md) | Como cada etapa é executada por agentes | `proposed` |
 | [`agents/`](agents/catalog.md) | Quem são os agentes e quais contratos seguem | `proposed` |
 | [`skills/`](../skills/README.md) | Quais procedimentos os agentes executam | `canonical` |
+| [repo harness](repo-harness.md) | O que um repositório precisa ter para ser operável por agentes | `proposed` |
 | [`diagrams/`](diagrams/tech-lead-workspace.md) | Como o trabalho se organiza em disco | `proposed` |
 
 ---
@@ -51,7 +52,8 @@ Para quem vai operar, adaptar ou estender o framework.
 | 6 | [Catálogo de agentes](agents/catalog.md) | papéis, contratos e permissões | `proposed` |
 | 7 | [Pacotes importáveis dos agentes](agents/README.md) | identidade, alma e contrato executável | `proposed` |
 | 8 | [Catálogo de skills](../skills/README.md) | procedimentos executáveis por etapa | `canonical` |
-| 9 | [Workspace do Tech Lead](diagrams/tech-lead-workspace.md) | organização do trabalho multiagente | `proposed` |
+| 9 | [Repo harness](repo-harness.md) | o que cada repositório carrega para ser operável por agentes | `proposed` |
+| 10 | [Workspace do Tech Lead](diagrams/tech-lead-workspace.md) | organização do trabalho multiagente | `proposed` |
 
 ### Trilha de contribuição
 

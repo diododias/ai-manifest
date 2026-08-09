@@ -36,9 +36,11 @@ Três regras sustentam o resto: quem propõe não é quem aprova; aprovação ex
 | [II — Quem decide](#parte-ii--quem-decide) | 4–7 | Papéis, direitos de decisão, handoffs e cerimônias | vai assumir um dos três papéis |
 | [III — Como o trabalho anda](#parte-iii--como-o-trabalho-anda) | 8–11 | O ciclo de ponta a ponta e o loop de melhoria | vai executar ou instrumentar o fluxo |
 | [IV — O que sustenta](#parte-iv--o-que-sustenta) | 12–14 | Harness, governança, risco e autonomia | vai configurar o repositório e os gates |
+
+Para montar ou auditar um repositório operado por agentes, o detalhamento está em [repo harness](repo-harness.md).
 | [V — Evolução](#parte-v--evolução) | 15–18 | Fases de adoção, métricas e pendências | vai implantar o modelo em um time |
 
-**Documentos vizinhos:** [modelo operacional 90/10](operating-model-90-10.md) · [fluxo visual completo](end-to-end-journey.md) · [fluxos por fase](journey-by-phase.md) · [workflows multiagente](workflows/README.md) · [catálogo de agentes](agents/catalog.md) · [workspace do Tech Lead](diagrams/tech-lead-workspace.md).
+**Documentos vizinhos:** [modelo operacional 90/10](operating-model-90-10.md) · [repo harness](repo-harness.md) · [fluxo visual completo](end-to-end-journey.md) · [fluxos por fase](journey-by-phase.md) · [workflows multiagente](workflows/README.md) · [catálogo de agentes](agents/catalog.md) · [workspace do Tech Lead](diagrams/tech-lead-workspace.md).
 
 ---
 
@@ -455,7 +457,23 @@ Toda decisão humana recebe um pacote curto, desenhado para permitir decidir sem
 
 O harness é o que torna o repositório compreensível para pessoas e agentes ao mesmo tempo. Ele converte padrões de engenharia em regras executáveis, oferece caminhos seguros e repetíveis para mudanças, reduz a dependência de contexto informal ou individual, e produz feedback acionável e evidência auditável.
 
-### 12.2 Skills
+Distinguem-se dois harnesses, e confundi-los produz duplicidade silenciosa. O **repo harness** vive dentro de cada repositório de código e viaja junto com o clone; o **workspace** organiza o trabalho do agente fora do código. A regra de decisão é simples: se a informação continua verdadeira quando outro time clona o repositório, ela é harness.
+
+### 12.2 As cinco camadas
+
+O repo harness se organiza em cinco camadas cumulativas. Cada uma elimina uma classe de falha, e a ordem de construção segue o retorno decrescente — contexto é o mais barato e o que mais reduz retrabalho; evidência só tem valor quando existe algo verificado para registrar.
+
+| Camada | Responde | Materializa em |
+|---|---|---|
+| **Contexto** | o que este repositório é e quais regras valem | `AGENTS.md`, `docs/rules/` |
+| **Procedimento** | como executar uma tarefa recorrente do jeito certo | skills, comandos, scripts |
+| **Verificação** | o que precisa ser verdade antes de avançar | hooks, CI, políticas de merge |
+| **Permissão** | o que este agente pode tocar e o que exige gente | `CODEOWNERS`, settings, ambientes |
+| **Evidência** | como provar depois que estava correto | evidence pack, logs, artefatos |
+
+A maturidade do harness é teto da autonomia, nunca consequência dela. O detalhamento — estrutura de arquivos, conteúdo de cada camada, o que muda com Agent Teams, níveis `HL0–HL3` e checklist de conformidade — está em [repo harness](repo-harness.md). A escada de gates está em [modelo operacional 90/10](operating-model-90-10.md#6-arquitetura-de-gates).
+
+### 12.3 Skills
 
 Skills nativas do Agent Team, em [`skills/`](../skills/):
 
@@ -470,36 +488,13 @@ Extensões recomendadas, ainda não implementadas: intake e deduplicação; pesq
 
 Toda skill declara objetivo, inputs, outputs, tools permitidas, critérios de parada, exemplos e testes.
 
-### 12.3 Rules
-
-As rules cobrem quatro frentes. Em **estrutura de código**: arquitetura e fronteiras entre módulos, convenções e nomes de objetos, padrões aceitos e proibidos, injeção de dependência e composição. Em **fluxo**: gitflow e estratégia de branches, critérios de validação e homologação, propriedade por paths e Code Owners. Em **risco e dados**: classificação de risco e permissões por fase, segurança, privacidade e uso de dados, SLOs, observabilidade, rollout e rollback.
-
-A quarta frente é a **estratégia de testes**, que define quais níveis são obrigatórios por tipo de mudança:
-
-```text
-unitários → arquitetura → integração / TAAC → contrato → end-to-end → acessibilidade → mutação
-```
-
-### 12.4 Hooks e gates
-
-Os gates formam uma escada: quanto mais tarde, mais caro e mais amplo. O objetivo é que o feedback barato chegue primeiro.
-
-| Gate | Quando | Verifica |
-|---|---|---|
-| **Pre-commit** | a cada commit | lint, formatação, typecheck, testes unitários afetados, testes de arquitetura, consistência entre código, PRD e SPEC |
-| **Pre-push** | antes do push | cobertura mínima, código morto e débito bloqueante, vazamento de secrets, integração/TAAC em container, impacto em contratos, dependency review e licenças |
-| **CI** | ambiente limpo | repete gates críticos, build, testes, segurança e arquitetura; seleciona checks por risco e paths; gera evidência auditável; impede merge com bloqueadores |
-| **Merge** | antes de integrar | aprovações e status checks, proveniência da automação, bloqueio de bypass silencioso e force push, invalidação de aprovação quando o diff muda materialmente |
-| **Ambiente** | antes do deploy | liberação de secrets após autorização, restrição de branches e artefatos, validação de migração, backup e compatibilidade, aprovação conforme risco, sinais de observabilidade e change management |
-| **Pós-deploy** | janela de observação | comparação com baseline, interrupção de rollout diante de regressão, reversão automática quando seguro, abertura de incidente quando exigir ação humana |
-
-### 12.5 Regras para gates baseados em IA
+### 12.4 Regras para gates baseados em IA
 
 IA pode recomendar, explicar e priorizar achados — mas bloqueio automático exige regra reproduzível e evidência verificável, e achado probabilístico exige confirmação independente. O mesmo agente não produz e aprova sozinho a própria mudança, e agentes não alteram gates dentro do mesmo fluxo avaliado.
 
 Mudança em rules, hooks ou CI eleva o risco automaticamente. Qualquer bypass exige pessoa autorizada, motivo, validade e plano de correção.
 
-### 12.6 Tools por capacidade
+### 12.5 Tools por capacidade
 
 As ferramentas são opções de implementação; o contrato do fluxo não deve depender de uma marca específica.
 
@@ -526,11 +521,11 @@ Os artefatos que constituem o conhecimento do produto são fixos, independenteme
 | `README.md` | uso, execução e visão geral do repositório |
 | Histórico de PRs | mudanças, evidências e decisões locais |
 
-### 12.7 Contrato de avaliação de uma ferramenta
+### 12.6 Contrato de avaliação de uma ferramenta
 
 Antes de adotar qualquer ferramenta, registre: problema que resolve e owner; etapa, input e output atendidos; integração com fontes canônicas; permissões, dados enviados e retenção; custo financeiro e cognitivo; API, automação e exportabilidade; evidência produzida e capacidade de auditoria; lock-in e plano de saída; métrica de sucesso e data de revisão.
 
-### 12.8 Referências oficiais
+### 12.7 Referências oficiais
 
 - [GitHub Actions — workflows](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows)
 - [GitHub CodeQL — code scanning](https://docs.github.com/en/code-security/concepts/code-scanning/codeql/codeql-code-scanning)
