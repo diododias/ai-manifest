@@ -1,1 +1,0 @@
-../../../.specify/extensions/brownfield-bootstrap/.specify-dev/agent-commands/claude/speckit-brownfield-bootstrap-init/SKILL.md

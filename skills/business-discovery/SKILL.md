@@ -123,26 +123,27 @@ Não resolva as lacunas inventando; o valor é a lista de perguntas.
 - Status: 🟡 em descoberta · 🟢 pronto pra especificar · ✅ virou spec.
 - Escreva em português. Prefira exemplo numérico a descrição vaga.
 
-## Handoff pro spec-kit
+## Handoff pra review-prd e create-spec
 
-O `requisitos.md` é o artefato de descoberta — alimenta o `/speckit-specify`
-quando a feature vira 🟢. O formato espelha o PRD do spec-kit pra a passagem ser
-direta:
+O `requisitos.md` é o artefato de descoberta — alimenta a skill
+[`review-prd`](../review-prd/SKILL.md) quando a feature vira 🟢, e depois a
+skill [`create-spec`](../create-spec/SKILL.md) para a especificação técnica. O
+formato espelha o PRD produzido por essas skills pra a passagem ser direta:
 
-| business-discovery        | spec.md (spec-kit)                    |
-|---------------------------|---------------------------------------|
+| business-discovery        | PRD / SPEC                            |
+|---------------------------|----------------------------------------|
 | US-X + Cenários D/Q/E     | User Scenarios → Acceptance Scenarios |
 | Prioridade P1/P2/P3       | User Story priority                   |
-| RN-XX                     | Functional Requirements (FR-###)      |
-| SC-XX                     | Success Criteria (SC-###)             |
-| Glossário / domínio       | Key Entities                          |
-| Fluxos → exceções         | Edge Cases                            |
+| RN-XX                     | Requisitos funcionais                 |
+| SC-XX                     | Critérios de sucesso                  |
+| Glossário / domínio       | Entidades-chave                       |
+| Fluxos → exceções         | Edge cases                            |
 | Fora de escopo            | Out of scope                          |
 
-RN estruturada ≈ os Functional Requirements do spec-kit ("System MUST …" segue a
-mesma estrutura), então a conversão RN→FR fica quase 1:1.
+RN estruturada ≈ os requisitos funcionais ("o sistema deve …" segue a mesma
+estrutura), então a conversão RN→requisito fica quase 1:1.
 
-As `⚠️ Gaps` e `DA-XX` em aberto viram os `[NEEDS CLARIFICATION]` do spec —
+As `⚠️ Gaps` e `DA-XX` em aberto viram pendências de clarificação no PRD/SPEC —
 resolva na agenda antes de especificar.
 
 ## Antes da agenda

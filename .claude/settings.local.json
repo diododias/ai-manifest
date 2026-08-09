@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk grep *)",
+      "Bash(rtk ls *)",
+      "Read(//Users/luizdiodo/new_repos/ai-manifest/**)",
+      "Bash(rtk git *)",
+      "Skill(update-config)"
+    ]
+  }
+}

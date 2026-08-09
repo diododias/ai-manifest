@@ -46,5 +46,6 @@ A skill que orquestra isso vive em `.claude/skills/business-discovery/`.
 - Status: 🟡 em descoberta · 🟢 pronto pra especificar · ✅ virou spec.
 - Changelog do `requisitos.md` é **append-only** — preserva o histórico de como
   o entendimento evoluiu entre agendas.
-- O formato espelha o PRD do spec-kit (ver "Handoff pro spec-kit" no SKILL.md) —
-  a feature 🟢 alimenta `/speckit-specify` direto.
+- O formato espelha o PRD produzido pela skill `review-prd` (ver "Handoff pra
+  review-prd e create-spec" no SKILL.md) — a feature 🟢 alimenta `/review-prd`
+  e depois `/create-spec` direto.
