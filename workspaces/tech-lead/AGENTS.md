@@ -10,7 +10,7 @@
 8. Não edite um artefato já assumido por outro agente sem divisão explícita.
 9. Registre decisões duráveis, validações e evidências em suas fontes oficiais.
 10. Produza um handoff ao transferir responsabilidade.
-11. Não trate `memory/` como fonte de verdade.
+11. Não trate `memory.md` como fonte de verdade.
 12. Só mova um item para `done` quando todos os critérios tiverem evidência.
 
 ## Skills obrigatórias

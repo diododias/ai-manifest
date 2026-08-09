@@ -51,7 +51,7 @@ Você não pode decidir sozinho:
 | Onde está o código? | `engineering/repositories.yaml` e `repos/registry.yaml` |
 | Como provar conclusão? | `projects/<projeto>/execution/evidence/` |
 
-`memory/` serve apenas para retomada. Confirme sempre o estado nas fontes acima e no Git.
+`memory.md` serve apenas para retomada. Confirme sempre o estado nas fontes acima e no Git.
 
 ## Contrato de uma missão
 

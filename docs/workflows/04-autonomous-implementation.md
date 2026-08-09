@@ -40,9 +40,20 @@ flowchart LR
 
 ## Regras de colaboração
 
-- Agentes não editam simultaneamente o mesmo artefato sem divisão explícita.
-- Nenhuma tarefa usa branch, worktree ou alterações preexistentes de outra missão sem autorização.
-- A conclusão local não substitui a validação adversarial.
+Como esta é a etapa mais paralela do fluxo, as regras existem para evitar que dois agentes destruam o trabalho um do outro. Agentes não editam simultaneamente o mesmo artefato sem divisão explícita, e nenhuma tarefa usa branch, worktree ou alterações preexistentes de outra missão sem autorização. Por fim, a conclusão local não substitui a validação adversarial — gates verdes indicam que a mudança está pronta para ser atacada, não que está aprovada.
+
+## Encerramento
+
+Antes de fechar a rodada, registre:
+
+| Artefato | Destino | Obrigatório |
+|---|---|---|
+| Código implementado | worktree em `repos/worktrees/` (fora do workspace) | sim |
+| Work Item atualizado | `work-items/<WI-id>.md` — status, branch, worktree | sim |
+| STATUS.md | fase `implementation`, próximo gate `technical review` | sim |
+| `MEMORY.md` | progresso e bloqueios relevantes | se houve mudança |
+
+Nenhum arquivo de implementação vai para `plans/assets/`. O rastro auditável da implementação é o diff no repositório e as evidências em `execution/evidence/`.
 
 ## Escalonamento
 

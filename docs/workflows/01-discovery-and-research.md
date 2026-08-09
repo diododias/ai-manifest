@@ -42,9 +42,7 @@ flowchart LR
 
 ## Regras de colaboração
 
-- A consulta ao Tech Lead Discovery é de viabilidade e risco inicial; arquitetura final pertence à especificação técnica.
-- UX pode devolver a hipótese de problema quando a evidência de usuário a contradisser.
-- A crítica adversarial produz findings rastreáveis; não reescreve o `PB.md` silenciosamente.
+Três limites mantêm o discovery no seu escopo. A consulta ao Tech Lead Discovery é de viabilidade e risco inicial — arquitetura final pertence à especificação técnica. O UX pode devolver a hipótese de problema quando a evidência de usuário a contradisser, e essa devolução não é uma objeção a ser negociada. A crítica adversarial produz findings rastreáveis; ela não reescreve o `PB.md` silenciosamente.
 
 ## Escalonamento
 

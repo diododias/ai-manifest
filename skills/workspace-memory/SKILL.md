@@ -1,18 +1,18 @@
 ---
 name: workspace-memory
-description: Retoma uma missao usando a memoria operacional do workspace sem confundi-la com fonte de verdade. Use ao iniciar ou retomar trabalho em um workspace com `memory/`, `MEMORY.md`, `USER.md` ou historico de agentes, e antes de registrar aprendizado duravel.
+description: Retoma uma missão usando a memória operacional do workspace sem confundi-la com fonte de verdade. Use ao iniciar ou retomar trabalho em um workspace com `memory/`, `MEMORY.md`, `USER.md` ou histórico de agentes, e antes de registrar aprendizado durável.
 ---
 
-# Memoria do workspace
+# Memória do workspace
 
 ## Fluxo
 
-1. Identifique o escopo da sessao: privado ou compartilhado, workspace, projeto e missao.
-2. Leia primeiro a memoria permitida e mais recente: `memory/YYYY-MM-DD.md` para fatos diarios, `USER.md` para diretivas estaveis e `MEMORY.md` somente na sessao principal e privada.
-3. Trate toda memoria como contexto retomavel. Confirme estado, prioridade, aprovacao e conclusao em suas fontes canonicas — por exemplo, Work Item, `STATUS.md`, `BOARD.md`, repositorio e evidencia.
-4. Registre somente fatos observados, decisoes duraveis com dono e links para a evidencia. Leia antes de escrever e nao crie arquivos vazios ou placeholders.
-5. Nunca registre ou revele segredos, credenciais, tokens, `.env` ou dados pessoais desnecessarios. Em canal compartilhado, nao carregue nem exponha `MEMORY.md`.
+1. Identifique o escopo da sessão: privado ou compartilhado, workspace, projeto e missão.
+2. Leia primeiro a memória permitida e mais recente: `memory/YYYY-MM-DD.md` para fatos diários, `USER.md` para diretivas estáveis e `MEMORY.md` somente na sessão principal e privada.
+3. Trate toda memória como contexto retomável. Confirme estado, prioridade, aprovação e conclusão em suas fontes canônicas — por exemplo, Work Item, `STATUS.md`, `BOARD.md`, repositório e evidência.
+4. Registre somente fatos observados, decisões duráveis com dono e links para a evidência. Leia antes de escrever e não crie arquivos vazios ou placeholders.
+5. Nunca registre ou revele segredos, credenciais, tokens, `.env` ou dados pessoais desnecessários. Em canal compartilhado, não carregue nem exponha `MEMORY.md`.
 
 ## Resultado esperado
 
-No resultado da missao, declare se a memoria foi consultada, quais fatos foram confirmados e qual fonte canonica os confirmou. Se uma anotacao estiver desatualizada ou contraditoria, preserve a divergencia e escale; nao a sobrescreva silenciosamente.
+No resultado da missão, declare se a memória foi consultada, quais fatos foram confirmados e qual fonte canônica os confirmou. Se uma anotação estiver desatualizada ou contraditória, preserve a divergência e escale; não a sobrescreva silenciosamente.

@@ -7,7 +7,7 @@ updated_at: 2026-08-08
 
 # Workspace do Tech Lead
 
-Este diretório materializa a arquitetura descrita em [`docs/architecture/tech-lead-workspace.md`](../../docs/architecture/tech-lead-workspace.md). O projeto `checkout`, a organização `acme` e seus estados são dados fictícios usados para mostrar o fluxo completo.
+Este diretório materializa a arquitetura descrita em [`docs/diagrams/tech-lead-workspace.md`](../../docs/diagrams/tech-lead-workspace.md). O projeto `checkout`, a organização `acme` e seus estados são dados fictícios usados para mostrar o fluxo completo.
 
 ## Comece por aqui
 
@@ -31,8 +31,8 @@ Este diretório materializa a arquitetura descrita em [`docs/architecture/tech-l
 | Estado do trabalho | `projects/<projeto>/work-items/` |
 | Evidência de conclusão | `projects/<projeto>/execution/evidence/` |
 | Clones e worktrees | `repos/` |
-| Coordenação temporária | `coordination/` |
-| Contexto retomável, não autoritativo | `memory/` |
+| Coordenação temporária | `..coordination/` |
+| Contexto retomável, não autoritativo | `memory.md` |
 
 ## Estrutura
 
@@ -45,8 +45,8 @@ tech-lead/
 ├── docs/          # padrões, playbooks, templates e portfólio
 ├── projects/      # fonte de verdade de cada projeto
 ├── repos/         # registro e checkouts locais ignorados pelo Git
-├── coordination/  # comunicação transversal temporária
-├── memory/        # memória operacional do workspace
+├── ..coordination/  # comunicação transversal temporária
+├── memory.md      # memória operacional do workspace
 └── archive/       # material global desativado
 ```
 

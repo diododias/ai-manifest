@@ -27,8 +27,8 @@ pm/
 ├── docs/          # portfólio, padrões, playbooks e templates
 ├── projects/      # fonte de verdade de produto por projeto
 │   └── <projeto>/plans/assets/<workflow>/<data>-<session-id>/  # material bruto isolado por sessão
-├── coordination/  # entradas, decisões pendentes e handoffs temporários
-├── memory/        # contexto retomável, não autoritativo
+├── ..coordination/  # entradas, decisões pendentes e handoffs temporários
+├── memory.md      # contexto retomável, não autoritativo
 └── archive/       # material global desativado
 ```
 

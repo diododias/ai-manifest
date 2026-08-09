@@ -27,8 +27,8 @@ ux/
 ├── docs/          # padrões, playbooks e templates
 ├── projects/      # pesquisa e experiência por projeto
 │   └── <projeto>/plans/assets/<workflow>/<data>-<session-id>/  # material bruto isolado por sessão
-├── coordination/  # recrutamento, handoffs e decisões temporárias
-├── memory/        # contexto retomável, não autoritativo
+├── ..coordination/  # recrutamento, handoffs e decisões temporárias
+├── memory.md      # contexto retomável, não autoritativo
 └── archive/       # material global desativado
 ```
 

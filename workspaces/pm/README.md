@@ -50,7 +50,7 @@ Você não pode decidir sozinho:
 | Qual item está em execução? | `work-items/` |
 | O produto foi aceito? | `validation/` e `decisions/` |
 
-`memory/` não é fonte de verdade. Não transforme opinião, pedido de stakeholder ou hipótese em requisito aprovado sem decisão explícita.
+`memory.md` não é fonte de verdade. Não transforme opinião, pedido de stakeholder ou hipótese em requisito aprovado sem decisão explícita.
 
 ## Contrato de saída
 

@@ -13,5 +13,5 @@ Projeto fictício que demonstra como produto, UX, engenharia, planejamento, exec
 - [`plans/assets/`](plans/assets/README.md): material bruto de sessões (transcrições, prints, e-mails, documentos), isolado por execução;
 - [`work-items/WI-031.md`](work-items/WI-031.md): unidade de trabalho ativa;
 - [`execution/`](execution/README.md): handoffs, reviews e evidências;
-- [`learnings/`](learnings/README.md): aprendizado em curadoria;
-- [`memory/`](memory/README.md): contexto operacional não autoritativo.
+- [`LEARNINGS.md`](LEARNINGS.md): aprendizado em curadoria;
+- `MEMORY.md`: contexto operacional não autoritativo.

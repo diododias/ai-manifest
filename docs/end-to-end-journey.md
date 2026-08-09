@@ -1,14 +1,29 @@
 ---
 title: Agent Team — fluxo da jornada
 status: reference
-updated_at: 2026-08-08
+updated_at: 2026-08-09
 ---
 
 # Agent Team — fluxo da jornada
 
-> Visão visual do [sistema operacional do trio humano](../operating-model.md) e do [modelo operacional 90/10](operating-model-90-10.md) · [Fluxos separados por fase](journey-by-phase.md) · [workflows multiagente](../workflows/README.md).
+> O ciclo completo do Agent Team em um único diagrama: onde os agentes trabalham, onde as automações bloqueiam e onde uma pessoa precisa decidir.
 
-Cada etapa com colaboração entre agentes possui um contrato detalhado no [mapa de workflows](../workflows/README.md): [intake](../workflows/00-intake-and-triage.md), [discovery](../workflows/01-discovery-and-research.md), [produto e UX](../workflows/02-product-and-ux-planning.md), [especificação](../workflows/03-technical-specification.md), [implementação](../workflows/04-autonomous-implementation.md), [validação](../workflows/05-adversarial-validation.md), [PR](../workflows/06-pr-and-merge.md), [homologação](../workflows/07-release-candidate-validation.md), [produção](../workflows/08-production-release-and-observation.md), [conhecimento](../workflows/09-knowledge-curation.md) e [melhoria contínua](../workflows/10-continuous-improvement.md).
+## Em 2 minutos
+
+Este é o documento para ver o sistema inteiro de uma vez. O diagrama abaixo cobre as onze etapas, do registro de uma necessidade até o aprendizado que reinicia o ciclo, e usa cor para separar três naturezas de trabalho: o que agentes executam, o que automações verificam e o que exige julgamento humano.
+
+O ponto a observar na primeira leitura é a **quantidade de amarelo**. São apenas seis pontos de decisão humana (H1 a H6) em todo o ciclo — o resto é executado ou verificado sem intervenção. É essa proporção que o modelo tenta sustentar, e é ela que degrada primeiro quando gates são frouxos ou artefatos ficam ambíguos.
+
+| Para ir mais fundo | Documento |
+|---|---|
+| Papéis, decisões e autonomia | [sistema operacional do trio humano](operating-model.md) |
+| Gates, risco e níveis A0–A4 | [modelo operacional 90/10](operating-model-90-10.md) |
+| O mesmo fluxo, uma fase por vez | [fluxos por fase](journey-by-phase.md) |
+| O contrato de cada etapa | [workflows multiagente](workflows/README.md) |
+
+Cada etapa com colaboração entre agentes tem contrato próprio: [intake](workflows/00-intake-and-triage.md), [discovery](workflows/01-discovery-and-research.md), [produto e UX](workflows/02-product-and-ux-planning.md), [especificação](workflows/03-technical-specification.md), [implementação](workflows/04-autonomous-implementation.md), [validação](workflows/05-adversarial-validation.md), [PR](workflows/06-pr-and-merge.md), [homologação](workflows/07-release-candidate-validation.md), [produção](workflows/08-production-release-and-observation.md), [conhecimento](workflows/09-knowledge-curation.md) e [melhoria contínua](workflows/10-continuous-improvement.md).
+
+---
 
 ## Jornada de desenvolvimento
 
@@ -157,30 +172,41 @@ flowchart TD
     class ROLLBACK failure;
 ```
 
+---
+
 ## Como ler o fluxo
 
-- **Azul:** trabalho executado pelos Agent Teams
-- **Verde:** automações, gates, hooks e decisões por política
-- **Amarelo:** checkpoints de decisão humana
-- **Roxo:** conhecimento, telemetria e Auto Dream
-- **Vermelho:** regressão e caminho de recuperação
-- **Linha contínua:** fluxo de entrega
-- **Linha pontilhada:** coleta ou reutilização de conhecimento
+| Cor | Natureza do trabalho |
+|---|---|
+| 🔵 Azul | executado pelos Agent Teams |
+| 🟢 Verde | automações, gates, hooks e decisões por política |
+| 🟡 Amarelo | checkpoints de decisão humana |
+| 🟣 Roxo | conhecimento, telemetria e Auto Dream |
+| 🔴 Vermelho | regressão e caminho de recuperação |
+
+Linha contínua indica fluxo de entrega; linha pontilhada, coleta ou reutilização de conhecimento. As setas de retorno importam tanto quanto as de avanço: elas mostram para onde uma falha devolve o trabalho, e é por isso que um gate frouxo em uma etapa inicial custa caro várias etapas depois.
+
+---
 
 ## Intervenções humanas
 
-- **H1:** confirmar se o problema merece investimento
-- **H2:** confirmar escopo, experiência e resultado esperado
-- **H3:** avaliar apenas decisões técnicas excepcionais ou de alto risco
-- **H4:** autorizar integração conforme a classe de risco
-- **H5:** autorizar exposição crítica em produção
-- **H6:** validar aprendizados sensíveis, demandas P0/P1 e mudanças de gates
+Os seis checkpoints existem para decisões que não podem ser delegadas — investimento, escopo, trade-off técnico excepcional, integração, exposição de risco e validação de aprendizado.
+
+| Checkpoint | Pergunta | Quando ocorre |
+|---|---|---|
+| **H1** | O problema merece investimento? | após o discovery |
+| **H2** | É isto que construiremos, para quem e com qual resultado? | após o planejamento de produto e UX |
+| **H3** | Aceitamos os trade-offs? | apenas em nova ADR, exceção ou risco R3/R4 |
+| **H4** | Podemos integrar? | conforme a classe de risco do PR |
+| **H5** | Podemos expor o risco em produção? | apenas em exposição crítica ou R3/R4 |
+| **H6** | O sistema aprendeu corretamente? | semanal, ou em P0/P1, memória sensível e mudança de gate |
+
+Note que H3 e H5 são condicionais. Em um item de baixo risco com gates verdes, o fluxo vai de H2 direto a H4 — três decisões humanas em um ciclo completo.
+
+---
 
 ## Fechamento do ciclo
 
-- O Knowledge Agent registra o conhecimento específico da entrega
-- O Auto Dream analisa semanalmente o conjunto das sessões
-- Aprendizados validados atualizam o `MEMORY.md`
-- Falhas e atritos geram demandas rastreáveis no backlog
-- As demandas podem melhorar processo, harness, skills, scripts, gates ou fluxo
-- O backlog reinicia o ciclo com conhecimento e controles melhores
+O ciclo não termina na entrega. O Knowledge Agent registra o conhecimento específico daquela entrega, e o Auto Dream analisa semanalmente o conjunto das sessões, separando o que virou aprendizado do que virou atrito.
+
+Aprendizados validados atualizam o `MEMORY.md` e passam a servir de contexto para os próximos discoveries. Falhas e atritos geram demandas rastreáveis no backlog, que podem melhorar processo, harness, skills, scripts, gates ou o próprio fluxo. O backlog então reinicia o ciclo — com conhecimento e controles melhores do que na volta anterior.

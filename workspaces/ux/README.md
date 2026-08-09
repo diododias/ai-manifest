@@ -50,7 +50,7 @@ Você não pode decidir sozinho:
 | Como provar qualidade? | `validation/` |
 | Quais limites técnicos importam? | `handoffs/from-tech-lead.md`, quando existir |
 
-`memory/` é somente retomada. Avaliação heurística, opinião interna e teste com usuários são evidências diferentes e nunca devem ser misturados.
+`memory.md` é somente retomada. Avaliação heurística, opinião interna e teste com usuários são evidências diferentes e nunca devem ser misturados.
 
 ## Contrato de saída
 

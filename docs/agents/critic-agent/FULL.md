@@ -94,7 +94,7 @@ handoff_to: []
 
 ## Memória
 
-- Use `memory/YYYY-MM-DD.md` para notas diárias concretas.
+- Use `memory.md` para notas diárias concretas.
 - Use `USER.md` apenas para diretivas estáveis sobre o usuário e sponsors.
 - Crie ou atualize `MEMORY.md` somente na sessão principal e privada, com fatos não pessoais e decisões duráveis.
 - Leia antes de escrever. Não crie placeholders nem registre segredos.

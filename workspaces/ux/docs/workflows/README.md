@@ -17,4 +17,4 @@ Este diretório referencia o [catálogo canônico](../../../../docs/workflows/RE
 | [Homologação](../../../../docs/workflows/07-release-candidate-validation.md) | decide aceite de experiência | `projects/<project>/validation/` |
 | [Conhecimento e melhoria](../../../../docs/workflows/09-knowledge-curation.md) | promove aprendizado de experiência | fonte canônica do projeto |
 
-Handoffs temporários usam `coordination/`; handoffs de um projeto usam `projects/<project>/handoffs/`. UX não duplica PRD, plano técnico ou evidência de CI: referencia as fontes do PM e do Tech Lead.
+Handoffs temporários usam `..coordination/`; handoffs de um projeto usam `projects/<project>/handoffs/`. UX não duplica PRD, plano técnico ou evidência de CI: referencia as fontes do PM e do Tech Lead.

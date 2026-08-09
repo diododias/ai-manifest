@@ -14,23 +14,50 @@ tags:
 
 # Agent Team — workspace do Tech Lead
 
-> Estrutura operacional do workspace compartilhado pelos agentes do Tech Lead. Complementa o [sistema operacional do trio humano](../operating-model.md), o [catálogo de agentes](../agents/catalog.md) e o [modelo operacional 90/10](../operations/operating-model-90-10.md).
->
-> Uma implementação navegável deste contrato está disponível em [`workspaces/tech-lead/`](../../workspaces/tech-lead/WORKSPACE.md).
-> Os workflows reutilizáveis ficam no [catálogo global](../workflows/README.md); este workspace mantém apenas seus bindings locais e os artefatos de execução por projeto.
+> Como organizar em disco o contexto, o planejamento, a execução e o aprendizado de vários projetos operados por múltiplos agentes ao mesmo tempo.
+
+## Em 2 minutos
+
+Quando vários agentes trabalham em paralelo sobre os mesmos projetos, o problema deixa de ser "onde guardo este arquivo" e passa a ser "qual dos três lugares onde este dado aparece é o verdadeiro". Sem uma resposta explícita, agentes começam a divergir silenciosamente e o trabalho se corrompe sem que ninguém perceba.
+
+Este documento resolve isso com uma separação: **o projeto é a unidade de organização do trabalho; o repositório é a unidade de organização do código**. Um projeto pode envolver vários repositórios, e um repositório pode servir a mais de um projeto. A partir daí, cada tipo de informação tem exatamente um dono declarado na [tabela de fonte de verdade](#7-regras-de-fonte-de-verdade).
+
+| Área | Guarda | Não guarda |
+|---|---|---|
+| `docs/` | conhecimento válido para vários projetos: padrões, playbooks, templates, portfólio | PRDs, specs e decisões de um projeto |
+| `projects/<slug>/` | tudo que é específico do projeto, do contexto às evidências | código-fonte |
+| `repos/` | clones locais e worktrees, espelhando a identidade do GitHub | artefatos de planejamento |
+| `plans/` | estratégia de execução e material bruto de sessão | conclusões canônicas |
+| `memory/` | contexto operacional temporário do agente | conhecimento validado |
+| `coordination/` | comunicação transitória entre agentes | qualquer coisa persistente |
+
+Duas regras derivam disso e valem para qualquer agente: uma informação nunca é autoritativa em dois lugares, e resumos apontam para a fonte original em vez de reproduzi-la.
+
+---
+
+## Mapa do documento
+
+| Seção | Responde | Leia se você… |
+|---|---|---|
+| [1–2. Objetivo e estrutura](#1-objetivo) | Como a pasta é organizada | vai criar o workspace |
+| [3. Responsabilidade de cada área](#3-responsabilidade-de-cada-área) | O que entra em cada diretório | está em dúvida sobre onde salvar algo |
+| [4. BOARD e Work Items](#4-board-e-work-items) | Como o trabalho é rastreado | vai operar o board |
+| [5. Workflow multiagente](#5-workflow-multiagente) | Como as etapas se conectam ao workspace | vai rodar um workflow aqui |
+| [6. Arquivos fundamentais](#6-arquivos-fundamentais) | O conteúdo mínimo de cada arquivo-chave | vai escrever `WORKSPACE.md` ou `AGENTS.md` |
+| [7–8. Fonte de verdade e convenções](#7-regras-de-fonte-de-verdade) | Onde está a verdade e como nomear as coisas | vai automatizar algo sobre o workspace |
+| [9–10. Implantação](#9-implantação-incremental) | Em que ordem adotar | está começando |
+
+**Vizinhos:** [sistema operacional do trio humano](../operating-model.md) · [catálogo de agentes](../agents/catalog.md) · [modelo operacional 90/10](../operating-model-90-10.md) · [workflows canônicos](../workflows/README.md).
+
+Uma implementação navegável deste contrato está em [`workspaces/tech-lead/`](../../workspaces/tech-lead/WORKSPACE.md). Os workflows reutilizáveis ficam no catálogo global; o workspace mantém apenas seus bindings locais e os artefatos de execução por projeto.
+
+---
 
 ## 1. Objetivo
 
 Organizar o contexto, o planejamento, a execução e o aprendizado de todos os projetos sob responsabilidade do Tech Lead em um único workspace, compartilhado pelos seus agentes.
 
-O modelo separa explicitamente:
-
-- conhecimento global, válido para vários projetos;
-- fonte de verdade de cada projeto;
-- código-fonte e checkouts dos repositórios GitHub;
-- coordenação do trabalho entre agentes;
-- memória operacional;
-- aprendizados ainda candidatos e conhecimento já validado.
+O modelo separa explicitamente seis coisas que costumam se misturar: conhecimento global válido para vários projetos, fonte de verdade de cada projeto, código-fonte e checkouts dos repositórios GitHub, coordenação do trabalho entre agentes, memória operacional, e a distinção entre aprendizado ainda candidato e conhecimento já validado.
 
 O princípio central é: **o projeto é a unidade principal de organização do trabalho, enquanto o repositório é a unidade de organização do código**. Um projeto pode envolver vários repositórios e um repositório pode atender mais de um projeto.
 
@@ -106,7 +133,7 @@ tech-lead/
 │       │   ├── reviews/
 │       │   └── evidence/
 │       │
-│       ├── learnings/
+│       ├── LEARNINGS.md
 │       │   ├── candidates/
 │       │   └── accepted/
 │       │
@@ -126,7 +153,7 @@ tech-lead/
 │           └── <repository>/
 │               └── <work-item>/
 │
-├── coordination/
+├── .coordination/
 │   ├── active/
 │   ├── handoffs/
 │   ├── blockers/
@@ -257,11 +284,9 @@ O Work Item deve registrar `repository`, `worktree`, `branch` e `base_branch`. W
 
 #### Cuidados de armazenamento e indexação
 
-- `repos/` deve permanecer em disco local confiável; evitar pastas sincronizadas que possam corromper ou degradar `.git`;
-- excluir `.git/`, `node_modules/`, artefatos de build, caches e dependências da indexação documental;
-- não copiar segredos, arquivos `.env` ou credenciais para documentação, memória ou handoffs;
-- cada repositório mantém seu próprio `AGENTS.md`, README, regras de build e instruções locais;
-- `repos/README.md` explica como clonar, atualizar, criar worktrees e validar os repositórios deste workspace.
+`repos/` deve permanecer em disco local confiável — pastas sincronizadas por serviços de nuvem podem corromper ou degradar `.git`, e a falha costuma aparecer tarde. Da indexação documental devem ficar de fora `.git/`, `node_modules/`, artefatos de build, caches e dependências.
+
+Segredos, arquivos `.env` e credenciais nunca são copiados para documentação, memória ou handoffs. Cada repositório mantém seu próprio `AGENTS.md`, README, regras de build e instruções locais, e `repos/README.md` explica como clonar, atualizar, criar worktrees e validar os repositórios deste workspace.
 
 ### 3.4 `plans/` — planejamento dentro do projeto
 
@@ -318,11 +343,11 @@ Memória não é fonte de verdade. Quando uma informação se torna durável, de
 | Requisito | PRD ou spec |
 | Trabalho necessário | Work Item |
 | Evidência de execução | `execution/evidence/` |
-| Aprendizado validado | `learnings/accepted/` ou `docs/` |
+| Aprendizado validado | `LEARNINGS.md (aceitos)` ou `docs/` |
 
 A memória da raiz contém apenas informações do workspace. Memória específica permanece dentro do projeto.
 
-### 3.6 `learnings/` — aprendizado curado
+### 3.6 `LEARNINGS.md` — aprendizado curado
 
 Possui dois estágios:
 
@@ -551,13 +576,17 @@ Uma informação não deve existir como conteúdo autoritativo em dois locais. A
 
 ### 8.1 Identificadores
 
-- projeto: slug estável, por exemplo `checkout`;
-- plano: `PLAN-NNN`;
-- Work Item: `WI-NNN`;
-- ADR: `ADR-NNN`;
-- handoff: `HANDOFF-<work-item>-<origem>-<destino>.md`.
+Identificadores estáveis são o que permite automatizar qualquer coisa sobre o workspace.
 
-Quando identificadores puderem colidir entre projetos, usar o prefixo do projeto, como `CHK-WI-031`.
+| Entidade | Formato |
+|---|---|
+| Projeto | slug estável, por exemplo `checkout` |
+| Plano | `PLAN-NNN` |
+| Work Item | `WI-NNN` |
+| ADR | `ADR-NNN` |
+| Handoff | `HANDOFF-<work-item>-<origem>-<destino>.md` |
+
+Quando identificadores puderem colidir entre projetos, use o prefixo do projeto — `CHK-WI-031`.
 
 ### 8.2 Estados permitidos
 
@@ -578,27 +607,24 @@ Os valores devem ser estáveis e escritos sempre da mesma forma para permitir au
 
 ### 8.3 Handoff mínimo
 
-Todo handoff deve registrar:
+Um handoff que não permite ao receptor retomar sozinho o trabalho não é um handoff — é um pedido de reunião. O conteúdo mínimo:
 
-- missão e Work Item;
-- repositórios, branches, worktrees e commits envolvidos;
-- o que foi feito;
-- arquivos alterados;
-- decisões tomadas;
-- evidências disponíveis;
-- pendências e riscos;
-- próxima ação esperada;
-- agente ou papel de destino.
+| Bloco | Registra |
+|---|---|
+| Identificação | missão e Work Item; agente ou papel de destino |
+| Código | repositórios, branches, worktrees e commits envolvidos; arquivos alterados |
+| Resultado | o que foi feito; decisões tomadas; evidências disponíveis |
+| Continuidade | pendências e riscos; próxima ação esperada |
 
 ### 8.4 Concorrência entre agentes
 
-- cada missão ativa possui um único agente responsável;
-- responsabilidade e horário de início ficam registrados no Work Item;
-- dois agentes não editam simultaneamente o mesmo artefato sem divisão explícita;
-- agentes concorrentes no mesmo repositório usam branches e worktrees separados por Work Item;
-- alterações locais preexistentes nunca são descartadas ou incorporadas sem autorização;
-- o board é consolidado por um coordenador, não editado livremente por todos;
-- achados transitórios são registrados em arquivos separados, evitando um grande arquivo compartilhado de anotações.
+O risco em um workspace multiagente é a sobrescrita silenciosa. As regras abaixo existem para tornar cada conflito visível antes que ele destrua trabalho.
+
+**Sobre responsabilidade.** Cada missão ativa tem um único agente responsável, com responsabilidade e horário de início registrados no Work Item. Dois agentes não editam simultaneamente o mesmo artefato sem divisão explícita.
+
+**Sobre o código.** Agentes concorrentes no mesmo repositório usam branches e worktrees separados por Work Item, e alterações locais preexistentes nunca são descartadas ou incorporadas sem autorização.
+
+**Sobre o registro.** O board é consolidado por um coordenador, não editado livremente por todos, e achados transitórios ficam em arquivos separados — um grande arquivo compartilhado de anotações vira ponto de conflito garantido.
 
 ## 9. Implantação incremental
 
@@ -626,27 +652,21 @@ projects/<piloto>/
 
 ### Fase 2 — templates e coordenação
 
-- adicionar templates de plano, ADR, Work Item e handoff;
-- introduzir `coordination/`;
-- padronizar metadados e estados;
-- padronizar branches e worktrees por Work Item;
-- validar o fluxo com um projeto real.
+Torna o contrato repetível. Adicione templates de plano, ADR, Work Item e handoff; introduza `.coordination/`; padronize metadados, estados, branches e worktrees por Work Item. Valide o resultado com um projeto real antes de seguir.
 
 ### Fase 3 — memória e aprendizado
 
-- adicionar memória por projeto;
-- criar o fluxo `candidate -> accepted -> promoted`;
-- definir retenção e arquivamento de contexto temporário.
+Introduz o que sobrevive entre missões: memória por projeto, o fluxo `candidate → accepted → promoted` para aprendizados, e a política de retenção e arquivamento de contexto temporário.
 
 ### Fase 4 — automação
 
-- regenerar `BOARD.md` a partir dos Work Items;
-- detectar itens sem owner, critérios ou evidências;
-- validar links e identificadores;
-- verificar divergências entre `registry.yaml`, projetos e clones existentes;
-- detectar worktrees órfãos e branches sem Work Item relacionado;
-- gerar relatórios de status e bloqueios;
-- avisar quando memória contém decisão ainda não promovida.
+Só faz sentido depois que as três fases anteriores produzirem dados consistentes. As verificações automáticas se dividem em três frentes:
+
+| Frente | Verifica |
+|---|---|
+| **Consolidação** | regenerar `BOARD.md` a partir dos Work Items; gerar relatórios de status e bloqueios |
+| **Integridade** | itens sem owner, critérios ou evidências; links e identificadores; divergências entre `registry.yaml`, projetos e clones |
+| **Higiene** | worktrees órfãos e branches sem Work Item relacionado; memória com decisão ainda não promovida |
 
 ## 10. Decisão recomendada
 
@@ -656,7 +676,7 @@ Manter na raiz apenas elementos transversais:
 
 - `docs/`: conhecimento global curado;
 - `repos/`: repositórios GitHub e worktrees locais;
-- `coordination/`: comunicação temporária entre agentes;
+- `.coordination/`: comunicação temporária entre agentes;
 - `memory/`: memória do workspace;
 - `BOARD.md`: visão consolidada do portfólio;
 - `archive/`: material global desativado.

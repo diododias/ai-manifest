@@ -17,4 +17,4 @@ Este diretório referencia o [catálogo canônico](../../../../docs/workflows/RE
 | [Homologação](../../../../docs/workflows/07-release-candidate-validation.md) | decide aceite de produto | `projects/<project>/validation/` |
 | [Conhecimento e melhoria](../../../../docs/workflows/09-knowledge-curation.md) | promove aprendizado de produto e prioriza demanda | fonte canônica do projeto e `work-items/` |
 
-Handoffs temporários usam `coordination/`; handoffs de um projeto usam `projects/<project>/handoffs/`. O PM não grava planos técnicos em seu workspace: referencia os artefatos do workspace do Tech Lead.
+Handoffs temporários usam `..coordination/`; handoffs de um projeto usam `projects/<project>/handoffs/`. O PM não grava planos técnicos em seu workspace: referencia os artefatos do workspace do Tech Lead.

@@ -6,7 +6,7 @@ updated_at: 2026-08-08
 
 # Agent Team — modelo operacional 90/10
 
-> Desdobramento prático de [Agent Team — sistema operacional do trio humano](../operating-model.md) · [Fluxo visual completo](end-to-end-journey.md) · [Fluxos por fase](journey-by-phase.md) · [workflows multiagente](../workflows/README.md).
+> Desdobramento prático de [Agent Team — sistema operacional do trio humano](../rules/operating-model.md) · [Fluxo visual completo](end-to-end-journey.md) · [Fluxos por fase](journey-by-phase.md) · [workflows multiagente](../workflows/README.md).
 
 As subseções do fluxo operacional indicam o que deve ser feito; os [workflows](../workflows/README.md) descrevem como os agentes colaboram, fazem handoff, criticam e consolidam cada saída.
 

@@ -40,6 +40,21 @@ flowchart LR
 3. O QA Agent consolida sem silenciar divergências, mapeando cada critério para evidência ou gap.
 4. CI decide os checks requeridos pela classe de risco e pelos paths alterados. Findings corrigíveis voltam à implementação; toda correção material recebe nova validação proporcional.
 
+## Encerramento
+
+Antes de fechar a rodada, registre:
+
+| Artefato | Destino | Obrigatório |
+|---|---|---|
+| Review do Code Reviewer | `execution/reviews/code-<WI-id>.md` | sim |
+| Review do Security Agent | `execution/reviews/security-<WI-id>.md` | quando aplicável |
+| Review do Architecture Agent | `execution/reviews/architecture-<WI-id>.md` | quando aplicável |
+| Evidence pack consolidado (QA Agent) | `execution/evidence/<WI-id>.md` | sim |
+| Work Item atualizado | `work-items/<WI-id>.md` — status e link para evidence | sim |
+| STATUS.md | fase `review`, próximo gate: `PR / loop back` | sim |
+
+Achados abertos em qualquer review bloqueiam o gate. Cada resolução exige evidência referenciada no arquivo de review correspondente, não apenas texto.
+
 ## Escalonamento
 
 Escalar falso positivo, exceção, requisito ausente ou divergência sem regra de desempate. O QA Agent não pode fechar sozinho um achado de outro reviewer sem evidência de revalidação.
