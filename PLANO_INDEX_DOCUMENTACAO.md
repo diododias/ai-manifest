@@ -88,7 +88,7 @@ O site usara hash routing para funcionar tanto por duplo clique quanto em hostin
 ### Comportamentos
 
 1. Ao abrir o site, a home apresenta a piramide, uma explicacao curta do modelo e acessos rapidos.
-2. Hover, foco ou toque em um nivel realca a camada e mostra sua pergunta central, quantidade de conteudos e relacao com os niveis adjacentes.
+2. Hover, foco ou toque em um nivel realca a camada e mostra sua pergunta central e relacao com os niveis adjacentes.
 3. Clique ou `Enter` atualiza a rota, executa uma transicao curta e abre a pagina da macrosecao.
 4. A pagina de secao apresenta um cabecalho marcante, resumo, mapa de subsecoes e trilha de leitura recomendada.
 5. Clique em uma subsecao abre o documento no mesmo shell, mantendo breadcrumb, menu contextual e sumario local.
@@ -116,24 +116,24 @@ O site usara hash routing para funcionar tanto por duplo clique quanto em hostin
 - Tipografia editorial de alta legibilidade, com titulos amplos e numeracao tecnica nas macrosecoes.
 - Bordas finas, brilho ciano apenas em foco/estado ativo e contraste suficiente para leitura longa.
 - Transicoes entre 160 e 280 ms; nenhuma animacao impede leitura ou navegacao.
-- Cards de macrosecao com hierarquia clara, resumo curto, contagem de subsecoes e acao explicita.
+- Cards de macrosecao com hierarquia clara, resumo curto e acao explicita, sem indicadores quantitativos.
 - Infograficos futuros compartilham tokens de cor, tipografia, legenda, controles de zoom e comportamento responsivo.
 
-## Piramide interativa
+## Camadas interativas
 
-A piramide sera construida com HTML semantico e CSS, sem imagem fixa, para preservar responsividade, acessibilidade e estados interativos.
+As camadas serao construidas com HTML semantico e CSS, sem imagem fixa, para preservar responsividade, acessibilidade e estados interativos.
 
-Cada nivel sera um `button`/link real com:
+Cada camada sera um `button`/link real com:
 
 - nome e numero da camada;
 - descricao acessivel;
 - estado normal, hover, foco, ativo e visitado;
 - area de toque minima de 44 px;
-- relacao visual com o nivel anterior e o seguinte;
+- relacao visual com a camada anterior e a seguinte;
 - destino direto para a rota da macrosecao;
 - suporte a teclado e leitor de tela.
 
-No desktop, a piramide ocupa o primeiro viewport ao lado do manifesto do projeto. No mobile, ela se reorganiza verticalmente sem perder a leitura base → topo. Com `prefers-reduced-motion`, os movimentos de expansao e profundidade sao removidos, mantendo apenas mudancas instantaneas de contraste.
+No desktop, o titulo ocupa o topo do primeiro viewport e as camadas ficam ao lado do manifesto do projeto. No mobile, elas se reorganizam verticalmente sem perder a leitura da base para a operacao. Com `prefers-reduced-motion`, os movimentos sao removidos, mantendo apenas mudancas instantaneas de contraste.
 
 ## Estrategia tecnica
 
@@ -247,7 +247,7 @@ O JavaScript sera pequeno e sem framework. O hash sera a fonte de verdade da nav
 | O gerador atual referencia documentos removidos | secoes ausentes e links quebrados | fazer inventario antes do redesign e validar o manifesto no build |
 | Duplicidade entre documentacao conceitual e executavel | leitor nao entende qual fonte seguir | rotular tipo e fonte, agrupar relacionados e manter a hierarquia canonica |
 | Imersao visual prejudicar leitura longa | documentacao cansativa ou inacessivel | limitar brilho/movimento, preservar largura de leitura e testar contraste |
-| Piramide depender apenas de forma/hover | falha em mobile, teclado ou leitor de tela | usar controles semanticos, texto visivel e alternativa por cards/menu |
+| Camadas dependerem apenas de forma/hover | falha em mobile, teclado ou leitor de tela | usar controles semanticos, texto visivel e alternativa por cards/menu |
 | HTML unico crescer com todo o acervo | carregamento e busca lentos | manter indice compacto, evitar assets pesados e medir tamanho/tempo no build |
 | Mermaid depender de recurso externo | diagramas indisponiveis offline | manter fonte textual acessivel e fallback legivel |
 | Alteracoes documentais continuarem durante a implementacao | manifesto ficar obsoleto rapidamente | centralizar ordem/metadados e tornar ausencia/duplicidade detectavel pelo gerador |
