@@ -1,6 +1,6 @@
-# Padrão de segurança
+# Security standard
 
-- Nunca copie segredos ou dados pessoais para documentação, memória ou handoffs.
-- Valide autenticação, autorização, entrada e auditoria quando aplicáveis.
-- Registre riscos e mitigações no plano ou Work Item.
-- Escale incidentes pelo playbook antes de ampliar o escopo da intervenção.
+- Never copy secrets or personal data for documentation, memory or handoffs.
+- Validate authentication, authorization, entry and audit when applicable.
+- Record risks and mitigations in the plan or Work Item.
+- Escalate incidents through the playbook before expanding the scope of the intervention.

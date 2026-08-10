@@ -1,87 +1,87 @@
 # 🚪 Gatekeeper Loop
 
-> PR e merge — empacota a mudança validada para uma decisão de integração proporcional ao risco.
+> PR and merge — packages the validated change for a risk-proportional integration decision.
 
-A PR não é uma segunda implementação nem uma segunda validação: é a **síntese auditável** das evidências e dos hotspots, montada para que a decisão de merge seja tomada em minutos por quem tem autoridade para tomá-la. Um PR que obriga o revisor a refazer o trabalho do [⚔️ Red Team Loop](05-adversarial-validation.md) falhou no seu único propósito.
+The PR is not a second implementation or a second validation: it is the **auditable synthesis** of evidence and hotspots, assembled so that the merge decision can be made in minutes by whoever has the authority to make it. A PR that forces the reviewer to redo the work of [⚔️ Red Team Loop](05-adversarial-validation.md) has failed in its sole purpose.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 6 — construção e validação |
-| **Consolida** | [🔀 PR Agent](../agentes/pr-agent.md) |
-| **Colaboram** | Reviewer Agents e Code Owners exigidos pela política |
-| **Owner humano** | Tech Lead ou Code Owner, conforme risco |
-| **Entrada** | diff validado, commits, resultado do CI, checklist e evidence pack de validação |
-| **Saída** | PR rastreável, descrição de risco, aprovações válidas e decisão de merge |
-| **Gate de saída** | H4 — CI verde, branch atualizada, aprovações exigidas e nenhuma exceção pendente |
-| **Volta dominante** | externa — ajuste devolve ao Ralph Loop e exige revalidação |
+| **Step** | 6 — construction and validation |
+| **Consolidates** | [🔀 PR Agent](../agentes/pr-agent.md) |
+| **Collaborate** | Reviewer Agents and Code Owners required by policy |
+| **Human owner** | Tech Lead or Code Owner, depending on risk |
+| **Input** | validated diff, commits, CI result, validation checklist and evidence pack |
+| **Exit** | Traceable PR, risk description, valid approvals and merger decision |
+| **Exit gate** | H4 — Green CI, branch updated, approvals required and no exceptions pending |
+| **Dominant lap** | external — adjustment returns to Ralph Loop and requires revalidation |
 
 ```mermaid
 flowchart LR
-    A[Evidence pack de validação] --> B[PR Agent\nPR e resumo de hotspots]
-    B --> C[Reviewer Agents\nreview independente]
-    C --> D[PR Agent\nconsolida comentários]
-    D --> E{Há ajuste?}
-    E -- sim --> F[🔁 Ralph Loop + revalidação em 🥊]
-    E -- não --> G{Política de risco}
-    G --> H[H4 quando exigido]
-    H --> I[Merge protegido]
+    A[Evidence validation pack] --> B[PR Agent\nPR and hotspot summary]
+    B --> C[Reviewer Agents\nindependent review]
+    C --> D[PR Agent\nconsolidates comments]
+    D --> E{Is there an adjustment?}
+    E -- yes --> F[🔁 Ralph Loop + revalidation in 🥊]
+    E -- no --> G{Risk policy}
+    G --> H[H4 when required]
+    H --> I[Merge protected]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O PR Agent gera descrição, comportamento alterado, risco, arquivos sensíveis, evidências, plano de rollback e itens fora de escopo.
-2. Reviewer Agents revisam corretude, segurança, arquitetura, testes, documentação e observabilidade dentro do próprio contrato — **sem reproduzir o pacote inteiro de validação**.
-3. O PR Agent registra cada comentário e roteia correções para implementação. **Mudança material invalida aprovações e evidências afetadas.**
-4. H4 e o merge protegido obedecem à política R0–R4. O agente apenas prepara a recomendação.
+1. PR Agent generates description, changed behavior, risk, sensitive files, evidence, rollback plan and out-of-scope items.
+2. Reviewer Agents review correctness, security, architecture, testing, documentation and observability within the contract itself — **without reproducing the entire validation package**.
+3. The PR Agent records each comment and routes corrections for implementation. **Material change invalidates affected approvals and evidence.**
+4. H4 and protected merge obey policy R0–R4. The agent only prepares the recommendation.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | evidence pack consolidado pelo QA Agent, com findings resolvidos e evidência de revalidação |
-| **Saída** | PR com hotspots destacados: os pontos do diff que concentram risco, com o link para a evidência que os cobre |
+| **Input** | evidence pack consolidated by QA Agent, with resolved findings and evidence of revalidation |
+| **Exit** | PR with highlighted hotspots: the points in the diff that concentrate risk, with the link to the evidence that covers them |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** tratar ausência de resposta como aprovação.
+**Does not:** treat lack of response as approval.
 
-Um revisor que não respondeu não aprovou. Silêncio como consentimento é o mecanismo pelo qual uma política de aprovação vira formalidade — e é especialmente perigoso quando o autor da mudança é um agente que pode abrir dezenas de PRs por dia.
+One reviewer who did not respond did not approve. Silence as consent is the mechanism by which an approval policy becomes a formality — and it is especially dangerous when the author of the change is an agent who can open dozens of PRs a day.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| PR que repete a validação | descrição de 400 linhas que ninguém lê | a PR sintetiza e referencia; a evidência vive no evidence pack |
-| Aprovação sobrevivendo a mudança | novo commit entra depois do approve | mudança material invalida aprovações afetadas |
-| Hotspot não sinalizado | o revisor aprova sem ver o trecho crítico | arquivos sensíveis e trechos de risco são destacados explicitamente |
-| CI não reproduzível | verde local, vermelho no CI, sem explicação | não é falha corrigível por retry: escala |
+| PR that repeats validation | 400-line description that no one reads | PR synthesizes and references; the evidence lives in the evidence pack |
+| Approval surviving change | new commit enters after approve | material change invalidates affected approvals |
+| Unflagged hotspot | the reviewer approves without seeing the critical section | sensitive files and risky snippets are highlighted explicitly |
+| IC not reproducible | local green, red on CI, no explanation | not fault fixable by retry: scale |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| PR aberta | plataforma de código, vinculada ao Work Item | sim |
-| Work Item atualizado | `work-items/<WI-id>.md` — link da PR e status | sim |
-| Comentários e resoluções | `execution/reviews/pr-<WI-id>.md` | sim |
-| `STATUS.md` | fase `pr`, próximo gate `merge` ou devolução | sim |
-| Exceções de política pendentes | `.coordination/blockers/` | trânsito |
+| PR open | code platform, linked to Work Item | yes |
+| Work Item updated | `work-items/<WI-id>.md` — PR link and status | yes |
+| Comments and resolutions | `execution/reviews/pr-<WI-id>.md` | yes |
+| `STATUS.md` | phase `pr`, next gate `merge` or return | yes |
+| Pending Policy Exceptions | `.coordination/blockers/` | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar quando uma aprovação exigida estiver indisponível, houver exceção de política, conflito entre reviews ou CI não reproduzível. **A ausência de resposta nunca conta como aprovação.**
+Escalate when a required approval is unavailable, there is a policy exception, conflict between reviews, or non-reproducible CI. **No response never counts as approval.**

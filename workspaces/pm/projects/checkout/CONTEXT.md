@@ -1,13 +1,13 @@
-# Contexto — Checkout
+# Context — Checkout
 
-Clientes podem repetir uma tentativa de pagamento após timeout e temem uma cobrança duplicada. O outcome é permitir recuperação segura, preservando confiança e reduzindo contatos ao suporte.
+Customers may repeat a payment attempt after a timeout and fear a double charge. The outcome is to enable safe recovery, preserving trust and reducing contacts to support.
 
 ## Stakeholders
 
-- clientes que concluem compras;
-- atendimento e operação financeira;
-- time de Payments.
+- customers who complete purchases;
+- financial service and operations;
+- Payments team.
 
-## Limites
+## Limits
 
-Inclui o comportamento de repetição do pagamento. Troca do provedor, logística e redesenho completo do checkout ficam fora de escopo.
+Includes repeat payment behavior. Changing providers, logistics and completely redesigning the checkout are out of scope.

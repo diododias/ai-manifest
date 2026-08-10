@@ -1,3 +1,3 @@
-# Decisões de produto
+# Product decisions
 
-Registre recomendação, alternativas, evidências, owner, data e resultado. O exemplo ainda não possui decisão de aceite final.
+Record recommendation, alternatives, evidence, owner, date and result. The example does not yet have a final acceptance decision.

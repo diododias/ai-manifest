@@ -1,78 +1,78 @@
 ---
-title: Agent Team — prompts operacionais por papel
+title: Agent Team — operational prompts by role
 status: proposed
 updated_at: 2026-08-08
 ---
 
-# Prompts operacionais dos agentes
+# Agent operational prompts
 
-> Os 23 papéis do catálogo, materializados como prompts autocontidos e independentes de runtime.
+> The 23 roles in the catalog, materialized as self-contained, runtime-independent prompts.
 
-## Em 2 minutos
+## In 2 minutes
 
-O [catálogo](catalog.md) define o que cada agente deve fazer. Este diretório entrega os agentes **prontos para usar**: uma pasta por papel, com um único prompt que reúne o contrato operacional, a presença e as diretivas estáveis do sponsor.
+The [catalog](catalog.md) defines what each agent should do. This directory delivers agents **ready to use**: one folder per paper, with a single prompt that brings together the operational contract, presence and stable policies of the sponsor.
 
-`AGENT.md` é a única fonte de instruções executáveis do papel. Cada `AGENT.md` contém todas as regras de execução, output e persistência do papel. Fontes, regras locais e skills só são lidas quando forem específicas da missão.
+`AGENT.md` is the paper's only source of executable instructions. Each `AGENT.md` contains all the role's execution, output and persistence rules. Sources, local rules and skills are only read when they are mission specific.
 
 ```text
 <agent-id>/
-└── AGENT.md     # prompt único: missão, limites, presença e diretivas estáveis
+└── AGENT.md # single prompt: mission, limits, presence and stable directives
 ```
 
-Não precrie memória operacional: ela nasce de fatos e decisões reais. Segredos, credenciais e arquivos `.env` não pertencem a estas pastas versionadas.
+Don't precreate working memory: it comes from real facts and decisions. Secrets, credentials and `.env` files do not belong in these versioned folders.
 
-Um runtime pode carregar o arquivo diretamente, ou um orquestrador pode fornecer o seu conteúdo como instrução de papel. A pasta não pressupõe comandos, identidade sincronizável ou configuração de uma ferramenta específica.
+A runtime can load the file directly, or an orchestrator can provide its contents as paper instructions. The folder assumes no commands, syncable identity, or configuration of a specific tool.
 
 ---
 
-## Catálogo materializado
+## Materialized catalog
 
-| Agente | Identidade | Sponsor |
+| Agent | Identity | Sponsor |
 |---|---|---|
 | [`intake-agent`](intake-agent/AGENT.md) | Intake Agent | Product Manager |
-| [`meeting-context-agent`](meeting-context-agent/AGENT.md) | Meeting Context Agent | owner da reunião |
-| [`orchestrator-agent`](orchestrator-agent/AGENT.md) | Orchestrator Agent | owner humano da fase |
+| [`meeting-context-agent`](meeting-context-agent/AGENT.md) | Meeting Context Agent | meeting owner |
+| [`orchestrator-agent`](orchestrator-agent/AGENT.md) | Orchestrator Agent | human owner of the stage |
 | [`product-manager-agent`](product-manager-agent/AGENT.md) | Product Manager Agent | Product Manager |
 | [`ux-specification-agent`](ux-specification-agent/AGENT.md) | UX Specification Agent | UX |
 | [`tech-lead-discovery-agent`](tech-lead-discovery-agent/AGENT.md) | Tech Lead Discovery Agent | Tech Lead |
 | [`adversarial-product-manager-agent`](adversarial-product-manager-agent/AGENT.md) | Adversarial Product Manager Agent | Product Manager |
 | [`specification-tech-lead-agent`](specification-tech-lead-agent/AGENT.md) | Specification Tech Lead Agent | Tech Lead |
 | [`adversarial-tech-lead-agent`](adversarial-tech-lead-agent/AGENT.md) | Adversarial Tech Lead Agent | Tech Lead |
-| [`specialist-security-data-platform-agent`](specialist-security-data-platform-agent/AGENT.md) | Security, Data & Platform Specialist Agent | Tech Lead ou especialista |
+| [`specialist-security-data-platform-agent`](specialist-security-data-platform-agent/AGENT.md) | Security, Data & Platform Specialist Agent | Tech Lead or specialist |
 | [`software-engineer-agent`](software-engineer-agent/AGENT.md) | Software Engineer Agent | Tech Lead |
 | [`qa-validation-agent`](qa-validation-agent/AGENT.md) | QA & Validation Agent | Tech Lead |
-| [`security-review-agent`](security-review-agent/AGENT.md) | Security Review Agent | Tech Lead ou Security Owner |
+| [`security-review-agent`](security-review-agent/AGENT.md) | Security Review Agent | Tech Lead or Security Owner |
 | [`architecture-review-agent`](architecture-review-agent/AGENT.md) | Architecture Review Agent | Tech Lead |
 | [`adversarial-code-reviewer-agent`](adversarial-code-reviewer-agent/AGENT.md) | Adversarial Code Reviewer Agent | Tech Lead |
 | [`pr-agent`](pr-agent/AGENT.md) | PR Agent | Tech Lead |
-| [`product-validation-agent`](product-validation-agent/AGENT.md) | Product Validation Agent | Product Manager e UX |
-| [`release-agent`](release-agent/AGENT.md) | Release Agent | Tech Lead |
-| [`observability-agent`](observability-agent/AGENT.md) | Observability Agent | Tech Lead |
-| [`knowledge-agent`](knowledge-agent/AGENT.md) | Knowledge Agent | owner do domínio |
-| [`telemetry-agent`](telemetry-agent/AGENT.md) | Telemetry Agent | trio |
-| [`auto-dream-agent`](auto-dream-agent/AGENT.md) | Auto Dream Agent | trio |
-| [`critic-agent`](critic-agent/AGENT.md) | Critic Agent | owner da decisão |
+| [`product-validation-agent`](product-validation-agent/AGENT.md) | Product Validation Agent | Product Manager and UX |
+| [`release-agent`](release-agent/AGENT.md) | ReleaseAgent | Tech Lead |
+| [`observability-agent`](observability-agent/AGENT.md) | ObservabilityAgent | Tech Lead |
+| [`knowledge-agent`](knowledge-agent/AGENT.md) | Knowledge Agent | domain owner |
+| [`telemetry-agent`](telemetry-agent/AGENT.md) | Telemetry Agent | threesome |
+| [`auto-dream-agent`](auto-dream-agent/AGENT.md) | Auto Dream Agent | threesome |
+| [`critic-agent`](critic-agent/AGENT.md) | Critical Agent | decision owner |
 
 ---
 
-## Uso
+## Usage
 
-Leia o `AGENT.md` do papel escolhido e entregue ao agente a identidade da missão, os artefatos de entrada e as permissões autorizadas. O prompt não substitui essas entradas: ele define como o papel trabalha depois de recebê-las.
-
----
-
-## Segurança e operação
-
-**Isolamento.** Cada agente precisa de estado e diretório de trabalho próprios quando rodar em paralelo. O prompt não cria sandbox nem concede permissões: configure-os no runtime.
-
-**Credenciais.** Não armazene tokens, OAuth, chaves, `.env`, sessões ou credenciais nestas pastas. Elas são versionadas.
-
-**Exposição.** Configure bindings de canais somente depois de revisar identidade, acesso e comportamento público.
-
-**Independência.** Papéis de autoria e crítica usam instâncias independentes sempre que houver risco de autoavaliação — é a mesma regra do [catálogo](catalog.md#3-mapa-dos-agentes), e ignorá-la anula o valor dos agentes adversariais.
+Read the `AGENT.md` of the chosen role and give the agent the mission identity, input artifacts, and authorized permissions. The prompt does not replace these inputs: it defines how the role works after receiving them.
 
 ---
 
-## Registro auxiliar
+## Safety and operation
 
-[`registry.yaml`](registry.yaml) é um inventário dos papéis, destinado a automação e auditoria. Ele não é um manifesto de runtime.
+**Isolation.** Each agent needs its own state and working directory when running in parallel. The prompt does not create a sandbox or grant permissions: configure them at runtime.
+
+**Credentials.** Do not store tokens, OAuth, keys, `.env`, sessions, or credentials in these folders. They are versioned.
+
+**Exposure.** Configure channel bindings only after reviewing identity, access, and public behavior.
+
+**Independence.** Authorship and critique papers use independent instances whenever there is a risk of self-evaluation — it's the same rule as [catalog](catalog.md#3-mapa-dos-agentes), and ignoring it nullifies the value of adversarial agents.
+
+---
+
+## Auxiliary register
+
+[`registry.yaml`](registry.yaml) is a paper inventory, intended for automation and auditing. It is not a runtime manifest.

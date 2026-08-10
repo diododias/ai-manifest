@@ -6,16 +6,16 @@ owner: tech-lead
 updated_at: 2026-08-08
 ---
 
-# Persistir o resultado por chave de idempotência
+# Persist the result by idempotence key
 
-## Contexto
+## Context
 
-Timeouts e redelivery podem repetir uma solicitação depois de o provedor já ter processado a cobrança.
+Timeouts and redelivery may repeat a request after the provider has already processed the charge.
 
-## Decisão
+## Decision
 
-Persistir chave, impressão digital da requisição e resultado. A chave é única; repetição equivalente devolve o resultado salvo e conteúdo conflitante é rejeitado.
+Persist key, request fingerprint and result. The key is unique; equivalent repetition returns the saved result and conflicting content is rejected.
 
-## Consequências
+## Consequences
 
-A solução impede duplicidade dentro da janela de retenção, mas exige política de expiração, índice único e tratamento explícito de concorrência.
+The solution prevents duplication within the retention window, but requires an expiration policy, single index, and explicit concurrency handling.

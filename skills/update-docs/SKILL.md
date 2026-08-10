@@ -1,6 +1,6 @@
 ---
 name: "update-docs"
-description: "Compara implementação, PRD e SPEC, registra desvios e atualiza documentação aprovada. Use após validação de uma entrega quando for necessário preservar rastreabilidade entre o planejado e o entregue."
+description: "Compares implementation, PRD and SPEC, records deviations and updates approved documentation. Use after validation of a delivery when it is necessary to preserve traceability between planned and delivered."
 ---
 
 ## User Input
@@ -13,126 +13,126 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Sincronizar PRD e SPEC com o que foi efetivamente implementado, documentando desvios e atualizando documentação.
+Synchronize PRD and SPEC with what was effectively implemented, documenting deviations and updating documentation.
 
-## Contrato de artefatos
+## Artifact contract
 
-Siga [o contrato compartilhado](../references/workflow-contract.md). Não
-reescreva requisitos, critérios de aceite ou status de aprovação para acomodar
-o código: registre a divergência primeiro e só atualize o baseline após decisão
-explícita.
+Follow [shared agreement](../references/workflow-contract.md). No
+rewrite requirements, acceptance criteria, or approval status to accommodate
+the code: record the divergence first and only update the baseline after decision
+explicit.
 
 ## Inputs
 
-- **Obrigatório:** `.agents/prd/<feature-slug>/PRD.md`
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Obrigatório:** código implementado
-- **Opcional:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
+- **Required:** `.agents/prd/<feature-slug>/PRD.md`
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** implemented code
+- **Optional:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira do contexto.
-- Verifique se os artefatos existem.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from the context.
+- Check if the artifacts exist.
 
-### 2. Carregar artefatos
+### 2. Upload artifacts
 
-- Leia `PRD.md` — versão planejada.
-- Leia `SPEC.md` — versão técnica planejada.
-- Analise o código implementado (diff).
+- Read `PRD.md` — planned release.
+- Read `SPEC.md` — planned technical release.
+- Analyze the implemented code (diff).
 
-### 3. Identificar desvios
+### 3. Identify deviations
 
-Compare planejado vs implementado:
+Compare planned vs implemented:
 
-| Artefato | Item | Planejado | Implementado | Desvio |
+| Artifact | Item | Planned | Implemented | Deviation |
 |----------|------|-----------|-------------|--------|
-| PRD | HIST-01 | ... | ... | ✅ Iguais / ⚠️ Diferente / ❌ Não implementado |
+| PRD | HIST-01 | ... | ... | ✅ Same / ⚠️ Different / ❌ Not implemented |
 | SPEC | CT-01 | ... | ... | ... |
 
-Classifique desvios:
-- **Sem desvio:** implementação idêntica ao planejado.
-- **Desvio menor:** ajuste que não impacta requisitos (refactor, rename).
-- **Desvio de escopo:** implementou algo a mais ou a menos.
-- **Desvio técnico:** abordagem diferente da planejada.
-- **Não implementado:** item do planejado que ficou de fora.
+Classify deviations:
+- **No deviation:** implementation identical to planned.
+- **Minor deviation:** adjustment that does not impact requirements (refactor, rename).
+- **Scope creep:** implemented something more or less.
+- **Technical deviation:** different approach than planned.
+- **Not implemented:** planned item that was left out.
 
-### 4. Atualizar PRD após decisão registrada
+### 4. Update PRD after registered decision
 
-- Registre o resultado e o link para `desvios.md` no changelog.
-- Marque histórias como implementadas somente se os critérios acordados foram atendidos.
-- Para desvio de escopo ou requisito, preserve o baseline e registre decisão, dono e data antes de alterá-lo.
+- Record the result and the link to `desvios.md` in the changelog.
+- Mark stories as implemented only if the agreed criteria have been met.
+- For scope or requirement deviation, preserve the baseline and record the decision, owner and date before changing it.
 
-### 5. Atualizar SPEC após decisão registrada
+### 5. Update SPEC after registered decision
 
-- Registre evidência da implementação e o link para `desvios.md` no changelog.
-- Altere a solução ou os CTs somente com decisão técnica explícita; não transforme um desvio em requisito silenciosamente.
+- Record evidence of the implementation and the link to `desvios.md` in the changelog.
+- Change the solution or CTs only with explicit technical decision; Don't silently turn a deviation into a requirement.
 
-### 6. Atualizar README (se aplicável)
+### 6. Update README (if applicable)
 
-- Se a feature muda comportamento visível, atualize README.
-- Se adiciona dependência, documente.
-- Se muda setup/instruções, atualize.
+- If the feature changes visible behavior, update README.
+- If you add a dependency, document it.
+- If setup/instructions change, update.
 
-### 7. Gerar relatório de desvios
+### 7. Generate deviation report
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/desvios.md`:
+Generates `teamwork/plan/feature-plan-<feature-slug>/desvios.md`:
 
 ```markdown
-# Desvios — <Feature Name>
+# Deviations — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 
 ---
 
-## Resumo
+## Summary
 
-| Tipo | Quantidade |
+| Type | Quantity |
 |------|-----------|
-| ✅ Sem desvio | X |
-| ⚠️ Desvio menor | X |
-| 🔵 Desvio de escopo | X |
-| 🟣 Desvio técnico | X |
-| ❌ Não implementado | X |
+| ✅ No diversion | X |
+| ⚠️ Minor deviation | X |
+| 🔵 Scope creep | X |
+| 🟣 Technical deviation | X |
+| ❌ Not implemented | X |
 
 ---
 
-## Desvios Detalhados
+## Detailed Deviations
 
 ### <Item>
-- **Artefato:** PRD / SPEC
-- **Item:** <ID ou nome>
-- **Planejado:** <o que estava planejado>
-- **Implementado:** <o que foi feito>
-- **Impacto:** <qual o impacto do desvio>
-- **Justificativa:** <por que o desvio>
+- **Artifact:** PRD / SPEC
+- **Item:** <ID or name>
+- **Planned:** <what was planned>
+- **Implemented:** <what was done>
+- **Impact:** <what is the impact of the deviation>
+- **Justification:** <why the deviation>
 
 ---
 
-## Ações Necessárias
+## Necessary Actions
 
-- <atualizações pendentes>
-- <docs que precisam de update>
+- <pending updates>
+- <docs that need updating>
 ```
 
-### 8. Reportar no chat
+### 8. Report in chat
 
-- Resumo: X itens sem desvio, Y com desvio, Z não implementados.
-- Desvios que precisam de atenção.
-- Docs atualizados.
+- Summary: X items without deviation, Y with deviation, Z not implemented.
+- Deviations that need attention.
+- Updated docs.
 
-## Convenções
+## Conventions
 
-- Desvios nunca são apagados — documentados para rastreabilidade.
-- PRD e SPEC são fontes da verdade — devem refletir implementação real.
-- Português.
+- Deviations are never deleted — documented for traceability.
+- PRD and SPEC are sources of truth — they must reflect real implementation.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] PRD atualizado com status e desvios
-- [ ] SPEC atualizada com status e desvios
-- [ ] README atualizado (se aplicável)
-- [ ] `desvios.md` gerado
-- [ ] Resultado reportado no chat
+- [ ] PRD updated with status and deviations
+- [ ] SPEC updated with status and deviations
+- [ ] Updated README (if applicable)
+- [ ] `desvios.md` generated
+- [ ] Result reported in chat

@@ -1,24 +1,24 @@
-# Assets de sessão
+# Session assets
 
-Material bruto que sustenta as análises e discussões de um workflow — transcrições, printscreens, e-mails, PDFs, documentos Word e afins — fica aqui, isolado por execução.
+Raw material that supports the analyzes and discussions of a workflow — transcriptions, printscreens, emails, PDFs, Word documents and the like — stays here, isolated by execution.
 
-## Convenção
+## Convention
 
 ```text
 plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/
 ```
 
-- `<workflow>`: nome do workflow ou da skill que gerou o material, por exemplo `00-intake-and-triage` ou `business-discovery`.
-- `<session-id>`: identificador curto e único da execução (`mission_id` ou run id). Reexecutar o workflow por resultado insatisfatório cria uma **nova** pasta; a anterior permanece no histórico, mas deixa de ser referenciada pelo artefato vigente.
-- Subpastas por tipo (`transcripts/`, `screenshots/`, `emails/`, `documents/`) só quando houver mais de um arquivo do mesmo tipo na sessão.
+- `<workflow>`: name of the workflow or skill that generated the material, for example `00-intake-and-triage` or `business-discovery`.
+- `<session-id>`: short and unique identifier of the run (`mission_id` or run id). Re-executing the workflow due to unsatisfactory results creates a **new** folder; the previous one remains in the history, but is no longer referenced by the current artifact.
+- Subfolders by type (`transcripts/`, `screenshots/`, `emails/`, `documents/`) only when there is more than one file of the same type in the session.
 
-## Regras
+## Rules
 
-- `plans/assets/` não é fonte canônica. A conclusão, decisão ou requisito extraído vai para `discovery/`, `requirements/`, `strategy/` ou `roadmap/`; o asset fica como rastro auditável, referenciado por caminho.
-- Nunca reaproveite a pasta de uma sessão anterior, mesmo que o resultado tenha sido descartado.
-- O `STATUS.md` ou o Work Item correspondente indica qual sessão sustenta a versão vigente de um artefato, quando isso não for óbvio.
+- `plans/assets/` is not canonical source. The extracted conclusion, decision or requirement goes to `discovery/`, `requirements/`, `strategy/` or `roadmap/`; the asset remains as an auditable trail, referenced by path.
+- Never reuse the folder from a previous session, even if the result has been discarded.
+- `STATUS.md` or the corresponding Work Item indicates which session supports the current version of an artifact, when this is not obvious.
 
-## Exemplo
+## Example
 
 ```text
 plans/assets/business-discovery/2026-08-08-b7e410/
@@ -26,4 +26,4 @@ plans/assets/business-discovery/2026-08-08-b7e410/
     └── agenda-discovery-checkout.md
 ```
 
-A sessão acima alimentou [`discovery/PB-001-reliable-checkout.md`](../../discovery/PB-001-reliable-checkout.md).
+The above session fed [`discovery/PB-001-reliable-checkout.md`](../../discovery/PB-001-reliable-checkout.md).

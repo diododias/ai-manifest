@@ -1,9 +1,9 @@
-# Templates de PM
+# PM Templates
 
 - [`product-brief.md`](product-brief.md)
 - [`prd.md`](prd.md)
 - [`decision-brief.md`](decision-brief.md)
 
-Copie o template para o projeto e substitua os campos entre `<...>`.
+Copy the template to the project and replace the fields with `<...>`.
 
-> Cópia sincronizada de [`workspaces/pm/docs/templates/`](../../workspaces/pm/docs/templates/README.md). Ver [nota de sincronização](../README.md#originais-e-sincronização).
+> Synchronized copy of [`workspaces/pm/docs/templates/`](../../workspaces/pm/docs/templates/README.md). See [sync note](../README.md#originals-and-sync).

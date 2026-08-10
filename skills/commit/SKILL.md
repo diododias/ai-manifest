@@ -1,6 +1,6 @@
 ---
 name: "commit"
-description: "Prepara e cria um commit com escopo explícito e convenções do repositório. Use quando o usuário pedir para registrar mudanças em Git; só envie ao remoto se ele pedir push."
+description: "Prepare and create a commit with explicit scope and repository conventions. Use when the user asks to commit changes to Git; only send to the remote if it asks for a push."
 ---
 
 ## User Input
@@ -13,97 +13,97 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Criar commits claros seguindo convenções do repositório, com referência à issue quando houver.
+Create clear commits following repository conventions, with reference to the issue when applicable.
 
 ## Inputs
 
-- **Obrigatório:** código modificado (git status)
-- **Opcional:** mensagem personalizada via `$ARGUMENTS`
-- **Opcional:** número da issue
+- **Required:** modified code (git status)
+- **Optional:** personalized message via `$ARGUMENTS`
+- **Optional:** issue number
 
 ## Execution Steps
 
-### 1. Verificar estado
+### 1. Check status
 
 ```bash
 git status
 git diff --stat
 ```
 
-- Identifique todos os arquivos modificados/criados/deletados.
-- Verifique se há arquivos que não devem ser commitados (secrets, temp).
+- Identify all modified/created/deleted files.
+- Check for files that should not be committed (secrets, temp).
 
-### 2. Selecionar arquivos
+### 2. Select files
 
-- Adicione apenas arquivos relevantes para a feature.
-- Nunca commite secrets, configs sensíveis ou artefatos temporários.
-- Use `git add <arquivo>` para seleção explícita (evite `git add .`).
+- Add only files relevant to the feature.
+- Never commit secrets, sensitive configs or temporary artifacts.
+- Use `git add <file>` for explicit selection (avoid `git add .`).
 
-### 3. Montar mensagem de commit
+### 3. Assemble commit message
 
-Siga a convenção do repositório:
+Follow the repository convention:
 
 ```
-<tipo>(<escopo>): <descrição curta>
+<type>(<scope>): <short description>
 
-<corpo opcional>
+<optional body>
 
-Refs #<issue>
+Ref #<issue>
 Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 ```
 
-**Tipos:** `feat`, `fix`, `chore`, `test`, `refactor`, `docs`, `style`, `perf`
+**Types:** `feat`, `fix`, `chore`, `test`, `refactor`, `docs`, `style`, `perf`
 
-**Regras:**
-- Primera linha: max 72 caracteres, imperativo, sem ponto final.
-- Corpo: explica o "porquê" (não o "o que").
-- Referência à issue: `Refs #N` (parcial) ou `Closes #N` (completo).
-- Co-Authored-By: quando aplicável (trabalho com IA).
+**Rules:**
+- First line: max 72 characters, imperative, without period.
+- Body: explains the “why” (not the “what”).
+- Reference to issue: `Refs #N` (partial) or `Closes #N` (complete).
+- Co-Authored-By: when applicable (I work with AI).
 
-### 4. Executar commit
+### 4. Execute commit
 
-- Mostre os arquivos selecionados e a mensagem proposta antes do commit se o
-  usuário não tiver autorizado explicitamente o commit.
+- Show selected files and proposed message before commit if the
+  user has not explicitly authorized the commit.
 
 ```bash
-git commit -m "feat(feature-slug): descrição curta
+git commit -m "feat(feature-slug): short description
 
-Corpo do commit explicando a mudança.
+Body of the commit explaining the change.
 
 Refs #N"
 ```
 
 ### 5. Push
 
-- Faça push apenas quando o usuário o solicitar explicitamente ou quando ele
-  tiver autorizado publicação como parte da tarefa.
-- Antes de enviar, confirme branch remota e que não há arquivos não
-  relacionados no índice.
+- Push only when the user explicitly requests it or when they
+  you have authorized publishing as part of the task.
+- Before uploading, confirm remote branch and that there are no files left
+  listed in the index.
 
 ```bash
 git push origin <branch-name>
 ```
 
-- Não presuma que CI abre PR nem que a base é `develop`.
-- Se houver PR manual, proponha o próximo passo; não o abra implicitamente.
+- Do not assume that CI opens PR nor that the base is `develop`.
+- If there is manual PR, propose the next step; do not open it implicitly.
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Hash do commit curto.
-- Arquivos incluídos.
-- Branch e status do push.
+- Short commit hash.
+- Files included.
+- Branch and push status.
 
-## Convenções
+## Conventions
 
-- Um commit lógico = uma unidade de mudança.
-- Não commite "WIP" ou "temp" — limpe antes.
-- Mensagens em português (ou inglês se for padrão do repo).
-- Sempre referencie a issue quando existir.
+- One logical commit = one unit of change.
+- Does not output "WIP" or "temp" — clean first.
+- Messages in Portuguese (or English if it is the repo's default).
+- Always reference the issue when it exists.
 
-## Done When
+##DoneWhen
 
-- [ ] Arquivos selecionados corretamente
-- [ ] Mensagem segue convenção do repositório
-- [ ] Commit realizado com sucesso
-- [ ] Push concluído, quando solicitado
-- [ ] Hash do commit reportado
+- [ ] Correctly selected files
+- [ ] Message follows repository convention
+- [ ] Commit completed successfully
+- [ ] Push completed, when requested
+- [ ] Hash of the reported commit

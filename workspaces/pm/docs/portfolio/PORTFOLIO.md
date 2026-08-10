@@ -1,7 +1,7 @@
-# Portfólio de produto
+# Product portfolio
 
-| Projeto | Prioridade | Outcome | Estado | Próxima decisão |
+| Project | Priority | Outcome | Status | Next decision |
 |---|---|---|---|---|
-| [`checkout`](../../projects/checkout/README.md) | high | reduzir risco de cobrança duplicada | implementation | aceite de produto após evidências |
+| [`checkout`](../../projects/checkout/README.md) | high | reduce risk of double billing | implementation | product acceptance after evidence |
 
-O PM humano decide alterações de prioridade e investimento após consultar UX e Tech Lead.
+The human PM decides priority and investment changes after consulting with UX and Tech Lead.

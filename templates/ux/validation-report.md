@@ -6,16 +6,16 @@ owner: ux
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Validação>
+# <Validation>
 
-## Método e cobertura
+## Method and coverage
 
-<Participantes, tarefas, ambiente e critérios.>
+<Participants, tasks, environment and criteria.>
 
-## Achados e evidências
+## Findings and evidence
 
-<Observações separadas de interpretações.>
+<Observations separate from interpretations.>
 
-## Recomendação e limitações
+## Recommendation and limitations
 
-<Avançar, ajustar ou bloquear, com confiança e riscos.>
+<Advance, adjust or block, with confidence and risks.>

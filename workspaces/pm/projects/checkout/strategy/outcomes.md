@@ -1,11 +1,11 @@
 # Outcomes
 
-## Primário
+## Primary
 
-Clientes conseguem repetir uma tentativa após timeout sem cobrança duplicada.
+Customers can repeat an attempt after a timeout without being charged twice.
 
 ## Guardrails
 
-- não aumentar falhas legítimas de pagamento;
-- não expor dados sensíveis nas respostas ou evidências;
-- não degradar de forma material o tempo de resposta.
+- do not increase legitimate payment failures;
+- do not expose sensitive data in responses or evidence;
+- do not materially degrade response time.

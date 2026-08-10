@@ -1,13 +1,13 @@
-# Board
+#Board
 
-Visão consolidada. O estado autoritativo permanece no arquivo de cada Work Item.
+Consolidated vision. The authoritative state remains in the file for each Work Item.
 
 ## Implementation
 
-- [`WI-031` — Idempotência no processamento de pagamentos](projects/checkout/work-items/WI-031.md) — checkout
+- [`WI-031` — Idempotence in payment processing](projects/checkout/work-items/WI-031.md) — checkout
 
-## Demais estados
+## Other states
 
-Não há itens de exemplo em `backlog`, `refinement`, `ready`, `planning`, `blocked`, `review`, `validation`, `done` ou `cancelled`.
+There are no example items in `backlog`, `refinement`, `ready`, `planning`, `blocked`, `review`, `validation`, `done`, or `cancelled`.
 
-Última consolidação: 2026-08-08.
+Last consolidation: 2026-08-08.

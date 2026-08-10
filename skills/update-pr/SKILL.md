@@ -1,6 +1,6 @@
 ---
 name: "update-pr"
-description: "Monta e, mediante confirmação, atualiza a descrição de um pull request com contexto, testes e desvios. Use quando o usuário pedir para preparar ou editar a descrição de um PR aberto."
+description: "Assembles and, upon confirmation, updates the description of a pull request with context, tests, and branches. Use when the user asks to prepare or edit the description of an open PR."
 ---
 
 ## User Input
@@ -13,130 +13,130 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Atualizar a descrição do PR com contexto completo, o que foi implementado, testado e desvios documentados.
+Update the PR description with full context, what has been implemented, tested and documented deviations.
 
-## Contrato de artefatos e publicação
+## Artifacts and publishing contract
 
-Resolva os caminhos conforme [o contrato compartilhado](../references/workflow-contract.md).
-Primeiro apresente a descrição proposta; só execute `gh pr edit` após
-confirmação explícita. Só adicione labels que existam no repositório e tenham
-sido solicitadas.
+Resolve the paths as per [the shared contract](../references/workflow-contract.md).
+First present the proposed description; only run `gh pr edit` after
+explicit confirmation. Only add labels that exist in the repository and have
+been requested.
 
 ## Inputs
 
-- **Obrigatório:** PR aberto (número ou branch)
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Obrigatório:** contexto das tasks implementadas
-- **Opcional:** `teamwork/plan/feature-plan-<feature-slug>/desvios.md`
+- **Required:** Open PR (number or branch)
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Required:** context of implemented tasks
+- **Optional:** `teamwork/plan/feature-plan-<feature-slug>/desvios.md`
 
 ## Execution Steps
 
-### 1. Localizar o PR
+### 1. Find the PR
 
-- Se `$ARGUMENTS` contém número, use-o.
-- Caso contrário, encontre o PR da branch atual:
+- If `$ARGUMENTS` contains number, use it.
+- Otherwise, find the PR of the current branch:
   ```bash
   gh pr list --head <branch-name> --json number,title
   ```
 
-### 2. Coletar contexto
+### 2. Collect context
 
-- Leia a SPEC — contexto técnico.
-- Leia `desvios.md` se existir — desvios documentados.
-- Extraia lista de commits:
+- Read the SPEC — technical context.
+- Read `desvios.md` if exists — deviations documented.
+- Extract list of commits:
   ```bash
   gh pr view <number> --json commits
   ```
-- Identifique arquivos modificados:
+- Identify modified files:
   ```bash
   gh pr diff <number> --stat
   ```
 
-### 3. Montar descrição do PR
+### 3. Create PR description
 
-Gere a descrição seguindo template do time:
+Generate the description following the team template:
 
 ```markdown
-## Resumo
+## Summary
 
-<descrição objetiva do que esta PR faz e por quê>
+<objective description of what this PR does and why>
 
-## Contexto
+## Context
 
-<problema de negócio que a feature resolve, referenciando PRD>
+<business problem that the feature solves, referencing PRD>
 
-## O que foi implementado
+## What was implemented
 
 - [x] <item 1>
 - [x] <item 2>
-- [ ] <item 3> (se entrega parcial)
+- [ ] <item 3> (if partial delivery)
 
-## Como testar
+## How to test
 
-<passos concretos de validação>
+<concrete validation steps>
 
-1. <passo 1>
-2. <passo 2>
-3. <resultado esperado>
+1. <step 1>
+2. <step 2>
+3. <expected result>
 
-## Testes executados
+## Tests performed
 
-- [ ] Unitários: <resultado>
-- [ ] Integração: <resultado>
-- [ ] E2E: <resultado> (se aplicável)
+- [ ] Units: <result>
+- [ ] Integration: <result>
+- [ ] E2E: <result> (if applicable)
 
-## Desvios documentados
+## Documented deviations
 
-<se houver desvios do planejado, documente aqui>
-<referencie desvios.md se extenso>
+<if there are deviations from plan, document here>
+<reference deviations.md if extensive>
 
-## Artefatos
+## Artifacts
 
 - PRD: `.agents/prd/<feature>/PRD.md`
 - SPEC: `.agents/spec/<feature>/SPEC.md`
 - Tracking: `teamwork/plan/feature-plan-<name>/tracking.md`
 
-## Checklist
+##Checklist
 
-- [ ] Código segue convenções do repositório
-- [ ] Testes passando
-- [ ] PRD/SPEC atualizados (se aplicável)
-- [ ] Sem secrets ou dados sensíveis
-- [ ] Documentation atualizada (se aplicável)
+- [ ] Code follows repository conventions
+- [ ] Tests passing
+- [ ] Updated PRD/SPEC (if applicable)
+- [ ] No secrets or sensitive data
+- [ ] Updated documentation (if applicable)
 
-Closes #N
+Close-ups #N
 ```
 
-### 4. Atualizar o PR após confirmação
+### 4. Update PR after confirmation
 
 ```bash
-gh pr edit <number> --body-file <arquivo-temporario-confirmado>
+gh pr edit <number> --body-file <confirmed-temporary-file>
 ```
 
-### 5. Adicionar labels solicitadas (se aplicável)
+### 5. Add requested labels (if applicable)
 
 ```bash
 gh label list
 gh pr edit <number> --add-label "<label-existente-e-solicitada>"
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Número e título do PR.
-- Resumo do que foi preenchido.
-- Status (pronto para review / precisa de ajustes).
+- PR number and title.
+- Summary of what was completed.
+- Status (ready for review / needs adjustments).
 
-## Convenções
+## Conventions
 
-- Descrição do PR é a fonte de contexto para revisores.
-- Sempre referencie a issue com `Closes #N` ou `Refs #N`.
-- Desvios devem ser transparentes — não esconda.
-- Português para documentação.
+- PR Description is the source of context for reviewers.
+- Always reference the issue with `Closes #N` or `Refs #N`.
+- Deviations must be transparent — do not hide.
+- Portuguese for documentation.
 
-## Done When
+##DoneWhen
 
-- [ ] Descrição do PR atualizada com template completo
-- [ ] Contexto, implementação, testes e desvios documentados
-- [ ] Referência à issue incluída
-- [ ] Labels aplicadas (se aplicável)
-- [ ] Status reportado no chat
+- [ ] PR description updated with complete template
+- [ ] Documented context, implementation, testing and deviations
+- [ ] Reference to issue included
+- [ ] Labels applied (if applicable)
+- [ ] Status reported in chat

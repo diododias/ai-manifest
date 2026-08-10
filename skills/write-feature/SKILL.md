@@ -1,6 +1,6 @@
 ---
 name: write-feature
-description: Extrai e fatia histórias de produto a partir de requisitos e transcrição de refinamento, mantendo vínculo com regras e critérios. Use após a discovery quando for necessário preparar histórias para o PRD.
+description: Extracts and slices product stories from requirements and refinement transcript, maintaining linkage to rules and criteria. Use after discovery when you need to prepare stories for PRD.
 ---
 
 ## User Input
@@ -13,110 +13,110 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Transformar `requisitos.md` + transcrição da agenda de refinamento em histórias estruturadas, prontas para revisão e geração do PRD.
+Transform `requisitos.md` + refinement schedule transcript into structured stories, ready for review and PRD generation.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar histórias, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating stories, please follow [shared agreement](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `business-discovery/<feature-slug>/requisitos.md`
-- **Obrigatório:** transcrição da agenda de refinamento
-- **Opcional:** nome/slug da feature (inferir de requisitos.md se não fornecido)
+- **Required:** `business-discovery/<feature-slug>/requisitos.md`
+- **Required:** transcription of the refinement agenda
+- **Optional:** feature name/slug (infer from requirements.md if not provided)
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira de `requisitos.md`.
-- Verifique se `business-discovery/<feature-slug>/requisitos.md` existe.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from `requisitos.md`.
+- Check if `business-discovery/<feature-slug>/requisitos.md` exists.
 
-### 2. Carregar contexto
+### 2. Load context
 
-- Leia `requisitos.md` por inteiro — é o baseline de requisitos.
-- Leia a transcrição da agenda de refinamento.
+- Read `requisitos.md` in full — it is the requirements baseline.
+- Read the transcript of the refinement agenda.
 
-### 3. Extrair histórias da transcrição
+### 3. Extract stories from the transcript
 
-Identifique as histórias discutidas na agenda de refinamento. Para cada uma:
+Identify the stories discussed in the refinement agenda. For each:
 
-- **Contexto:** o que foi discutido, decisões tomadas, dependências citadas.
-- **Critérios de aceite:** extraídos dos cenários Gherkin e regras de negócio associadas.
-- **Dependências:** outras histórias, sistemas externos, times dependentes.
-- **Tamanho estimado:** se discutido na agenda (P1/MVP vs incrementos).
+- **Context:** what was discussed, decisions made, dependencies mentioned.
+- **Acceptance criteria:** extracted from Gherkin scenarios and associated business rules.
+- **Dependencies:** other stories, external systems, dependent teams.
+- **Estimated size:** if discussed on the agenda (P1/MVP vs increments).
 
-### 4. Mapear para requisitos existentes
+### 4. Map to existing requirements
 
-Para cada história, vincule:
-- RN-XX (regras de negócio) que a história implementa
-- SC-XX (critérios de sucesso) que a história contribui
-- US-X (user story) do `requisitos.md` que ela detalha
+For each story, link:
+- RN-XX (business rules) that the story implements
+- SC-XX (success criteria) that the story contributes
+- US-X (user story) from `requisitos.md` that she details
 
-### 5. Identificar histórias para fatiamento
+### 5. Identify stories for slicing
 
-Sinalize histórias que:
-- São grandes demais para um sprint
-- Acoplam múltiplos fluxos sem dependência
-- Precisam de spike técnico antes
+Flag stories that:
+- They are too big for a sprint
+- Couple multiple flows without dependency
+- Need technical spike first
 
-### 6. Gerar output
+### 6. Generate output
 
-Crie o diretório `teamwork/plan/feature-plan-<feature-slug>/` (se não existir).
+Create the `teamwork/plan/feature-plan-<feature-slug>/` directory (if it does not exist).
 
-Gere `historias.md` no formato:
+Generate `historias.md` in the format:
 
 ```markdown
-# Histórias — <Feature Name>
+# Stories — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
-**Baseline:** business-discovery/<feature-slug>/requisitos.md
-**Agenda:** <descrição da agenda de refinamento>
+**Date:** <YYYY-MM-DD>
+**Baseline:** business-discovery/<feature-slug>/requisites.md
+**Schedule:** <refinement schedule description>
 
 ---
 
-## HIST-01: <Título>
+## HIST-01: <Title>
 
-**Prioridade:** P1/P2/P3
-**Requisitos vinculados:** RN-XX, US-X
+**Priority:** P1/P2/P3
+**Bound Requirements:** RN-XX, US-X
 
-### Contexto
-<o que foi discutido na agenda, decisões, dependências>
+### Context
+<what was discussed on the agenda, decisions, dependencies>
 
-### Critérios de Aceite
-- [ ] CA-01: <critério mensurável>
-- [ ] CA-02: <critério mensurável>
+### Acceptance Criteria
+- [ ] CA-01: <measurable criterion>
+- [ ] CA-02: <measurable criterion>
 
-### Dependências
-- <outras histórias, sistemas, times>
+### Dependencies
+- <other stories, systems, teams>
 
-### Notas
-<observações, riscos, pontos de atenção>
+### Notes
+<observations, risks, points of attention>
 
 ---
 
-## HIST-02: <Título>
+## HIST-02: <Title>
 ...
 ```
 
-### 7. Reportar no chat
+### 7. Report in chat
 
-- Resumo: X histórias extraídas, Y com dependências, Z marcadas para fatiamento.
-- Lista de histórias com prioridade e status.
-- Pontos de atenção (histórias grandes, dependências bloqueantes).
+- Summary: X stories extracted, Y with dependencies, Z marked for slicing.
+- List of stories with priority and status.
+- Points of attention (large stories, blocking dependencies).
 
-## Convenções
+## Conventions
 
-- `HIST-XX` para IDs de histórias (sequencial).
-- `CA-XX` para critérios de aceite por história.
-- Prioridade: P1 = MVP, P2 = incremento, P3 = futuro.
-- Português. Exemplos numéricos > descrições vagas.
-- Histórias devem ser independentes quando possível.
+- `HIST-XX` for story IDs (sequential).
+- `CA-XX` for acceptance criteria per story.
+- Priority: P1 = MVP, P2 = increment, P3 = future.
+- Portuguese. Numerical examples > vague descriptions.
+- Stories should be independent when possible.
 
-## Done When
+##DoneWhen
 
-- [ ] `historias.md` gerado em `teamwork/plan/feature-plan-<feature-slug>/`
-- [ ] Cada história vinculada a requisitos existentes (RN, US, SC)
-- [ ] Histórias grandes sinalizadas para fatiamento
-- [ ] Resumo reportado no chat
+- [ ] `historias.md` generated in `teamwork/plan/feature-plan-<feature-slug>/`
+- [ ] Each story linked to existing requirements (RN, US, SC)
+- [ ] Large stories flagged for slicing
+- [ ] Summary reported in chat

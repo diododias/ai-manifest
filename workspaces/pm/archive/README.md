@@ -1,3 +1,3 @@
-# Arquivo de PM
+# PM Archive
 
-Materiais desativados permanecem aqui com data, motivo e substituto. Arquivo não é fonte vigente.
+Deactivated materials remain here with date, reason and replacement. File is not a current source.

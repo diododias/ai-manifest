@@ -1,46 +1,46 @@
-# Assets de sessão
+# Session assets
 
-Material de uma execução de workflow — tanto o que o humano traz quanto o que a IA gera no processo — fica aqui, isolado por sessão, nunca solto em `plans/` nem misturado ao artefato final canônico.
+Material from a workflow execution — both what the human brings and what the AI generates in the process — stays here, isolated by session, never released into `plans/` nor mixed into the canonical final artifact.
 
-## O que vai aqui
+## What's going on here
 
-| Tipo | Exemplos |
+| Type | Examples |
 |---|---|
-| **Material de entrada** (humano traz) | transcrições de reuniões, e-mails, PDFs, screenshots, documentos Word |
-| **Output intermediário da IA** | rascunho do SPEC antes da revisão adversarial, análise exploratória de arquitetura, notas de discovery não consolidadas |
+| **Input material** (human brings) | meeting transcripts, emails, PDFs, screenshots, Word documents |
+| **Intermediate AI output** | draft SPEC before adversarial review, exploratory architecture analysis, unconsolidated discovery notes |
 
-A distinção relevante não é quem gerou, mas se o artefato **já passou pelo gate** do workflow. Antes do gate → `plans/assets/`. Depois do gate → destino canônico (`engineering/`, `product/`, `ux/`, `plans/active/`).
+The relevant distinction is not who generated it, but whether the artifact has passed the workflow gate. Before gate → `plans/assets/`. After gate → canonical destination (`engineering/`, `product/`, `ux/`, `plans/active/`).
 
-## Convenção
+## Convention
 
 ```text
 plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/
 ```
 
-- `<workflow>`: nome do workflow ou da skill que gerou o material, por exemplo `03-technical-specification` ou `technical-discovery`.
-- `<session-id>`: identificador curto e único da execução (`mission_id` ou run id). Reexecutar o workflow por resultado insatisfatório cria uma **nova** pasta; a anterior permanece no histórico, mas deixa de ser referenciada pelo artefato vigente.
-- Subpastas por tipo dentro da pasta da sessão, somente quando houver mais de um arquivo do mesmo tipo:
-  - `transcripts/` — transcrições de reuniões ou sessões
-  - `drafts/` — rascunhos intermediários gerados pela IA antes do gate
-  - `screenshots/` — prints de tela
-  - `emails/` — e-mails relevantes
-  - `documents/` — PDFs, Word e afins
+- `<workflow>`: name of the workflow or skill that generated the material, for example `03-technical-specification` or `technical-discovery`.
+- `<session-id>`: short and unique identifier of the run (`mission_id` or run id). Re-executing the workflow due to unsatisfactory results creates a **new** folder; the previous one remains in the history, but is no longer referenced by the current artifact.
+- Subfolders by type within the session folder, only when there is more than one file of the same type:
+  - `transcripts/` — transcripts of meetings or sessions
+  - `drafts/` — AI-generated intermediate drafts before gate
+  - `screenshots/` — screenshots
+  - `emails/` — relevant emails
+  - `documents/` — PDFs, Word and the like
 
-## Regras
+## Rules
 
-- `plans/assets/` não é fonte canônica. A conclusão, decisão ou requisito extraído vai para `engineering/`, `product/`, `ux/` ou o plano em `plans/active/`; o asset fica como rastro auditável, referenciado por caminho.
-- Nunca reaproveite a pasta de uma sessão anterior, mesmo que o resultado tenha sido descartado — isso evita colisão quando o mesmo workflow roda de novo para o mesmo projeto.
-- O `STATUS.md` ou o Work Item correspondente indica qual sessão sustenta a versão vigente de um artefato, quando isso não for óbvio pelo link direto.
-- Reviews adversariais **não ficam aqui** — são artefatos formais com gate próprio e vão para `execution/reviews/`.
+- `plans/assets/` is not canonical source. The extracted conclusion, decision or requirement goes to `engineering/`, `product/`, `ux/` or the plan in `plans/active/`; the asset remains as an auditable trail, referenced by path.
+- Never reuse the folder from a previous session, even if the result has been discarded — this avoids collisions when the same workflow runs again for the same project.
+- `STATUS.md` or the corresponding Work Item indicates which session holds the current version of an artifact, when this is not obvious from the direct link.
+- Adversarial reviews **do not stay here** — they are formal artifacts with their own gate and go to `execution/reviews/`.
 
-## Exemplo
+## Example
 
 ```text
 plans/assets/03-technical-specification/2026-08-08-a1c9f2/
 ├── transcripts/
-│   └── revisao-arquitetura-idempotencia.md   ← reunião trazida pelo humano
+│ └── revisiono-arquitetura-idempotencia.md ← meeting brought by human
 └── drafts/
-    └── SPEC-001-v0.md                         ← rascunho da IA antes da revisão adversarial
+    └── SPEC-001-v0.md ← draft AI before adversarial review
 ```
 
-Ver [`03-technical-specification/2026-08-08-a1c9f2/`](03-technical-specification/2026-08-08-a1c9f2/README.md) para a sessão que sustenta `plans/active/PLAN-014.md`.
+See [`03-technical-specification/2026-08-08-a1c9f2/`](03-technical-specification/2026-08-08-a1c9f2/README.md) for the session that underpins `plans/active/PLAN-014.md`.

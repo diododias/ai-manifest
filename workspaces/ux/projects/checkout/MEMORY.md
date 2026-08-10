@@ -1,3 +1,3 @@
-# Memória do projeto checkout (UX)
+# Checkout project memory (UX)
 
-`UX-WI-001` possui uma especificação draft e pesquisa pendente. Confirme Work Item, pesquisa, spec e validação antes de continuar; este resumo não é autoritativo.
+`UX-WI-001` has a draft specification and pending research. Confirm Work Item, search, spec and validation before proceeding; This summary is not authoritative.

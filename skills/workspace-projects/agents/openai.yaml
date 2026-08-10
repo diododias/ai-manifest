@@ -1,4 +1,4 @@
 interface:
-  display_name: "Projetos do Workspace"
-  short_description: "Encontre e atualize a fonte canonica de um projeto."
-  default_prompt: "Use $workspace-projects para atuar no projeto correto."
+  display_name: "Workspace projects"
+  short_description: "Find and update a project's canonical source."
+  default_prompt: "Use $workspace-projects to act on the correct project."

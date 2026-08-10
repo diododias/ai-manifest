@@ -1,8 +1,8 @@
 # Handoff PM → Tech Lead
 
-- Problema: retry após timeout pode resultar em cobrança duplicada.
-- Outcome: repetição segura para a mesma operação.
-- Escopo: comportamento de pagamento e retorno ao cliente.
-- Guardrails: segurança, latência e consistência.
-- Pergunta: viabilidade, riscos, dependências e estratégia técnica.
-- Owner técnico: Tech Lead.
+- Problem: retry after timeout may result in double billing.
+- Outcome: safe repetition for the same operation.
+- Scope: payment and customer return behavior.
+- Guardrails: security, latency and consistency.
+- Question: feasibility, risks, dependencies and technical strategy.
+- Technical owner: Tech Lead.

@@ -1,13 +1,13 @@
-# Memória do workspace de Tech Lead
+# Tech Lead workspace memory
 
-- Projeto piloto: `checkout`.
-- Missão ilustrativa ativa: `WI-031`.
-- Fonte de verdade do portfólio: [`docs/portfolio/PROJECTS.md`](docs/portfolio/PROJECTS.md).
+- Pilot project: `checkout`.
+- Active illustrative mission: `WI-031`.
+- Portfolio source of truth: [`docs/portfolio/PROJECTS.md`](docs/portfolio/PROJECTS.md).
 
-## Agentes
-Agentes podem manter resumos separados para continuidade, sem copiar segredos nem substituir documentos oficiais.
+## Agents
+Agents can maintain separate summaries for continuity, without copying secrets or replacing official documents.
 
-## Histórico
-Resumos globais substituídos só têm valor de rastreabilidade quando houver motivo explícito. Decisões e trabalho devem ser promovidos às fontes oficiais.
+## History
+Superseded global summaries only have traceability value when there is an explicit reason. Decisions and work must be promoted to official sources.
 
-Este resumo é retomável, não autoritativo. Confirme as fontes antes de agir.
+This summary is resumable, not authoritative. Confirm sources before acting.

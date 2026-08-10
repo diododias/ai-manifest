@@ -1,3 +1,3 @@
-# Handoffs transversais
+# Cross handoffs
 
-Use esta área apenas quando a transferência abranger mais de um projeto. Handoffs de uma missão específica pertencem ao projeto.
+Use this area only when the transfer covers more than one project. Handoffs from a specific mission belong to the project.

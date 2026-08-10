@@ -1,40 +1,40 @@
-# 1. Harness do Repositório da Aplicação
+# 1. Application Repository Harness
 
 ---
 
 ## Overview
 
-O **repo harness** converte o conhecimento tácito do repositório em arquivos versionados que o agente lê sozinho e em verificações que rodam sem pedir licença. Ele mora dentro do repositório de código, viaja com o clone, e existe para responder quatro perguntas antes que o agente precise agir:
+The **repo harness** converts the tacit knowledge of the repository into versioned files that the agent reads on its own and into checks that run without asking for a license. It lives inside the code repository, travels with the clone, and exists to answer four questions before the agent needs to act:
 
-1. O que é este repositório?
-2. Como se faz as coisas aqui?
-3. O que preciso provar antes de dizer que terminei?
-4. O que não posso tocar sem autorização?
+1. What is this repository?
+2. How are things done here?
+3. What do I need to prove before I can say I'm done?
+4. What can I not touch without authorization?
 
-O harness se organiza em cinco camadas cumulativas. A ordem importa: cada camada elimina uma classe específica de falha, e construir fora de sequência produz falhas caras.
+The harness is organized into five cumulative layers. Order matters: Each layer eliminates a specific class of failure, and building out of sequence produces expensive failures.
 
-| Camada | Responde | Materializa em |
+| Layer | Reply | Materializes in |
 |---|---|---|
-| **Contexto** | o que este repositório é e quais regras valem | `AGENTS.md`, `docs/rules/` |
-| **Procedimento** | como executar uma tarefa recorrente do jeito certo | `skills/`, scripts |
-| **Verificação** | o que precisa ser verdade antes de avançar | sensors, CI, políticas de merge |
-| **Permissão** | o que este agente pode tocar e o que exige gente | `.agent/`, ambientes |
-| **Evidência** | como provar depois que estava correto | evidence pack, logs, artefatos |
+| **Context** | what this repository is and what rules apply | `AGENTS.md`, `docs/rules/` |
+| **Procedure** | how to perform a recurring task the right way | `skills/`, scripts |
+| **Verification** | what needs to be true before moving forward | sensors, CI, merge policies |
+| **Permission** | what this agent can do and what it requires people | `.agent/`, environments |
+| **Evidence** | how to prove later that it was correct | evidence pack, logs, artifacts |
 
-Vale entender também o que o harness **não é**. Ele não é a esteira de CI — a esteira é apenas uma implementação possível da camada de verificação. Ele não é a documentação de arquitetura em si — ele aponta para ela. E ele não é sobre como o trabalho é organizado fora do código: isso é responsabilidade do workspace de quem coordena os agentes.
-
----
-
-## Índice
-
-- [Tools](TOOLS.md) — ferramentas autorizadas, LSP, navegação de codebase, gestão de contexto
-- [MCPs](MCPS.md) — servidores Model Context Protocol, escopos e autorização
-- [Skills](SKILLS.md) — catálogo de procedimentos verificáveis do repositório
-- [Rules](RULES.md) — estado desejado, contrato de entrada (`AGENTS.md`) e condições de escalonamento
-- [Sensors](SENSORS.md) — verificações locais versionadas (pre-commit, pre-push)
-- [Gates](GATES.md) — arquitetura de verificação do commit ao deploy e níveis de autonomia
-- [Documentation](DOCUMENTATION.md) — ADRs, evidence pack e estrutura completa de arquivos
+It's also worth understanding what a harness **isn't**. It is not the CI treadmill — the treadmill is just one possible implementation of the verification layer. It is not the architectural documentation itself — it points to it. And it's not about how the work is organized outside of the code: that's the responsibility of the workspace of whoever coordinates the agents.
 
 ---
 
-*Próximo: [Agentes](AGENTES.md) — como um agente funciona e o catálogo dos 23 papéis.*
+## Index
+
+- [Tools](TOOLS.md) — authoritative tools, LSP, codebase navigation, context management
+- [MCPs](MCPS.md) — Model Context Protocol servers, scopes and authorization
+- [Skills](SKILLS.md) — catalog of verifiable procedures from the repository
+- [Rules](RULES.md) — desired state, entry contract (`AGENTS.md`) and escalation conditions
+- [Sensors](SENSORS.md) — local versioned checks (pre-commit, pre-push)
+- [Gates](GATES.md) — verification architecture from commit to deploy and autonomy levels
+- [Documentation](DOCUMENTATION.md) — ADRs, evidence pack and complete file structure
+
+---
+
+*Next: [Agents](AGENTES.md) — how an agent works and the catalog of 23 roles.*

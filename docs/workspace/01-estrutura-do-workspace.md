@@ -1,53 +1,53 @@
-# 01 — Estrutura do workspace
+#01 — Workspace structure
 
-> Os arquivos que todo workspace mantém, como `projects/` organiza cada iniciativa, e por que material bruto e trânsito temporário ficam separados da fonte canônica.
+> The files that every workspace maintains, how `projects/` organizes each initiative, and why raw material and temporary transit are separated from the canonical source.
 
-Um workspace desconhecido deveria ser navegável por qualquer agente sem que alguém precisasse explicar a convenção em voz alta. Esta página descreve o contrato mínimo que torna isso possível.
+An unknown workspace should be navigable by any agent without someone having to explain the convention out loud. This page describes the minimum contract that makes this possible.
 
 ---
 
-## Um workspace por papel
+## One workspace per role
 
-O trabalho do trio não mora em um único lugar compartilhado — cada papel tem sua própria raiz. Essa separação existe para que as responsabilidades não se misturem: o PM registra valor e requisitos, o UX registra evidência e experiência, o Tech Lead registra arquitetura e execução. Três raízes independentes evoluem sem pisar uma na outra, e cada uma corresponde ao domínio de decisão descrito em [Papéis](../metodologia/01-papeis.md).
+The trio's work doesn't live in a single shared place — each role has its own roots. This separation exists so that responsibilities do not get mixed up: the PM records value and requirements, the UX records evidence and experience, the Tech Lead records architecture and execution. Three independent roots evolve without stepping on each other, and each corresponds to the decision domain described in [Papers](../metodologia/01-papeis.md).
 
 ```text
 workspaces/
-├── pm/           # valor, prioridade, requisitos e resultados de produto
-├── ux/           # pesquisa, experiência, acessibilidade e validação
-└── tech-lead/    # viabilidade, arquitetura, implementação e risco
+├── pm/ # value, priority, requirements and product results
+├── ux/ # search, experience, accessibility and validation
+└── tech-lead/ # feasibility, architecture, implementation and risk
 ```
 
-## Os quatro arquivos que todo workspace mantém
+## The four files every workspace keeps
 
-Independentemente do papel, todo workspace mantém quatro peças. Conhecê-las é suficiente para se orientar em qualquer um dos três.
+Regardless of role, every workspace maintains four pieces. Knowing them is enough to orient yourself in any of the three.
 
-| Peça | Responde | Natureza |
+| Ask | Reply | Nature |
 |---|---|---|
-| `AGENTS.md` | como operar neste workspace | contrato de operação |
-| `BOARD.md` | quais Work Items estão em andamento | visão consolidada, nunca fonte de verdade |
-| `memory.md` | onde retomo o contexto | auxiliar, nunca fonte canônica |
-| `projects/<project>/` | os artefatos reais de cada iniciativa | fonte canônica |
+| `AGENTS.md` | how to operate in this workspace | operating contract |
+| `BOARD.md` | which Work Items are in progress | consolidated vision, never source of truth |
+| `memory.md` | where I return to the context | auxiliary, never canonical source |
+| `projects/<project>/` | the actual artifacts of each initiative | canonical source |
 
-Quando um agente inicia uma missão, ele lê o `AGENTS.md` do workspace, identifica as skills aplicáveis e segue a estrutura de `projects/` — em vez de inventar convenções próprias. É por isso que as skills de base descritas em [Skills](../SKILLS.md) são obrigatórias em toda missão de workspace: `workspace-memory`, `workspace-projects` e `workspace-board` ensinam o agente a navegar essa estrutura com segurança, e não apenas a descrevem.
+When an agent starts a mission, they read the workspace's `AGENTS.md`, identify applicable skills, and follow the `projects/` structure — rather than inventing conventions of their own. This is why the base skills described in [Skills](../SKILLS.md) are mandatory in every workspace mission: `workspace-memory`, `workspace-projects` and `workspace-board` teach the agent how to navigate this structure safely, and not just describe it.
 
-## Onde os artefatos de uma execução vivem
+## Where the artifacts of an execution live
 
-Os artefatos persistentes de uma execução nunca ficam soltos nem espalhados por um catálogo global — eles vivem em `projects/<project>/`, no workspace dono do domínio. O PM registra ali discovery, PRD, decisões e Work Items; o UX registra research, jornadas, fluxos, especificações e validações; o Tech Lead registra planos em `plans/active/`, specs, ADRs, evidências, reviews e worktrees.
+Persistent artifacts from a run are never loose or scattered across a global catalog — they live in `projects/<project>/`, in the workspace that owns the domain. The PM records discovery, PRD, decisions and Work Items there; UX records research, journeys, flows, specifications and validations; the Tech Lead records plans in `plans/active/`, specs, ADRs, evidence, reviews and worktrees.
 
-Um detalhe frequentemente confundido: `projects/` de um Work Item **não** fica na pasta local que referencia o catálogo de loops. Essa pasta — descrita em [Onde o loop vive e onde a execução acontece](../LOOPS.md#onde-o-loop-vive-e-onde-a-execução-acontece) — é apenas a camada de binding local: quais loops estão habilitados, em qual versão, com quais permissões. O trabalho real, o que de fato foi decidido e produzido, fica em `projects/`.
+An often confused detail: `projects/` of a Work Item is **not** in the local folder that references the loop catalog. This folder — described in [Where the loop lives and where execution happens](../LOOPS.md#where-the-loop-lives-and-where-execution-happens) — is just the local binding layer: which loops are enabled, in which version, with what permissions. The real work, what was actually decided and produced, is in `projects/`.
 
-## Material bruto e trânsito: separados de propósito
+## Raw material and transit: separated on purpose
 
-Duas categorias de conteúdo ficam deliberadamente fora da fonte canônica, e entender por quê evita confusão recorrente.
+Two categories of content are deliberately left outside the canonical source, and understanding why avoids recurring confusion.
 
-O **material bruto** que sustenta as análises — transcrições, prints, e-mails, PDFs, documentos — fica em `projects/<project>/plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/`. Cada execução usa sua própria pasta de sessão. Isso resolve um problema real e recorrente: reexecutar um loop porque o resultado não ficou bom **nunca** sobrescreve nem mistura o material da tentativa anterior. O asset permanece como rastro auditável, e a conclusão extraída dele vai para o artefato do domínio correto.
+The **raw material** that supports the analyzes — transcripts, prints, emails, PDFs, documents — is in `projects/<project>/plans/assets/<workflow>/<YYYY-MM-DD>-<session-id>/`. Each run uses its own session folder. This solves a real and recurring problem: rerunning a loop because the result was not good **never** overwrites or mixes the material from the previous attempt. The asset remains an auditable trace, and the conclusion drawn from it goes to the artifact in the correct domain.
 
-O **trânsito temporário** — handoffs e bloqueios em `.coordination/` — é só passagem. Como descrito em [Handoff — o que atravessa a fronteira](../LOOPS.md#handoff--o-que-atravessa-a-fronteira), um handoff só se conclui quando o artefato final chega à fonte canônica. `.coordination/` guarda o que está a caminho, não o que está pronto.
+The **temporary transit** — handoffs and blockages in `.coordination/` — is just passing through. As described in [Handoff — what crosses the border](../LOOPS.md#handoff--what-crosses-the-boundary), a handoff is only completed when the final artifact reaches the canonical source. `.coordination/` keeps what is on the way, not what is ready.
 
-## Uma implementação de referência
+## A reference implementation
 
-Uma implementação navegável desta estrutura está em [`workspaces/`](../../workspaces/README.md), com uma raiz de exemplo para cada um dos três papéis. Os nomes, organizações, repositórios e estados que ali aparecem são fictícios — servem para demonstrar a estrutura, não o trabalho de produção de um time real. Ao adotar o modelo, esses valores devem ser substituídos pelos seus.
+A browsable implementation of this structure is in [`workspaces/`](../../workspaces/README.md), with an example root for each of the three roles. The names, organizations, repositories and states that appear there are fictitious — they serve to demonstrate the structure, not the production work of a real team. When adopting the model, these values ​​must be replaced with your own.
 
 ---
 
-*Anterior: [Índice do workspace](README.md) · Próximo: [Ownership entre workspaces](02-ownership-entre-workspaces.md).*
+*Previous: [Workspace index](README.md) · Next: [Ownership between workspaces](02-ownership-entre-workspaces.md).*

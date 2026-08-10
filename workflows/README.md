@@ -1,125 +1,125 @@
 ---
-title: Agent Team — workflows multiagente
+title: Agent Team — multi-agent workflows
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflows multiagente
+# Multi-agent workflows
 
-> O contrato de colaboração entre agentes em cada uma das 12 etapas da jornada: quem faz o quê, em que ordem, onde cada agente escreve, o que atravessa a fronteira e quando escalar.
+> The collaboration contract between agents in each of the 12 stages of the journey: who does what, in what order, where each agent writes, what crosses the border and when to escalate.
 
-## Em 2 minutos
+## In 2 minutes
 
-O [catálogo de agentes](../agents/catalog.md) define cada papel isoladamente. Um workflow define o que acontece **entre** eles: a sequência de missões, os artefatos que atravessam as fronteiras, como contribuições independentes convergem em uma saída coerente, e o ponto em que uma decisão deve ser escalada ao humano responsável.
+The [agent catalog](../agents/catalog.md) defines each role separately. A workflow defines what happens **between** them: the sequence of missions, the artifacts that cross boundaries, how independent contributions converge into a coherent output, and the point at which a decision should be escalated to the responsible human.
 
-Os workflows detalham a colaboração. Eles não substituem os contratos individuais do catálogo, a autoridade da [metodologia](../docs/METODOLOGIA.md) nem a arquitetura de [gates](../docs/GATES.md). O que cada repositório precisa carregar para que esses workflows rodem com agentes está no [Repo Harness](../docs/REPO_HARNESS.md).
+Workflows detail collaboration. They do not replace individual catalog contracts, the authority of the [methodology](../docs/METODOLOGIA.md), or the architecture of [gates](../docs/GATES.md). What each repository needs to load for these workflows to run with agents is in [Repo Harness](../docs/REPO_HARNESS.md).
 
-Duas distinções resolvem a maior parte das dúvidas na prática:
+Two distinctions resolve most doubts in practice:
 
-| Distinção | O que significa |
+| Distinction | What does it mean |
 |---|---|
-| **Catálogo vs. execução** | `workflows/` é o catálogo canônico e versionado; a execução acontece no workspace do owner, em `projects/<project>/`. Nada de uma execução é gravado no catálogo. |
-| **Canônico vs. trânsito** | Artefatos persistentes vivem na fonte canônica do domínio; `.coordination/` e `memory.md` são auxiliares e um handoff só termina quando o artefato final chegou à fonte canônica. |
+| **Catalog vs. execution** | `workflows/` is the canonical and versioned catalog; execution takes place in the owner's workspace, at `projects/<project>/`. Nothing from a performance is recorded in the catalogue. |
+| **Canonical vs. traffic** | Persistent artifacts live in the domain's canonical source; `.coordination/` and `memory.md` are helpers and a handoff only ends when the final artifact has reached the canonical source. |
 
-Cada etapa tem writer/consolidador explícito para cada saída e agentes que colaboram ou desafiam. A etapa 2 possui dois consolidadores de domínio e uma barreira de coerência; nas demais, um único agente consolida o bloco. A crítica sempre vem de uma instância independente de quem produziu o artefato.
+Each step has an explicit writer/consolidator for each output and agents that collaborate or challenge. Step 2 has two domain consolidators and a coherence barrier; in the others, a single agent consolidates the block. Criticism always comes from an instance independent of who produced the artifact.
 
 ---
 
-## Modo dry-run
+## Dry-run mode
 
-Workflows podem ser executados em modo de experimentação sem gerar artefatos persistentes.
+Workflows can be run in experimentation mode without generating persistent artifacts.
 
-**Como ativar:** passe `mode: dry-run` no início da missão ou prefixe o comando com `--dry-run`.
+**How ​​to activate:** pass `mode: dry-run` at the start of the mission or prefix the command with `--dry-run`.
 
-**Comportamento esperado:**
-- O agente executa todo o raciocínio, análises e rascunhos normalmente.
-- Não cria nem modifica arquivos em `projects/`, `engineering/`, `execution/` ou qualquer outra pasta de artefatos.
-- Pode imprimir o que *teria* gerado diretamente na conversa.
-- Não atualiza `BOARD.md`, `STATUS.md`, Work Items nem handoffs.
+**Expected behavior:**
+- The agent performs all reasoning, analysis and drafting normally.
+- Does not create or modify files in `projects/`, `engineering/`, `execution/` or any other artifact folder.
+- You can print what *would* have generated directly in the conversation.
+- Does not update `BOARD.md`, `STATUS.md`, Work Items or handoffs.
 
-**Quando usar:** explorar um workflow desconhecido, testar uma abordagem antes de comprometê-la, ou validar o comportamento do agente sem efeitos colaterais.
+**When to use:** explore an unknown workflow, test an approach before committing it, or validate agent behavior without side effects.
 
-## Onde o workflow vive e onde a execução acontece
+## Where the workflow lives and where execution happens
 
-`workflows/` é o **catálogo canônico e versionado** dos workflows reutilizáveis. Ele não recebe artefatos de uma execução concreta.
+`workflows/` is the **canonical and versioned catalog** of reusable workflows. It does not receive artifacts from a concrete execution.
 
-Cada usuário ou papel executa o workflow dentro de seu próprio workspace. A instalação desse workspace deve conter `docs/workflows/` para registrar os workflows habilitados, sua versão, permissões, integrações e adaptações locais. Essa camada local referencia o workflow canônico — não o copia nem passa a ser fonte de verdade concorrente.
+Each user or role runs the workflow within their own workspace. The installation of this workspace must contain `docs/workflows/` to register the enabled workflows, their version, permissions, integrations and local adaptations. This local layer references the canonical workflow — it does not copy it or become a competing source of truth.
 
 ```text
-<workspace-do-usuario>/
+<user-workspace>/
 ├── docs/
-│   └── workflows/              # bindings locais para workflows/
+│ └── workflows/ # local bindings for workflows/
 ├── projects/
-│   └── <project>/              # artefatos persistentes de uma execução
-├── .coordination/              # handoffs e bloqueios temporários (oculto)
-├── memory.md                   # contexto retomável do agente, nunca fonte canônica
-└── repos/                      # somente no workspace técnico, quando aplicável
+│ └── <project>/ # persistent artifacts from a run
+├── .coordination/ # handoffs and temporary blocks (hidden)
+├── memory.md # agent resumable context, never canonical source
+└── repos/ # only in technical workspace, when applicable
 ```
 
-Antes de iniciar uma missão, o agente resolve: `workspace do owner → projects/<project> → Work Item → fontes canônicas`. Ele nunca grava no catálogo global um `PB`, `PRD`, plano, evidência ou handoff de uma execução.
+Before starting a mission, the agent resolves: `owner workspace → projects/<project> → Work Item → canonical sources`. It never writes to the global catalog a `PB`, `PRD`, plan, evidence or handoff of an execution.
 
-## Localização dos artefatos por workflow
+## Location of artifacts by workflow
 
-Os nomes abaixo usam `<pm-workspace>`, `<ux-workspace>` e `<tech-lead-workspace>` para representar workspaces individuais, e `<project>` para o identificador comum entre eles.
+The names below use `<pm-workspace>`, `<ux-workspace>`, and `<tech-lead-workspace>` to represent individual workspaces, and `<project>` for the common identifier between them.
 
-| Workflow | Fontes e artefatos persistentes | Trânsito temporário |
+| Workflow | Persistent sources and artifacts | Temporary transit |
 |---|---|---|
-| Intake | `<pm-workspace>/projects/<project>/work-items/` | `<pm-workspace>/.coordination/inbox/` e `handoffs/` |
-| Discovery e research | PM: `<pm-workspace>/projects/<project>/discovery/`; UX: `<ux-workspace>/projects/<project>/research/` e `journeys/`; viabilidade técnica: `<tech-lead-workspace>/projects/<project>/engineering/architecture/` | `.coordination/handoffs/` de cada workspace |
-| Produto e UX | PM: `<pm-workspace>/projects/<project>/requirements/prd/`, `strategy/`, `decisions/`; UX: `<ux-workspace>/projects/<project>/flows/`, `specifications/`, `prototypes/` e `validation/` | handoffs em `<pm-workspace>/projects/<project>/handoffs/` e `<ux-workspace>/projects/<project>/handoffs/` |
-| Especificação técnica | `<tech-lead-workspace>/projects/<project>/plans/active/`, `engineering/specs/`, `engineering/adr/` e `work-items/` | `execution/handoffs/` |
-| Implementação | `<tech-lead-workspace>/projects/<project>/work-items/`, `execution/evidence/` e `repos/worktrees/<org>/<repo>/<work-item>/` | `.coordination/active/` e `execution/handoffs/` |
-| Validação e PR | `<tech-lead-workspace>/projects/<project>/execution/reviews/` e `execution/evidence/` | `.coordination/blockers/` para exceções ativas |
-| Homologação | PM: `<pm-workspace>/projects/<project>/validation/`; UX: `<ux-workspace>/projects/<project>/validation/`; Tech Lead: `<tech-lead-workspace>/projects/<project>/execution/evidence/` | handoff para release |
-| Produção e observação | `<tech-lead-workspace>/projects/<project>/execution/evidence/`, `LEARNINGS.md` (candidatos) e o registro autorizado de release | incidente, alerta e rollback em `.coordination/` até serem promovidos |
-| Curadoria de conhecimento | fonte canônica do domínio, `projects/<project>/LEARNINGS.md` e `execution/reviews/knowledge-<id>.md` | propostas não decididas em `.coordination/` |
-| Melhoria contínua | Tech Lead: `execution/telemetry/`; memória validada no workspace; PM: `projects/<project>/work-items/` | hipóteses em `.coordination/observations/` |
-| Operação diária | memória validada e Work Items promovidos aos respectivos workspaces | briefing em `.coordination/daily/`, hipóteses e cursor diário |
+| Intake | `<pm-workspace>/projects/<project>/work-items/` | `<pm-workspace>/.coordination/inbox/` and `handoffs/` |
+| Discovery and research | PM: `<pm-workspace>/projects/<project>/discovery/`; UX: `<ux-workspace>/projects/<project>/research/` and `journeys/`; technical feasibility: `<tech-lead-workspace>/projects/<project>/engineering/architecture/` | `.coordination/handoffs/` from each workspace |
+| Product and UX | PM: `<pm-workspace>/projects/<project>/requirements/prd/`, `strategy/`, `decisions/`; UX: `<ux-workspace>/projects/<project>/flows/`, `specifications/`, `prototypes/` and `validation/` | handoffs in `<pm-workspace>/projects/<project>/handoffs/` and `<ux-workspace>/projects/<project>/handoffs/` |
+| Technical specification | `<tech-lead-workspace>/projects/<project>/plans/active/`, `engineering/specs/`, `engineering/adr/` and `work-items/` | `execution/handoffs/` |
+| Implementation | `<tech-lead-workspace>/projects/<project>/work-items/`, `execution/evidence/` and `repos/worktrees/<org>/<repo>/<work-item>/` | `.coordination/active/` and `execution/handoffs/` |
+| Validation and PR | `<tech-lead-workspace>/projects/<project>/execution/reviews/` and `execution/evidence/` | `.coordination/blockers/` for active exceptions |
+| Approval | PM: `<pm-workspace>/projects/<project>/validation/`; UX: `<ux-workspace>/projects/<project>/validation/`; Tech Lead: `<tech-lead-workspace>/projects/<project>/execution/evidence/` | handoff to release |
+| Production and observation | `<tech-lead-workspace>/projects/<project>/execution/evidence/`, `LEARNINGS.md` (candidates) and the authorized release registration | incident, alert and rollback in `.coordination/` until promoted |
+| Knowledge curation | canonical source of the domain, `projects/<project>/LEARNINGS.md` and `execution/reviews/knowledge-<id>.md` | proposals not decided on `.coordination/` |
+| Continuous improvement | Tech Lead: `execution/telemetry/`; memory validated in the workspace; PM: `projects/<project>/work-items/` | hypotheses in `.coordination/observations/` |
+| Daily operation | memory validated and Work Items promoted to respective workspaces | briefing on `.coordination/daily/`, hypotheses and daily cursor |
 
-`.coordination/` e `memory.md` são auxiliares: um handoff só se torna concluído quando seu artefato final está na fonte canônica do projeto. Se uma subpasta necessária ainda não existir, ela deve ser criada sob `projects/<project>/` no workspace que detém o domínio — nunca sob o catálogo global ou como diretório genérico de outro usuário.
+`.coordination/` and `memory.md` are auxiliaries: a handoff only becomes complete when its final artifact is in the project's canonical source. If a required subfolder does not already exist, it must be created under `projects/<project>/` in the workspace that owns the domain — never under the global catalog or as another user's generic directory.
 
-## Mapa da jornada
+## Journey map
 
-| Etapa | Workflow | Agente que consolida | Agentes que colaboram ou desafiam |
+| Step | Workflow | Consolidating agent | Agents that collaborate or challenge |
 |---:|---|---|---|
-| 0 | [Intake e triagem](00-intake-and-triage.md) | Intake Agent | Product Manager Agent; Meeting Context quando houver reunião |
-| 1 | [Discovery e research](01-discovery-and-research.md) | Product Manager Agent | UX Specification; Tech Lead Discovery; Adversarial PM quando houver proposta candidata |
-| 2 | [Planejamento de produto e UX](02-product-and-ux-planning.md) | Product Manager Agent + UX Specification | Adversarial Product Manager; especialistas de pesquisa, conteúdo ou prototipação |
-| 3 | [Especificação técnica](03-technical-specification.md) | Specification Tech Lead | Adversarial Tech Lead; Security/Data/Platform quando necessário |
-| 4 | [Implementação autônoma](04-autonomous-implementation.md) | Orchestrator Agent | Software Engineer Agents |
-| 5 | [Validação adversarial](05-adversarial-validation.md) | QA / Validation Agent | Security Review; Architecture Review; Adversarial Code Reviewer |
-| 6 | [PR e merge](06-pr-and-merge.md) | PR Agent | Reviewer Agents |
-| 7 | [Homologação](07-release-candidate-validation.md) | Product Validation Agent | Release Agent |
-| 8 | [Produção e observação](08-production-release-and-observation.md) | Release Agent | Observability Agent |
-| 9 | [Curadoria de conhecimento](09-knowledge-curation.md) | Knowledge Agent | Critic Agent quando a alteração for sensível |
-| 10 | [Telemetria e melhoria contínua](10-continuous-improvement.md) | Auto Dream Agent | Telemetry; Observability; Critic Agent |
-| 11 | [Operação diária](11-daily-operations.md) | Auto Dream Agent | Telemetry; Knowledge; Orchestrator; Intake |
+| 0 | [Intake and screening](00-intake-and-triage.md) | Intake Agent | Product Manager Agent; Meeting Context when there is a meeting |
+| 1 | [Discovery and research](01-discovery-and-research.md) | Product Manager Agent | UX Specification; Tech Lead Discovery; Adversarial PM when there is a candidate proposal |
+| 2 | [Product and UX planning](02-product-and-ux-planning.md) | Product Manager Agent + UX Specification | Adversarial Product Manager; research, content or prototyping specialists |
+| 3 | [Technical specification](03-technical-specification.md) | Specification Tech Lead | Adversarial Tech Lead; Security/Data/Platform when necessary |
+| 4 | [Standalone implementation](04-autonomous-implementation.md) | Orchestrator Agent | Software Engineer Agents |
+| 5 | [Adversarial validation](05-adversarial-validation.md) | QA / Validation Agent | Security Review; Architecture Review; Adversarial Code Reviewer |
+| 6 | [PR and merge](06-pr-and-merge.md) | PR Agent | Reviewer Agents |
+| 7 | [Approval](07-release-candidate-validation.md) | Product Validation Agent | ReleaseAgent |
+| 8 | [Production and observation](08-production-release-and-observation.md) | ReleaseAgent | ObservabilityAgent |
+| 9 | [Knowledge curation](09-knowledge-curation.md) | Knowledge Agent | Critical Agent when the change is sensitive |
+| 10 | [Telemetry and continuous improvement](10-continuous-improvement.md) | Auto Dream Agent | Telemetry; Observability; Critical Agent |
+| 11 | [Daily Operation](11-daily-operations.md) | Auto Dream Agent | Telemetry; Knowledge; Orchestrator; Intake |
 
-## Contrato comum
+## Common contract
 
-Todo workflow explicita o bloco completo. A ausência de qualquer item abaixo torna a execução ambígua, não idempotente ou dependente de negociação humana.
+Every workflow explains the complete block. The absence of any item below makes the execution ambiguous, not idempotent or dependent on human negotiation.
 
 | Item | Define |
 |---|---|
-| Unidade e entrada | identificadores, baseline, artefatos e critérios para iniciar |
-| Preflight | autoridade, workspace, projeto, permissões, risco e condição de parada |
-| Missões | DAG, dependências, paralelismo e contexto mínimo por agente |
-| Writers e consolidação | quem escreve cada fonte e quem monta a saída do bloco |
-| Skills | skills aplicáveis e registro exato em `skills_used` |
-| Persistência | fontes canônicas, trânsito e ordem de reconciliação do workspace |
-| Gates | gate de conteúdo e gate de fechamento do bloco com evidência |
-| Handoffs | fatos, evidências, hipóteses, riscos e perguntas em aberto |
-| Retry e escalonamento | limites de tentativa, invalidação, condição de parada e owner humano |
-| Envelope final | estado, transição, outputs, decisões e prova de conclusão |
+| Unit and entrance | identifiers, baseline, artifacts and criteria to start |
+| Preflight | authority, workspace, project, permissions, risk and stop condition |
+| Missions | DAG, dependencies, parallelism and minimal context per agent |
+| Writers and consolidation | who writes each source and who assembles the block output |
+| Skills | applicable skills and exact registration in `skills_used` |
+| Persistence | canonical sources, transit, and workspace reconciliation order |
+| Gates | content gate and block closing gate with evidence |
+| Handoffs | facts, evidence, hypotheses, risks and open questions |
+| Retry and scaling | attempt limits, invalidation, stopping condition and human owner |
+| End envelope | state, transition, outputs, decisions and proof of completion |
 
-O bloco só fecha quando loop, agentes, fontes canônicas, estado do workspace e próxima decisão concordam. O orquestrador distribui contexto mínimo e controla dependências — ele não substitui o consolidador nem a decisão do owner humano. Agentes de crítica são sempre instâncias independentes de quem produziu o artefato avaliado.
+The block only closes when the loop, agents, canonical sources, workspace state, and next decision agree. The orchestrator distributes minimal context and controls dependencies — it does not replace the consolidater or the human owner's decision. Agents of criticism are always independent instances of who produced the evaluated artifact.
 
-## Convenções de execução
+## Execution conventions
 
-**Formato.** Toda missão usa o envelope de saída do [catálogo](../agents/catalog.md#23-envelope-padrão-de-saída), e um handoff referencia artefatos versionados em vez de copiar o contexto inteiro.
+**Format.** Every mission uses the [catalog](../agents/catalog.md#23-standard-output-envelope) output envelope, and a handoff references versioned artifacts instead of copying the entire context.
 
-**Convergência.** Uma contribuição não vira decisão pelo simples fato de estar no consolidado: divergências e riscos residuais permanecem explícitos. O workflow termina com artefato coerente e evidence pack, nunca com respostas isoladas dos agentes.
+**Convergence.** A contribution does not become a decision simply because it is included in the consolidated statement: divergences and residual risks remain explicit. The workflow ends with a coherent artifact and evidence pack, never with isolated responses from agents.
 
-**Revisão.** Nova informação material devolve o workflow ao agente responsável pela revisão, e invalida a aprovação relacionada quando a política determinar.
+**Review.** New material information returns the workflow to the agent responsible for the review, and invalidates the related approval when policy determines.
 
-**Bindings locais.** O binding em `<workspace>/docs/workflows/` declara a versão do workflow canônico e pode **restringir** ferramentas, permissões e integrações. Ele não pode ampliar autonomia nem alterar gates sem a decisão prevista no modelo operacional — essa assimetria é intencional.
+**Local bindings.** The binding in `<workspace>/docs/workflows/` declares the canonical workflow version and can **restrict** tools, permissions, and integrations. It cannot expand autonomy or change gates without the decision foreseen in the operational model — this asymmetry is intentional.

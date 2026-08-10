@@ -1,20 +1,20 @@
 ---
-title: Bindings de workflows — workspace de UX
+title: Workflow bindings — UX workspace
 status: example
 owner: ux
 updated_at: 2026-08-08
 ---
 
-# Workflows habilitados no workspace de UX
+# Workflows enabled in the UX workspace
 
-Este diretório referencia o [catálogo canônico](../../../../workflows/README.md). Ele registra o uso local; não replica definições nem recebe saídas de execução.
+This directory references [canonical catalog](../../../../workflows/README.md). It records local usage; does not replicate definitions or receive execution output.
 
-| Workflow | Papel de UX | Fonte persistente |
+| Workflow | UX Role | Persistent Font |
 |---|---|---|
-| [Discovery](../../../../workflows/01-discovery-and-research.md) | pesquisa, jornada e hipótese de experiência | `projects/<project>/research/` e `journeys/` |
-| [Produto e UX](../../../../workflows/02-product-and-ux-planning.md) | fluxos, estados, acessibilidade e UX spec | `projects/<project>/flows/`, `specifications/`, `prototypes/` e `validation/` |
-| [Validação](../../../../workflows/05-adversarial-validation.md) | evidencia critérios de UX quando acionado | `projects/<project>/validation/` |
-| [Homologação](../../../../workflows/07-release-candidate-validation.md) | decide aceite de experiência | `projects/<project>/validation/` |
-| [Conhecimento e melhoria](../../../../workflows/09-knowledge-curation.md) | promove aprendizado de experiência | fonte canônica do projeto |
+| [Discovery](../../../../workflows/01-discovery-and-research.md) | research, journey and experience hypothesis | `projects/<project>/research/` and `journeys/` |
+| [Product and UX](../../../../workflows/02-product-and-ux-planning.md) | flows, states, accessibility and UX spec | `projects/<project>/flows/`, `specifications/`, `prototypes/` and `validation/` |
+| [Validation](../../../../workflows/05-adversarial-validation.md) | highlights UX criteria when activated | `projects/<project>/validation/` |
+| [Approval](../../../../workflows/07-release-candidate-validation.md) | decides to accept experience | `projects/<project>/validation/` |
+| [Knowledge and improvement](../../../../workflows/09-knowledge-curation.md) | promotes experiential learning | project canonical source |
 
-Handoffs temporários usam `..coordination/`; handoffs de um projeto usam `projects/<project>/handoffs/`. UX não duplica PRD, plano técnico ou evidência de CI: referencia as fontes do PM e do Tech Lead.
+Temporary handoffs use `..coordination/`; handoffs of a project use `projects/<project>/handoffs/`. UX does not duplicate PRD, technical plan or CI evidence: references PM and Tech Lead sources.

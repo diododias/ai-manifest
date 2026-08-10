@@ -6,16 +6,16 @@ owner: product-manager
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Decisão solicitada>
+# <Decision requested>
 
-## Recomendação e alternativas
+## Recommendation and alternatives
 
-<Síntese com evidências.>
+<Synthesis with evidence.>
 
-## Impactos e riscos
+## Impacts and risks
 
-<Valor, experiência, viabilidade e custo de oportunidade.>
+<Value, experience, feasibility and opportunity cost.>
 
-## Decisão humana
+## Human decision
 
-<Aprovada, ajustada, adiada ou rejeitada; responsável e data.>
+<Approved, adjusted, postponed or rejected; responsible and date.>

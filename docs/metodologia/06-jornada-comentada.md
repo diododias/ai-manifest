@@ -1,87 +1,87 @@
-# 06 — Jornada comentada
+#06 — Commented journey
 
-> O ciclo inteiro visto pelos pontos humanos: onde uma pessoa entra, o que a fez entrar e o que acontece se ela disser não.
+> The entire cycle seen from human points: where a person enters, what made them enter and what happens if they say no.
 
-Esta página costura. Ela não descreve a mecânica de nenhuma etapa — isso está em [`loops/`](../loops/README.md), um arquivo por contrato — e não redefine autoridade de agente. O que ela mostra é o **conjunto**: as doze etapas agrupadas em cinco blocos, com os checkpoints humanos posicionados e os caminhos de retorno visíveis.
+This page stitches. It doesn't describe the mechanics of any steps — that's in [`loops/`](../loops/README.md), a file by contract — and it doesn't redefine agent authority. What it shows is the **set**: the twelve steps grouped into five blocks, with the human checkpoints positioned and the return paths visible.
 
-O ponto a observar na primeira leitura é a **quantidade de amarelo** no diagrama. São seis pontos de decisão humana em todo o ciclo, e dois deles são condicionais. Todo o resto é executado por agentes ou verificado por automação. É essa proporção que o modelo tenta sustentar — e é ela que degrada primeiro quando gates ficam frouxos ou artefatos ficam ambíguos.
+The point to note on the first reading is the **amount of yellow** in the diagram. There are six human decision points throughout the cycle, and two of them are conditional. Everything else is run by agents or checked by automation. It is this proportion that the model tries to sustain — and it is what degrades first when gates become loose or artifacts become ambiguous.
 
 ---
 
-## O ciclo, pelos pontos humanos
+## The cycle, through human points
 
 ```mermaid
-flowchart TD
-    START([Necessidade, problema ou oportunidade])
+TD flowchart
+    START([Need, problem or opportunity])
 
-    subgraph B1["Bloco 1 · Produto e discovery"]
-        L0["🚦 Triage<br/>etapa 0"]
-        L1["🔦 Scout<br/>etapa 1"]
-        H1{"H1 · Vale investir?"}
-        L2["🎨 Studio<br/>etapa 2"]
-        H2{"H2 · É isto que construiremos?"}
+    subgraph B1["Block 1 · Product and discovery"]
+        L0["🚦 Triage<br/>step 0"]
+        L1["🔦 Scout<br/>step 1"]
+        H1{"H1 · Is it worth investing?"}
+        L2["🎨 Studio<br/>step 2"]
+        H2{"H2 · Is this what we will build?"}
     end
 
-    subgraph B2["Bloco 2 · Especificação técnica"]
-        L3["🗺️ Drafting<br/>etapa 3"]
-        D3{"ADR nova, exceção<br/>ou risco R3/R4?"}
-        H3{"H3 · Aceitamos<br/>o trade-off?"}
+    subgraph B2["Block 2 · Technical specification"]
+        L3["🗺️ Drafting<br/>step 3"]
+        D3{"New ADR, exception<br/>or risk R3/R4?"}
+        H3{"H3 · Do we accept<br/>the trade-off?"}
     end
 
-    subgraph B3["Bloco 3 · Construção e validação"]
-        L4["🔁 Ralph<br/>etapa 4"]
-        L5["⚔️ Red Team<br/>etapa 5"]
-        G5{{"Sensors e CI<br/>fast e deep lane"}}
+    subgraph B3["Block 3 · Construction and validation"]
+        L4["🔁 Ralph<br/>step 4"]
+        L5["⚔️ Red Team<br/>step 5"]
+        G5{{"Sensors and CI<br/>fast and deep lane"}}
     end
 
-    subgraph B4["Bloco 4 · Integração e entrega"]
-        L6["🚪 Gatekeeper<br/>etapa 6"]
-        H4{"H4 · Podemos integrar?"}
-        L7["🎭 Rehearsal<br/>etapa 7"]
-        D8{"Risco R3/R4 ou<br/>exposição crítica?"}
-        H5{"H5 · Podemos<br/>expor o risco?"}
-        L8["🐤 Canary<br/>etapa 8"]
+    subgraph B4["Block 4 · Integration and delivery"]
+        L6["🚪 Gatekeeper<br/>step 6"]
+        H4{"H4 · Can we integrate?"}
+        L7["🎭 Rehearsal<br/>step 7"]
+        D8{"R3/R4 risk or<br/>critical exposure?"}
+        H5{"H5 · Can we<br/>expose the risk?"}
+        L8["🐤 Canary<br/>step 8"]
     end
 
-    subgraph B5["Bloco 5 · Conhecimento e melhoria"]
-        L9["🗄️ Archivist<br/>etapa 9"]
-        L11["☀️ Daily<br/>etapa 11"]
-        L10["🌙 Dream<br/>etapa 10"]
-        H6{"H6 · O sistema<br/>aprendeu corretamente?"}
+    subgraph B5["Block 5 · Knowledge and improvement"]
+        L9["🗄️ Archivist<br/>step 9"]
+        L11["☀️ Daily<br/>step 11"]
+        L10["🌙 Dream<br/>step 10"]
+        H6{"H6 · Did the system<br/>learn correctly?"}
     end
 
     START --> L0 --> L1 --> H1
-    H1 -- "avançar" --> L2
-    H1 -- "ajustar" --> L1
-    H1 -- "adiar ou encerrar" --> L0
+    H1 -- "forward" --> L2
+    H1 -- "adjust" --> L1
+    H1 -- "postpone or terminate" --> L0
     L2 --> H2
-    H2 -- "aprovar" --> L3
-    H2 -- "revisar produto" --> L2
+    H2 -- "approve" --> L3
+    H2 -- "review product" --> L2
     L3 --> D3
-    D3 -- "sim" --> H3
-    D3 -- "não" --> L4
-    H3 -- "aceitar" --> L4
-    H3 -- "revisar decisão" --> L3
+    D3 -- "yes" --> H3
+    D3 -- "no" --> L4
+    H3 -- "accept" --> L4
+    H3 -- "review decision" --> L3
     L4 --> G5 --> L5
-    G5 -- "reprovou" --> L4
+    G5 -- "failed" --> L4
     L5 --> L6 --> H4
-    H4 -- "aprovar" --> L7
-    H4 -- "ajuste de código" --> L4
-    H4 -- "ajuste de escopo" --> L2
+    H4 -- "approve" --> L7
+    H4 -- "code adjustment" --> L4
+    H4 -- "scope adjustment" --> L2
     L7 --> D8
-    D8 -- "não · R0/R1" --> L8
-    D8 -- "sim" --> H5
-    H5 -- "aprovar" --> L8
-    H5 -- "revisar release" --> L7
+    D8 -- "no · R0/R1" --> L8
+    D8 -- "yes" --> H5
+    H5 -- "approve" --> L8
+    H5 -- "review release" --> L7
     L8 --> L9
 
-    L4 -. "sessões" .-> L11
-    L5 -. "sessões" .-> L11
-    L9 -. "telemetria" .-> L10
-    L11 -. "hipóteses" .-> L10
-    L11 -. "melhorias" .-> L0
+    L4 -. "sessions".-> L11
+    L5 -. "sessions".-> L11
+    L9 -. "telemetry".-> L10
+    L11 -. "hypotheses" .-> L10
+    L11 -. "improvements".-> L0
     L10 --> H6
-    H6 -. "demandas priorizáveis" .-> L0
+    H6 -. "prioritizable demands" .-> L0
 
     classDef loop fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -96,77 +96,77 @@ flowchart TD
     class START terminal;
 ```
 
-| Cor | Natureza |
+| Color | Nature |
 |---|---|
-| 🔵 Azul | loop executado por agentes |
-| 🟢 Verde | verificação ou decisão por política |
-| 🟡 Amarelo | decisão humana |
-| 🟣 Roxo | conhecimento, memória e melhoria |
+| 🔵 Blue | loop executed by agents |
+| 🟢 Green | verification or decision by policy |
+| 🟡 Yellow | human decision |
+| 🟣 Purple | knowledge, memory and improvement |
 
-Linha contínua indica fluxo de entrega; linha pontilhada, coleta ou reutilização de conhecimento. **As setas de retorno importam tanto quanto as de avanço** — elas mostram para onde uma falha devolve o trabalho, e é por isso que um gate frouxo em uma etapa inicial custa caro várias etapas depois.
+Solid line indicates delivery flow; dotted line, knowledge collection or reuse. **Back arrows matter as much as forward arrows** — they show where a failure sends work back, which is why a loose gate in an early step is costly several steps later.
 
 ---
 
-## Os cinco blocos
+## The five blocks
 
-Cada bloco agrupa loops que respondem à mesma pergunta. A tabela é o mapa de conjunto; o contrato de execução de cada linha está no arquivo linkado.
+Each block groups loops that answer the same question. The table is the set map; the execution contract for each line is in the linked file.
 
-| # | Bloco | Loops | Checkpoints | Artefatos centrais |
+| # | Block | Loops | Checkpoints | Core artifacts |
 |---:|---|---|---|---|
-| 1 | Produto e discovery | [🚦 0](../loops/00-intake-and-triage.md) · [🔦 1](../loops/01-discovery-and-research.md) · [🎨 2](../loops/02-product-and-ux-planning.md) | H1, H2 | `PB.md`, `PRD.md` |
-| 2 | Especificação técnica | [🗺️ 3](../loops/03-technical-specification.md) | H3, condicional | `PLAN`, `SPEC`, `ADR`, `TASKS` |
-| 3 | Construção e validação | [🔁 4](../loops/04-autonomous-implementation.md) · [⚔️ 5](../loops/05-adversarial-validation.md) | nenhum, salvo exceção | mudança pronta para PR |
-| 4 | Integração e entrega | [🚪 6](../loops/06-pr-and-merge.md) · [🎭 7](../loops/07-release-candidate-validation.md) · [🐤 8](../loops/08-production-release-and-observation.md) | H4, H5 | PR, release candidate, release |
-| 5 | Conhecimento e melhoria | [🗄️ 9](../loops/09-knowledge-curation.md) · [🌙 10](../loops/10-continuous-improvement.md) · [☀️ 11](../loops/11-daily-operations.md) | H6, condicional | `MEMORY.md`, demandas de melhoria |
+| 1 | Product and discovery | [🚦 0](../loops/00-intake-and-triage.md) · [🔦 1](../loops/01-discovery-and-research.md) · [🎨 2](../loops/02-product-and-ux-planning.md) | H1, H2 | `PB.md`, `PRD.md` |
+| 2 | Technical specification | [🗺️ 3](../loops/03-technical-specification.md) | H3, conditional | `PLAN`, `SPEC`, `ADR`, `TASKS` |
+| 3 | Construction and validation | [🔁 4](../loops/04-autonomous-implementation.md) · [⚔️ 5](../loops/05-adversarial-validation.md) | none, except exceptions | move ready for PR |
+| 4 | Integration and delivery | [🚪 6](../loops/06-pr-and-merge.md) · [🎭 7](../loops/07-release-candidate-validation.md) · [🐤 8](../loops/08-production-release-and-observation.md) | H4, H5 | PR, release candidate, release |
+| 5 | Knowledge and improvement | [🗄️ 9](../loops/09-knowledge-curation.md) · [🌙 10](../loops/10-continuous-improvement.md) · [☀️ 11](../loops/11-daily-operations.md) | H6, conditional | `MEMORY.md`, demands for improvement |
 
-### Bloco 1 — produto e discovery
+### Block 1 — product and discovery
 
-Responde a **"vale resolver este problema, e é este o problema?"**. É onde mais evidência é produzida e onde um erro custa menos para corrigir. Concentra dois dos seis checkpoints, deliberadamente: decisão errada aqui se propaga por todo o resto do ciclo.
+Answer **"is it worth solving this problem, and is this the problem?"**. This is where more evidence is produced and where an error costs less to correct. Concentrates two of the six checkpoints, deliberately: wrong decision here propagates throughout the rest of the cycle.
 
-O owner é o PM, com o UX como coautor em H2. O critério de avanço é que problema, usuário, valor e experiência estejam explícitos e rastreáveis à sua origem.
+The owner is the PM, with UX as co-author in H2. The advancement criterion is that problem, user, value and experience are explicit and traceable to their origin.
 
-### Bloco 2 — especificação técnica
+### Block 2 — technical specification
 
-Responde a **"como construir, e o que aceitamos ao escolher assim?"**. Único bloco com um só loop, e único cujo checkpoint é condicional por natureza: sem ADR nova, exceção ou risco alto, não há trade-off a aceitar, e a etapa segue direto para a construção.
+Answers **"how to build, and what do we accept when choosing like this?"**. The only block with a single loop, and the only one whose checkpoint is conditional in nature: without new ADR, exception or high risk, there is no trade-off to accept, and the step goes straight to construction.
 
-O owner é o Tech Lead. O critério de avanço é rastreabilidade `PRD → SPEC → TASKS` e gaps críticos tratados.
+The owner is the Tech Lead. The advancement criteria is `PRD → SPEC → TASKS` traceability and critical gaps addressed.
 
-### Bloco 3 — construção e validação
+### Block 3 — construction and validation
 
-Responde a **"está construído, e alguém independente atacou?"**. É o bloco sem checkpoint humano no fluxo saudável — e é isso que sustenta o modelo. As voltas aqui são internas e médias: o agente corrige, o sensor reprova, a crítica contesta, tudo em minutos.
+Answers to **"it was built, and someone independent attacked it?"**. It is the block without human checkpoint in the healthy flow — and that is what sustains the model. The turns here are internal and average: the agent corrects, the sensor disapproves, the critic contests, all in minutes.
 
-O humano só aparece por exceção: limite de tentativas atingido, falso positivo de gate ou gap de requisito descoberto na validação. **Um bloco 3 que chama humano com frequência é sintoma de bloco 1 ou 2 mal executado** — o requisito chegou ambíguo.
+The human only appears by exception: attempt limit reached, gate false positive or requirement gap discovered in validation. **A block 3 that frequently calls human is a symptom of a poorly executed block 1 or 2** — the requirement arrived ambiguous.
 
-### Bloco 4 — integração e entrega
+### Block 4 — integration and delivery
 
-Responde a **"podemos integrar, e podemos expor o risco?"**. Concentra os dois checkpoints em que o custo de errar é mais alto e mais visível. O peso de cada um varia por classe de risco, conforme a tabela em [Checkpoints humanos](02-checkpoints-humanos.md).
+Answers to **"can we integrate, and can we expose the risk?"**. It concentrates the two checkpoints where the cost of making a mistake is highest and most visible. The weight of each one varies by risk class, according to the table in [Human checkpoints](02-checkpoints-humanos.md).
 
-O critério de avanço tem duas partes que não se substituem: gates verdes **e** decisão registrada de quem tem a titularidade.
+The advancement criterion has two parts that do not replace each other: green gates **and** registered decision of who has title.
 
-### Bloco 5 — conhecimento e melhoria
+### Block 5 — knowledge and improvement
 
-Responde a **"o sistema aprendeu, e aprendeu corretamente?"**. Fecha as voltas mais longas — as que têm o próprio sistema de trabalho como objeto — e é o único bloco que gira por calendário, não por Work Item.
+Answers **"did the system learn, and did it learn correctly?"**. It closes the longest turns — those that have the work system itself as an object — and is the only block that rotates by calendar, not by Work Item.
 
-Contém três loops com janelas diferentes: o [🗄️ Archivist](../loops/09-knowledge-curation.md) registra o conhecimento de uma entrega; o [☀️ Daily](../loops/11-daily-operations.md) lê o dia; o [🌙 Dream](../loops/10-continuous-improvement.md) lê a semana com crítica independente e leva a H6. A saída dos três reinicia o ciclo pelo bloco 1 — com contexto e controles melhores do que na volta anterior.
+Contains three loops with different windows: [🗄️ Archivist](../loops/09-knowledge-curation.md) records knowledge of a delivery; [☀️ Daily](../loops/11-daily-operations.md) reads the day; [🌙 Dream](../loops/10-continuous-improvement.md) reads the week with independent criticism and leads to H6. The departure of the three restarts the cycle through block 1 — with better context and controls than in the previous lap.
 
 ---
 
-## Se não passar
+## If you don't pass
 
-Um gate reprovado não interrompe a jornada: devolve o trabalho a um ponto específico. Em nível de bloco, os retornos são estes.
+A failed gate does not interrupt the journey: it returns the work to a specific point. At the block level, the returns are these.
 
-| Bloco | Falha corrigível volta para | Decisão volta para |
+| Block | Correctable fault back to | Decision returns to |
 |---|---|---|
-| 1 | o próprio bloco, com pergunta nova | PM, em H1 e H2 |
-| 2 | bloco 1, se o requisito for ambíguo | Tech Lead, em H3 |
-| 3 | o próprio bloco, dentro do limite de tentativas | Tech Lead, por exceção |
-| 4 | bloco 3, se for defeito; bloco 1, se for escopo | Code Owner em H4; Tech Lead e PM em H5 |
-| 5 | a hipótese permanece identificada como tal | trio, em H6 |
+| 1 | the block itself, with new question | PM, in H1 and H2 |
+| 2 | block 1 if requirement is ambiguous | Tech Lead, in H3 |
+| 3 | the block itself, within the attempt limit | Tech Lead, by exception |
+| 4 | block 3, if it is a defect; block 1, if scope | Code Owner in H4; Tech Lead and PM in H5 |
+| 5 | the hypothesis remains identified as such | trio, in H6 |
 
-O mapa por loop — mais granular e usado durante a execução — está em [`loops/README.md`](../loops/README.md#caminhos-de-falha).
+The per-loop map — more granular and used during execution — is in [`loops/README.md`](../loops/README.md#caminhos-de-falha).
 
-A leitura que interessa: **quanto mais tarde a falha é detectada, mais para trás ela devolve o trabalho.** Um escopo mal definido descoberto em H4 volta ao bloco 1 e descarta o trabalho de três blocos. É o argumento econômico para concentrar rigor no começo.
+The reading that matters: **the later the failure is detected, the further back it returns work.** A poorly defined scope discovered in H4 returns to block 1 and discards the work of three blocks. It's the economic argument for focusing rigor at the beginning.
 
 ---
 
-*Anterior: [Manual do operador](05-manual-do-operador.md) · Próximo: [Workflows de documentação](07-workflows-de-documentacao.md).*
+*Previous: [Operator Manual](05-manual-do-operador.md) · Next: [Documentation Workflows](07-workflows-de-documentacao.md).*

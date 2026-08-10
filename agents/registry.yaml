@@ -3,9 +3,9 @@ agents:
   - id: intake-agent
     sponsor: Product Manager
   - id: meeting-context-agent
-    sponsor: owner da reunião
+    sponsor: meeting owner
   - id: orchestrator-agent
-    sponsor: owner humano da fase
+    sponsor: human stage owner
   - id: product-manager-agent
     sponsor: Product Manager
   - id: ux-specification-agent
@@ -19,13 +19,13 @@ agents:
   - id: adversarial-tech-lead-agent
     sponsor: Tech Lead
   - id: specialist-security-data-platform-agent
-    sponsor: Tech Lead ou especialista
+    sponsor: Tech Lead or specialist
   - id: software-engineer-agent
     sponsor: Tech Lead
   - id: qa-validation-agent
     sponsor: Tech Lead
   - id: security-review-agent
-    sponsor: Tech Lead ou Security Owner
+    sponsor: Tech Lead or Security Owner
   - id: architecture-review-agent
     sponsor: Tech Lead
   - id: adversarial-code-reviewer-agent
@@ -33,16 +33,16 @@ agents:
   - id: pr-agent
     sponsor: Tech Lead
   - id: product-validation-agent
-    sponsor: Product Manager e UX
+    sponsor: Product Manager and UX
   - id: release-agent
     sponsor: Tech Lead
   - id: observability-agent
     sponsor: Tech Lead
   - id: knowledge-agent
-    sponsor: owner do domínio
+    sponsor: domain owner
   - id: telemetry-agent
     sponsor: trio
   - id: auto-dream-agent
     sponsor: trio
   - id: critic-agent
-    sponsor: owner da decisão
+    sponsor: decision owner

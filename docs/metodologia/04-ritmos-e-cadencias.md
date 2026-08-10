@@ -1,101 +1,101 @@
-# 04 — Ritmos e cadências
+#04 — Rhythms and cadences
 
-> O que acontece todo dia, toda semana e a cada marco — independentemente de qualquer entrega estar em curso.
+> What happens every day, every week, and at every milestone — regardless of whether any deliverables are in progress.
 
-A jornada descreve o caminho de **um** Work Item. O ritmo descreve o que acontece **todo dia**, tenha ou não havido entrega. São eixos diferentes, e confundi-los produz o erro mais comum na adoção do modelo: acreditar que, sem item em voo, não há nada a operar.
+The journey describes the path of **a** Work Item. Rhythm describes what happens **every day**, whether or not there has been delivery. They are different axes, and confusing them produces the most common error when adopting the model: believing that, without an item in flight, there is nothing to operate.
 
-Há sempre algo a operar. Itens parados não geram evento próprio, aprendizados dispersos em sessões não se consolidam sozinhos, e o custo de um atrito recorrente só aparece quando alguém soma as ocorrências. É para isso que existem as cadências.
+There is always something operating. Standstill items do not generate their own event, learning dispersed across sessions does not consolidate on its own, and the cost of recurring friction only appears when someone adds up the occurrences. That's what cadences are for.
 
-| Cadência | O que roda | Saída | Tempo humano |
+| Cadence | What runs | Output | Human time |
 |---|---|---|---:|
-| **Diária** | [☀️ Daily Loop](../loops/11-daily-operations.md) | briefing, memória, itens no intake | ≤ 10 min de leitura |
-| **Por entrega** | checkpoints H1–H5, por evento | decisão registrada | 30–45 min por entrega R1/R2 |
-| **Semanal** | triagem de backlog e [🌙 Dream Loop](../loops/10-continuous-improvement.md) + H6 | backlog ordenado, aprendizado validado | 40–65 min |
-| **Por marco** | revisão de risco e de autonomia | subida, manutenção ou rebaixamento | 30–60 min |
+| **Daily** | [☀️ Daily Loop](../loops/11-daily-operations.md) | briefing, memory, items in intake | ≤ 10 min reading |
+| **By delivery** | checkpoints H1–H5, by event | registered decision | 30–45 min per delivery R1/R2 |
+| **Weekly** | backlog screening and [🌙 Dream Loop](../loops/10-continuous-improvement.md) + H6 | ordered backlog, validated learning | 40–65 min |
+| **By landmark** | risk and autonomy review | upgrade, maintenance or downgrade | 30–60 min |
 
 ---
 
-## Diária — o pulso
+## Daily — the pulse
 
-Todo início de dia, o [☀️ Daily Loop](../loops/11-daily-operations.md) lê as sessões encerradas desde a última execução e devolve ao owner um briefing curto. É a única cadência que roda mesmo em um dia sem nenhuma entrega.
+Every beginning of the day, [☀️ Daily Loop](../loops/11-daily-operations.md) reads the sessions closed since the last run and returns a short briefing to the owner. It's the only cadence that runs even on a day without any deliveries.
 
-### O que o loop faz
+### What the loop does
 
-Ele separa quatro naturezas que não podem ser lidas juntas — o que foi concluído, o que ficou pendente, o que falhou e por qual causa, e o que só uma pessoa pode decidir — e converte cada uma em um destino diferente.
+He separates four natures that cannot be read together — what was completed, what was pending, what failed and for what reason, and what only one person can decide — and converts each one into a different destiny.
 
-| Natureza | Destino |
+| Nature | Destination |
 |---|---|
-| Padrão recorrente com evidência de sessão | proposta de atualização de `MEMORY.md` |
-| Atrito reproduzível | Work Item no [🚦 Triage Loop](../loops/00-intake-and-triage.md) |
-| Decisão pendente ou bloqueio | briefing ao owner |
-| Ocorrência isolada | hipótese em observação, insumo do ciclo semanal |
+| Recurring pattern with session evidence | `MEMORY.md` update proposal |
+| Reproducible friction | Work Item in [🚦 Triage Loop](../loops/00-intake-and-triage.md) |
+| Pending decision or blockage | owner briefing |
+| Isolated occurrence | hypothesis under observation, weekly cycle input |
 
-### O que o owner faz
+### What the owner does
 
-A leitura é de poucos minutos e tem uma ordem obrigatória, que é a mesma em que o briefing é montado.
+Reading lasts a few minutes and has a mandatory order, which is the same in which the briefing is assembled.
 
-1. **Bloqueado** — precisa de decisão hoje. Cada item traz a decisão pedida e a data-limite. Esta é a única parte que exige ação imediata.
-2. **Em risco** — vai bloquear se ninguém agir. Decidir agora ou aceitar conscientemente que vire bloqueio.
-3. **Em andamento** — informativo. Existe para que o owner saiba onde o trabalho está, não para que aprove nada.
+1. **Blocked** — needs decision today. Each item contains the requested decision and the deadline. This is the only part that requires immediate action.
+2. **At risk** — will block if no one takes action. Decide now or consciously accept that it becomes a blockage.
+3. **In progress** — informative. It exists so that the owner knows where the work is, not so that he can approve anything.
 
-A pauta cobre apenas bloqueios, informação nova e pedidos de decisão. **O que este ritmo não deve virar:** uma reunião diária de relato individual. Narrar status é função do artefato assíncrono; a pessoa entra para desbloquear.
+The agenda only covers blockages, new information and requests for decisions. **What this rhythm should not turn into:** a daily individual reporting meeting. Narrating status is the function of the asynchronous artifact; the person enters to unlock.
 
-### O que sai daqui e não volta
+### What leaves here and doesn't come back
 
-Duas saídas do ritmo diário atravessam a fronteira e passam a viver em outro lugar: a atualização de memória, que vai para `MEMORY.md`, e a melhoria, que vira Work Item no intake. **Nenhuma melhoria fica registrada apenas no briefing** — o briefing tem validade de um dia, e o que só existe nele desaparece.
-
----
-
-## Por entrega — os checkpoints
-
-Esta cadência não tem calendário: ela é disparada por evento, conforme o [mapa de gatilhos](03-gatilhos-e-disparos.md). Um item de baixo risco atravessa três decisões humanas; um item R3/R4 atravessa até seis.
-
-A propriedade a preservar é que **checkpoint não espera reunião**. Ele chega ao owner com o evidence pack montado e é respondido de forma assíncrona. Agendar um checkpoint para a próxima cerimônia converte minutos de decisão em dias de espera — e é a causa mais comum de lead time alto em times que adotaram o modelo corretamente em todo o resto.
-
-O detalhe de cada checkpoint está em [Checkpoints humanos](02-checkpoints-humanos.md).
+Two departures from the daily rhythm cross the border and start to live elsewhere: the memory update, which goes to `MEMORY.md`, and the improvement, which becomes a Work Item in the intake. **No improvement is recorded only in the briefing** — the briefing is valid for one day, and what only exists in it disappears.
 
 ---
 
-## Semanal — triagem e aprendizado
+## By delivery — the checkpoints
 
-A semana tem dois momentos distintos, com owners e objetos diferentes. Um olha para o produto; o outro, para o sistema que constrói o produto.
+This cadence has no calendar: it is triggered by event, according to [trigger map](03-gatilhos-e-disparos.md). A low-risk item goes through three human decisions; an R3/R4 item crosses up to six.
 
-### Triagem de prioridade
+The property to preserve is that **checkpoint does not wait for meeting**. It arrives at the owner with the evidence pack assembled and is responded to asynchronously. Scheduling a checkpoint for the next ceremony converts minutes of decision making into days of waiting — and is the most common cause of high lead time in teams that have adopted the model correctly everywhere else.
 
-Owner: PM. Recebe novos Work Items, métricas, feedback, incidentes, dependências e capacidade; devolve o backlog ordenado, com owner e risco inicial atribuídos, e a lista do que precisa de discovery.
-
-O gate é simples: cada item que sai da triagem tem contexto, prioridade e responsável minimamente claros. Um item que não atinge isso volta à origem como pergunta — não entra no backlog como incógnita.
-
-É aqui também que entram as melhorias que o ritmo diário e o semanal produziram. **O sistema de trabalho compete por prioridade com o produto, na mesma fila.** Manter duas filas separadas garante que a segunda nunca seja atendida.
-
-### 🌙 Dream Loop e H6
-
-Owner: trio. O [🌙 Dream Loop](../loops/10-continuous-improvement.md) observa como os outros loops se comportaram na semana — quantas voltas deram, onde escalaram, o que custaram — e separa padrão de ocorrência isolada, com crítica independente obrigatória.
-
-A saída vai a **H6**, que decide se o sistema aprendeu corretamente. É obrigatório para mudança sensível de memória, item P0/P1 e qualquer alteração de gate; o restante segue por amostragem.
-
-A relação entre as duas cadências de aprendizado é de alimentação: o diário registra hipóteses com evidência de sessão; o semanal as confirma ou descarta contra baseline. A comparação completa está no [contrato do ☀️ Daily Loop](../loops/11-daily-operations.md#diário-e-semanal--por-que-são-dois-loops).
+Details of each checkpoint are in [Human Checkpoints](02-checkpoints-humanos.md).
 
 ---
 
-## Por marco — risco e autonomia
+## Weekly — screening and learning
 
-A cadência mais longa não tem periodicidade fixa: ela acontece quando há material suficiente para decidir. Duas revisões acontecem aqui.
+The week has two distinct moments, with different owners and objects. One looks at the product; the other, for the system that builds the product.
 
-**Revisão de nível de autonomia.** Verifica se todos os critérios de subida estão presentes simultaneamente — volume observado, defeitos escapados, rollback confiável, falsos positivos baixos, risco classificado corretamente, evidência auditável e tempo humano de fato reduzido. Um único critério ausente mantém o nível.
+### Priority screening
 
-**Revisão de classe de risco e de gates.** Verifica se as classes ainda descrevem a realidade do produto e se cada gate ainda paga o próprio custo. Um gate com alto índice de falso positivo não é rigor: é ruído que treina o time a ignorar sinal.
+Owner: PM. Receives new Work Items, metrics, feedback, incidents, dependencies and capacity; returns the ordered backlog, with owner and initial risk assigned, and the list of what needs discovery.
 
-Ambas exigem revisor independente de quem opera o harness, pelo mesmo motivo que aparece em [Papéis](01-papeis.md): relaxar a verificação que avalia o próprio trabalho é o caminho mais curto para a ausência de verificação.
+The gate is simple: each item that leaves the triage has a minimally clear context, priority and person responsible. An item that does not achieve this returns to its origin as a question — it does not enter the backlog as an unknown.
+
+This is also where the improvements that the daily and weekly rhythm produced come into play. **The work system competes for priority with the product, in the same queue.** Maintaining two separate queues ensures that the second one is never served.
+
+### 🌙 Dream Loop and H6
+
+Owner: trio. [🌙 Dream Loop](../loops/10-continuous-improvement.md) observes how the other loops behaved during the week — how many laps they took, where they climbed, what they cost — and separates patterns from isolated occurrences, with mandatory independent criticism.
+
+The output goes to **H6**, which decides whether the system learned correctly. It is mandatory for sensitive memory changes, item P0/P1 and any gate change; the rest follows by sampling.
+
+The relationship between the two learning cadences is a feeding one: the diary records hypotheses with session evidence; the weekly confirms or discards them against baseline. The complete comparison is in [☀️ Daily Loop contract](../loops/11-daily-operations.md#daily-and-weekly--why-there-are-two-loops).
 
 ---
 
-## A regra que atravessa os quatro ritmos
+## By milestone — risk and autonomy
 
-**Reunião existe para decidir, não para narrar status.** Preparação, análise, atualização de estado e geração de artefato ficam com agentes e automações; a pessoa entra no momento da decisão.
+The longest cadence has no fixed periodicity: it happens when there is enough material to decide. Two revisions take place here.
 
-O teste prático de qualquer ritmo deste modelo: se a cerimônia pode ser substituída por um documento lido de forma assíncrona sem perda, ela deveria ter sido esse documento. Sobram poucas — e são exatamente aquelas em que duas ou três pessoas precisam decidir **juntas**, porque a decisão é compartilhada por construção.
+**Autonomy level review.** Verifies that all escalation criteria are present simultaneously — observed volume, escaped defects, reliable rollback, low false positives, correctly classified risk, auditable evidence, and actually reduced human time. A single missing criterion maintains the level.
+
+**Review of risk classes and gates.** Checks whether the classes still describe the reality of the product and whether each gate still pays its own cost. A gate with a high false positive rate is not rigor: it is noise that trains the team to ignore the signal.
+
+Both require a reviewer independent of whoever operates the harness, for the same reason that appears in [Papers](01-papeis.md): relaxing the verification that evaluates the work itself is the shortest path to the absence of verification.
 
 ---
 
-*Anterior: [Gatilhos e disparos](03-gatilhos-e-disparos.md) · Próximo: [Manual do operador](05-manual-do-operador.md).*
+## The rule that crosses the four rhythms
+
+**Meetings exist to decide, not to narrate status.** Preparation, analysis, state update and artifact generation are handled by agents and automations; the person enters at the moment of decision.
+
+The practical test of any rhythm in this model: if the ceremony can be replaced by a document read asynchronously without loss, it should have been that document. There are few left — and they are exactly those in which two or three people need to decide **together**, because the decision is shared by construction.
+
+---
+
+*Previous: [Triggers and shots](03-gatilhos-e-disparos.md) · Next: [Operator's manual](05-manual-do-operador.md).*

@@ -1,5 +1,5 @@
-# Relatório de validação
+# Validation report
 
 Status: `pending`.
 
-Nenhum teste com usuários ou avaliação de acessibilidade foi executado neste exemplo. Ausência de achados não equivale a aprovação.
+No user testing or accessibility assessment was performed on this example. Absence of findings does not equate to approval.

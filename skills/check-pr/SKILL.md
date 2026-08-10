@@ -1,6 +1,6 @@
 ---
 name: "check-pr"
-description: "Consulta, sem modificar, o estado de um pull request, suas revisões, threads resolvidas e checks. Use quando o usuário pedir status, pendências ou bloqueios de um PR aberto."
+description: "Queries, without modifying, the status of a pull request, its revisions, resolved threads and checks. Use when the user requests status, pending issues or blocks of an open PR."
 ---
 
 ## User Input
@@ -13,54 +13,54 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Verificar o status atual da revisão do PR, identificar pendências e resumir o que precisa ser feito.
+Check the current status of the PR review, identify pending issues and summarize what needs to be done.
 
 ## Inputs
 
-- **Obrigatório:** PR aberto (número ou branch)
+- **Required:** Open PR (number or branch)
 
 ## Execution Steps
 
-### 1. Localizar o PR
+### 1. Find the PR
 
-- Se `$ARGUMENTS` contém número, use-o.
-- Caso contrário, encontre o PR da branch atual:
+- If `$ARGUMENTS` contains number, use it.
+- Otherwise, find the PR of the current branch:
   ```bash
   gh pr list --head <branch-name> --json number,title,state
   ```
 
-### 2. Coletar informações do PR
+### 2. Collect PR information
 
 ```bash
-# Status geral
+# General status
 gh pr view <number> --json state,reviewDecision,mergedAt,closedAt,isDraft
 
 # Reviews
 gh pr view <number> --json reviews --jq '.reviews[] | {author: .author.login, state: .state, body: .body}'
 
-# Repositório das threads
+# Thread repository
 OWNER=$(gh repo view --json owner --jq '.owner.login')
 REPO=$(gh repo view --json name --jq '.name')
 
-# Threads inline (inclui caminho, linha e resolução)
+# Inline threads (includes path, line and resolution)
 gh api graphql -f query='query($owner:String!, $repo:String!, $number:Int!) { repository(owner:$owner, name:$repo) { pullRequest(number:$number) { reviewThreads(first:100) { nodes { isResolved comments(first:100) { nodes { author { login } body path line } } } } } } }' -f owner="$OWNER" -f repo="$REPO" -F number=<number>
 
 # Check CI
 gh pr checks <number>
 ```
 
-### 3. Analisar status
+### 3. Analyze status
 
 #### Reviews
-| Revisor | Status | Ação |
-|---------|--------|------|
+| Reviewer | Status | Action |
+|---------|------------|------|
 | reviewer1 | ✅ APPROVED | — |
-| reviewer2 | 🔄 CHANGES_REQUESTED | Verificar comentários |
-| reviewer3 | ⏳ PENDING | Aguardando |
+| reviewer2 | 🔄 CHANGES_REQUESTED | Check comments |
+| reviewer3 | ⏳ PENDING | Waiting |
 
-#### Comentários não resolvidos
-| Comentário | Arquivo | Linha | Resolvido? |
-|-----------|---------|-------|------------|
+#### Unresolved comments
+| Comment | Archive | Line | Resolved? |
+|-----------|------------|-------|------------|
 | ... | ... | ... | ✅ / ❌ |
 
 #### CI/CD
@@ -70,63 +70,63 @@ gh pr checks <number>
 | test | ✅ / ❌ |
 | lint | ✅ / ❌ |
 
-### 4. Identificar pendências
+### 4. Identify pending issues
 
-- Threads inline não resolvidas; não infira resolução a partir de comentários gerais.
-- Checks CI falhando.
-- Draft status (se aplicável).
-- Merge blockers (proteção de branch, approvals faltando).
+- Unresolved inline threads; do not infer resolution from general comments.
+- CI checks failing.
+- Draft status (if applicable).
+- Merge blockers (branch protection, missing approvals).
 
-### 5. Gerar resumo
+### 5. Generate summary
 
 ```markdown
-# Status do PR #<number> — <Título>
+# PR Status #<number> — <Title>
 
 **Branch:** <branch>
-**Estado:** Open / Draft / Approved / Changes Requested
+**Status:** Open / Draft / Approved / Changes Requested
 
 ---
 
 ## Reviews
 
-| Revisor | Status | Data |
-|---------|--------|------|
+| Reviewer | Status | Date |
+|---------|------------|------|
 | ... | ... | ... |
 
-## Pendências
+## Pending
 
-### Comentários a Resolver
-- [ ] <comentário 1> — <arquivo>:<linha>
-- [ ] <comentário 2> — <arquivo>:<linha>
+### Comments to be resolved
+- [ ] <comment 1> — <file>:<line>
+- [ ] <comment 2> — <file>:<line>
 
 ### CI/CD
-- [ ] <check que falhou> — <erro>
+- [ ] <check failed> — <error>
 
-### Aprovações
-- ✅ X de Y aprovações necessárias
+### Approvals
+- ✅ X of Y approvals required
 
-## Próximos Passos
+## Next Steps
 
-1. <ação 1>
-2. <ação 2>
+1. <action 1>
+2. <action 2>
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Resumo: status geral, aprovações, pendências.
-- Comentários que precisam de ação.
-- Checks CI que estão falhando.
-- Estimativa de pronto para merge.
+- Summary: general status, approvals, pending issues.
+- Comments that need action.
+- CI checks that are failing.
+- Estimation of ready for merge.
 
-## Convenções
+## Conventions
 
-- Não modifique o PR — apenas leitura.
-- Status é snapshot no momento da consulta.
-- Português.
+- Do not modify the PR — read only.
+- Status is a snapshot at the time of the query.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] Status do PR verificado (reviews, comments, CI)
-- [ ] Pendências identificadas e listadas
-- [ ] Resumo de próximos passos gerado
-- [ ] Status reportado no chat
+- [ ] Verified PR status (reviews, comments, CI)
+- [ ] Pending issues identified and listed
+- [ ] Summary of next steps generated
+- [ ] Status reported in chat

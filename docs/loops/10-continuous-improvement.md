@@ -1,95 +1,95 @@
 # 🌙 Dream Loop
 
-> Telemetria e melhoria contínua — converte o histórico do sistema de trabalho em aprendizado validado ou demanda priorizável.
+> Telemetry and continuous improvement — converts system work history into validated learning or prioritizable demand.
 
-O Dream Loop é a quarta volta, a de período mais longo: o único circuito em que **o sistema de trabalho é o objeto do trabalho**. Ele observa como os outros dez loops se comportaram — quantas voltas deram, onde escalaram, o que custaram — e transforma padrão em aprendizado ou em demanda.
+The Dream Loop is the fourth lap, the one with the longest period: the only circuit in which **the work system is the object of the work**. He observes how the other ten loops behaved — how many laps they took, where they climbed, what they cost — and turns the pattern into learning or demand.
 
-Telemetry fornece dados íntegros; Auto Dream formula conclusões; Critic impede que um padrão aparente vire regra sem evidência. A separação é o que distingue melhoria contínua de superstição operacional.
+Telemetry provides complete data; Auto Dream formulates conclusions; Critic prevents an apparent pattern from becoming a rule without evidence. Separation is what distinguishes continuous improvement from operational superstition.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 10 — conhecimento e melhoria |
-| **Consolida** | [💭 Auto Dream Agent](../agentes/auto-dream-agent.md) |
-| **Colaboram** | [📊 Telemetry Agent](../agentes/telemetry-agent.md); [📡 Observability Agent](../agentes/observability-agent.md); [⚖️ Critic Agent](../agentes/critic-agent.md) independente |
-| **Owner humano** | trio; PM ordena o backlog; owner do domínio decide a execução |
-| **Entrada** | sessões, gates, retries, feedbacks, incidentes, métricas de custo, qualidade e autonomia, e demandas anteriores |
-| **Saída** | proposta de atualização de memória, demanda de melhoria, relatório periódico e hipóteses em observação |
-| **Gate de saída** | H6 — evidência, contexto, confiança, privacidade e contradições tratados |
-| **Volta dominante** | do sistema — realimenta o desenho dos outros dez loops |
+| **Step** | 10 — knowledge and improvement |
+| **Consolidates** | [💭 Auto Dream Agent](../agentes/auto-dream-agent.md) |
+| **Collaborate** | [📊 Telemetry Agent](../agentes/telemetry-agent.md); [📡 Observability Agent](../agentes/observability-agent.md); [⚖️ Critic Agent](../agentes/critic-agent.md) independent |
+| **Human owner** | trio; PM orders the backlog; domain owner decides execution |
+| **Input** | sessions, gates, retries, feedbacks, incidents, cost, quality and autonomy metrics, and previous demands |
+| **Exit** | memory update proposal, demand for improvement, periodic report and hypotheses under observation |
+| **Exit gate** | H6 — evidence, context, trust, privacy and contradictions addressed |
+| **Dominant lap** | of the system — feeds back to the design of the other ten loops |
 
 ```mermaid
 flowchart LR
-    A[Eventos e sessões] --> B[Telemetry\ncoleta e correlação]
-    A --> C[Observability\nsaúde e incidentes]
-    B --> D[Auto Dream\npadrões e hipóteses]
+    A[Events and sessions] --> B[Telemetry\collection and correlation]
+    A --> C[Observability\nshealth and incidents]
+    B --> D[Auto Dream\npatterns and hypotheses]
     C --> D
-    D --> E[Critic Agent\nconfirma ou contesta]
-    E --> F{Resultado}
-    F -- aprendizado validado --> G[proposta para MEMORY.md]
-    F -- falha ou atrito --> H[demanda no backlog]
-    G --> I{H6 se sensível}
+    D --> E[Critic Agent\nconfirm or dispute]
+    E --> F{Result}
+    F -- validated learning --> G[proposal for MEMORY.md]
+    F -- failure or friction --> H[demand in backlog]
+    G --> I{H6 if sensitive}
     H --> I
-    I --> J[próximo ciclo]
+    I --> J[next cycle]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. Telemetry coleta eventos correlacionáveis e **remove secrets e dados pessoais antes da análise**. Observability acrescenta sinais de saúde, incidentes e rollbacks.
-2. Auto Dream agrupa os dados por etapa, causa e impacto, compara com o baseline e separa padrão, hipótese e ocorrência isolada.
-3. O Critic Agent avalia conclusão, evidências, contradições e generalização indevida. É independente do Auto Dream.
-4. Auto Dream consolida em dois destinos: **aprendizado** com contexto e validade para `MEMORY.md`, ou **demanda de melhoria** com sintoma, evidência, impacto, causa provável, critério de aceite e owner recomendado.
-5. H6 revisa mudança sensível de memória, item P0/P1 e alteração de gate. Itens de baixo risco podem seguir por amostragem.
+1. Telemetry collects correlatable events and **removes secrets and personal data before analysis**. Observability adds health signals, incidents and rollbacks.
+2. Auto Dream groups data by stage, cause and impact, compares with the baseline and separates pattern, hypothesis and isolated occurrence.
+3. The Critic Agent evaluates conclusion, evidence, contradictions and undue generalization. It is independent of Auto Dream.
+4. Auto Dream consolidates into two destinations: **learning** with context and validity for `MEMORY.md`, or **demand for improvement** with symptom, evidence, impact, probable cause, acceptance criteria and recommended owner.
+5. H6 reviews sensitive memory change, item P0/P1 and gate change. Low-risk items can be sampled.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | telemetria anonimizada de todos os loops, com o número de voltas por circuito e a causa de cada escalonamento |
-| **Saída** | ou um aprendizado com contexto e validade declarados, ou um item de backlog acionável — e nunca uma observação genérica sem destino |
+| **Input** | anonymized telemetry of all loops, with the number of turns per circuit and the cause of each escalation |
+| **Exit** | or a learning with declared context and validity, or an actionable backlog item — and never a generic observation with no destination |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** aprovar alterações nos próprios gates.
+**Does not:** approve changes to the gates themselves.
 
-Um sistema que analisa a si mesmo e tem autoridade para relaxar as próprias verificações converge para a ausência de verificação. A proposta de alterar um gate é sempre uma demanda com owner humano — e alteração de gate está entre os itens que exigem H6 por definição.
+A system that analyzes itself and has the authority to relax its own checks converges to no checking. The proposal to change a gate is always a demand with a human owner — and changing a gate is among the items that require H6 by definition.
 
-Vale a leitura complementar em [Loops — How Loops Work](../LOOPS.md#versionamento-e-avaliação): as métricas produzidas aqui medem o **desenho dos loops**, não o desempenho dos agentes. Volta externa frequente indica gate mal posicionado ou entrada mal definida — quase nunca indica um agente ruim. Usá-las como avaliação individual corrompe o sinal.
+It's worth further reading in [Loops — How Loops Work](../LOOPS.md#versioning-and-evaluation): the metrics produced here measure the **design of the loops**, not the performance of the agents. Frequent external loops indicate a poorly positioned gate or poorly defined input — almost never indicating a bad agent. Using them as an individual assessment corrupts the signal.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Padrão de três ocorrências vira regra | uma conclusão geral tirada de amostra mínima | o Critic avalia generalização; amostra insuficiente mantém hipótese |
-| Falha de coleta virando conclusão | métrica cai e isso é lido como melhoria | falha de coleta abre alerta, nunca conclusão silenciosa |
-| Dado pessoal na análise | telemetria carrega conteúdo de sessão | anonimização acontece antes da análise, não depois |
-| Melhoria sem owner | relatório com dez recomendações e nenhum responsável | toda demanda nasce com owner recomendado e critério de aceite |
+| Pattern of three occurrences becomes the rule | a general conclusion drawn from a minimum sample | Critic evaluates generalization; insufficient sample maintains hypothesis |
+| Collection failure turning into conclusion | metric drops and this is read as improvement | collection failure opens alert, never silent completion |
+| Personal data in analysis | telemetry loads session content | anonymization happens before analysis, not after |
+| Improvement without owner | report with ten recommendations and no one responsible | every demand comes with a recommended owner and acceptance criteria |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Relatório periódico | `<tech-lead-workspace>/projects/<project>/execution/telemetry/<periodo>.md` | sim |
-| Proposta de atualização de memória | `MEMORY.md` do workspace correspondente | quando validada |
-| Demanda de melhoria | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | quando houver |
-| Review do Critic Agent | `execution/reviews/dream-<periodo>.md` | quando a conclusão for contestada |
-| Hipóteses em observação | `.coordination/` até nova evidência | trânsito |
+| Periodic report | `<tech-lead-workspace>/projects/<project>/execution/telemetry/<periodo>.md` | yes |
+| Memory upgrade proposal | `MEMORY.md` from the corresponding workspace | when validated |
+| Demand for improvement | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | when there is |
+| Critic Agent Review | `execution/reviews/dream-<periodo>.md` | when the conclusion is challenged |
+| Hypotheses under observation | `.coordination/` until further evidence | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Falha de coleta abre alerta, não conclusão silenciosa. Baixa confiança mantém a hipótese em observação. Contradição bloqueia atualização automática. Toda demanda que altere gate, política ou autonomia vai a H6 antes de entrar no [🚦 Triage Loop](00-intake-and-triage.md) do próximo ciclo.
+Collection failure opens alert, not silent completion. Low confidence keeps the hypothesis under observation. Contradiction blocks automatic update. Any demand that changes gate, policy or autonomy goes to H6 before entering the [🚦 Triage Loop](00-intake-and-triage.md) of the next cycle.

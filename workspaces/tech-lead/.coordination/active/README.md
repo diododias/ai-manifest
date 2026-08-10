@@ -1,3 +1,3 @@
-# Missões ativas
+# Active missions
 
-Use um arquivo por missão transversal, com owner, horário de início, projetos, Work Items e artefatos sob responsabilidade.
+Use one file per transversal mission, with owner, start time, projects, Work Items and artifacts under responsibility.

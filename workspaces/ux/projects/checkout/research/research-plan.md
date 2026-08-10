@@ -6,18 +6,18 @@ owner: ux
 updated_at: 2026-08-08
 ---
 
-# Entender a recuperação após timeout
+# Understand recovery after timeout
 
-## Perguntas
+## Questions
 
-- O que clientes acreditam que aconteceu após o timeout?
-- Que informação permite decidir entre aguardar, consultar ou tentar novamente?
-- Quais termos aumentam ou reduzem confiança?
+- What do customers believe happened after the timeout?
+- What information allows you to decide whether to wait, consult or try again?
+- Which terms increase or reduce trust?
 
-## Método proposto
+## Proposed method
 
-Entrevistas moderadas com tarefas em protótipo e amostra definida pelo owner de UX. Consentimento, minimização e anonimização são obrigatórios.
+Moderated interviews with prototype tasks and samples defined by the UX owner. Consent, minimization and anonymization are mandatory.
 
-## Condição de saída
+## Exit condition
 
-Padrões, divergências, limitações e implicações para o fluxo documentados com evidência localizável.
+Patterns, divergences, limitations, and implications for flow documented with localizable evidence.

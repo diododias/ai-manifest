@@ -1,3 +1,3 @@
 # Handoffs
 
-Crie um arquivo `HANDOFF-<work-item>-<origem>-<destino>.md` quando a responsabilidade mudar. Use o template global e inclua código, decisões, evidências, riscos e a próxima ação.
+Create a `HANDOFF-<work-item>-<origem>-<destino>.md` file when responsibility changes. Use the global template and include code, decisions, evidence, risks, and next action.

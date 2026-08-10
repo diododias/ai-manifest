@@ -1,6 +1,6 @@
 ---
 name: "test-integration-local"
-description: "Cria cobertura faltante e executa validação local com evidências rastreáveis. Use após implementar uma feature ou correção, quando for necessário mapear critérios de aceite a testes e relatar resultados."
+description: "Creates missing coverage and performs local validation with traceable evidence. Use after implementing a feature or fix, when you need to map acceptance criteria to tests and report results."
 ---
 
 ## User Input
@@ -13,40 +13,40 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Executar validação completa do código implementado — testes unitários, mutação, cobertura — e gerar evidências de que os critérios de aceite são atendidos.
+Perform complete validation of the implemented code — unit tests, mutation, coverage — and generate evidence that the acceptance criteria are met.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de escrever evidências, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before writing evidence, please follow [the shared agreement](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** código implementado (repositório local)
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md` (critérios de aceite)
-- **Obrigatório:** `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`
-- **Opcional:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
+- **Required:** implemented code (local repository)
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md` (acceptance criteria)
+- **Required:** `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`
+- **Optional:** `teamwork/plan/feature-plan-<feature-slug>/tracking.md`
 
 ## Execution Steps
 
-### 1. Identificar escopo de testes
+### 1. Identify testing scope
 
-- Leia a SPEC para extrair critérios de aceite técnicos (CT-XX).
-- Leia o plano de implementação para identificar blocos implementados.
-- Identifique arquivos modificados/criados.
+- Read the SPEC to extract technical acceptance criteria (CT-XX).
+- Read the implementation plan to identify implemented blocks.
+- Identify modified/created files.
 
-### 2. Gerar casos de teste
+### 2. Generate test cases
 
-Para cada critério de aceite técnico (CT-XX) sem cobertura:
+For each technical acceptance criterion (CT-XX) without coverage:
 
-- Crie teste unitário que valida o critério.
-- Siga padrão de testes existente no repositório.
-- Nomeie seguindo convenção do projeto.
+- Create unit test that validates the criteria.
+- Follow existing test patterns in the repository.
+- Name it following the project convention.
 
-Para fluxos de exceção:
-- Teste caminhos de erro documentados na SPEC.
-- Teste validações, limites e edge cases.
+For exception flows:
+- Test error paths documented in SPEC.
+- Test validations, limits and edge cases.
 
-### 3. Executar testes unitários
+### 3. Run unit tests
 
 ```bash
 # Detectar e executar testes do projeto
@@ -57,10 +57,10 @@ Para fluxos de exceção:
 # Rust: cargo test
 ```
 
-- Execute todos os testes, não apenas os novos.
-- Verifique se há regressões.
+- Run all tests, not just new ones.
+- Check for regressions.
 
-### 4. Verificar cobertura (se disponível)
+### 4. Check coverage (if available)
 
 ```bash
 # Exemplos:
@@ -70,10 +70,10 @@ Para fluxos de exceção:
 # Rust: cargo tarpaulin
 ```
 
-- Verifique se os arquivos modificados têm cobertura adequada.
-- Identifique linhas/branches sem teste.
+- Verify that modified files have adequate coverage.
+- Identify untested lines/branches.
 
-### 5. Testes de mutação (se disponível)
+### 5. Mutation testing (if available)
 
 ```bash
 # Exemplos:
@@ -81,87 +81,87 @@ Para fluxos de exceção:
 # Python: mutmut run
 ```
 
-- Valide que testes realmente testam (não apenas passam).
-- Corrija testes que não matam mutações.
+- Validate that tests actually test (not just pass).
+- Fix tests that don't kill mutations.
 
-### 6. Self-check dos critérios de aceite
+### 6. Self-check of acceptance criteria
 
-Para cada CT (critério técnico) e seu CA de negócio relacionado, quando houver:
+For each CT (technical criterion) and its related business CA, when applicable:
 
-| CT | CA relacionado | Critério | Status | Evidência |
+| CT | Related CA | Criterion | Status | Evidence |
 |----|---------------|----------|--------|-----------|
-| CT-01 | CA-01 | <descrição> | ✅ / ❌ | <teste que valida> |
-| CT-02 | CA-02 | <descrição> | ✅ / ❌ | <teste que valida> |
+| CT-01 | CA-01 | <description> | ✅ / ❌ | <test that validates> |
+| CT-02 | CA-02 | <description> | ✅ / ❌ | <test that validates> |
 
-### 7. Gerar evidências
+### 7. Generate evidence
 
-Crie `teamwork/plan/feature-plan-<feature-slug>/evidencias-teste.md`:
+Create `teamwork/plan/feature-plan-<feature-slug>/evidencias-teste.md`:
 
 ```markdown
-# Evidências de Teste — <Feature Name>
+# Test Evidence — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 
 ---
 
-## Resultado dos Testes
+## Test Result
 
-### Unitários
-- **Comando:** `<comando executado>`
-- **Resultado:** ✅ X passando / ❌ Y falhando
-- **Cobertura:** XX%
+### Unitary
+- **Command:** `<executed command>`
+- **Result:** ✅ X passing / ❌ Y failing
+- **Coverage:** XX%
 
-### Mutação (se aplicável)
-- **Comando:** `<comando executado>`
-- **Score:** XX% (X matados / Y total)
+### Mutation (if applicable)
+- **Command:** `<executed command>`
+- **Score:** XX% (X killed / Y total)
 
-### Regressão
-- **Testes existentes:** ✅ Todos passando / ❌ Falhas
+### Regression
+- **Existing tests:** ✅ All passing / ❌ Failures
 
 ---
 
-## Cobertura por Critério de Aceite
+## Coverage by Acceptance Criteria
 
-| CT | CA relacionado | Critério | Teste | Status |
+| CT | Related CA | Criterion | Test | Status |
 |----|---------------|----------|-------|--------|
-| CT-01 | CA-01 | ... | teste_nome | ✅ |
-| CT-02 | CA-02 | ... | teste_nome | ✅ |
+| CT-01 | CA-01 | ... | test_name | ✅ |
+| CT-02 | CA-02 | ... | test_name | ✅ |
 
 ---
 
-## Arquivos Modificados e Cobertos
+## Modified and Covered Files
 
-| Arquivo | Linhas | Cobertura |
+| Archive | Lines | Coverage |
 |---------|--------|-----------|
 | ... | ... | XX% |
 
 ---
 
-## Pendências
+## Pending
 
-- <testes que não foi possível executar>
-- <cobertura faltante justificada>
+- <tests that could not be run>
+- <justified missing coverage>
 ```
 
-### 8. Reportar no chat
+### 8. Report in chat
 
-- Resumo: X testes passando, Y falhando, Z cobertura.
-- Critérios de aceite atendidos vs pendentes.
-- Pronto para code review ou precisa de ajustes.
+- Summary: X tests passing, Y failing, Z coverage.
+- Acceptance criteria met vs pending.
+- Ready for code review or needs adjustments.
 
-## Convenções
+## Conventions
 
-- Testes seguem padrão do repositório.
-- Evidências são persistentes — ficam no repositório.
-- Self-check é obrigatório antes de abrir PR.
-- Português para documentação, inglês para código de teste.
+- Tests follow the repository standard.
+- Evidence is persistent — it stays in the repository.
+- Self-check is mandatory before opening PR.
+- Portuguese for documentation, English for test code.
 
-## Done When
+##DoneWhen
 
-- [ ] Testes unitários executados e passando
-- [ ] Cobertura verificada (se ferramenta disponível)
-- [ ] Critérios de aceite self-checked com evidências
-- [ ] `evidencias-teste.md` gerado
-- [ ] Regressão verificada (testes existentes passando)
-- [ ] Resultado reportado no chat
+- [ ] Unit tests run and passing
+- [ ] Verified coverage (if tool available)
+- [ ] Self-checked acceptance criteria with evidence
+- [ ] `evidencias-teste.md` generated
+- [ ] Regression checked (existing tests passing)
+- [ ] Result reported in chat

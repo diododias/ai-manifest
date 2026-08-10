@@ -1,3 +1,3 @@
-# Inbox
+#Inbox
 
-Registre entradas ainda não triadas separadamente. A triagem deve promover cada entrada para projeto, Work Item, bloqueio ou arquivo, sem transformar a inbox em backlog permanente.
+Record entries not already screened separately. Triage should promote each entry to project, Work Item, block or file, without turning the inbox into a permanent backlog.

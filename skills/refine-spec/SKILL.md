@@ -1,6 +1,6 @@
 ---
 name: refine-spec
-description: Transforma uma SPEC aprovada em plano sequencial de implementação, dependências e tracking. Use antes de codificar uma feature para identificar blocos testáveis e a ordem segura de execução.
+description: Transforms an approved SPEC into a sequential plan for implementation, dependencies and tracking. Use before coding a feature to identify testable blocks and the safe order of execution.
 ---
 
 ## User Input
@@ -13,169 +13,169 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Transformar a SPEC em plano de implementação passo a passo, definindo ordem dos blocos, dependências e criando `tracking.md` para acompanhar execução.
+Transform the SPEC into a step-by-step implementation plan, defining block order, dependencies and creating `tracking.md` to monitor execution.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar plano e tracking, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating a plan and tracking, follow [the shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/spec/<feature-slug>/SPEC.md`
-- **Opcional:** `.agents/prd/<feature-slug>/PRD.md` para contexto
+- **Required:** `.agents/spec/<feature-slug>/SPEC.md`
+- **Optional:** `.agents/prd/<feature-slug>/PRD.md` for context
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira da SPEC.
-- Verifique se a SPEC existe.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from SPEC.
+- Check if the SPEC exists.
 
-### 2. Carregar contexto
+### 2. Load context
 
-- Leia `SPEC.md` por inteiro — é o plano técnico.
-- Leia `PRD.md` se existir — contexto de prioridades.
+- Read `SPEC.md` in full — it's the technical plan.
+- Read `PRD.md` if it exists — context of priorities.
 
-### 3. Extrair blocos de implementação
+### 3. Extract implementation blocks
 
-Da SPEC, extraia:
-- **Modelos de dados:** entidades, relações, migrations.
-- **Services/lógica de negócio:** regras, validações, processamento.
-- **Interfaces/APIs:** endpoints, contratos.
-- **Integrações:** bancos externos, filas, serviços.
-- **Frontend (se aplicável):** componentes, fluxos UI.
+From SPEC, extract:
+- **Data models:** entities, relationships, migrations.
+- **Services/business logic:** rules, validations, processing.
+- **Interfaces/APIs:** endpoints, contracts.
+- **Integrations:** external banks, queues, services.
+- **Frontend (if applicable):** components, UI flows.
 
-### 4. Definir ordem de dependências
+### 4. Define order of dependencies
 
-Mapeie dependências entre blocos:
-- O que precisa existir antes de quê?
-- Quais blocos são independentes (paralelizáveis)?
-- Qual o caminho mais seguro para ter algo testável cedo?
+Map dependencies between blocks:
+- What needs to exist before what?
+- Which blocks are independent (parallelizable)?
+- What is the safest way to have something testable early?
 
-### 5. Criar plano sequencial
+### 5. Create sequential plan
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`:
+Generates `teamwork/plan/feature-plan-<feature-slug>/plano-implementacao.md`:
 
 ```markdown
-# Plano de Implementação — <Feature Name>
+# Implementation Plan — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 **SPEC:** .agents/spec/<feature-slug>/SPEC.md
 
 ---
 
-## Sequência de Implementação
+## Implementation Sequence
 
-### Bloco 1: <Nome> (Fundação)
-**Depende de:** Nenhum
-**Arquivos:** `caminho/para/arquivo1`, `caminho/para/arquivo2`
-**O que fazer:**
-1. <ação 1>
-2. <ação 2>
+### Block 1: <Name> (Foundation)
+**Depends on:** None
+**Files:** `path/to/file1`, `path/to/file2`
+**What to do:**
+1. <action 1>
+2. <action 2>
 
-**Teste:** <como validar este bloco>
-
----
-
-### Bloco 2: <Nome> (Core)
-**Depende de:** Bloco 1
-**Arquivos:** `caminho/para/arquivo3`
-**O que fazer:**
-1. <ação 1>
-
-**Teste:** <como validar>
+**Test:** <how to validate this block>
 
 ---
 
-### Bloco 3: <Nome> (Paralelizável)
-**Depende de:** Bloco 1
-**Paralelizável com:** Bloco 4
-**Arquivos:** `caminho/para/arquivo4`
-**O que fazer:**
-1. <ação 1>
+### Block 2: <Name> (Core)
+**Depends on:** Block 1
+**Files:** `path/to/file3`
+**What to do:**
+1. <action 1>
 
-**Teste:** <como validar>
+**Test:** <how to validate>
 
 ---
 
-## Grafo de Dependências
+### Block 3: <Name> (Parallelizable)
+**Depends on:** Block 1
+**Parallelizable with:** Block 4
+**Files:** `path/to/file4`
+**What to do:**
+1. <action 1>
+
+**Test:** <how to validate>
+
+---
+
+## Dependency Graph
 
 ```
-Bloco 1 (Fundação)
-├── Bloco 2 (Core)
-├── Bloco 3 (Paralelizável) ─┐
-└── Bloco 4 (Paralelizável) ─┘
-                              └── Bloco 5 (Integração)
-                                    └── Bloco 6 (Polimento)
+Block 1 (Foundation)
+├── Block 2 (Core)
+├── Block 3 (Parallelizable) ─┐
+└── Block 4 (Parallelizable) ─┘
+                              └── Block 5 (Integration)
+                                    └── Block 6 (Polishing)
 ```
 
-## Ponto de Início Mais Seguro
+## Safest Starting Point
 
-<Bloco 1> — fundação sem dependências, permite validação imediata.
+<Block 1> — foundation without dependencies, allows immediate validation.
 
-## Estimativa
+## Estimate
 
-| Bloco | Esforço | Dependências |
-|-------|---------|-------------|
+| Block | Effort | Dependencies |
+|-------|--------|-------------|
 | 1 | S | — |
-| 2 | M | Bloco 1 |
+| 2 | M | Block 1 |
 | ... | ... | ... |
 
 ## Tracking
 
-O `tracking.md` será criado ao iniciar a implementação.
+`tracking.md` will be created when starting the implementation.
 ```
 
-### 6. Criar tracking.md
+### 6. Create tracking.md
 
-Gere `teamwork/plan/feature-plan-<feature-slug>/tracking.md`:
+Generate `teamwork/plan/feature-plan-<feature-slug>/tracking.md`:
 
 ```markdown
 # Tracking — <Feature Name>
 
 **Feature:** <slug>
-**Início:** <YYYY-MM-DD>
-**Status:** 🟡 Em andamento
+**Start:** <YYYY-MM-DD>
+**Status:** 🟡 In progress
 
 ---
 
-## Progresso
+## Progress
 
-| Bloco | Status | Início | Fim | Notas |
+| Block | Status | Home | End | Notes |
 |-------|--------|--------|-----|-------|
-| 1 - Fundação | ⬜ Não iniciado | — | — | |
-| 2 - Core | ⬜ Não iniciado | — | — | |
-| 3 - ... | ⬜ Não iniciado | — | — | |
+| 1 - Foundation | ⬜ Not started | — | — | |
+| 2 - Core | ⬜ Not started | — | — | |
+| 3 - ... | ⬜ Not started | — | — | |
 
-**Legenda:** ⬜ Não iniciado | 🟡 Em andamento | ✅ Concluído | ❌ Bloqueado
+**Caption:** ⬜ Not started | 🟡 In progress | ✅ Completed | ❌ Blocked
 
 ---
 
 ## Log
 
-| Data | Evento |
+| Date | Event |
 |------|--------|
 | — | — |
 ```
 
-### 7. Reportar no chat
+### 7. Report in chat
 
-- Resumo: X blocos definidos, Y dependências mapeadas, Z paralelizáveis.
-- Ponto de início recomendado.
-- Estimativa total.
+- Summary: X blocks defined, Y dependencies mapped, Z parallelizable.
+- Recommended starting point.
+- Total estimate.
 
-## Convenções
+## Conventions
 
-- Blocos organizados por ordem de dependência, não por arquivo.
-- Cada bloco deve ser testável de forma independente quando possível.
-- tracking.md é vivo — atualizado durante implementação.
-- Português.
+- Blocks organized by dependency order, not by file.
+- Each block should be independently testable when possible.
+- tracking.md is live — updated during implementation.
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] `plano-implementacao.md` gerado com blocos sequenciados
-- [ ] `tracking.md` criado com status inicial
-- [ ] Dependências entre blocos mapeadas
-- [ ] Ponto de início mais seguro identificado
-- [ ] Resumo reportado no chat
+- [ ] `plano-implementacao.md` generated with sequenced blocks
+- [ ] `tracking.md` created with initial status
+- [ ] Mapped block dependencies
+- [ ] Safest starting point identified
+- [ ] Summary reported in chat

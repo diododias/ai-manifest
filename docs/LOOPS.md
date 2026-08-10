@@ -4,177 +4,177 @@
 
 ## Overview — How Loops Work
 
-Um **loop** é o contrato de colaboração de uma etapa da jornada: quem executa, em que ordem, o que atravessa a fronteira entre agentes e qual condição precisa ser verdadeira para avançar. É o que a literatura chama de *workflow multiagente* — e este manifesto chama de loop porque a palavra descreve melhor o que de fato acontece.
+A **loop** is the collaboration contract for a stage of the journey: who executes it, in what order, what crosses the boundary between agents and what condition needs to be true to move forward. It's what the literature calls *multi-agent workflow* — and this manifesto calls it a loop because the word better describes what actually happens.
 
-Um workflow, no uso comum, sugere uma esteira: entra de um lado, sai do outro. Um loop com agentes não se comporta assim. Ele gira. O agente tenta, o sensor reprova, o agente corrige, o crítico contesta, o consolidador responde, o gate devolve. **A execução bem-sucedida é o caso em que o giro converge rápido, não o caso em que não houve giro.** Um processo desenhado para a esteira trata cada volta como exceção e não instrumenta nenhuma delas; um processo desenhado como loop declara onde a correção acontece e quanto ela custa.
+A workflow, in common usage, suggests a conveyor belt: it enters on one side, leaves on the other. A loop with agents does not behave like this. It spins. The agent tries, the sensor fails, the agent corrects, the critic contests, the consolidator responds, the gate returns. **Successful execution is the case where the spin converges quickly, not the case where there was no spin.** A process designed for the treadmill treats each turn as an exception and does not instrument any of them; a process designed as a loop declares where the correction happens and how much it costs.
 
-### O que um loop é — e o que ele não é
+### What a loop is — and what it isn't
 
-Três camadas do harness respondem a perguntas diferentes, e confundi-las produz documentação que ninguém consegue executar.
+Three layers of the harness answer different questions, and confusing them produces documentation that no one can execute.
 
-| Camada | Responde | Onde vive |
+| Layer | Reply | Where do you live |
 |---|---|---|
-| **Agente** | *quem* executa, sob qual autoridade e com qual limite | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
-| **Skill** | *como* uma tarefa recorrente é executada corretamente | [`SKILLS.md`](SKILLS.md), `skills/<skill>/SKILL.md` |
-| **Loop** | *em que ordem*, o que atravessa a fronteira e quando parar | esta página, [`loops/`](loops/README.md) |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
+| **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md), `skills/<skill>/SKILL.md` |
+| **Loop** | *in what order*, what crosses the border and when to stop | this page, [`loops/`](loops/README.md) |
 
-Um loop não redefine o contrato de nenhum agente, não amplia a autonomia de ninguém e não cria gates próprios. Ele compõe peças que já existem. Quando um loop precisa de uma permissão que o agente não tem, o problema está no contrato do agente — não no loop.
+A loop does not redefine any agent's contract, does not expand anyone's autonomy and does not create its own gates. He composes pieces that already exist. When a loop needs permission that the agent doesn't have, the problem is with the agent's contract — not the loop.
 
-### As três voltas
+### The three laps
 
-Todo loop contém três circuitos aninhados, com custos de ordem de grandeza diferentes. Reconhecê-los é o que permite decidir onde uma verificação deve morar.
+Every loop contains three nested circuits, with costs of different orders of magnitude. Recognizing them is what allows you to decide where a check should live.
 
-| Volta | Circuito | Frequência típica | Custo | Quem fecha |
+| Return | Circuit | Typical frequency | Cost | Who closes |
 |---|---|---|---|---|
-| **Interna** | agente ↔ sensors locais | dezenas por missão | segundos | o próprio agente |
-| **Média** | consolidação ↔ crítica independente | uma a três por etapa | minutos a horas | o agente consolidador |
-| **Externa** | gate ↔ etapa anterior ou owner humano | zero a duas por etapa | horas a dias | o gate de CI ou o owner |
+| **Internal** | agent ↔ local sensors | dozens per mission | seconds | the agent himself |
+| **Average** | consolidation ↔ independent review | one to three per stage | minutes to hours | the consolidating agent |
+| **External** | gate ↔ previous step or human owner | zero to two per stage | hours to days | the CI gate or the owner |
 
-O princípio que decorre disso vale para o desenho de qualquer loop: **uma falha detectável na volta interna que só aparece na volta externa custa três ordens de grandeza a mais e consome julgamento humano que deveria estar em outro lugar.** Todo check tem uma volta natural. Colocá-lo mais para fora do que o necessário é o defeito mais comum — e o mais caro — no desenho de um loop.
+The principle that follows from this applies to the design of any loop: **a detectable failure in the inner loop that only appears in the outer loop costs three orders of magnitude more and consumes human judgment that should be elsewhere.** Every check has a natural loop. Placing it further out than necessary is the most common — and most expensive — defect in loop design.
 
-Existe ainda uma quarta volta, de período muito mais longo, em que **o sistema de trabalho é o objeto do trabalho**. Ela gira por calendário, e não por Work Item, em duas janelas: o [☀️ Daily Loop](loops/11-daily-operations.md) lê as sessões do dia anterior e converte o que aconteceu em memória, melhoria e sinalização ao owner; o [🌙 Dream Loop](loops/10-continuous-improvement.md) lê o período com telemetria agregada e crítica independente, e realimenta o desenho dos próprios loops.
+There is also a fourth round, of a much longer period, in which **the work system is the object of the work**. It rotates by calendar, and not by Work Item, in two windows: the [☀️ Daily Loop](loops/11-daily-operations.md) reads the previous day's sessions and converts what happened into memory, improvement and signaling to the owner; [🌙 Dream Loop](loops/10-continuous-improvement.md) reads the period with aggregated telemetry and independent critique, and feeds back into the design of the loops themselves.
 
-### Anatomia de um loop
+### Anatomy of a loop
 
-Um loop não carrega conhecimento próprio. Ele coordena camadas versionadas que o [repo harness](REPO_HARNESS.md) disponibiliza — as mesmas que um agente consome, agora vistas na dimensão da etapa.
+A loop carries no knowledge of its own. It coordinates versioned layers that [repo harness](REPO_HARNESS.md) makes available — the same ones that an agent consumes, now seen in the step dimension.
 
-| Elemento | Define | Se faltar |
+| Element | Define | If missing |
 |---|---|---|
-| **Entrada** | artefatos exigidos e critério para iniciar | o loop começa sobre material incompleto e descobre isso na crítica |
-| **Missões** | o que roda em sequência e o que roda em paralelo | trabalho concorrente colide ou serializa sem necessidade |
-| **Consolidação** | o único agente responsável pela saída | a saída vira um amontoado de respostas isoladas |
-| **Handoffs** | o que atravessa a fronteira entre agentes | o próximo agente reconstrói o contexto por suposição |
-| **Gate de saída** | o que precisa ser verdade para avançar | o julgamento de "pronto" fica com quem produziu |
-| **Escalonamento** | condição de parada e owner humano da decisão | o agente decide por conta própria o que não lhe cabe |
+| **Input** | required artifacts and criteria for starting | the loop starts on incomplete material and discovers it in the review |
+| **Missions** | what runs in sequence and what runs in parallel | concurrent work collides or serializes unnecessarily |
+| **Consolidation** | the only agent responsible for the exit | the output becomes a pile of isolated answers |
+| **Handoffs** | what crosses the boundary between agents | the next agent reconstructs the context by guess |
+| **Exit gate** | what needs to be true to move forward | the judgment of "ready" rests with whoever produced it |
+| **Scaling** | stopping condition and human owner of the decision | the agent decides on his own what is not up to him |
 
-A ausência de qualquer um desses seis itens torna o loop inexecutável por um agente sem negociação humana prévia. É por isso que eles são obrigatórios em todo arquivo de [`loops/`](loops/README.md).
+The absence of any of these six items makes the loop unexecutable by an agent without prior human negotiation. That's why they are mandatory in every [`loops/`](loops/README.md) file.
 
-### O ciclo de iteração — do despacho ao handoff
+### The iteration cycle — from dispatch to handoff
 
-A pergunta prática é como agentes, skills, tools, MCPs, sensors e gates se encaixam durante uma única volta. A sequência abaixo é a mesma em qualquer loop; o que muda é quem a executa e contra qual gate.
+The practical question is how agents, skills, tools, MCPs, sensors and gates fit together during a single turn. The sequence below is the same in any loop; What changes is who executes it and against which gate.
 
 ```text
-Orchestrator despacha a missão            identidade completa, contexto mínimo, budget
+Orchestrator dispatches mission full identity, minimal context, budget
   │
-  ├─▶ Agente lê o contexto versionado      AGENTS.md, rules aplicáveis, ADRs, memória
+  ├─▶ Agent reads the AGENTS.md versioned context, applicable rules, ADRs, memory
   │
-  ├─▶ inventaria skills e aplica as aderentes    skills/<skill>/SKILL.md
+  ├─▶ inventory skills and apply the corresponding skills/<skill>/SKILL.md
   │
-  ├─▶ invoca tools e MCPs no escopo autorizado   .agent/settings.json, .agent/mcps.json
+  ├─▶ invokes tools and MCPs in the authorized scope .agent/settings.json, .agent/mcps.json
   │
-  ├─▶ sensors locais avaliam                     .hooks/   ◀── volta interna: corrige e repete
+  ├─▶ local sensors evaluate .hooks/ ◀── internal loop: correct and repeat
   │
-  ├─▶ crítica independente contesta              agente adversarial  ◀── volta média
+  ├─▶ independent critic challenges adversarial agent ◀── average turn
   │
-  ├─▶ gate de CI decide por critério objetivo    fast lane, deep lane
+  ├─▶ CI gate decides fast lane, deep lane by objective criteria
   │
-  ├─▶ evidence.sh empacota a prova               docs/evidence/<work-item>/
+  ├─▶ evidence.sh packages the evidence docs/evidence/<work-item>/
   │
-  ├─▶ envelope de saída volta ao orquestrador    status, confidence, skills_used
+  ├─▶ output envelope returns to orchestrator status, confidence, skills_used
   │
-  └─▶ handoff atravessa a fronteira              artefato na fonte canônica  ◀── volta externa
+  └─▶ handoff crosses the artifact boundary in the canonical source ◀── external loop
 ```
 
-Cada elo responde por uma classe de falha, e a remoção de qualquer um deles não deixa o loop mais rápido — desloca a falha para uma volta mais cara.
+Each link accounts for a class of failure, and removing any one of them doesn't make the loop faster — it moves the failure to a more expensive loop.
 
-| Elo | Impede que | Se removido, a falha aparece |
+| Link | Prevents | If removed, the fault appears |
 |---|---|---|
-| Contexto versionado | o agente invente uma convenção plausível | na crítica, como divergência de padrão |
-| Skill | o procedimento seja reinventado a cada execução | no handoff, como resultado instável |
-| Escopo de tools e MCPs | efeitos externos ocorram antes da verificação | em produção, como incidente |
-| Sensors | erro barato viaje até o CI | uma volta inteira depois, no gate de CI |
-| Crítica independente | quem produziu declare o próprio trabalho pronto | na homologação ou no cliente |
-| Gate | "pronto" seja uma impressão | após o merge, como retrabalho |
-| Evidência | a aprovação se baseie no resumo do agente | na auditoria, quando ninguém consegue refazer |
-| Envelope | o orquestrador releia a execução inteira | como perda de contexto entre etapas |
+| Versioned context | the agent invents a plausible convention | in criticism, such as pattern divergence |
+| Skill | the procedure is reinvented with each execution | in the handoff, as an unstable result |
+| Scope of tools and MCPs | external effects occur before verification | in production, as an incident |
+| Sensors | cheap mistake travel to CI | a full lap later, at the CI gate |
+| Independent review | whoever produced it declares their work ready | at approval or at the customer |
+| Gate | "ready" be an impression | after the merge, how to rework |
+| Evidence | approval is based on agent summary | in the audit, when no one can redo it |
+| Envelope | the orchestrator rereads the entire performance | as loss of context between steps |
 
-### Consolidação e crítica
+### Consolidation and criticism
 
-Dois princípios estruturais atravessam todos os loops.
+Two structural principles run through all loops.
 
-**Cada loop tem exatamente um agente que consolida.** Contribuições paralelas convergem para um único artefato sob responsabilidade nominal. Uma contribuição não vira decisão pelo fato de estar no consolidado: divergências e riscos residuais permanecem explícitos no artefato final, não são resolvidos por omissão.
+**Each loop has exactly one agent that consolidates.** Parallel contributions converge into a single artifact under nominal responsibility. A contribution does not become a decision because it is consolidated: divergences and residual risks remain explicit in the final artifact, they are not resolved by omission.
 
-**A crítica vem sempre de uma instância independente de quem produziu.** Não é uma formalidade de processo — é a única defesa contra o incentivo estrutural que um agente tem de aprovar o próprio trabalho. Um agente adversarial produz findings rastreáveis com evidência, severidade e ação sugerida; ele não reescreve o artefato criticado.
+**Criticism always comes from an instance independent of whoever produced it.** It is not a formality of process — it is the only defense against the structural incentive that an agent has to approve their own work. An adversarial agent produces traceable findings with evidence, severity and suggested action; it does not rewrite the criticized artifact.
 
-### Handoff — o que atravessa a fronteira
+### Handoff — what crosses the border
 
-Um handoff carrega cinco coisas, sempre separadas entre si: **fatos** verificáveis, **evidências** referenciadas, **hipóteses** ainda não confirmadas, **riscos** conhecidos e **perguntas em aberto**. A separação existe porque a fusão dessas categorias é como uma hipótese vira requisito sem que ninguém tenha decidido isso.
+A handoff carries five things, always separated from each other: verifiable **facts**, referenced **evidence**, unconfirmed **hypotheses**, known **risks** and open questions. The separation exists because the fusion of these categories is how a hypothesis becomes a requirement without anyone having decided on it.
 
-Um handoff referencia artefatos versionados em vez de copiar contexto. E um handoff só está concluído quando o artefato final chegou à **fonte canônica** do domínio — `.coordination/` e `memory.md` são trânsito, nunca destino.
+A handoff references versioned artifacts instead of copying context. And a handoff is only complete when the final artifact has arrived at the **canonical source** of the domain — `.coordination/` and `memory.md` are transit, never destination.
 
-### Onde o loop vive e onde a execução acontece
+### Where the loop lives and where execution happens
 
-`docs/loops/` é o **catálogo canônico e versionado**. Ele não recebe artefatos de execução — nenhum `PB`, `PRD`, plano, evidência ou handoff de uma rodada concreta é gravado aqui.
+`docs/loops/` is the **canonical and versioned catalog**. It receives no execution artifacts — no `PB`, `PRD`, plan, evidence, or handoff from a concrete round is recorded here.
 
-Cada owner executa o loop dentro do próprio workspace:
+Each owner runs the loop within their own workspace:
 
 ```text
 <workspace-do-owner>/
-├── docs/loops/          # bindings locais: versão habilitada, permissões, adaptações
-├── projects/<project>/  # artefatos persistentes de uma execução
-├── .coordination/       # handoffs e bloqueios temporários
-├── memory.md            # contexto retomável, nunca fonte canônica
-└── repos/               # somente no workspace técnico, quando aplicável
+├── docs/loops/ # local bindings: enabled version, permissions, adaptations
+├── projects/<project>/ # persistent artifacts from a run
+├── .coordination/ # handoffs and temporary blocks
+├── memory.md # resumable context, never canonical source
+└── repos/ # only in technical workspace, when applicable
 ```
 
-Antes de iniciar uma missão, o agente resolve `workspace do owner → projects/<project> → Work Item → fontes canônicas`.
+Before starting a mission, the agent resolves `owner workspace → projects/<project> → Work Item → canonical sources`.
 
-O binding local declara a versão do loop canônico e pode **restringir** tools, permissões e integrações. Ele não pode ampliar autonomia nem alterar gates sem a decisão prevista no modelo operacional. Essa assimetria é intencional: adaptação local deve ser capaz de apertar, nunca de afrouxar.
+Local binding declares the canonical loop version and can **restrict** tools, permissions, and integrations. It cannot expand autonomy or change gates without the decision foreseen in the operational model. This asymmetry is intentional: local adaptation must be able to tighten, never loosen.
 
-### Modo dry-run
+### Dry-run mode
 
-Um loop pode ser executado sem gerar artefatos persistentes. Ative com `mode: dry-run` no início da missão ou prefixe o comando com `--dry-run`.
+A loop can be executed without generating persistent artifacts. Activate with `mode: dry-run` at the start of the mission or prefix the command with `--dry-run`.
 
-O agente executa raciocínio, análises e rascunhos normalmente, e pode imprimir o que *teria* gerado. Não cria nem modifica arquivos em `projects/`, `engineering/` ou `execution/`, e não atualiza `BOARD.md`, `STATUS.md`, Work Items ou handoffs. Serve para explorar um loop desconhecido, testar uma abordagem antes de comprometê-la ou validar o comportamento do agente sem efeito colateral.
+The agent performs reasoning, analysis, and drafting as normal, and can print what it *would* have generated. Does not create or modify files in `projects/`, `engineering/`, or `execution/`, and does not update `BOARD.md`, `STATUS.md`, Work Items, or handoffs. It serves to explore an unknown loop, test an approach before committing it, or validate the agent's behavior without side effects.
 
 ---
 
-## Loops disponíveis
+## Loops available
 
-Os 12 loops estão documentados individualmente em **[`loops/`](loops/README.md)** — um arquivo por etapa, com contrato operacional, sequência, handoffs, limites explícitos, falhas típicas e destino dos artefatos.
+The 12 loops are documented individually in **[`loops/`](loops/README.md)** — one file per step, with operational contract, sequence, handoffs, explicit limits, typical failures and destination of the artifacts.
 
-Cada loop tem um codinome. Não é decoração: um nome curto é o que permite dizer "isso é problema do Red Team Loop" sem ambiguidade em uma conversa. Quatro deles — Ralph, Red Team, Canary e Dream — vêm de termos já consagrados na prática de engenharia e de agentes; os demais seguem o mesmo registro.
+Each loop has a codename. It's not decoration: a short name is what allows you to say "this is Red Team Loop's problem" without ambiguity in a conversation. Four of them — Ralph, Red Team, Canary and Dream — come from terms already established in engineering and agent practice; the rest follow the same record.
 
-| # | Loop | Codinome | Consolida | Colaboram ou desafiam |
+| # | Loop | Codename | Consolidate | Collaborate or challenge |
 |---:|---|---|---|---|
-| 0 | [Intake e triagem](loops/00-intake-and-triage.md) | 🚦 **Triage Loop** | Intake Agent | Meeting Context; Product Manager |
-| 1 | [Discovery e research](loops/01-discovery-and-research.md) | 🔦 **Scout Loop** | Product Manager Agent | UX Specification; Tech Lead Discovery; Adversarial PM |
-| 2 | [Produto e UX](loops/02-product-and-ux-planning.md) | 🎨 **Studio Loop** | Product Manager + UX Specification | Adversarial PM; research, conteúdo e prototipação |
-| 3 | [Especificação técnica](loops/03-technical-specification.md) | 🗺️ **Drafting Loop** | Specification Tech Lead | Adversarial TL; Security/Data/Platform |
-| 4 | [Implementação autônoma](loops/04-autonomous-implementation.md) | 🔁 **Ralph Loop** | Orchestrator Agent | Software Engineer Agents |
-| 5 | [Validação adversarial](loops/05-adversarial-validation.md) | ⚔️ **Red Team Loop** | QA / Validation Agent | Security Review; Architecture Review; Adversarial Code Reviewer |
-| 6 | [PR e merge](loops/06-pr-and-merge.md) | 🚪 **Gatekeeper Loop** | PR Agent | Reviewer Agents; Code Owners |
-| 7 | [Homologação](loops/07-release-candidate-validation.md) | 🎭 **Rehearsal Loop** | Product Validation Agent | Release Agent |
-| 8 | [Produção e observação](loops/08-production-release-and-observation.md) | 🐤 **Canary Loop** | Release Agent | Observability Agent |
-| 9 | [Curadoria de conhecimento](loops/09-knowledge-curation.md) | 🗄️ **Archivist Loop** | Knowledge Agent | Critic Agent |
-| 10 | [Telemetria e melhoria contínua](loops/10-continuous-improvement.md) | 🌙 **Dream Loop** | Auto Dream Agent | Telemetry; Observability; Critic |
-| 11 | [Operação diária](loops/11-daily-operations.md) | ☀️ **Daily Loop** | Auto Dream Agent | Telemetry; Knowledge; Orchestrator; Intake |
+| 0 | [Intake and screening](loops/00-intake-and-triage.md) | 🚦 **Triage Loop** | Intake Agent | Meeting Context; Product Manager |
+| 1 | [Discovery and research](loops/01-discovery-and-research.md) | 🔦 **Scout Loop** | Product Manager Agent | UX Specification; Tech Lead Discovery; Adversarial PM |
+| 2 | [Product and UX](loops/02-product-and-ux-planning.md) | 🎨 **Studio Loop** | Product Manager + UX Specification | Adversarial PM; research, content and prototyping |
+| 3 | [Technical specification](loops/03-technical-specification.md) | 🗺️ **Drafting Loop** | Specification Tech Lead | Adversarial TL; Security/Data/Platform |
+| 4 | [Standalone implementation](loops/04-autonomous-implementation.md) | 🔁 **Ralph Loop** | Orchestrator Agent | Software Engineer Agents |
+| 5 | [Adversarial validation](loops/05-adversarial-validation.md) | ⚔️ **Red Team Loop** | QA / Validation Agent | Security Review; Architecture Review; Adversarial Code Reviewer |
+| 6 | [PR and merge](loops/06-pr-and-merge.md) | 🚪 **Gatekeeper Loop** | PR Agent | Reviewer Agents; Code Owners |
+| 7 | [Approval](loops/07-release-candidate-validation.md) | 🎭 **Rehearsal Loop** | Product Validation Agent | ReleaseAgent |
+| 8 | [Production and observation](loops/08-production-release-and-observation.md) | 🐤 **Canary Loop** | ReleaseAgent | ObservabilityAgent |
+| 9 | [Knowledge curation](loops/09-knowledge-curation.md) | 🗄️ **Archivist Loop** | Knowledge Agent | Critical Agent |
+| 10 | [Telemetry and continuous improvement](loops/10-continuous-improvement.md) | 🌙 **Dream Loop** | Auto Dream Agent | Telemetry; Observability; Critic |
+| 11 | [Daily Operation](loops/11-daily-operations.md) | ☀️ **Daily Loop** | Auto Dream Agent | Telemetry; Knowledge; Orchestrator; Intake |
 
 ---
 
-## Versionamento e avaliação
+## Versioning and evaluation
 
-Cada loop registra versão do contrato e data, agentes e gates envolvidos, responsável humano, e changelog com plano de rollback. Alterar a sequência de um loop sem alterar sua versão quebra os bindings locais que declaram compatibilidade.
+Each loop records contract version and date, agents and gates involved, human responsible, and changelog with rollback plan. Changing the sequence of a loop without changing its version breaks the local bindings that declare compatibility.
 
-As métricas por loop cobrem: aprovação na primeira passagem do gate de saída, número de voltas por circuito (interna, média, externa), retrabalho gerado no loop seguinte, taxa de escalonamento e sua causa, tempo de ciclo e custo por rodada, e findings confirmados versus falsos positivos na volta média.
+Metrics per loop cover: pass on the first pass of the output gate, number of turns per circuit (inner, average, outer), rework generated in the next loop, scaling rate and its cause, cycle time and cost per round, and confirmed versus false positive findings on the average turn.
 
-**Essas métricas medem o desenho do loop, não o desempenho dos agentes.** Uma volta externa frequente indica gate mal posicionado ou entrada mal definida — quase nunca indica um agente ruim. Usá-las como avaliação individual corrompe o sinal que produzem.
-
----
-
-## Checklist para adicionar um novo loop
-
-- [ ] A etapa exige um loop novo ou cabe como variação de um existente?
-- [ ] Os seis itens do contrato comum estão explícitos?
-- [ ] Existe exatamente um agente consolidador nomeado?
-- [ ] A crítica vem de instância independente de quem produz?
-- [ ] Cada verificação está na volta mais interna em que é possível executá-la?
-- [ ] O gate de saída é verificável sem julgamento humano — e, quando não for, o owner está nomeado?
-- [ ] Os handoffs separam fato, evidência, hipótese, risco e pergunta?
-- [ ] O destino canônico de cada artefato está declarado?
-- [ ] O caminho de falha do gate aponta para um loop específico?
-- [ ] O loop funciona em `dry-run` sem efeito colateral?
+**These metrics measure loop design, not agent performance.** A frequent outer loop indicates a poorly positioned gate or poorly defined input — it almost never indicates a bad agent. Using them as an individual assessment corrupts the signal they produce.
 
 ---
 
-*Anterior: [Agentes](AGENTES.md) · Detalhe: [contratos individuais dos loops](loops/README.md) · Próximo: [Metodologia](METODOLOGIA.md) — como os humanos operam tudo isso.*
+## Checklist for adding a new loop
+
+- [ ] Does the step require a new loop or does it fit as a variation of an existing one?
+- [ ] Are the six items of the common contract explicit?
+- [ ] Is there exactly one consolidating agent appointed?
+- [ ] Does the criticism come from an instance independent of who produces it?
+- [ ] Is each check in the innermost loop in which it can be performed?
+- [ ] Is the output gate verifiable without human judgment — and, when not, is the owner named?
+- [ ] Do handoffs separate fact, evidence, hypothesis, risk and question?
+- [ ] Is the canonical fate of each artifact declared?
+- [ ] Does the gate failure path point to a specific loop?
+- [ ] Does the loop work in `dry-run` without side effects?
+
+---
+
+*Previous: [Agents](AGENTES.md) · Detail: [individual loop contracts](loops/README.md) · Next: [Methodology](METODOLOGIA.md) — how humans operate it all.*

@@ -1,62 +1,62 @@
 ---
-title: Workflow 11 — operação diária
+title: Workflow 11 — daily operation
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 11 — operação diária
+# Workflow 11 — daily operation
 
-> Bloco executável do [☀️ Daily Loop](../docs/loops/11-daily-operations.md): lê tudo o que terminou ou permaneceu em voo desde o último corte e entrega ao owner decisões, riscos, memória proposta e melhorias com destino explícito.
+> [☀️ Daily Loop](../docs/loops/11-daily-operations.md) executable block: reads everything that has finished or remained in flight since the last cut and delivers decisions, risks, proposed memory and improvements with explicit destination to the owner.
 
-O Daily Loop gira por calendário, não por Work Item. Registrar o dia não é priorizá-lo: Auto Dream separa e sinaliza; Knowledge promove memória pelo gate correto; Intake transforma atrito reproduzível em Work Item; o owner decide.
+The Daily Loop rotates by calendar, not by Work Item. Recording the day is not prioritizing it: Auto Dream separates and signals; Knowledge promotes memory through the correct gate; Intake transforms reproducible friction into Work Item; the owner decides.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada deixa um briefing curto e ordenado, um cursor de coleta avançado com segurança e cada observação encaminhada para um dos quatro destinos: decisão do owner, proposta de memória, Work Item no intake ou hipótese em observação. Nada sobrevive apenas como narrativa no briefing.
+A closed execution leaves a short and orderly briefing, a safely advanced collection cursor and each observation forwarded to one of four destinations: owner decision, memory proposal, Work Item in intake or hypothesis under observation. Nothing survives just as a narrative in the briefing.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | janela completa foi coletada e toda afirmação aponta para sessão/envelope/item identificável |
-| **Agentes** | Telemetry coletou; Orchestrator reconciliou voo; Auto Dream classificou; Knowledge/Intake promoveram destinos |
-| **Workspace** | briefing, memória, Work Items, bloqueios e cursor concordam com fontes canônicas |
-| **Owner** | bloqueados e riscos trazem decisão solicitada, impacto e prazo |
-| **Cadência** | cursor só avança depois da persistência; retry não duplica briefing, memória ou Work Item |
+| **Loop** | full window has been collected and every assertion points to identifiable session/envelope/item |
+| **Agents** | Telemetry collected; Orchestrator reconciled flight; Auto Dream classified; Knowledge/Intake promoted destinations |
+| **Workspace** | briefing, memory, Work Items, locks and cursor agree with canonical sources |
+| **Owner** | blocked and risks bring requested decision, impact and deadline |
+| **Cadence** | cursor only advances after persistence; retry does not duplicate briefing, memory or Work Item |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 11 — conhecimento e melhoria |
-| **Cadência** | diária, por workspace, mesmo sem entrega concluída |
-| **Unidade de execução** | janela `(last_successful_cutoff, current_cutoff]` identificada por `daily_run_id` |
-| **Consolida** | [Auto Dream Agent](../agents/auto-dream-agent/AGENT.md) |
-| **Coleta** | [Telemetry Agent](../agents/telemetry-agent/AGENT.md) |
-| **Reconcilia voo** | [Orchestrator Agent](../agents/orchestrator-agent/AGENT.md) |
-| **Promove memória** | [Knowledge Agent](../agents/knowledge-agent/AGENT.md) |
-| **Recebe melhorias** | [Intake Agent](../agents/intake-agent/AGENT.md) |
-| **Owner humano** | owner do workspace |
-| **Entrada** | sessões encerradas, envelopes, gates, retries, escalonamentos e itens em voo desde o último corte |
-| **Saída** | briefing, propostas de memória, Work Items, hipóteses e alerta de coleta quando necessário |
-| **Gate de conteúdo** | afirmações rastreáveis; decisões com owner/prazo; melhorias promovidas ou descartadas explicitamente |
-| **Gate do bloco** | conteúdo + privacidade + cursor idempotente + destinos persistidos + briefing dentro do budget |
-| **Volta dominante** | do sistema, com janela diária |
+| **Step** | 11 — knowledge and improvement |
+| **Cadence** | daily, per workspace, even without delivery completed |
+| **Execution unit** | window `(last_successful_cutoff, current_cutoff]` identified by `daily_run_id` |
+| **Consolidates** | [Auto Dream Agent](../agents/auto-dream-agent/AGENT.md) |
+| **Collection** | [Telemetry Agent](../agents/telemetry-agent/AGENT.md) |
+| **Reconciles flight** | [Orchestrator Agent](../agents/orchestrator-agent/AGENT.md) |
+| **Promotes memory** | [Knowledge Agent](../agents/knowledge-agent/AGENT.md) |
+| **Receives improvements** | [Intake Agent](../agents/intake-agent/AGENT.md) |
+| **Human owner** | workspace owner |
+| **Input** | closed sessions, envelopes, gates, retries, escalations and items in flight since the last cut |
+| **Exit** | briefing, memory proposals, Work Items, hypotheses and collection alert when necessary |
+| **Content gate** | traceable claims; decisions with owner/deadline; improvements explicitly promoted or discarded |
+| **Block Gate** | content + privacy + idempotent cursor + persisted destinations + briefing within budget |
+| **Dominant lap** | of the system, with daily window |
 
 ---
 
-## Preflight e cursor
+## Preflight and cursor
 
-1. Resolver workspace, owner, timezone, `daily_run_id`, último corte concluído e corte atual.
-2. Ler regras do workspace, `BOARD.md`, projetos ativos e `STATUS.md`; memória serve apenas para contexto.
-3. Verificar se já existe run para a mesma janela. Retomada completa o run existente; não cria outro briefing.
-4. Inventariar fontes de sessão/envelopes e itens em voo; registrar cobertura esperada antes da coleta.
-5. Fixar política de minimização/anonimização, validade do briefing e budget de leitura do owner (alvo: até 10 minutos).
-6. Criar estado transitório do run sem mover o cursor de sucesso.
+1. Resolve workspace, owner, timezone, `daily_run_id`, last completed cut and current cut.
+2. Read workspace rules, `BOARD.md`, active projects and `STATUS.md`; memory is only for context.
+3. Check if there is already a run for the same window. Resumption completes the existing run; does not create another briefing.
+4. Inventory session supplies/envelopes and in-flight items; record expected coverage before collection.
+5. Establish a minimization/anonymization policy, validity of the briefing and owner's reading budget (target: up to 10 minutes).
+6. Create transient state of the run without moving the success cursor.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 daily_run_id: "DAILY-<YYYY-MM-DD>-<workspace>"
@@ -75,170 +75,170 @@ permissions: []
 stop_conditions: []
 ```
 
-Cursor anterior ausente exige bootstrap explícito com alcance declarado; não autoriza ler histórico ilimitado. Falha de coleta não move o cursor.
+Missing previous cursor requires explicit bootstrap with declared scope; does not authorize reading unlimited history. Collection failure does not move the cursor.
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[Janela diária + fontes] --> B1[Telemetry<br/>coleta e anonimiza]
-    A --> B2[Orchestrator<br/>itens em voo e bloqueios]
-    B1 --> C{Cobertura íntegra?}
-    C -- não --> D[Alerta de coleta<br/>cursor não avança]
-    C -- sim --> E[Auto Dream<br/>classifica observações]
+TD flowchart
+    A[Daily window + sources] --> B1[Telemetry<br/>collects and anonymizes]
+    A --> B2[Orchestrator<br/>items in flight and blocks]
+    B1 --> C{Full coverage?}
+    C -- no --> D[Collection alert<br/>cursor does not advance]
+    C -- yes --> E[Auto Dream<br/>classifies observations]
     B2 --> E
-    E --> F1[Bloqueado/em risco<br/>briefing do owner]
-    E --> F2[Padrão com evidência<br/>proposta de memória]
-    E --> F3[Atrito reproduzível<br/>Triage Work Item]
-    E --> F4[Ocorrência isolada<br/>hipótese semanal]
-    F2 --> G[Knowledge Agent<br/>gate e promoção]
-    F3 --> H[Intake Agent<br/>Work Item rastreável]
-    F1 --> I[Auto Dream<br/>briefing final]
+    E --> F1[Blocked/at risk<br/>owner's briefing]
+    E --> F2[Pattern with evidence<br/>memory proposal]
+    E --> F3[Reproducible Friction<br/>Triage Work Item]
+    E --> F4[Isolated occurrence<br/>weekly hypothesis]
+    F2 --> G[Knowledge Agent<br/>gate and promotion]
+    F3 --> H[Intake Agent<br/>Work Trackable Item]
+    F1 --> I[Auto Dream<br/>final briefing]
     G --> I
     H --> I
     F4 --> I
-    I --> J{Gate do bloco}
-    J -- passou --> K[Persistir cursor<br/>e fechar run]
+    I --> J{Block gate}
+    J -- passed --> K[Persist cursor<br/>and close run]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — coletar janela | Telemetry Agent | sessões/envelopes correlacionados, custo, gates, retries, cobertura e limitações |
-| M2 — reconciliar voo | Orchestrator Agent | itens ativos, tempo em estado, dependências, bloqueios e decisão pendente |
-| M3 — classificar | Auto Dream Agent | concluído, pendente, falha/causa e decisão humana; mais quatro destinos operacionais |
-| M4 — promover memória | Knowledge Agent | entrada validada com origem/contexto/validade ou proposta rejeitada |
-| M5 — abrir melhoria | Intake Agent | Work Item com sintoma, evidência, impacto, causa provável e owner recomendado |
-| M6 — montar briefing | Auto Dream Agent | bloqueados → em risco → em andamento, dentro do budget |
-| M7 — fechar run | executor | artefatos/destinos persistidos e cursor avançado atomicamente |
+| M1 — collect window | Telemetry Agent | correlated sessions/envelopes, cost, gates, retries, coverage and limitations |
+| M2 — reconcile flight | Orchestrator Agent | active items, time in state, dependencies, locks and pending decision |
+| M3 — classify | Auto Dream Agent | completed, pending, failure/cause and human decision; four more operational destinations |
+| M4 — promote memory | Knowledge Agent | input validated with origin/context/validity or proposal rejected |
+| M5 — open improvement | Intake Agent | Work Item with symptom, evidence, impact, probable cause and recommended owner |
+| M6 — assemble briefing | Auto Dream Agent | blocked → at risk → in progress, within budget |
+| M7 — close run | executor | persisted artifacts/targets and atomically advanced cursor |
 
-M1 e M2 rodam em paralelo. M4 e M5 também podem rodar em paralelo depois da classificação, pois escrevem fontes diferentes. Auto Dream não edita memória nem backlog diretamente.
+M1 and M2 run in parallel. M4 and M5 can also run in parallel after sorting, as they write different fonts. Auto Dream does not edit memory or backlog directly.
 
 ---
 
-## Classificação e destinos
+## Classification and destinations
 
-| Natureza observada | Critério | Destino |
+| Nature observed | Criterion | Destination |
 |---|---|---|
-| decisão/bloqueio | somente owner pode resolver e há impacto atual | briefing `bloqueado` com pergunta/prazo |
-| risco próximo | evidência indica que vai bloquear dentro de horizonte declarado | briefing `em risco` com prevenção possível |
-| andamento | estado confirmado sem ação humana necessária | briefing informativo e compacto |
-| padrão recorrente | múltiplas sessões sustentam a mesma conclusão contextual | proposta ao Knowledge/Archivist; não escrita direta |
-| atrito reproduzível | sintoma, passos/evidência e impacto identificáveis | Intake Work Item; PM prioriza depois |
-| ocorrência isolada | evidência real, mas recorrência/causa não confirmadas | hipótese para Dream Loop |
-| ruído/sem ação | não muda decisão, memória, backlog ou risco | descarte registrado no run, não no briefing |
+| decision/block | only owner can resolve and there is current impact | `bloqueado` briefing with question/deadline |
+| upcoming risk | Evidence indicates it will block within declared horizon | briefing `em risco` with prevention possible |
+| progress | status confirmed with no human action required | informative and compact briefing |
+| recurring pattern | multiple sessions support the same contextual conclusion | proposal to Knowledge/Archivist; not direct writing |
+| reproducible friction | identifiable symptom, steps/evidence and impact | Intake Work Item; PM prioritizes later |
+| isolated occurrence | real evidence but recurrence/cause not confirmed | hypothesis for Dream Loop |
+| noise/no action | does not change decision, memory, backlog or risk | discard recorded in the run, not in the briefing |
 
-O mesmo evento pode gerar sinalização e melhoria, mas usa IDs cruzados para não virar duas verdades.
-
----
-
-## Contrato do briefing
-
-O briefing tem validade de um dia e ordem obrigatória:
-
-1. **Bloqueado** — decisão necessária hoje; owner, pergunta, opções, recomendação, impacto e prazo.
-2. **Em risco** — vai bloquear se ninguém agir; evidência, horizonte e ação preventiva.
-3. **Em andamento** — mudanças relevantes, próximos gates e informação apenas operacional.
-4. **Destinos criados** — links para memória proposta, Work Items e hipóteses; não repete o conteúdo.
-5. **Qualidade do run** — cobertura, fontes faltantes e limitações.
-
-Sem bloqueios/riscos, as seções permanecem curtas e dizem “nenhum identificado com as fontes coletadas”; falha de coleta produz alerta, nunca certeza vazia.
+The same event can generate signaling and improvement, but uses crossed IDs to avoid becoming two truths.
 
 ---
 
-## Fronteiras de autoridade
+## Briefing contract
 
-| Participante | Faz | Não faz |
+The briefing is valid for one day and has a mandatory order:
+
+1. **Blocked** — decision needed today; owner, question, options, recommendation, impact and deadline.
+2. **At risk** — will block if no one takes action; evidence, horizon and preventive action.
+3. **In progress** — relevant changes, next gates and operational information only.
+4. **Destinations created** — links to proposed memory, Work Items and hypotheses; does not repeat the content.
+5. **Run quality** — coverage, missing sources and limitations.
+
+No blocks/risks, sections remain short and say “none identified with collected sources”; Collection failure produces warning, never empty certainty.
+
+---
+
+## Authority boundaries
+
+| Participant | Do | Doesn't |
 |---|---|---|
-| Telemetry | coleta, correlaciona, anonimiza e mede cobertura | conclui causa ou prioridade |
-| Orchestrator | descreve estado autoritativo, bloqueios e dependências | decide destino/prioridade |
-| Auto Dream | classifica, formula hipótese e consolida briefing | edita memória, cria prioridade ou altera gate/política/autonomia |
-| Knowledge | avalia/promove memória na fonte correta | transforma hipótese isolada em regra |
-| Intake | cria/relaciona Work Item rastreável | prioriza definitivamente |
-| owner do workspace | responde decisões e aceita/descarta sinalização | tem resposta inferida por silêncio |
+| Telemetry | collects, correlates, anonymizes and measures coverage | concludes cause or priority |
+| Orchestrator | describes authoritative state, locks, and dependencies | decides destination/priority |
+| Auto Dream | classifies, formulates hypotheses and consolidates briefing | edit memory, create priority or change gate/policy/autonomy |
+| Knowledge | evaluates/promotes memory in the correct source | turns isolated hypothesis into rule |
+| Intake | creates/relates Work Item trackable | definitely prioritize |
+| workspace owner | responds to decisions and accepts/discards signaling | has an answer inferred by silence |
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | Telemetry | `technical-discovery`, `analyse-bug`, `update-docs` |
 | Orchestrator | `dev-flow`, `update-docs` |
 | Auto Dream | `analyse-bug`, `technical-discovery`, `update-docs` |
 | Knowledge | `update-docs`, `refine-spec`, `technical-discovery` |
 | Intake | `business-discovery`, `write-feature` |
 
-Cada envelope registra `skills_used`. Auto Dream recebe dados já minimizados e o resumo autoritativo de itens; não recebe secrets, dados pessoais desnecessários ou memória privada de outro workspace.
+Each envelope records `skills_used`. Auto Dream receives already minimized data and the authoritative summary of items; does not receive secrets, unnecessary personal data, or private memory from another workspace.
 
 ---
 
-## Idempotência e escrita multiagente
+## Idempotence and multi-agent writing
 
-- `daily_run_id` e janela são únicos por workspace; retry retoma o mesmo run.
-- Cada evento/sessão tem ID e só é classificado uma vez por janela.
-- Knowledge deduplica proposta pela evidência/conceito; Intake procura Work Item existente antes de criar outro.
-- Writers permanecem separados: Auto Dream escreve briefing/run; Knowledge escreve memória; Intake escreve Work Item; Orchestrator reconcilia estado.
-- Cursor só avança após briefing e todos os destinos obrigatórios estarem persistidos.
-- Correção posterior cria errata ligada ao briefing; não reescreve silenciosamente o histórico diário.
+- `daily_run_id` and window are unique per workspace; retry resumes the same run.
+- Each event/session has an ID and is only classified once per window.
+- Knowledge deduplicates proposal by evidence/concept; Intake searches for existing Work Item before creating another.
+- Writers remain separate: Auto Dream writes briefing/run; Knowledge writes memory; Intake writes Work Item; Orchestrator reconciles state.
+- Cursor only advances after briefing and all mandatory destinations are persisted.
+- Later correction creates errata linked to the briefing; does not silently rewrite daily history.
 
 ---
 
-## Persistência
+## Persistence
 
-| Artefato | Destino | Validade/autoridade |
+| Artifact | Destination | Validity/authority |
 |---|---|---|
-| briefing diário | `<workspace-owner>/.coordination/daily/<date>.md` | válido por um dia; artefato final próprio do loop |
-| estado/cursor do run | `.coordination/daily/state/` | controle idempotente da cadência |
-| proposta/memória | `MEMORY.md` correspondente | somente após Knowledge/owner; aponta para evidência |
-| Work Item de melhoria | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | fonte autoritativa após Triage |
-| hipótese em observação | `.coordination/observations/` | trânsito para Dream Loop |
-| coleta anonimizada | `execution/telemetry/daily/<date>/` ou registro governado equivalente | insumo do Dream; retenção declarada |
+| daily briefing | `<workspace-owner>/.coordination/daily/<date>.md` | valid for one day; loop's own final artifact |
+| run state/cursor | `.coordination/daily/state/` | idempotent cadence control |
+| proposal/memory | corresponding `MEMORY.md` | only after Knowledge/owner; points to evidence |
+| Work Improvement Item | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | authoritative source after Triage |
+| hypothesis under observation | `.coordination/observations/` | transit to Dream Loop |
+| anonymized collection | `execution/telemetry/daily/<date>/` or equivalent governed registry | Dream input; declared retention |
 
-O briefing é exceção legítima em `.coordination/` porque expira. Tudo que precisa sobreviver ao dia deve estar em memória, Work Item ou hipótese explicitamente encaminhada.
+The briefing is a legitimate exception in `.coordination/` because it expires. Everything that needs to survive the day must be in memory, Work Item or hypothesis explicitly forwarded.
 
 ---
 
 ## Gates
 
-### Gate de conteúdo
+### Content gate
 
-- [ ] janela/cursor e cobertura de fontes estão explícitos;
-- [ ] secrets/dados pessoais foram removidos antes da análise;
-- [ ] toda afirmação aponta para sessão, envelope, gate ou Work Item;
-- [ ] bloqueados/riscos têm owner, decisão, impacto e prazo;
-- [ ] melhoria reproduzível virou Work Item ou descarte registrado;
-- [ ] hipótese isolada não foi promovida à memória;
-- [ ] briefing respeita ordem e budget de leitura.
+- [ ] window/cursor and font coverage are explicit;
+- [ ] secrets/personal data were removed before analysis;
+- [ ] every statement points to session, envelope, gate or Work Item;
+- [ ] blocked/risks have owner, decision, impact and deadline;
+- [ ] reproducible improvement turned to Work Item or recorded disposal;
+- [ ] isolated hypothesis was not promoted to memory;
+- [ ] briefing respects reading order and budget.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] writers e domínios foram respeitados;
-- [ ] memória passou pelo Knowledge e melhoria passou pelo Intake;
-- [ ] Work Item, estado em voo e briefing não se contradizem;
-- [ ] retry/deduplicação não criou saídas duplicadas;
-- [ ] todos os destinos estão persistidos antes do cursor;
-- [ ] alteração de gate/política/autonomia foi enviada ao Dream/H6, nunca aplicada aqui.
+- [ ] writers and domains were respected;
+- [ ] memory went through Knowledge and improvement went through Intake;
+- [ ] Work Item, flight status and briefing do not contradict each other;
+- [ ] retry/deduplication did not create duplicate outputs;
+- [ ] all destinations are persisted before the cursor;
+- [ ] gate/policy/autonomy change was sent to Dream/H6, never applied here.
 
 ---
 
-## Falhas e escalonamento
+## Failures and escalation
 
-| Condição | Ação |
+| Condition | Action |
 |---|---|
-| coleta incompleta/falhou | alertar owner/Telemetry; manter cursor; não emitir briefing “sem novidades” |
-| item bloqueado por mais de um ciclo | destacar no topo e escalar ao owner com tempo acumulado |
-| escalonamento sem resposta | repetir como bloqueado, sem inventar decisão |
-| melhoria recorrente sem Work Item | bloquear fechamento do destino ou registrar descarte explícito pelo owner |
-| memória cresce sem validade | Knowledge revisa/expira; não acumular por padrão |
-| conflito entre briefing e Work Item | Work Item vence; corrigir briefing e investigar coleta |
-| proposta afeta gate/política/autonomia | encaminhar ao Dream Loop/H6 |
+| incomplete/failed collection | alert owner/Telemetry; keep cursor; not issue “no news” briefing |
+| item blocked for more than one cycle | highlight at the top and escalate to owner with accumulated time |
+| unresponsive escalation | repeat as blocked, without inventing decision |
+| recurring improvement without Work Item | block target closure or record explicit disposal by owner |
+| memory grows without validity | Knowledge revises/expires; do not accumulate by default |
+| conflict between briefing and Work Item | Work Item expires; correct briefing and investigate collection |
+| proposal affects gate/politics/autonomy | forward to Dream Loop/H6 |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 daily_run_id: "DAILY-<YYYY-MM-DD>-<workspace>"
@@ -274,4 +274,4 @@ gates:
 handoff_to: []
 ```
 
-`briefing_ready` exige cursor avançado somente após todos os destinos; run com coleta falha permanece `collection_blocked`.
+`briefing_ready` requires advanced cursor only after all targets; run with failed collection remains `collection_blocked`.

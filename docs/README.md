@@ -1,65 +1,65 @@
-# Agent-Team — Documentação
+# Agent-Team — Documentation
 
-> Os pilares de um time agêntico, do mais baixo para o mais alto, como uma pirâmide: **harness → agentes → skills → loops → metodologia → workspace**. Cada camada responde a uma pergunta distinta e se apoia na anterior; pular uma camada é o que produz documentação que ninguém consegue executar.
+> The pillars of an agentic team, from lowest to highest, like a pyramid: **harness → agents → skills → loops → methodology → workspace**. Each layer answers a different question and builds on the previous one; skipping a layer is what produces documentation that no one can execute.
 
-## A pirâmide
+## The pyramid
 
-| # | Camada | Responde | Onde vive |
+| # | Layer | Reply | Where do you live |
 |---|---|---|---|
-| 1 | **Harness** | o que o repositório precisa carregar para ser operável por agentes | [`REPO_HARNESS.md`](REPO_HARNESS.md) e vizinhos |
-| 2 | **Agentes** | *quem* executa, sob qual autoridade e com qual limite | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
-| 3 | **Skills** | *como* uma tarefa recorrente é executada corretamente | [`SKILLS.md`](SKILLS.md) |
-| 4 | **Loops** | *em que ordem* os agentes colaboram e quando parar | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
-| 5 | **Metodologia** | *quem opera*, o que dispara o quê e o que exige gente | [`METODOLOGIA.md`](METODOLOGIA.md), [`metodologia/`](metodologia/README.md) |
-| 6 | **Workspace** | *onde* cada artefato de uma execução vive, fora do código | [`WORKSPACE.md`](WORKSPACE.md), [`workspace/`](workspace/README.md) |
+| 1 | **Harness** | what the repository needs to load to be operable by agents | [`REPO_HARNESS.md`](REPO_HARNESS.md) and neighbors |
+| 2 | **Agents** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
+| 3 | **Skills** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| 4 | **Loops** | *in what order* do agents collaborate and when to stop | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
+| 5 | **Methodology** | *who operates*, what triggers what and what demands people | [`METODOLOGIA.md`](METODOLOGIA.md), [`metodologia/`](metodologia/README.md) |
+| 6 | **Workspace** | *where* every artifact of an execution lives, outside the code | [`WORKSPACE.md`](WORKSPACE.md), [`workspace/`](workspace/README.md) |
 
-A base sustenta o topo, não o contrário: um agente (2) só é confiável se o harness (1) existir; uma skill (3) só é aplicada por um agente que já tem contrato; um loop (4) só coordena agentes e skills que já existem; a metodologia (5) não introduz conceito novo, apenas explica como uma pessoa opera as quatro camadas de baixo; e o workspace (6) é o lugar físico onde tudo isso deixa rastro fora do código.
+The base supports the top, not the other way around: an agent (2) is only trustworthy if the harness (1) exists; a skill (3) is only applied by an agent who already has a contract; a loop (4) only coordinates agents and skills that already exist; methodology (5) does not introduce a new concept, it only explains how a person operates the four layers below; and the workspace (6) is the physical place where all this leaves a trace outside the code.
 
 ---
 
-## 1. Harness do repositório da aplicação
+## 1. Application repository harness
 
-O **repo harness** converte o conhecimento tácito do repositório em arquivos versionados que o agente lê sozinho e em verificações que rodam sem pedir licença. Visão geral e as cinco camadas cumulativas (Contexto, Procedimento, Verificação, Permissão, Evidência) estão em [`REPO_HARNESS.md`](REPO_HARNESS.md).
+The **repo harness** converts the tacit knowledge of the repository into versioned files that the agent reads on its own and into checks that run without asking for a license. Overview and the five cumulative layers (Context, Procedure, Verification, Permission, Evidence) are in [`REPO_HARNESS.md`](REPO_HARNESS.md).
 
-| Seção | Responde | Arquivo |
+| Section | Reply | Archive |
 |---|---|---|
-| **Overview** | o que é o repo harness, as quatro perguntas que ele resolve e as cinco camadas cumulativas | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
-| **Tools** | quais ferramentas o agente pode invocar, com que limites, e o que exige autorização humana | [`TOOLS.md`](TOOLS.md) |
-| **Skills** | o catálogo de procedimentos verificáveis para tarefas recorrentes que exigem julgamento | [`SKILLS.md`](SKILLS.md) |
-| **Rules** | o estado desejado do repositório — arquitetura, coding e testing — e o motivo de cada regra | [`RULES.md`](RULES.md) |
-| **Hooks** | as verificações locais versionadas (`.hooks/`) que rodam antes do código sair da máquina do agente | [`SENSORS.md`](SENSORS.md) |
-| **Gates** | a arquitetura de verificação do commit ao deploy — local, CI, merge, ambiente, pós-deploy | [`GATES.md`](GATES.md) |
-| **Documentation** | `AGENTS.md`, ADRs em `docs/adr/` e o evidence pack em `docs/evidence/` | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
-| **MCPs** | servidores Model Context Protocol, escopos autorizados e a diferença para uma tool local | [`MCPS.md`](MCPS.md) |
+| **Overview** | What is repo harness, the four questions it solves and the five cumulative layers | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
+| **Tools** | which tools the agent can invoke, with what limits, and what requires human authorization | [`TOOLS.md`](TOOLS.md) |
+| **Skills** | the catalog of verifiable procedures for recurring tasks that require judgment | [`SKILLS.md`](SKILLS.md) |
+| **Rules** | the desired state of the repository — architecture, coding and testing — and the reason for each rule | [`RULES.md`](RULES.md) |
+| **Hooks** | the local versioned checks (`.hooks/`) that run before the code leaves the agent machine | [`SENSORS.md`](SENSORS.md) |
+| **Gates** | the commit-to-deploy verification architecture — local, CI, merge, environment, post-deploy | [`GATES.md`](GATES.md) |
+| **Documentation** | `AGENTS.md`, ADRs at `docs/adr/` and the evidence pack at `docs/evidence/` | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
+| **MCPs** | Model Context Protocol servers, authorized scopes and the difference for a local tool | [`MCPS.md`](MCPS.md) |
 
-## 2. Agentes
+## 2. Agents
 
-Um agente é um processo com missão delimitada, contexto versionado, ferramentas declaradas, verificação objetiva e um envelope padronizado de saída. O conceito — anatomia, o que consome, quando escala — está em [`AGENTES.md`](AGENTES.md); os 23 contratos individuais, agrupados por fase (entrada e coordenação, produto/UX/discovery, especificação técnica, construção e validação, integração/homologação/operação, conhecimento e melhoria), estão em [`agentes/`](agentes/README.md).
+An agent is a process with a delimited mission, versioned context, declared tools, objective verification and a standardized output envelope. The concept — anatomy, what it consumes, when it scales — is in [`AGENTES.md`](AGENTES.md); the 23 individual contracts, grouped by phase (entry and coordination, product/UX/discovery, technical specification, construction and validation, integration/approval/operation, knowledge and improvement), are in [`agentes/`](agentes/README.md).
 
 ## 3. Skills
 
-Uma skill é o procedimento verificável para uma tarefa recorrente que exige julgamento — o que a distingue de um script, que cobre o determinístico. Antes de agir, um agente verifica as skills disponíveis e usa todas as que se aplicam à missão. O catálogo — skills de base do workspace, skills por etapa da jornada e os limites de autonomia que nenhuma skill amplia — está em [`SKILLS.md`](SKILLS.md); os procedimentos executáveis, um `SKILL.md` por skill, estão em [`skills/`](../skills/README.md).
+A skill is the verifiable procedure for a recurring task that requires judgment — which distinguishes it from a script, which covers the deterministic. Before acting, an agent checks the available skills and uses all that apply to the mission. The catalog — workspace base skills, skills by stage of the journey and the limits of autonomy that no skill extends — is in [`SKILLS.md`](SKILLS.md); the executable procedures, one `SKILL.md` per skill, are in [`skills/`](../skills/README.md).
 
 ## 4. Loops
 
-Um loop é o contrato de colaboração de uma etapa da jornada: quem executa, em que ordem, o que atravessa a fronteira entre agentes e qual condição precisa ser verdadeira para avançar. O conceito — as três voltas e como agentes, skills, tools, MCPs, sensors e gates se encaixam em cada giro — está em [`LOOPS.md`](LOOPS.md); os 12 contratos das etapas da jornada, do intake à operação diária, estão em [`loops/`](loops/README.md).
+A loop is the collaboration contract for a stage of the journey: who executes it, in what order, what crosses the boundary between agents and what condition needs to be true to move forward. The concept — the three turns and how agents, skills, tools, MCPs, sensors and gates fit into each turn — is in [`LOOPS.md`](LOOPS.md); the 12 contracts for the stages of the journey, from intake to daily operation, are in [`loops/`](loops/README.md).
 
-## 5. Metodologia — Ciclo de Desenvolvimento de Software
+## 5. Methodology — Software Development Cycle
 
-A metodologia é a cola entre as camadas anteriores e a pessoa que opera o sistema na segunda-feira de manhã: não introduz conceito novo, mostra o que dispara o quê, quando uma pessoa é chamada, e o que acontece se ela não responder. Os cinco compromissos que governam o ciclo (quem propõe não aprova; aprovação exige evidência; mudança material invalida aprovação anterior; autonomia sobe por métrica; artefato só existe na fonte canônica) estão em [`METODOLOGIA.md`](METODOLOGIA.md); as sete páginas operacionais — papéis, checkpoints humanos, gatilhos, ritmos, manual do operador, jornada comentada e workflows de documentação — estão em [`metodologia/`](metodologia/README.md).
+The methodology is the glue between the previous layers and the person operating the system on Monday morning: it doesn't introduce a new concept, it shows what triggers what, when a person is called, and what happens if they don't respond. The five commitments that govern the cycle (who proposes does not approve; approval requires evidence; material change invalidates previous approval; autonomy increases by metric; artifact only exists in the canonical source) are in [`METODOLOGIA.md`](METODOLOGIA.md); the seven operational pages — roles, human checkpoints, triggers, rhythms, operator manual, commented journey and documentation workflows — are in [`metodologia/`](metodologia/README.md).
 
 ## 6. Workspace
 
-O workspace é o lugar físico onde o trabalho de fato acontece: onde um Work Item é aberto, uma decisão vira artefato, um agente retoma contexto de uma sessão anterior. A fronteira com o repo harness e as quatro peças que todo workspace mantém (`AGENTS.md`, `BOARD.md`, `memory.md`, `projects/`) estão em [`WORKSPACE.md`](WORKSPACE.md); as quatro páginas operacionais — estrutura, ownership entre workspaces, harness do workspace e board/Work Items — estão em [`workspace/`](workspace/README.md).
+The workspace is the physical place where work actually happens: where a Work Item is opened, a decision becomes an artifact, an agent returns to context from a previous session. The border with the repo harness and the four pieces that every workspace maintains (`AGENTS.md`, `BOARD.md`, `memory.md`, `projects/`) are at [`WORKSPACE.md`](WORKSPACE.md); the four operational pages — structure, ownership between workspaces, workspace harness and board/Work Items — are in [`workspace/`](workspace/README.md).
 
 ---
 
-## Por onde começar
+## Where to start
 
-| Você quer… | Leia |
+| Do you want… | Read |
 |---|---|
-| Preparar um repositório para ser operado por agentes | [Harness](REPO_HARNESS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
-| Entender o catálogo de agentes | [Agentes](AGENTES.md) → [contratos individuais](agentes/README.md) |
-| Ver a jornada de ponta a ponta | [Loops](LOOPS.md) → [as 12 etapas](loops/README.md) |
-| Saber o que uma pessoa faz, na prática | [Metodologia](METODOLOGIA.md) → [manual do operador](metodologia/05-manual-do-operador.md) |
-| Saber onde salvar o que produz | [Workspace](WORKSPACE.md) → [estrutura do workspace](workspace/01-estrutura-do-workspace.md) |
+| Prepare a repository to be operated by agents | [Harness](REPO_HARNESS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
+| Understand the agent catalog | [Agents](AGENTES.md) → [individual contracts](agentes/README.md) |
+| See the journey from end to end | [Loops](LOOPS.md) → [the 12 steps](loops/README.md) |
+| Knowing what a person does, in practice | [Methodology](METODOLOGIA.md) → [operator manual](metodologia/05-manual-do-operador.md) |
+| Knowing where to save what you produce | [Workspace](WORKSPACE.md) → [workspace structure](workspace/01-estrutura-do-workspace.md) |

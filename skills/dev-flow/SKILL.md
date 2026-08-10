@@ -1,143 +1,143 @@
 ---
 name: dev-flow
-description: Guia o fluxo seguro de desenvolvimento de uma tarefa, do planejamento à entrega local e à proposta de publicação. Use quando o usuário pedir coordenação end-to-end de uma implementação, correção ou feature.
+description: Guides the safe flow of developing a task, from planning to local delivery and publication proposal. Use when the user requests end-to-end coordination of an implementation, fix, or feature.
 ---
 
-# Skill: Fluxo de desenvolvimento
+# Skill: Development flow
 
-Esta skill guia o fluxo padrão ao puxar uma task, do planejamento à entrega
-local. Trate criação de issue, commit, push, PR, merge e limpeza de worktree
-como ações separadas, executadas apenas quando autorizadas pelo usuário.
+This skill guides the standard flow when pulling a task, from planning to delivery
+location. Handle issue creation, commit, push, PR, merge and worktree cleanup
+as separate actions, performed only when authorized by the user.
 
-## Objetivo
+## Objective
 
-Garantir que cada tarefa siga o fluxo:
+Ensure each task follows the flow:
 
 1. PLAN
-2. TRACKING (se solicitado)
-3. IMPLEMENT
+2. TRACKING (if requested)
+3. IMPLEMENTATION
 4. TEST
-5. COMMIT (se autorizado)
-6. PROPOR PUBLICAÇÃO
-7. PR / MERGE (se autorizado)
-8. ENCERRAR COM SEGURANÇA
-9. PRÓXIMA TASK
+5. COMMIT (if authorized)
+6. PROPOSE PUBLICATION
+7. PR/MERGE (if authorized)
+8. TERMINATE SAFELY
+9. NEXT TASK
 
-## Uso
+## Usage
 
-Quando iniciar uma task, siga estes passos em ordem e confirme cada etapa antes
-de passar à seguinte. A convenção local do repositório prevalece sobre exemplos
-de branch, CI ou issue abaixo.
+When starting a task, follow these steps in order and confirm each step before
+to move on to the next. Repository local convention overrides examples
+branch, CI or issue below.
 
-## Segurança e contrato de artefatos
+## Security and artifact contract
 
-Siga [o contrato compartilhado](../references/workflow-contract.md). Antes de
-qualquer efeito externo, apresente o alvo e peça autorização explícita:
-criar/editar issue, commit, push, abrir/editar PR, aplicar labels, mergear,
-fechar issue ou remover worktree. Nunca descarte, faça stash ou remova mudanças
-do usuário para deixar a árvore limpa.
+Follow [shared agreement](../references/workflow-contract.md). Before
+any external effect, present the target and ask for explicit authorization:
+create/edit issue, commit, push, open/edit PR, apply labels, merge,
+close issue or remove worktree. Never discard, stash or remove changes
+user to leave the tree clean.
 
 ### 1. PLAN
-- Leia a task e entenda o escopo, critério de aceitação e restrições.
-- Identifique dependências e possíveis impactos nos módulos/backend/storefront.
-- Defina o que deve ser feito em um checklist pequeno.
-- Escolha/valide o branch name correto se ainda não existir.
+- Read the task and understand the scope, acceptance criteria and restrictions.
+- Identify dependencies and possible impacts on modules/backend/storefront.
+- Define what must be done in a small checklist.
+- Choose/validate the correct branch name if it doesn't already exist.
 
-### 2. TRACKING (se solicitado)
-- Se a demanda já tem issue, use-a como referência.
-- Se o usuário pedir rastreamento, proponha uma issue com título e corpo antes de criá-la.
-- Use `gh issue create` com título objetivo e corpo contendo:
-  - **Contexto**: o "porquê" da demanda.
-  - **Escopo**: checklist `- [ ]` com cada entregável (permite fechamento parcial visível).
-  - **Critério de aceitação**: como validar.
-- Capture o número da issue (`#N`) quando ela existir; não invente nem exija issue para implementar localmente.
+### 2. TRACKING (if requested)
+- If the demand already has an issue, use it as a reference.
+- If the user requests tracking, propose an issue with title and body before creating it.
+- Use `gh issue create` with an objective title and body containing:
+  - **Context**: the "why" of the demand.
+  - **Scope**: `- [ ]` checklist with each deliverable (allows visible partial closure).
+  - **Acceptance criteria**: how to validate.
+- Capture the issue number (`#N`) when it exists; do not invent or require an issue to implement locally.
 
 ```bash
 gh issue create \
-  --title "feat(escopo): descrição curta" \
+  --title "feat(scope): short description" \
   --body "$(cat <<'EOF'
-## Contexto
-<por que>
+## Context
+<why>
 
-## Escopo
+## Scope
 - [ ] item 1
 - [ ] item 2
 
-## Critério de aceitação
+## Acceptance criteria
 - ...
 EOF
 )"
 ```
 
-- Se a task já tem issue, reaproveite-a. Proponha a atribuição de responsável, mas não a edite sem autorização.
+- If the task already has an issue, reuse it. Propose the assignment of person responsible, but do not edit it without authorization.
 
 ### 3. IMPLEMENT
-- Escreva o código para resolver o problema de forma simples e clara.
-- Prefira mudanças pequenas e incrementalmente aumente o escopo.
-- Siga as convenções do repositório e a arquitetura existente.
-- Se precisar mexer em backend e frontend, faça commits pequenos e organizados.
+- Write the code to solve the problem simply and clearly.
+- Prefer small changes and incrementally increase the scope.
+- Follow repository conventions and existing architecture.
+- If you need to change the backend and frontend, make small and organized commits.
 
 ### 4. TEST
-- Crie ou atualize testes para cobrir a nova funcionalidade ou correção.
-- Execute testes locais relevantes (`pnpm test` no package certo ou caso de teste específico).
-- Garanta que não há regressão nas áreas afetadas.
+- Create or update tests to cover new functionality or fix.
+- Run relevant local tests (`pnpm test` in the right package or specific test case).
+- Ensure that there is no regression in the affected areas.
 
-### 5. COMMIT (se autorizado)
-- Faça commits claros e em português, usando o padrão do repositório:
+### 5. COMMIT (if authorized)
+- Make clear commits in Portuguese, using the repository standard:
   - `feat(...)`, `fix(...)`, `chore(...)`, `test(...)`
-- O texto do commit deve descrever o que foi alterado.
-- Inclua `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>` quando aplicável.
-- Referencie a issue no rodapé do commit quando útil: `Refs #N`.
+- The commit text must describe what was changed.
+- Include `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>` when applicable.
+- Reference the issue in the commit footer when useful: `Refs #N`.
 
-### 6. PROPOR PUBLICAÇÃO
-- Resuma o diff, os testes e a branch atual. Proponha o commit e a publicação necessários.
-- Não assuma que existe CI automático, branch `develop` ou issue vinculada.
+### 6. PROPOSE PUBLICATION
+- Summarize the diff, tests and current branch. Propose the necessary commit and publication.
+- Do not assume that there is automatic CI, branch `develop` or issue linked.
 
-### 7. PR / MERGE (se autorizado)
-- Abra ou atualize o PR somente após autorização explícita.
-- Descubra a branch-base na configuração do repositório ou no PR; não fixe `develop`.
-- **Obrigatório**: o corpo do PR deve conter uma keyword de auto-close apontando para a issue:
-  - `Closes #N` — fecha a issue ao mergear o PR (entrega completa).
-  - `Refs #N` — referencia sem fechar (entrega parcial; marque manualmente os itens `- [x]` concluídos na issue).
-- Explique a mudança, onde testar e quais casos de teste foram executados.
-- Marque o PR para revisão.
+### 7. PR/MERGE (if authorized)
+- Open or update the PR only after explicit authorization.
+- Discover the base branch in the repository configuration or in the PR; don't pin `develop`.
+- **Mandatory**: the body of the PR must contain an auto-close keyword pointing to the issue:
+  - `Closes #N` — closes the issue when merging the PR (complete delivery).
+  - `Refs #N` — reference without closing (partial delivery; manually mark items `- [x]` completed in the issue).
+- Explain the change, where to test and which test cases were executed.
+- Mark the PR for review.
 
 ```bash
-gh pr create \
-  --base <branch-base-confirmada> \
-  --title "feat(escopo): descrição" \
+gh pr create\
+  --base <branch-base-committed> \
+  --title "feat(scope): description" \
   --body "$(cat <<'EOF'
-## Resumo
-<o que mudou e por quê>
+## Summary
+<what changed and why>
 
-## Como testar
+## How to test
 - ...
 
-Closes #N
+Close-ups #N
 EOF
 )"
 ```
 
- - Antes de mergear, confirme checks requeridos, aprovações, branch-base e o SHA do PR.
- - Nunca faça push direto para branch protegida; use o mecanismo de merge do PR após autorização.
- - Para entrega parcial, proponha a atualização da issue; não a altere sem autorização.
+ - Before merging, confirm required checks, approvals, base branch and the SHA of the PR.
+ - Never push directly to a protected branch; use the PR merge mechanism after authorization.
+ - For partial delivery, propose updating the issue; do not change it without authorization.
 
-### 8. ENCERRAR COM SEGURANÇA
-- Informe `git status` e deixe mudanças não relacionadas intactas.
-- Remova somente artefatos temporários criados nesta tarefa e apenas com autorização.
-- Não remova worktree, não faça stash e não descarte alterações como etapa automática.
+### 8. END SAFELY
+- Enter `git status` and leave unrelated changes intact.
+- Only remove temporary artifacts created in this task and only with authorization.
+- Do not remove worktree, do not stash and do not discard changes as an automatic step.
 
-### 9. PRÓXIMA TASK
-- Atualize `TRACKING.md` (status, contagem de testes, NEXT → DONE).
-- Verifique se a issue foi fechada (ou parcialmente atualizada).
-- Não escolha nem inicie uma nova task sem solicitação do usuário.
-- Comece o próximo ciclo de PLANEJAMENTO.
+### 9. NEXT TASK
+- Update `TRACKING.md` (status, test count, NEXT → DONE).
+- Check if the issue has been closed (or partially updated).
+- Do not choose or start a new task without a user request.
+- Start the next PLANNING cycle.
 
-## Resumo rápido
+## Quick summary
 
-- Planejar primeiro.
-- Criar ou atualizar issue somente quando solicitado.
-- Implementar com foco mínimo viável.
-- Testar antes de commitar.
-- Propor commit, PR ou merge com alvo e evidências; executar apenas com autorização.
-- Preservar a árvore de trabalho e encerrar reportando seu estado.
+- Plan first.
+- Create or update issue only when requested.
+- Implement with minimum viable focus.
+- Test before committing.
+- Propose commit, PR or merge with target and evidence; execute only with authorization.
+- Preserve the working tree and close by reporting its status.

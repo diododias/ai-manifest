@@ -8,30 +8,30 @@ source: RESEARCH-001
 updated_at: 2026-08-08
 ---
 
-# Recuperação do pagamento
+# Payment recovery
 
-## Estados
+## States
 
-- **Processando:** bloqueia reenvio acidental e anuncia progresso.
-- **Sucesso:** confirma resultado e próximo passo.
-- **Falha recuperável:** explica a ação segura disponível.
-- **Resultado indeterminado:** não afirma falha; oferece consulta e orientação.
-- **Conflito:** informa que a tentativa não corresponde à operação original e orienta retorno seguro.
+- **Processing:** blocks accidental resending and announces progress.
+- **Success:** confirms result and next step.
+- **Recoverable Fault:** explains the safe action available.
+- **Indeterminate result:** does not state failure; offers consultation and guidance.
+- **Conflict:** informs that the attempt does not correspond to the original operation and advises a safe return.
 
-## Conteúdo
+## Content
 
-Usar termos compreensíveis e validados; não expor chave técnica, stack trace ou estado interno do provedor.
+Use understandable and validated terms; do not expose the technical key, stack trace or internal state of the provider.
 
-## Acessibilidade
+## Accessibility
 
-- mudança de estado anunciada sem mover foco inesperadamente;
-- operação completa por teclado;
-- progresso e resultado não dependem apenas de cor;
-- mensagens associadas semanticamente ao pagamento e à ação.
+- state change announced without moving focus unexpectedly;
+- full keyboard operation;
+- progress and results do not depend only on color;
+- messages semantically associated with payment and action.
 
-## Critérios de UX
+## UX criteria
 
-- [ ] Usuário distingue processamento, sucesso e estado indeterminado.
-- [ ] Retry seguro preserva contexto e evita operação duplicada.
-- [ ] Falhas oferecem próxima ação compreensível.
-- [ ] Fluxo atende aos requisitos de teclado, foco e anúncio.
+- [ ] User distinguishes processing, success and indeterminate state.
+- [ ] Safe retry preserves context and avoids duplicate operation.
+- [ ] Failures provide understandable next action.
+- [ ] Flow meets keyboard, focus and ad requirements.

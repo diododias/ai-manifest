@@ -1,144 +1,144 @@
-# 01 — Papéis
+#01 — Papers
 
-> Quem é dono de qual decisão, quem precisa ser consultado, e o que se faz quando dois donos discordam.
+> Who owns which decision, who needs to be consulted, and what to do when two owners disagree.
 
-Um modelo com agentes multiplica a quantidade de decisões tomadas por unidade de tempo. Se a titularidade dessas decisões não for explícita, o efeito não é paralisia — é algo pior: **decisões passam a ser tomadas por omissão**, dentro de artefatos, por quem estava ali no momento. Esta página existe para que nenhuma decisão fique parada esperando consenso e nenhuma seja tomada sem responsável nominal.
+A model with agents multiplies the number of decisions made per unit of time. If the ownership of these decisions is not explicit, the effect is not paralysis — it is something worse: **decisions start to be made by omission**, within artifacts, by whoever was there at the time. This page exists so that no decision remains idle waiting for consensus and none is taken without a nominal person responsible.
 
-A distinção de partida é entre executar e dirigir. O trio humano não tenta fazer manualmente o trabalho dos agentes; ele opera o sistema que o faz.
+The starting distinction is between executing and directing. The human trio does not attempt to do the agents' work manually; he operates the system that does it.
 
 ---
 
-## Os quatro atores
+## The four actors
 
-| Ator | Dirige | Não responde por |
+| Actor | Drives | Does not respond for |
 |---|---|---|
-| **Product Manager** | valor, prioridade e resultado de negócio | arquitetura, desenho da experiência |
-| **UX** | entendimento do usuário, experiência e qualidade de uso | prioridade de negócio, escolha de arquitetura |
-| **Tech Lead** | viabilidade, arquitetura, qualidade técnica e risco operacional | valor de negócio, decisão de experiência |
-| **Agentes** | pesquisa, proposta, implementação, crítica, validação e documentação | qualquer decisão de valor, escopo ou exceção |
-| **Automações** | verificações determinísticas, bloqueios e rastreabilidade | julgamento sobre o que fazer com uma falha |
+| **Product Manager** | value, priority and business results | architecture, experience design |
+| **UX** | user understanding, experience and quality of use | business priority, architecture choice |
+| **Tech Lead** | feasibility, architecture, technical quality and operational risk | business value, experience decision |
+| **Agents** | research, proposal, implementation, criticism, validation and documentation | any value, scope or exception decision |
+| **Automations** | deterministic checks, blocking and traceability | judgment about what to do with a failure |
 
-As três primeiras linhas descrevem pessoas; as duas últimas, capacidade. A separação importa porque **agentes e automações não têm titularidade** — eles preparam, executam e comprovam. Quando um agente parece ter decidido algo relevante, ou a decisão era de fato mecânica, ou o contrato dele está mal desenhado.
+The first three lines describe people; the last two, capacity. Separation matters because **agents and automations do not have ownership** — they prepare, execute and prove. When an agent appears to have decided something relevant, either the decision was in fact mechanical, or their contract is poorly designed.
 
-### Product Manager — dono do valor e da prioridade
+### Product Manager — owner of value and priority
 
-Responde por "vale a pena construir isto, agora, para este resultado?". Mantém objetivos e roadmap, ordena o backlog por valor, urgência, risco e aprendizado, e **formula o problema antes de comprometer uma solução**. Na operação diária, decide avançar, ajustar, adiar ou encerrar um item, homologa valor com stakeholders e ordena as melhorias que a telemetria produz.
+Answer by "is it worth building this, now, for this result?". Maintains objectives and roadmap, orders the backlog by value, urgency, risk and learning, and **formulates the problem before committing to a solution**. In daily operations, it decides to advance, adjust, postpone or close an item, approves value with stakeholders and orders the improvements that telemetry produces.
 
-Opera os agentes de intake, discovery, planejamento e validação de produto — [📥 Intake](../agentes/intake-agent.md), [📋 Product Manager](../agentes/product-manager-agent.md), [🥊 Adversarial PM](../agentes/adversarial-product-manager-agent.md) e [✅ Product Validation](../agentes/product-validation-agent.md).
+Operates the product intake, discovery, planning and validation agents — [📥 Intake](../agentes/intake-agent.md), [📋 Product Manager](../agentes/product-manager-agent.md), [🥊 Adversarial PM](../agentes/adversarial-product-manager-agent.md) and [✅ Product Validation](../agentes/product-validation-agent.md).
 
-**O que não é exclusividade do PM:** desenhar sozinho a experiência, definir solução técnica, aprovar exceção técnica sem o Tech Lead, ou substituir evidência de usuário por opinião de stakeholder.
+**What is not exclusive to the PM:** designing the experience alone, defining a technical solution, approving a technical exception without the Tech Lead, or replacing user evidence with stakeholder opinion.
 
-### UX — dono da experiência e da evidência sobre o usuário
+### UX — owner of the experience and evidence about the user
 
-Responde por "isto resolve o problema de quem vai usar, e resolve bem?". Planeja pesquisa proporcional ao risco, mapeia jornadas e pontos de fricção, e especifica os estados nominal, vazio, carregando, erro, permissão e recuperação — o conjunto que costuma ser esquecido e reaparece como retrabalho três etapas depois.
+Answer by "does this solve the problem of whoever is going to use it, and does it solve it well?". Plan risk-proportional search, map journeys and friction points, and specify nominal, empty, loading, error, allow, and recovery states — the set that is often forgotten and reappears as rework three steps later.
 
-Opera a [🧭 UX Specification](../agentes/ux-specification-agent.md) e participa da crítica de produto.
+Operates the [🧭 UX Specification](../agentes/ux-specification-agent.md) and participates in product reviews.
 
-**O que não é exclusividade do UX:** definir prioridade de negócio, escolher arquitetura, ou aprovar escopo sozinho.
+**What is not exclusive to UX:** define business priorities, choose architecture, or approve scope alone.
 
-### Tech Lead — dono da integridade técnica e do risco operacional
+### Tech Lead — owner of technical integrity and operational risk
 
-Responde por "isto é viável, sustentável e seguro de operar?". Define arquitetura, contratos e fronteiras, estabelece padrões de qualidade e observabilidade, e classifica risco. Também **mantém o harness** — as rules, skills, sensors e gates que tornam o repositório compreensível e seguro para agentes. É a única titularidade que recai sobre o próprio sistema de trabalho, e não sobre o produto.
+It answers by “is this viable, sustainable and safe to operate?”. Defines architecture, contracts and boundaries, establishes quality and observability standards, and classifies risk. It also **maintains the harness** — the rules, skills, sensors and gates that make the repository understandable and safe for agents. It is the only ownership that falls on the work system itself, and not on the product.
 
-Opera os agentes de especificação, implementação, revisão, segurança e operação — de [📐 Specification Tech Lead](../agentes/specification-tech-lead-agent.md) a [🚀 Release](../agentes/release-agent.md).
+Operates the specification, implementation, review, security, and operation agents — from [📐 Specification Tech Lead](../agentes/specification-tech-lead-agent.md) to [🚀 Release](../agentes/release-agent.md).
 
-**O que não é exclusividade do Tech Lead:** definir valor de negócio, decidir experiência, ou absorver sozinho decisão de escopo.
+**What is not exclusive to the Tech Lead:** define business value, decide experience, or absorb scope decisions alone.
 
-### Responsabilidade compartilhada
+### Shared responsibility
 
-Os três respondem conjuntamente pela qualidade do problema antes da solução, pela coerência entre valor, experiência e viabilidade, por riscos explícitos e decisões rastreáveis, pela proteção dos dados e dos usuários, e pelo aprendizado após a entrega. Compartilhado aqui significa que **nenhum dos três pode aprovar sozinho** — não que a responsabilidade se dilua.
+The three jointly account for the quality of the problem before the solution, for the coherence between value, experience and feasibility, for explicit risks and traceable decisions, for the protection of data and users, and for learning after delivery. Shared here means that **none of the three can approve alone** — not that responsibility is diluted.
 
 ---
 
-## Direitos de decisão
+## Decision rights
 
-Referência para resolver "quem decide isto?". A coluna de evidência mínima é a parte operacional da tabela: uma decisão tomada sem ela é reversível por qualquer consultado.
+Reference to resolve "who decides this?". The minimum evidence column is the operational part of the table: a decision made without it is reversible by anyone consulted.
 
-| Decisão | Owner | Consultados | Evidência mínima |
+| Decision | Owner | Consulted | Minimal evidence |
 |---|---|---|---|
-| Prioridade e investimento | PM | UX + Tech Lead | valor, urgência, risco e custo de oportunidade |
-| Problema e outcome | PM | UX + Tech Lead | evidência do problema e métrica de resultado |
-| Jornada e experiência | UX | PM + Tech Lead | pesquisa, fluxo, protótipo e critérios de UX |
-| Escopo da entrega | PM | UX + Tech Lead | outcome, capacidade, dependências e riscos |
-| Arquitetura e implementação | Tech Lead | PM + UX | alternativas, trade-offs, risco e validação |
-| Exceção arquitetural | Tech Lead | owner afetado | ADR, prazo, consequência e plano de reversão |
-| Aceite de produto | PM | UX + stakeholder | critérios de produto e evidências de homologação |
-| Aceite de experiência | UX | PM + Tech Lead | critérios de UX, acessibilidade e validação |
-| Merge e release | Tech Lead, por política | PM + UX conforme risco | CI, evidence pack, plano de rollout e rollback |
-| Exposição de risco R3/R4 | PM + Tech Lead | UX quando houver impacto ao usuário | impacto, mitigação, observabilidade e rollback |
-| Prioridade de melhoria do sistema | owner do domínio; PM ordena o backlog | trio | telemetria, frequência, impacto e esforço |
-| Mudança de gate | Tech Lead + revisor independente | PM e UX se afetados | falsos positivos, risco coberto e plano de adoção |
+| Priority and investment | PM | UX + Tech Lead | value, urgency, risk and opportunity cost |
+| Problem and outcome | PM | UX + Tech Lead | problem evidence and outcome metrics |
+| Journey and experience | UX | PM + Tech Lead | research, flow, prototype and UX criteria |
+| Scope of delivery | PM | UX + Tech Lead | outcome, capacity, dependencies and risks |
+| Architecture and implementation | Tech Lead | PM + UX | alternatives, trade-offs, risk and validation |
+| Architectural exception | Tech Lead | affected owner | ADR, term, consequence and reversal plan |
+| Product acceptance | PM | UX + stakeholder | product criteria and approval evidence |
+| Experience acceptance | UX | PM + Tech Lead | UX, accessibility and validation criteria |
+| Merge and release | Tech Lead, by policy | PM + UX according to risk | CI, evidence pack, rollout and rollback plan |
+| Risk exposure R3/R4 | PM + Tech Lead | UX when there is an impact on the user | impact, mitigation, observability and rollback |
+| System improvement priority | domain owner; PM sorts the backlog | threesome | telemetry, frequency, impact and effort |
+| Gate change | Tech Lead + independent reviewer | PM and UX if affected | false positives, covered risk and adoption plan |
 
-Duas leituras dessa tabela merecem destaque. **Mudança de gate exige revisor independente** — é a única linha em que o owner não decide sozinho dentro do próprio domínio, porque relaxar a verificação que avalia o próprio trabalho é o caminho mais curto para a ausência de verificação. E **exposição de risco alto tem dois owners**, deliberadamente: nem o produto nem a técnica podem expor o usuário sozinhos.
+Two readings of this table are worth highlighting. **Gate change requires independent reviewer** — it is the only line in which the owner does not decide alone within the domain itself, because relaxing the verification that evaluates the work itself is the shortest path to the absence of verification. And **high risk exposure has two owners**, deliberately: neither the product nor the technique can expose the user alone.
 
 ---
 
-## Regra de desempate
+## Tiebreaker rule
 
-Quando a discussão trava, o domínio decide.
+When the discussion stalls, the domain decides.
 
-| Assunto em disputa | Decide | Registro obrigatório |
+| Subject in dispute | Decide | Registration required |
 |---|---|---|
-| Valor, prioridade e outcome | PM | alternativa descartada e razão |
-| Experiência, usabilidade e acessibilidade | UX | evidência de usuário considerada |
-| Arquitetura, segurança e confiabilidade | Tech Lead | trade-off aceito e ADR quando estrutural |
+| Value, priority and outcome | PM | discarded alternative and reason |
+| Experience, usability and accessibility | UX | user evidence considered |
+| Architecture, security and reliability | Tech Lead | trade-off accepted and ADR when structural |
 
-Os três conflitos recorrentes seguem essa regra sem exceção:
+The three recurring conflicts follow this rule without exception:
 
-- **Escopo contra prazo** é do PM, que decide o que sai — não o que é feito pela metade.
-- **Experiência contra viabilidade** é resolvido pela adaptação consciente: o Tech Lead informa a restrição, o UX redesenha preservando o outcome, e o PM decide se o outcome reduzido ainda vale.
-- **Risco contra velocidade** é do Tech Lead quando o risco é técnico, e escala ao sponsor quando é irreversível, regulatório ou de grande alcance. **Risco dessa natureza não se resolve dentro do trio.**
+- **Scope versus deadline** belongs to the PM, who decides what comes out — not what is done halfway.
+- **Experience versus feasibility** is resolved by conscious adaptation: the Tech Lead informs the restriction, the UX redesigns preserving the outcome, and the PM decides whether the reduced outcome is still valid.
+- **Risk against speed** belongs to the Tech Lead when the risk is technical, and escalates to the sponsor when it is irreversible, regulatory or far-reaching. **Risk of this nature cannot be resolved within the trio.**
 
-O que não vale em nenhum dos casos: decidir por consenso silencioso. Um empate registrado como "seguimos assim" sem owner nominal reaparece como retrabalho na primeira contestação.
+Which is not valid in either case: deciding by silent consensus. A tie recorded as "we continue like this" without a nominal owner reappears as a rework in the first challenge.
 
 ---
 
-## Contratos de passagem
+## Pass-through contracts
 
-Cada seta entre papéis é um contrato, não uma conversa. O emissor entrega insumos definidos; o receptor devolve um resultado definido.
+Each arrow between papers is a contract, not a conversation. The issuer delivers defined inputs; the receiver returns a defined result.
 
-| De | Para | Entrega | Espera de volta |
+| From | To | Delivery | Wait back |
 |---|---|---|---|
-| PM | UX | problema, segmento, outcome, restrições e perguntas | evidência do usuário, jornada, fluxo e critérios de experiência |
-| PM | Tech Lead | problema, escopo candidato, métricas e restrições | viabilidade, riscos, dependências e opções técnicas |
-| UX | PM | evidências, necessidades, hipóteses e riscos de experiência | decisão de escopo e atualização do PRD |
-| UX | Tech Lead | fluxo, estados, conteúdo, acessibilidade e protótipo | contratos e estratégia de implementação compatíveis |
-| Tech Lead | PM | custo, riscos, dependências, alternativas e impacto operacional | decisão de investimento, corte ou sequenciamento |
-| Tech Lead | UX | restrições de plataforma, latência, dados e componentes existentes | adaptação consciente da experiência sem perder o outcome |
-| Trio | agentes | artefato aprovado, critérios, gates, risco e permissões | mudança executada, validada, documentada e evidenciada |
-| Agentes | trio | evidence pack, divergências e decisões pendentes | aprovação, correção, adiamento ou escalonamento |
+| PM | UX | problem, segment, outcome, restrictions and questions | user evidence, journey, flow and experience criteria |
+| PM | Tech Lead | problem, candidate scope, metrics and constraints | feasibility, risks, dependencies and technical options |
+| UX | PM | evidence, needs, hypotheses and experience risks | PRD scope and update decision |
+| UX | Tech Lead | flow, states, content, accessibility and prototype | compatible contracts and implementation strategy |
+| Tech Lead | PM | cost, risks, dependencies, alternatives and operational impact | investment decision, cut or sequencing |
+| Tech Lead | UX | existing platform, latency, data and component constraints | conscious adaptation of the experience without losing the outcome |
+| Threesome | agents | approved artifact, criteria, gates, risk and permissions | change executed, validated, documented and evidenced |
+| Agents | threesome | evidence pack, disagreements and pending decisions | approval, correction, postponement or escalation |
 
-### Definition of Ready para execução agentica
+### Definition of Ready for agentic execution
 
-Um item só entra em execução por agentes quando **problema e usuário estão explícitos, outcome e métrica definidos, owner humano conhecido, escopo e fora de escopo claros**, fluxo e estados de UX suficientes para a tarefa, contratos e restrições técnicas suficientes, critérios de aceite verificáveis, classe de risco e gates definidos, acessos autorizados e dúvidas críticas resolvidas ou assumidas de forma explícita.
+An item is only executed by agents when **problem and user are explicit, outcome and metrics are defined, human owner is known, scope and out-of-scope are clear**, UX flow and states sufficient for the task, sufficient contracts and technical restrictions, verifiable acceptance criteria, risk class and gates defined, authorized access and critical queries resolved or explicitly assumed.
 
-Despachar sem isso não acelera a entrega: transfere a ambiguidade para dentro da execução, onde ela custa uma volta externa para ser descoberta.
+Dispatching without this does not speed up delivery: it transfers the ambiguity into execution, where it costs an external turn to be discovered.
 
-### Definition of Done do ciclo
+### Definition of Done of the cycle
 
-O ciclo fecha quando critérios de produto, UX e engenharia estão cobertos; testes e gates obrigatórios aprovados; impacto arquitetural avaliado; riscos e limitações conhecidos; documentação e fontes canônicas atualizadas; aprovações identificadas; backlog, commits, PR, release e telemetria vinculados; rollout observado sem regressão relevante ou com plano de correção; e aprendizados encaminhados ao loop correto.
+The cycle closes when product, UX and engineering criteria are covered; approved mandatory tests and gates; assessed architectural impact; known risks and limitations; updated documentation and canonical sources; approvals identified; linked backlog, commits, PR, release and telemetry; rollout observed without relevant regression or correction plan; and learnings forwarded to the correct loop.
 
 ---
 
-## Agentes e seus patrocinadores
+## Agents and their sponsors
 
-Todo agente tem um humano que responde pelo que ele produz. A tabela serve para a pergunta inversa da mais comum: não "o que este agente faz", que está em [`agentes/`](../agentes/README.md), mas **"quando isto der errado, quem é chamado?"**.
+Every agent has a human who is responsible for what they produce. The table serves the opposite of the most common question: not "what does this agent do", which is in [`agentes/`](../agentes/README.md), but **"when this goes wrong, who gets called?"**.
 
-| Humano | Patrocina | Loops correspondentes |
+| Human | Sponsor | Matching loops |
 |---|---|---|
 | **PM** | Intake, Product Manager, Adversarial PM, Meeting Context, Product Validation | [🚦 Triage](../loops/00-intake-and-triage.md), [🔦 Scout](../loops/01-discovery-and-research.md), [🎨 Studio](../loops/02-product-and-ux-planning.md), [🎭 Rehearsal](../loops/07-release-candidate-validation.md) |
 | **UX** | UX Specification | [🔦 Scout](../loops/01-discovery-and-research.md), [🎨 Studio](../loops/02-product-and-ux-planning.md) |
-| **Tech Lead** | Tech Lead Discovery, Specification TL, Adversarial TL, Orchestrator, Software Engineer, QA, Security Review, Architecture Review, Adversarial Code Reviewer, PR, Release, Observability | [🗺️ Drafting](../loops/03-technical-specification.md) a [🐤 Canary](../loops/08-production-release-and-observation.md) |
+| **Tech Lead** | Tech Lead Discovery, Specification TL, Adversarial TL, Orchestrator, Software Engineer, QA, Security Review, Architecture Review, Adversarial Code Reviewer, PR, Release, Observability | [🗺️ Drafting](../loops/03-technical-specification.md) to [🐤 Canary](../loops/08-production-release-and-observation.md) |
 | **Trio** | Knowledge, Telemetry, Auto Dream, Critic | [🗄️ Archivist](../loops/09-knowledge-curation.md), [🌙 Dream](../loops/10-continuous-improvement.md), [☀️ Daily](../loops/11-daily-operations.md) |
 
 ---
 
-## O antipadrão
+## The antipattern
 
-**Decisão sem responsável nominal.** O sintoma é reconhecível: existe um artefato aprovado que ninguém consegue explicar — a razão de uma escolha não está no ADR, não está no PRD e não está na cabeça de nenhuma das três pessoas. Isso quase sempre nasce de um consenso implícito em uma etapa anterior, onde o owner correto não foi chamado.
+**Decision with no nominal person responsible.** The symptom is recognizable: there is an approved artifact that no one can explain — the reason for a choice is not in the ADR, it is not in the PRD and it is not in the heads of any of the three people. This almost always arises from an implicit consensus at a previous stage, where the correct owner was not called.
 
-A correção não é retroativa. Uma decisão sem dono é reaberta com o owner correto, e o custo dessa reabertura é a métrica que mostra se a matriz de direitos de decisão está sendo usada.
+The correction is not retroactive. An unowned decision is reopened with the correct owner, and the cost of this reopening is the metric that shows whether the decision rights matrix is ​​being used.
 
 ---
 
-*Anterior: [Índice da metodologia](README.md) · Próximo: [Checkpoints humanos](02-checkpoints-humanos.md).*
+*Previous: [Methodology Index](README.md) · Next: [Human Checkpoints](02-checkpoints-humanos.md).*

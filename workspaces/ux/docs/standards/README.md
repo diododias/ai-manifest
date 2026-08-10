@@ -1,6 +1,6 @@
-# Padrões de UX
+# UX Patterns
 
-- [`research.md`](research.md): qualidade e ética da evidência;
-- [`accessibility.md`](accessibility.md): requisitos mínimos;
-- [`content.md`](content.md): clareza e consistência;
-- [`interaction.md`](interaction.md): estados e recuperação.
+- [`research.md`](research.md): quality and ethics of evidence;
+- [`accessibility.md`](accessibility.md): minimum requirements;
+- [`content.md`](content.md): clarity and consistency;
+- [`interaction.md`](interaction.md): states and recovery.

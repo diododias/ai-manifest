@@ -1,5 +1,5 @@
-# Projetos de produto
+# Product designs
 
-- [`checkout/`](checkout/README.md): projeto fictício compartilhado pelos exemplos dos três papéis.
+- [`checkout/`](checkout/README.md): fictional project shared by the examples of the three roles.
 
-Cada projeto concentra sua estratégia, discovery, requisitos, roadmap, trabalho e decisões de produto.
+Each project focuses on its strategy, discovery, requirements, roadmap, work and product decisions.

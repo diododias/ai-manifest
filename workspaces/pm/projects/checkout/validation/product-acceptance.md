@@ -1,11 +1,11 @@
-# Aceite de produto
+# Product acceptance
 
 Status: `pending`.
 
-| Critério | Evidência | Estado |
+| Criterion | Evidence | Status |
 |---|---|---|
-| Repetição não cria nova cobrança | aguardando evidence pack técnico | pending |
-| Resultado é compreensível e recuperável | aguardando validação de UX | pending |
-| Guardrails foram respeitados | aguardando métricas de validação | pending |
+| Repetition does not create a new charge | awaiting technical evidence pack | pending |
+| Result is understandable and recoverable | awaiting UX validation | pending |
+| Guardrails were respected | waiting for validation metrics | pending |
 
-Ausência de evidência não equivale a aprovação.
+Absence of evidence does not equate to approval.

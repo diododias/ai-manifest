@@ -1,4 +1,4 @@
 interface:
-  display_name: "Review Spec"
+  display_name: "ReviewSpec"
   short_description: "Help with Review Spec tasks"
   default_prompt: "Use $review-spec to handle the requested task."

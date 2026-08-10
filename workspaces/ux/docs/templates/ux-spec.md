@@ -6,20 +6,20 @@ owner: ux
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Experiência>
+# <Experience>
 
-## Evidência, hipótese e princípio
+## Evidence, hypothesis and principle
 
-<Origem das decisões.>
+<Origin of decisions.>
 
-## Jornada, fluxo e estados
+## Journey, flow and states
 
-<Entrada, sucesso, loading, vazio, erro, permissão e recuperação.>
+<Input, success, loading, empty, error, permission and recovery.>
 
-## Conteúdo e acessibilidade
+## Content and accessibility
 
-<Textos, semântica, teclado, foco e requisitos.>
+<Texts, semantics, keyboard, focus and requirements.>
 
-## Critérios de UX
+## UX criteria
 
-- [ ] <Critério observável>
+- [ ] <Observable criterion>

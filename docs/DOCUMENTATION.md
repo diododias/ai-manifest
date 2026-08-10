@@ -1,79 +1,79 @@
 # Documentation
 
-A camada de documentação do harness cobre três componentes distintos: o `AGENTS.md` como contrato de entrada, os ADRs como registro de decisões, e o evidence pack como rastro auditável de execução.
+The harness documentation layer covers three distinct components: the `AGENTS.md` as an input contract, the ADRs as a record of decisions, and the evidence pack as an auditable trail of execution.
 
-## `docs/adr/` — Registros de Decisão de Arquitetura
+## `docs/adr/` — Architectural Decision Records
 
-ADRs (Architecture Decision Records) registram as decisões tomadas, não a regra vigente. Essa distinção é fundamental: a rule em `architecture.md` diz "módulos de domínio não importam de infraestrutura"; o ADR correspondente diz por que essa decisão foi tomada, o que foi considerado, e o que ela custa.
+ADRs (Architecture Decision Records) record the decisions made, not the current rule. This distinction is fundamental: the rule in `architecture.md` says "domain modules do not matter infrastructure"; the corresponding ADR says why that decision was made, what was considered, and what it costs.
 
-Um agente que lê apenas rules sabe o que fazer. Um agente que também lê ADRs sabe por que — e decide corretamente no caso de borda que a rule não previu.
+An agent that only reads rules knows what to do. An agent that also reads ADRs knows why — and decides correctly in the case of an edge that the rule did not predict.
 
-O template para criação de novos ADRs está em [`templates/tech-lead/adr.md`](../templates/tech-lead/adr.md).
+The template for creating new ADRs is at [`templates/tech-lead/adr.md`](../templates/tech-lead/adr.md).
 
-## `docs/evidence/` — O rastro auditável
+## `docs/evidence/` — The auditable trail
 
-O evidence pack existe para que a aprovação de uma mudança seja baseada em fatos verificáveis, não na impressão que o resumo do agente causou.
+The evidence pack exists so that the approval of a change is based on verifiable facts, not on the impression that the agent's summary made.
 
-Cada unidade de trabalho gera seu próprio diretório em `docs/evidence/<work-item>/`. A estrutura mínima:
+Each unit of work generates its own directory in `docs/evidence/<work-item>/`. The minimum structure:
 
 ```
 docs/evidence/<work-item>/
-├── summary.md          # o que foi feito, o que foi verificado
-├── verify-output.txt   # saída completa do scripts/verify.sh
-├── test-results/       # artefatos dos testes executados
-└── open-items.md       # o que permanece em aberto e por quê
+├── summary.md # what was done, what was checked
+├── verify-output.txt # complete output of scripts/verify.sh
+├── test-results/ # artifacts of executed tests
+└── open-items.md # what remains open and why
 ```
 
-O teste prático de um evidence pack bem construído: **outra pessoa consegue refazer a verificação sem perguntar nada a quem o produziu?** Se precisa de contexto adicional, o que existe ainda é um resumo, não evidência.
+The practical test of a well-constructed evidence pack: **can someone else redo the verification without asking anyone who produced it?** If additional context is needed, what exists is still a summary, not evidence.
 
-O evidence pack deve ser gerado automaticamente pelo script `scripts/evidence.sh`, e não montado manualmente pelo agente ao final da tarefa. Evidência manual é seletiva por natureza.
+The evidence pack must be generated automatically by the `scripts/evidence.sh` script, and not manually assembled by the agent at the end of the task. Manual evidence is selective in nature.
 
-## A estrutura completa de arquivos
+## The complete file structure
 
-Um repositório em nível HL3 — o alvo de maturidade plena — apresenta a seguinte estrutura:
+An HL3 level repository — the full maturity target — has the following structure:
 
 ```text
-<repositório>/
-├── AGENTS.md                      # contrato de entrada do agente
-├── README.md                      # uso humano: rodar, buildar, contribuir
+<repository>/
+├── AGENTS.md # agent entry contract
+├── README.md # human use: run, build, contribute
 │
 ├── docs/
-│   ├── rules/
-│   │   ├── architecture.md        # módulos, fronteiras, dependências permitidas
-│   │   ├── coding.md              # convenções, padrões aceitos e proibidos
-│   │   ├── testing.md             # níveis obrigatórios por tipo de mudança
-│   │   ├── security.md            # dados, secrets, autenticação, privacidade
-│   │   └── operations.md          # SLOs, observabilidade, rollout, rollback
-│   ├── adr/
-│   │   └── ADR-NNN-<slug>.md      # decisões e consequências
-│   └── evidence/
-│       └── <work-item>/           # evidence pack por unidade de trabalho
+│ ├── rules/
+│ │ ├── architecture.md # modules, boundaries, allowed dependencies
+│ │ ├── coding.md # conventions, accepted and prohibited standards
+│ │ ├── testing.md # required levels per change type
+│ │ ├── security.md # data, secrets, authentication, privacy
+│ │ └── operations.md # SLOs, observability, rollout, rollback
+│ ├── adr/
+│ │ └── ADR-NNN-<slug>.md # decisions and consequences
+│ └── evidence/
+│ └── <work-item>/ # evidence pack per work unit
 │
 ├── skills/
-│   └── <skill>/SKILL.md           # procedimentos executáveis do repo
+│ └── <skill>/SKILL.md # executable procedures from repo
 │
 ├── .agent/
-│   ├── settings.json              # tools permitidas, limites, modelos
-│   ├── mcps.json                  # servidores MCP autorizados e escopos
-│   └── permissions.md             # o que exige humano neste repositório
+│ ├── settings.json # allowed tools, limits, templates
+│ ├── mcps.json # authorized MCP servers and scopes
+│ └── permissions.md # what requires human in this repository
 │
 ├── scripts/
-│   ├── verify.sh                  # entrada única das verificações locais
-│   └── evidence.sh                # coleta e empacota evidência
+│ ├── verify.sh # single entry of local checks
+│ └── evidence.sh # collects and packages evidence
 │
-├── .hooks/                        # sensors versionados (pre-commit, pre-push)
-└── .ci/                           # fast lane e deep lane
+├── .hooks/ # versioned sensors (pre-commit, pre-push)
+└── .ci/ # fast lane and deep lane
 ```
 
-Repositórios em HL1 ou HL2 contêm subconjuntos dessa árvore. Os níveis de maturidade definem qual subconjunto é suficiente para cada patamar de autonomia.
+Repositories in HL1 or HL2 contain subsets of this tree. Maturity levels define which subset is sufficient for each level of autonomy.
 
-## O que cada arquivo carrega
+## What each file carries
 
-| Arquivo | Carrega | Não carrega |
+| Archive | Load | Does not load |
 |---|---|---|
-| `AGENTS.md` | como operar o repo, comandos, quando parar | arquitetura detalhada, histórico de decisões |
-| `docs/rules/*.md` | a regra e o motivo dela | instruções de execução passo a passo |
-| `docs/adr/` | por que a decisão foi tomada e o que custa | a regra vigente resultante |
-| `skills/<skill>/SKILL.md` | passo a passo verificável de uma tarefa recorrente | conhecimento geral sobre o domínio |
-| `.agent/permissions.md` | o que exige autorização humana | política de risco global do time |
-| `.agent/mcps.json` | servidores MCP autorizados e escopos permitidos | credenciais ou configuração de ambiente |
+| `AGENTS.md` | how to operate the repo, commands, when to stop | detailed architecture, decision history |
+| `docs/rules/*.md` | the rule and the reason for it | step-by-step execution instructions |
+| `docs/adr/` | why the decision was made and what it costs | the resulting current rule |
+| `skills/<skill>/SKILL.md` | verifiable walkthrough of a recurring task | general knowledge about the domain |
+| `.agent/permissions.md` | what requires human authorization | team's global risk policy |
+| `.agent/mcps.json` | authorized MCP servers and permitted scopes | credentials or environment configuration |

@@ -1,60 +1,60 @@
 ---
-title: Workflow 07 — homologação do release candidate
+title: Workflow 07 — release candidate approval
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 07 — homologação do release candidate
+# Workflow 07 — release candidate approval
 
-> Bloco executável do [🎭 Rehearsal Loop](../docs/loops/07-release-candidate-validation.md): prova em ambiente representativo que o artefato integrado entrega o comportamento de produto e experiência aprovado.
+> [🎭 Rehearsal Loop](../docs/loops/07-release-candidate-validation.md) executable block: proves in a representative environment that the integrated artifact delivers the approved product and experience behavior.
 
-Homologação não repete code review. Ela compara promessa e realidade usando o mesmo artefato imutável que pode chegar à produção. Release Agent prepara e comprova o ambiente; Product Validation Agent consolida a matriz de aceite; PM e UX mantêm a decisão humana.
+Approval does not repeat code review. It compares promise and reality using the same immutable artifact that can make it into production. Release Agent prepares and checks the environment; Product Validation Agent consolidates the acceptance matrix; PM and UX keep the decision human.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada identifica exatamente o release candidate, ambiente, dados, critérios e evidências. Cada diferença é classificada como defeito, gap de escopo/experiência, limitação de ambiente ou risco aceito; nenhuma ausência vira aprovação informal.
+A closed run exactly identifies the release candidate, environment, data, criteria, and evidence. Each difference is classified as a defect, scope/experience gap, environment limitation or accepted risk; no absence becomes informal approval.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | critérios de produto/UX executados em ambiente representativo |
-| **Agentes** | Release provou proveniência/ambiente; Product Validation consolidou sem dar aceite humano |
-| **Workspaces** | PM, UX e Tech Lead persistiram evidências nos próprios domínios, ligados pelo RC/Work Item |
-| **Artefato** | digest/versão homologada é a mesma promovível a produção; não houve rebuild |
-| **Decisão** | owners aceitaram RC ou registraram retorno/pendência com owner e prazo |
+| **Loop** | product/UX criteria executed in a representative environment |
+| **Agents** | Release has proven provenance/environment; Product Validation consolidated without giving human acceptance |
+| **Workspaces** | PM, UX and Tech Lead persisted evidence in their own domains, linked by RC/Work Item |
+| **Artifact** | digest/approved version is the same as the one eligible for production; there was no rebuild |
+| **Decision** | owners accepted RC or registered return/pending with owner and deadline |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 7 — release e operação |
-| **Unidade de execução** | um release candidate imutável identificado por `release_candidate_id` e digest |
-| **Consolida** | [Product Validation Agent](../agents/product-validation-agent/AGENT.md) |
-| **Prepara ambiente** | [Release Agent](../agents/release-agent/AGENT.md) |
-| **Owners humanos** | PM para valor; UX para experiência; stakeholder apenas quando definido no critério |
-| **Entrada** | artefato integrado, PRD, UX spec, critérios, ambiente, dados seguros, risco e evidências técnicas |
-| **Saída** | relatório/matriz de homologação, evidências de ambiente, demo e RC aprovado/devolvido |
-| **Gate de conteúdo** | cada critério validado ou classificado com plano explícito; diferenças e limitações registradas |
-| **Gate do bloco** | conteúdo + proveniência imutável + ambiente/dados comprovados + estado multiworkspace + decisão humana |
-| **Volta dominante** | externa — defeito volta ao Ralph; gap de escopo/UX volta ao Studio |
-| **Próximo workflow** | [08 — produção e observação](08-production-release-and-observation.md) |
+| **Step** | 7 — release and operation |
+| **Execution unit** | an immutable release candidate identified by `release_candidate_id` and digest |
+| **Consolidates** | [Product Validation Agent](../agents/product-validation-agent/AGENT.md) |
+| **Prepares environment** | [Release Agent](../agents/release-agent/AGENT.md) |
+| **Human Owners** | PM for value; UX for experience; stakeholder only when defined in the criteria |
+| **Input** | integrated artifact, PRD, UX spec, criteria, environment, secure data, risk and technical evidence |
+| **Exit** | approval report/matrix, environmental evidence, demo and approved/returned RC |
+| **Content gate** | each criterion validated or classified with an explicit plan; differences and limitations recorded |
+| **Block Gate** | content + immutable provenance + proven environment/data + multiworkspace state + human decision |
+| **Dominant lap** | external — defect returns to Ralph; scope/UX gap returns to Studio |
+| **Next workflow** | [08 — production and observation](08-production-release-and-observation.md) |
 
 ---
 
-## Preflight do release candidate
+## Release candidate preflight
 
-1. Resolver Work Item, PR/merge, release candidate, versão/digest, origem e assinatura quando aplicável.
-2. Provar que o candidato foi produzido do commit integrado e que o mecanismo de promoção não exige rebuild.
-3. Resolver PRD e UX spec aprovados, critérios e revisões usadas no Gatekeeper.
-4. Preparar manifest do ambiente: versão, configuração relevante, dependências, flags, migrações e diferenças conhecidas em relação à produção.
-5. Provisionar dados sintéticos/anonimizados e permissões seguras; dados reais sensíveis não são copiados por conveniência.
-6. Definir matriz de execução, owners e condição de parada; ambiente ou critério insuficiente bloqueia antes do “aceite”.
-7. Criar `mission_id` comum e pastas de evidência nos três workspaces.
+1. Resolve Work Item, PR/merge, release candidate, version/digest, source and signature when applicable.
+2. Prove that the candidate was produced from the integrated commit and that the promotion mechanism does not require rebuild.
+3. Resolve approved PRD and UX spec, criteria and reviews used in Gatekeeper.
+4. Prepare environment manifest: version, relevant configuration, dependencies, flags, migrations and known differences in relation to production.
+5. Provision synthetic/anonymized data and secure permissions; Sensitive real data is not copied for convenience.
+6. Define execution matrix, owners and stopping condition; Insufficient environment or criteria blocks before “accept”.
+7. Create common `mission_id` and evidence folders in the three workspaces.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "REHEARSAL-<id>"
@@ -78,126 +78,126 @@ stop_conditions: []
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[RC imutável + critérios] --> B[Release Agent<br/>proveniência, ambiente e dados]
-    B --> C1[Product Validation<br/>produto, smoke e E2E]
-    B --> C2[Product Validation<br/>UX, estados e acessibilidade]
-    C1 --> D[Consolidar matriz<br/>critério-evidência]
+TD flowchart
+    A[immutable RC + criteria] --> B[Release Agent<br/>provenance, environment and data]
+    B --> C1[Product Validation<br/>product, smoke and E2E]
+    B --> C2[Product Validation<br/>UX, states and accessibility]
+    C1 --> D[Consolidate matrix<br/>criterion-evidence]
     C2 --> D
-    D --> E{Diferenças?}
-    E -- defeito --> F[Ralph + Red Team + Gatekeeper]
-    E -- escopo/UX --> G[Studio Loop]
-    E -- ambiente --> H[Corrigir ambiente e repetir]
-    E -- nenhuma/bounded --> I[PM + UX decidem RC]
-    I -- aprovado --> J[Handoff ao Canary Loop]
+    D --> E{Differences?}
+    E -- defect --> F[Ralph + Red Team + Gatekeeper]
+    E -- scope/UX --> G[Studio Loop]
+    E -- environment --> H[Correct environment and repeat]
+    E -- none/bounded --> I[PM + UX decide RC]
+    I -- approved --> J[Handoff to Canary Loop]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — preparar RC | Release Agent | prova de proveniência, manifest de ambiente, dados e smoke de deploy |
-| M2 — validar produto | Product Validation Agent | outcome, requisitos, smoke/E2E e diferenças funcionais |
-| M3 — validar experiência | Product Validation Agent, consultando UX | fluxos, estados, conteúdo, acessibilidade e comparação visual quando aplicável |
-| M4 — consolidar | Product Validation Agent | matriz critério-evidência e classificação de diferenças |
-| M5 — demonstrar | Release + Product Validation | demo/gravação proporcional, sem substituir evidência |
-| M6 — decidir | PM e UX humanos | aprovar RC, devolver, aceitar pendência autorizada ou encerrar |
+| M1 — prepare RC | ReleaseAgent | proof of provenance, environment manifest, data and deployment smoke |
+| M2 — validate product | Product Validation Agent | outcome, requirements, smoke/E2E and functional differences |
+| M3 — validate experience | Product Validation Agent, consulting UX | flows, states, content, accessibility and visual comparison when applicable |
+| M4 — consolidate | Product Validation Agent | criterion-evidence matrix and classification of differences |
+| M5 — demonstrate | Release + Product Validation | proportional demo/recording, without replacing evidence |
+| M6 — decide | Human PM and UX | approve RC, return, accept authorized pending or close |
 
-M2 e M3 podem rodar em paralelo contra o mesmo RC/manifest, mas escrevem relatórios por domínio. A matriz consolidada referencia ambos e nunca escolhe silenciosamente entre critérios conflitantes.
+M2 and M3 can run in parallel against the same RC/manifest, but write reports per domain. The consolidated matrix references both and never silently chooses between conflicting criteria.
 
 ---
 
-## Proveniência e representatividade
+## Provenance and representation
 
-O gate verifica duas propriedades diferentes:
+The gate checks two different properties:
 
-| Propriedade | Prova mínima |
+| Property | Minimum proof |
 |---|---|
-| **imutabilidade** | digest, source commit e registro de build/promoção ligam merge → RC → futuro release |
-| **representatividade** | diferenças de config, dados, serviços, flags, migrações e escala estão enumeradas e avaliadas |
+| **immutability** | digest, source commit and build/promotion record link merge → RC → future release |
+| **representativeness** | differences in config, data, services, flags, migrations and scale are enumerated and evaluated |
 
-Um ambiente pode ser representativo sem ser idêntico; a diferença precisa ser conhecida e não invalidar o critério testado. Artefato reconstruído, “equivalente” por descrição ou sem digest não passa.
+An environment can be representative without being identical; the difference needs to be known and not invalidate the tested criterion. Reconstructed artifact, “equivalent” by description or without digest does not pass.
 
 ---
 
-## Classificação de diferenças
+## Classification of differences
 
-| Classe | Exemplo | Retorno |
+| Class | Example | Return |
 |---|---|---|
-| defeito de implementação | comportamento viola SPEC/critério aprovado | Ralph → Red Team → Gatekeeper → novo RC |
-| gap de produto | comportamento esperado nunca foi definido | Studio Loop / PM |
-| gap de experiência | estado, conteúdo ou recuperação ausente no baseline | Studio Loop / UX |
-| limitação de ambiente | integração/dado/config impede prova | Release Agent corrige ambiente; repetir somente critérios afetados |
-| risco residual conhecido | diferença aceita dentro de autoridade | decisão formal com owner, prazo e observação em produção |
+| implementation defect | behavior violates SPEC/approved criteria | Ralph → Red Team → Gatekeeper → new RC |
+| product gap | expected behavior was never defined | Studio Loop / PM |
+| experience gap | state, content or recovery missing from baseline | Studio Loop / UX |
+| environment limitation | integration/data/config prevents proof | Release Agent corrects environment; repeat only affected criteria |
+| known residual risk | difference accepted within authority | formal decision with owner, deadline and observation in production |
 
-Product Validation recomenda; não altera código, requisito ou UX para “fazer passar”.
+Product Validation recommends; does not change code, requirements or UX to “get it through”.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | Product Validation | `review-prd`, `review-cross-prd-spec`, `update-docs` |
-| Release Agent | `check-pr`, `update-pr`, `dev-flow`, `update-docs` |
+| ReleaseAgent | `check-pr`, `update-pr`, `dev-flow`, `update-docs` |
 
-Cada envelope registra `skills_used`. Product Validation recebe RC, critérios e links; Release recebe proveniência, ambiente e estratégia. Dados sensíveis e memória privada não atravessam workspaces.
+Each envelope records `skills_used`. Product Validation receives RC, criteria and links; Release receives provenance, environment and strategy. Sensitive data and private memory do not cross workspaces.
 
 ---
 
-## Persistência multiworkspace
+## Multiworkspace persistence
 
-| Artefato | Fonte canônica | Writer |
+| Artifact | Canonical source | Writer |
 |---|---|---|
-| matriz e recomendação de produto | `<pm-workspace>/projects/<project>/validation/<WI-id>.md` | Product Validation Agent |
-| validação de UX | `<ux-workspace>/projects/<project>/validation/<WI-id>.md` | Product Validation Agent no domínio UX |
-| manifest/evidências do ambiente | `<tech-lead-workspace>/projects/<project>/execution/evidence/<WI-id>/release-candidate/` | Release Agent |
-| demo/gravação | `<pm-workspace>/projects/<project>/validation/assets/<RC-id>/` | Product Validation/Release |
-| decisões dos owners | fontes de decisão de PM/UX ligadas à matriz | owner correspondente |
-| handoff de release | `.coordination/handoffs/` até promoção | Release Agent; aponta para RC e fontes |
+| product matrix and recommendation | `<pm-workspace>/projects/<project>/validation/<WI-id>.md` | Product Validation Agent |
+| UX validation | `<ux-workspace>/projects/<project>/validation/<WI-id>.md` | Product Validation Agent in the UX domain |
+| manifest/environment evidence | `<tech-lead-workspace>/projects/<project>/execution/evidence/<WI-id>/release-candidate/` | ReleaseAgent |
+| demo/recording | `<pm-workspace>/projects/<project>/validation/assets/<RC-id>/` | Product Validation/Release |
+| owner decisions | PM/UX decision sources linked to the matrix | corresponding owner |
+| release handoff | `.coordination/handoffs/` until promotion | ReleaseAgent; points to RC and sources |
 
-Fechamento: persistir evidência técnica/UX → consolidar matriz PM → registrar decisões → atualizar Work Items/`STATUS.md` em cada domínio → reconciliar boards → promover handoff ao release.
+Closing: persist technical/UX evidence → consolidate PM matrix → record decisions → update Work Items/`STATUS.md` in each domain → reconcile boards → promote release handoff.
 
 ---
 
 ## Gates
 
-### Gate do RC
+### RC Gate
 
-- [ ] versão/digest/source commit do RC são verificáveis e promovíveis sem rebuild;
-- [ ] ambiente e diferenças para produção estão documentados;
-- [ ] dados de teste são seguros e suficientes;
-- [ ] cada critério de PRD e UX possui procedimento, resultado e evidência;
-- [ ] estados de sucesso, falha, recuperação e acessibilidade aplicáveis foram exercitados;
-- [ ] diferenças foram classificadas e não escondidas por demo favorável.
+- [ ] RC version/digest/source commit are verifiable and promoteable without rebuild;
+- [ ] environment and differences for production are documented;
+- [ ] test data is safe and sufficient;
+- [ ] each PRD and UX criterion has a procedure, result and evidence;
+- [ ] applicable success, failure, recovery and accessibility states have been exercised;
+- [ ] differences were classified and not hidden by favorable demo.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] Release e Product Validation preservaram seus limites;
-- [ ] PM/UX/Tech Lead persistiram apenas nos domínios correspondentes;
-- [ ] novo RC invalidou resultados do candidato anterior;
-- [ ] pendência aceita possui owner, prazo, risco e plano de observação;
-- [ ] Work Items, matrizes, evidências, status e boards estão coerentes;
-- [ ] aprovação humana referencia o RC/digest exato.
+- [ ] Release and Product Validation preserved their limits;
+- [ ] PM/UX/Tech Lead persisted only in the corresponding domains;
+- [ ] new RC invalidated previous candidate's results;
+- [ ] accepted pending issue has owner, deadline, risk and observation plan;
+- [ ] Work Items, matrices, evidence, status and boards are coherent;
+- [ ] human approval references the exact RC/digest.
 
 ---
 
-## Retornos e escalonamento
+## Returns and scaling
 
-| Condição | Estado/destino |
+| Condition | State/destination |
 |---|---|
-| ambiente/dados insuficientes | `blocked`; Release/owner corrige pré-condição |
-| critério ausente ou comportamento indefinido | Studio Loop; aprovação informal proibida |
-| defeito reproduzível | Ralph Loop com cenário, impacto e evidência |
-| experiência divergente | UX decide correção de baseline ou implementação |
-| mudança de escopo | PM decide e H2 relacionado é reaberto |
-| stakeholder discorda sem critério | registrar feedback; PM/UX decidem se altera baseline |
+| insufficient environment/data | `blocked`; Release/owner fixes precondition |
+| missing criteria or undefined behavior | StudioLoop; informal approval prohibited |
+| reproducible defect | Ralph Loop with setting, impact and evidence |
+| divergent experience | UX decides baseline correction or implementation |
+| scope change | PM decides and related H2 is reopened |
+| stakeholder disagrees without criteria | record feedback; PM/UX decide whether to change baseline |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "REHEARSAL-<id>"
@@ -228,4 +228,4 @@ gates:
 handoff_to: []
 ```
 
-`approved_for_release` exige decisão humana ligada ao digest homologado; “ambiente verde” não substitui aceite de produto/UX.
+`approved_for_release` requires human decision linked to approved digest; “green environment” does not replace product/UX acceptance.

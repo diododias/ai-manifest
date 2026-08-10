@@ -1,10 +1,10 @@
-# Tools
+#Tools
 
-A camada de permissão do harness define quais ferramentas o agente está autorizado a invocar, com que limites, e o que exige autorização humana antes de prosseguir. Essa definição é estrutural — não vive em instruções de prompt, mas em arquivos versionados dentro do repositório.
+The harness permission layer defines which tools the agent is authorized to invoke, with what limits, and what requires human authorization before proceeding. This definition is structural — it doesn't live in prompt statements, but in versioned files within the repository.
 
 ## `.agent/settings.json`
 
-O arquivo `settings.json` declara os limites operacionais do agente naquele repositório: quais tools estão permitidas, quais estão explicitamente proibidas, quais modelos podem ser usados e qual é o threshold de confiança abaixo do qual o agente deve escalar. Um agente que não encontra esse arquivo deve tratar o repositório como não autorizado para operação autônoma.
+The `settings.json` file declares the operational limits of the agent in that repository: which tools are allowed, which are explicitly prohibited, which models can be used and what is the trust threshold below which the agent must scale. An agent that does not find this file should treat the repository as not authorized for unattended operation.
 
 ```json
 {
@@ -25,13 +25,13 @@ O arquivo `settings.json` declara os limites operacionais do agente naquele repo
 
 ## `.agent/permissions.md`
 
-O arquivo `permissions.md` descreve, em linguagem natural, o que exige autorização humana naquele repositório específico. Ele complementa o `settings.json` com o julgamento que nenhum JSON consegue capturar: quando a situação é ambígua o suficiente para parar.
+The `permissions.md` file describes, in natural language, what requires human authorization in that specific repository. It complements `settings.json` with the judgment that no JSON can capture: when the situation is ambiguous enough to stop.
 
-Categorias típicas cobertas por esse arquivo incluem paths que exigem owner antes de qualquer mudança, operações que alteram estado persistido (migrações, schemas, secrets), ações irreversíveis com janela de rollback limitada, e qualquer mudança que afete os próprios gates de verificação.
+Typical categories covered by this file include paths that require ownership before making any changes, operations that alter persisted state (migrations, schemas, secrets), irreversible actions with a limited rollback window, and any changes that affect the verification gates themselves.
 
 ## `scripts/verify.sh`
 
-O script `verify.sh` é a entrada única de todas as verificações locais. Hooks, CI e agente chamam o mesmo script. Sem essa centralização, a verificação local e a de CI divergem — e a divergência aparece da forma mais cara: o agente entrega, o CI reprova, e ninguém consegue reproduzir localmente.
+The `verify.sh` script is the single input for all local checks. Hooks, CI and agent call the same script. Without this centralization, local and CI verification diverge — and the divergence appears in the most expensive form: the agent delivers, the CI fails, and no one can reproduce locally.
 
 ```bash
 #!/usr/bin/env bash
@@ -49,41 +49,41 @@ npm run test:unit
 echo "→ architecture check"
 npm run arch:check
 
-echo "✓ verify.sh concluído"
+echo "✓ verify.sh completed"
 ```
 
-O script deve produzir mensagens acionáveis em caso de falha — arquivo, regra violada e correção esperada. Um gate que só diz "falhou" transfere para a revisão humana o trabalho que ele existia para evitar.
+The script should produce actionable messages in case of failure — file, rule violated, and expected fix. A gate that only says "failed" transfers the work it existed to avoid to human review.
 
-## LSP, lint e formatação
+## LSP, lint and formatting
 
-O Language Server Protocol (LSP) é o canal por onde o agente recebe diagnósticos em tempo real sem precisar invocar compilador ou test runner. Um repositório com LSP configurado devolve erros de tipo, referências inválidas e avisos de lint no momento em que o código é escrito — não na próxima execução de `verify.sh`.
+The Language Server Protocol (LSP) is the channel through which the agent receives real-time diagnostics without having to invoke a compiler or test runner. A repository with LSP configured returns type errors, invalid references, and lint warnings the moment the code is written — not the next time `verify.sh` runs.
 
-Lint e formatação determinística (Prettier, Black, gofmt) não são checagens de estilo: são a primeira defesa contra divergência entre o que o agente gera e o que o repositório aceita. A configuração deve ser compartilhada — `.eslintrc`, `pyproject.toml`, `.editorconfig` — e versionada junto com o código. Quando lint e formatação rodam no pre-commit como sensors, o ciclo de correção fica dentro da máquina do agente.
+Lint and deterministic formatting (Prettier, Black, gofmt) are not style checks: they are the first defense against divergence between what the agent generates and what the repository accepts. The configuration must be shared — `.eslintrc`, `pyproject.toml`, `.editorconfig` — and versioned along with the code. When lint and formatting run in pre-commit as sensors, the correction cycle is inside the agent machine.
 
-## Typecheck e análise estática
+## Typecheck and static analysis
 
-Typecheck é o gate mais barato para capturar contratos quebrados entre módulos. TypeScript (`tsc --noEmit`), mypy, rustc e equivalentes devem rodar antes dos testes — um erro de tipo torna o resultado dos testes ambíguo.
+Typecheck is the cheapest gate to catch broken contracts between modules. TypeScript (`tsc --noEmit`), mypy, rustc and equivalents must be run before testing — a type error makes test results ambiguous.
 
-Análise estática vai além do tipo: verifica fluxo de dados, dependências proibidas entre módulos (ArchUnit, dependency-cruiser) e padrões que o lint não captura. O resultado de uma análise estática bem configurada é que o agente sabe, antes de abrir um PR, se a mudança viola uma fronteira de arquitetura declarada nas rules.
+Static analysis goes beyond type: it checks data flow, prohibited dependencies between modules (ArchUnit, dependency-cruiser) and patterns that lint does not capture. The result of a well-configured static analysis is that the agent knows, before opening a PR, whether the change violates an architectural boundary declared in the rules.
 
-## Navegação e compreensão da codebase
+## Codebase navigation and understanding
 
-Um agente que navega o repositório às cegas — procurando por string, abrindo arquivos sequencialmente — gasta contexto sem precisão. Ferramentas de compreensão de codebase convertem esse custo em uma operação direcionada.
+An agent that browses the repository blindly — searching by string, opening files sequentially — wastes context without precision. Codebase understanding tools convert this cost into a targeted operation.
 
-**Serena** oferece navegação semântica sobre o repositório: encontrar declarações, listar implementações de uma interface, mapear referências de um símbolo. Em vez de grep, o agente usa `find_symbol`, `find_implementations`, `find_referencing_symbols` — e chega ao ponto certo sem varredura linear. Serena é o ponto de partida recomendado para qualquer tarefa de discovery antes de implementação.
+**Serena** offers semantic navigation over the repository: finding declarations, listing implementations of an interface, mapping references of a symbol. Instead of grep, the agent uses `find_symbol`, `find_implementations`, `find_referencing_symbols` — and gets to the right point without linear scanning. Serena is the recommended starting point for any discovery task before implementation.
 
-**Dora** complementa Serena com uma camada de observabilidade sobre o próprio processo de desenvolvimento: rastreia o que foi tocado, o que mudou entre sessões, e onde o trabalho parou. Em repositórios com múltiplas sessões de agente operando em paralelo, Dora é o mecanismo que evita que duas sessões trabalhem sobre a mesma região sem coordenação.
+**Dora** complements Serena with a layer of observability over the development process itself: it tracks what was touched, what changed between sessions, and where the work stopped. In repositories with multiple agent sessions operating in parallel, Dora is the mechanism that prevents two sessions from working on the same region without coordination.
 
-## Redução e gestão de contexto
+## Reduction and context management
 
-Contexto é o recurso mais escasso de uma sessão de agente. Carregá-lo sem critério — arquivos inteiros quando só um símbolo é necessário, histórico completo quando só o delta importa — é o caminho mais direto para sessões longas que perdem coerência.
+Context is the scarcest resource of an agent session. Loading it without criteria — entire files when only one symbol is needed, complete history when only the delta matters — is the most direct path to long sessions that lose coherence.
 
-**RTK (Repo Tool Kit)** é o conjunto de ferramentas de gestão de contexto do repositório. Ele expõe operações de leitura seletiva — ler só os símbolos relevantes para a tarefa atual, recuperar o estado de uma sessão anterior sem recarregar o histórico completo, e compactar evidência já verificada antes que ela ocupe espaço do que ainda está sendo trabalhado. Um repositório sem RTK transfere para o agente a responsabilidade de decidir o que lembrar — e essa decisão, feita sem instrução explícita, tende para o excesso.
+**RTK (Repo Tool Kit)** is the repository context management toolset. It exposes selective reading operations — reading only the symbols relevant to the current task, retrieving the state of a previous session without reloading the entire history, and compressing already scanned evidence before it takes up space from what is still being worked on. A repository without RTK transfers the responsibility for deciding what to remember to the agent — and this decision, made without explicit instruction, tends toward excess.
 
-## Testes, containers e observabilidade
+## Tests, containers and observability
 
-Testes são a camada de verificação mais custosa de executar e mais cara de ignorar. A separação entre níveis — unitário, integração, contrato, end-to-end — define qual ferramenta está disponível em qual gate. Testes unitários rodam sem dependências externas e pertencem ao pre-commit. Testes de integração exigem serviços e pertencem ao pre-push ou CI.
+Tests are the most expensive layer of verification to run and most expensive to ignore. The separation between levels — unitary, integration, contract, end-to-end — defines which tool is available at which gate. Unit tests run without external dependencies and belong to pre-commit. Integration tests require services and belong to pre-push or CI.
 
-Containers (Docker, Testcontainers) são o mecanismo que torna testes de integração reproduzíveis sem estado compartilhado. Um repositório que não usa containers para isolar testes de integração introduz dependência de ambiente — e o agente que reproduz localmente o que o CI vai executar precisa do mesmo ambiente, não de uma aproximação.
+Containers (Docker, Testcontainers) are the mechanism that makes integration tests reproducible without shared state. A repository that doesn't use containers to isolate integration tests introduces environment dependency — and the agent that locally reproduces what the CI will run needs the same environment, not an approximation.
 
-Observabilidade — logs estruturados, traces distribuídos, métricas com baseline — fecha o ciclo de verificação no pós-deploy. A diferença entre um deploy e um rollout controlado é que o segundo tem um baseline definido antes e um critério objetivo de rollback se o baseline for violado. O agente não decide rollback: ele lê o sinal de observabilidade e escala se o critério for atingido.
+Observability — structured logs, distributed traces, baseline metrics — closes the post-deploy verification cycle. The difference between a deployment and a controlled rollout is that the second has a baseline defined beforehand and an objective rollback criterion if the baseline is violated. The agent does not decide rollback: it reads the observability signal and scales if the criterion is met.

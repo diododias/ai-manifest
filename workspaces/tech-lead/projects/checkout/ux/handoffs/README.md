@@ -1,3 +1,3 @@
-# Handoffs de UX
+# UX handoffs
 
-Armazene aqui contratos de entrega entre UX e engenharia. Handoffs entre agentes técnicos durante uma missão pertencem a `execution/handoffs/`.
+Store delivery contracts between UX and engineering here. Handoffs between technical agents during a mission belong to `execution/handoffs/`.

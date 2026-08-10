@@ -1,97 +1,97 @@
 # ⚔️ Red Team Loop
 
-> Validação adversarial — quatro perspectivas independentes atacam a mudança em paralelo e convertem achados em um único evidence pack.
+> Adversarial validation — four independent perspectives attack change in parallel and convert findings into a single evidence pack.
 
-O Red Team Loop existe porque a pergunta "isso funciona?" e a pergunta "isso quebra?" não são a mesma pergunta, e quem implementou só consegue fazer a primeira com convicção. Os reviewers não assumem que o resultado dos testes do autor é suficiente — eles derivam a própria cobertura da `CHECKLIST.md` e reproduzem o que afirmam.
+Red Team Loop exists because the question “does it work?” and the question "does it break?" they are not the same question, and those who implemented it can only ask the first one with conviction. Reviewers do not assume that the author's test results are sufficient — they derive their own coverage from `CHECKLIST.md` and reproduce what they claim.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 5 — construção e validação |
-| **Consolida** | [🧪 QA / Validation Agent](../agentes/qa-validation-agent.md) |
-| **Colaboram** | [🛡️ Security Review](../agentes/security-review-agent.md); [🏛️ Architecture Review](../agentes/architecture-review-agent.md); [🔎 Adversarial Code Reviewer](../agentes/adversarial-code-reviewer-agent.md) |
-| **Owner humano** | Tech Lead; PM e UX para os próprios critérios |
-| **Entrada** | diff, `PRD.md`, UX spec, `SPEC.md`, `CHECKLIST.md`, resultados locais e classe de risco |
-| **Saída** | checklist comprovado, findings classificados, evidências reproduzíveis e recomendação de gate |
-| **Gate de saída** | todos os checks obrigatórios aprovados e nenhum bloqueador aberto |
-| **Volta dominante** | média e externa — findings corrigíveis voltam ao [🔁 Ralph Loop](04-autonomous-implementation.md); CI decide o restante |
+| **Step** | 5 — construction and validation |
+| **Consolidates** | [🧪 QA / Validation Agent](../agentes/qa-validation-agent.md) |
+| **Collaborate** | [🛡️ Security Review](../agentes/security-review-agent.md); [🏛️ Architecture Review](../agentes/architecture-review-agent.md); [🔎 Adversarial Code Reviewer](../agentes/adversarial-code-reviewer-agent.md) |
+| **Human owner** | Tech Lead; PM and UX for own criteria |
+| **Input** | diff, `PRD.md`, UX spec, `SPEC.md`, `CHECKLIST.md`, local results and risk class |
+| **Exit** | proven checklist, classified findings, reproducible evidence and gate recommendation |
+| **Exit gate** | all mandatory checks passed and no blockers open |
+| **Dominant lap** | middle and outer — correctable findings return to [🔁 Ralph Loop](04-autonomous-implementation.md); CI decides the rest |
 
 ```mermaid
 flowchart LR
-    A[Mudança pronta] --> B[QA\ncritérios e cenários]
-    A --> C[Security\nsegurança e privacidade]
-    A --> D[Architecture\nfronteiras e contratos]
-    A --> E[Code Reviewer\ncorretude e manutenção]
-    B --> F[QA\nconsolida evidence pack]
+    A[Change ready] --> B[QA\ncriteria and scenarios]
+    A --> C[Security\nsecurity and privacy]
+    A --> D[Architecture\nborders and contracts]
+    A --> E[Code Reviewer\ncorrectness and maintenance]
+    B --> F[QA\nconsolidate evidence pack]
     C --> F
     D --> F
     E --> F
-    F --> G{CI fast e deep lanes}
-    G -- falha corrigível --> H[🔁 Ralph Loop]
-    G -- aprovado --> I[🚪 Gatekeeper Loop]
-    G -- exceção --> J[Tech Lead]
+    F --> G{CI fast and deep lanes}
+    G -- fixable fault --> H[🔁 Ralph Loop]
+    G -- approved --> I[🚪 Gatekeeper Loop]
+    G -- exception --> J[Tech Lead]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O QA Agent deriva a cobertura da `CHECKLIST.md` e executa cenários nominal, erro, recuperação, regressão e casos-limite.
-2. Security, Architecture e Code Reviewer investigam em paralelo seus domínios e apresentam findings com **evidência, severidade, impacto e ação sugerida**.
-3. O QA Agent consolida sem silenciar divergências, mapeando cada critério para uma evidência ou para um gap declarado.
-4. O CI decide os checks requeridos pela classe de risco e pelos paths alterados. Findings corrigíveis voltam à implementação; **toda correção material recebe nova validação proporcional**.
+1. The QA Agent derives coverage from `CHECKLIST.md` and runs nominal, error, recovery, regression, and edge-case scenarios.
+2. Security, Architecture and Code Reviewer investigate their domains in parallel and present findings with **evidence, severity, impact and suggested action**.
+3. The QA Agent consolidates disagreements without silencing them, mapping each criterion to evidence or a declared gap.
+4. The IC decides the checks required by the risk class and the changed paths. Correctable findings return to implementation; **all material correction receives new proportional validation**.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | diff consolidado pelo Orchestrator + evidências locais + o que ficou fora de escopo |
-| **Saída** | evidence pack único: cada critério da `CHECKLIST.md` mapeado para evidência reproduzível ou gap explícito, com findings classificados por severidade |
+| **Input** | diff consolidated by Orchestrator + local evidence + what was out of scope |
+| **Exit** | unique evidence pack: each `CHECKLIST.md` criteria mapped to reproducible evidence or explicit gap, with findings classified by severity |
 
-O teste prático do evidence pack: **outra pessoa consegue refazer a verificação sem perguntar nada a quem a produziu?** Se precisa de contexto adicional, o que existe é um resumo, não evidência.
-
----
-
-## O que este loop não faz
-
-**Não faz:** fechar o achado de outro reviewer.
-
-O QA Agent consolida, mas não tem autoridade para declarar resolvido um finding de Security, Architecture ou Code Review sem evidência de revalidação do domínio correspondente. Consolidação é montagem, não veredito — a alternativa é um único agente com poder de silenciar três perspectivas independentes.
+The evidence pack practical test: **can someone else redo the check without asking anyone who produced it?** If additional context is needed, what exists is a summary, not evidence.
 
 ---
 
-## Falhas típicas
+## What this loop doesn't do
 
-| Falha | Sintoma | Correção |
+**Do not:** close another reviewer's finding.
+
+The QA Agent consolidates, but does not have the authority to declare a Security, Architecture or Code Review finding resolved without evidence of revalidation of the corresponding domain. Consolidation is an assembly, not a verdict — the alternative is a single agent with the power to silence three independent perspectives.
+
+---
+
+## Typical faults
+
+| Failure | Symptom | Correction |
 |---|---|---|
-| Finding sem reprodução | "possível problema de concorrência aqui" | todo finding carrega o caminho para reproduzi-lo |
-| Divergência resolvida por omissão | dois reviewers discordam e o consolidado escolhe um | divergência sem regra de desempate escala ao Tech Lead |
-| Correção sem revalidação | o fix entra e o gate segue verde do ciclo anterior | mudança material invalida a evidência que ela afeta |
-| Cobertura herdada do autor | o QA roda os mesmos testes que o Engineer rodou | a cobertura deriva da `CHECKLIST.md`, não do diff |
+| Finding without reproduction | "possible competition problem here" | todo finding carries the path to reproduce it |
+| Disagreement resolved by omission | two reviewers disagree and the consolidated chooses one | divergence without tiebreaker rule escalates to Tech Lead |
+| Correction without revalidation | the fix enters and the gate remains green from the previous cycle | material change invalidates the evidence it affects |
+| Coverage inherited from the author | the QA runs the same tests that the Engineer ran | coverage derives from `CHECKLIST.md`, not diff |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Evidence pack consolidado | `execution/evidence/<WI-id>.md` | sim |
-| Review do Code Reviewer | `execution/reviews/code-<WI-id>.md` | sim |
-| Review do Security Agent | `execution/reviews/security-<WI-id>.md` | quando aplicável |
-| Review do Architecture Agent | `execution/reviews/architecture-<WI-id>.md` | quando aplicável |
-| Work Item atualizado | `work-items/<WI-id>.md` — status e link para evidence | sim |
-| `STATUS.md` | fase `review`, próximo gate `PR` ou devolução | sim |
-| Exceções ativas | `.coordination/blockers/` | trânsito |
+| Consolidated evidence pack | `execution/evidence/<WI-id>.md` | yes |
+| Code Reviewer Review | `execution/reviews/code-<WI-id>.md` | yes |
+| Security Agent Review | `execution/reviews/security-<WI-id>.md` | when applicable |
+| Architecture Agent Review | `execution/reviews/architecture-<WI-id>.md` | when applicable |
+| Work Item updated | `work-items/<WI-id>.md` — status and link to evidence | yes |
+| `STATUS.md` | phase `review`, next gate `PR` or return | yes |
+| Active exceptions | `.coordination/blockers/` | traffic |
 
-Achado aberto em qualquer review bloqueia o gate. Cada resolução exige evidência referenciada no arquivo de review correspondente — não apenas texto.
+Open finding in any review blocks the gate. Each resolution requires evidence referenced in the corresponding review file — not just text.
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar falso positivo, exceção, requisito ausente ou divergência sem regra de desempate. Requisito ausente devolve ao [🎨 Studio Loop](02-product-and-ux-planning.md) ou ao [🗺️ Drafting Loop](03-technical-specification.md), conforme a natureza da lacuna.
+Escalate false positive, exception, missing requirement, or divergence without tiebreaker rule. Missing requirement returns to [🎨 Studio Loop](02-product-and-ux-planning.md) or [🗺️ Drafting Loop](03-technical-specification.md), depending on the nature of the gap.

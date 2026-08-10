@@ -1,58 +1,58 @@
 # Gates
 
-A arquitetura de gates define onde cada verificação acontece na trajetória de um Work Item, do commit ao deploy. O objetivo é que o feedback barato chegue primeiro e que nada que possa ser verificado por máquina chegue a uma pessoa.
+The gate architecture defines where each check occurs in the trajectory of a Work Item, from commit to deployment. The goal is for cheap feedback to arrive first and for nothing that can be verified by machine to reach a person.
 
-## A escada completa
+## The complete staircase
 
-| Camada | Latência | Verifica | Falha bloqueia |
+| Layer | Latency | Check | Failure blocks |
 |---|---|---|---|
-| **Local** (sensors) | segundos | checks determinísticos, baixo custo | commit ou push |
-| **CI** | minutos | build, testes, segurança, arquitetura em ambiente limpo | merge |
-| **Merge** | decisão consolidada | aprovações, status checks, proveniência da automação | integração |
-| **Ambiente** | antes da exposição | secrets, branches e artefatos permitidos, aprovação por risco | deploy |
-| **Pós-deploy** | janela de observação | comparação com baseline, regressão, rollback automático | rollout |
+| **Location** (sensors) | seconds | deterministic checks, low cost | commit or push |
+| **CI** | minutes | build, testing, security, architecture in a clean environment | merge |
+| **Merge** | consolidated decision | approvals, status checks, automation provenance | integration |
+| **Environment** | before the exhibition | secrets, branches and artifacts allowed, approval by risk | deploy |
+| **Post-deploy** | observation window | comparison with baseline, regression, automatic rollback | rollout |
 
-## Onde cada check pertence
+## Where each check belongs
 
-O critério de posicionamento é a razão entre custo de execução e frequência de falha:
+The positioning criterion is the ratio between execution cost and failure frequency:
 
-| Se o check… | …pertence a | Porque |
+| If the check… | …belongs to | Why |
 |---|---|---|
-| roda em segundos e falha com frequência | pre-commit | corrigir custa quase nada e o loop é imediato |
-| precisa de container ou serviço externo | pre-push ou CI | inviável a cada commit |
-| depende de ambiente limpo ou build completo | CI | resultado local não é confiável |
-| exige julgamento sobre risco ou trade-off | merge | é decisão, não verificação |
-| só é observável com tráfego real | pós-deploy | não existe forma de antecipar |
+| runs in seconds and fails frequently | pre-commit | fixing costs almost nothing and the loop is immediate |
+| need a container or external service | pre-push or CI | unfeasible with each commit |
+| depends on clean environment or full build | CI | local result is not reliable |
+| requires judgment on risk or trade-off | merge | it's decision, not verification |
+| is only observable with real traffic | post-deploy | there is no way to anticipate |
 
-Colocar um check caro cedo trava o agente em cada commit. Colocar um check barato tarde desperdiça uma volta inteira de CI para informar algo que se saberia em dois segundos.
+Placing an expensive check early locks the agent on each commit. Placing a cheap check late wastes an entire turn of IC to inform something that would be known in two seconds.
 
-## CI — fast lane e deep lane
+## CI — fast lane and deep lane
 
-O CI do repositório opera com duas lanes, e a separação existe por razão econômica.
+The repository's CI operates with two lanes, and the separation exists for economic reasons.
 
-A **fast lane** roda a cada push e devolve sinal ao agente em minutos. Ela cobre apenas os checks selecionados pelos paths alterados — não é uma esteira completa. Uma esteira única e completa transforma cada tentativa em uma espera longa, e o agente ocioso custa tanto quanto o agente errado.
+The **fast lane** runs with each push and returns the signal to the agent in minutes. It only covers the checks selected by the changed paths — it is not a complete treadmill. A single, full treadmill turns every attempt into a long wait, and the idle agent costs as much as the wrong agent.
 
-A **deep lane** roda antes do merge ou em schedule, e cobre a bateria completa: segurança, arquitetura, contratos, testes de ponta a ponta. Ela existe para garantir que o que passou pela fast lane também resiste a verificação mais cara.
+**deep lane** runs before the merge or on schedule, and covers the entire battery: security, architecture, contracts, end-to-end testing. It exists to ensure that what passes through the fast lane also withstands more expensive verification.
 
-## Regras inegociáveis para gates com agentes
+## Non-negotiable rules for gates with agents
 
-Três separações se aplicam especificamente quando agentes operam o repositório, e não podem ser relaxadas:
+Three separations apply specifically when agents operate the repository, and cannot be relaxed:
 
-O mesmo agente não produz e aprova a própria mudança. Isso exige identidades distintas e verificáveis no sistema de versionamento — não basta instrução em prompt, porque a proteção precisa ser estrutural.
+The same agent does not produce and approve the change itself. This requires distinct and verifiable identities in the versioning system — prompt instructions are not enough, because protection needs to be structural.
 
-Agentes não alteram gates dentro do mesmo fluxo que aqueles gates avaliam. Sem essa separação, o caminho de menor resistência para um agente bloqueado passa a ser afrouxar o bloqueio.
+Agents do not change gates within the same flow that those gates evaluate. Without this separation, the path of least resistance for a blocked agent becomes loosening the blockage.
 
-Mudança em rules, sensors ou CI eleva o risco automaticamente e exige o owner do harness, fora do fluxo normal.
+Changing rules, sensors or CI automatically increases the risk and requires the harness owner, outside of the normal flow.
 
-## Autonomia progressiva e o teto do harness
+## Progressive autonomy and the harness ceiling
 
-Os gates sustentam níveis crescentes de autonomia. A regra central: **o nível do harness é o teto da autonomia, nunca a consequência dela**.
+Gates support increasing levels of autonomy. The central rule: **the harness level is the ceiling of autonomy, never its consequence**.
 
-| Nível | O repositório tem | Autonomia sustentada |
+| Level | The repository has | Sustained autonomy |
 |---|---|---|
-| **HL0 — nu** | README, testes eventuais, CI de build | nenhuma — assistido |
-| **HL1 — legível** | `AGENTS.md`, rules mínimas, `verify.sh`, pre-commit | A0–A1 |
-| **HL2 — verificável** | CI por risco e paths, proteção de branch, evidence pack | A2 |
-| **HL3 — operável por time** | skills do repo, worktree limpo, identidades por agente, gates de ambiente e pós-deploy | A3–A4 |
+| **HL0 — naked** | README, eventual tests, build CI | none — watched |
+| **HL1 — readable** | `AGENTS.md`, minimum rules, `verify.sh`, pre-commit | A0–A1 |
+| **HL2 — verifiable** | CI by risk and paths, branch protection, evidence pack | A2 |
+| **HL3 — operable by team** | repo skills, clean worktree, identities per agent, environment gates and post-deploy | A3–A4 |
 
-Um repositório em HL1 operando com autonomia A2 não é um repositório adiantado — é um repositório com um gate faltando que ninguém percebeu ainda.
+A repository in HL1 operating with A2 autonomy is not an advanced repository — it is a repository with a missing gate that no one has noticed yet.

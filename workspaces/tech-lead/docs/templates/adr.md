@@ -6,16 +6,16 @@ owner: <owner>
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Decisão>
+# <Decision>
 
-## Contexto
+## Context
 
-<Forças e problema que exigem decisão.>
+<Forces and problem that require decision.>
 
-## Decisão
+## Decision
 
-<Opção escolhida e limites.>
+<Chosen option and limits.>
 
-## Consequências
+## Consequences
 
-<Benefícios, custos, riscos e acompanhamento.>
+<Benefits, costs, risks and monitoring.>

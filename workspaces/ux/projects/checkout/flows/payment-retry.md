@@ -1,14 +1,14 @@
-# Fluxo de retry do pagamento
+# Payment retry flow
 
 ```mermaid
-flowchart TD
-    A["Confirmar pagamento"] --> B["Processando"]
-    B -->|"Confirmado"| C["Sucesso"]
-    B -->|"Falha conhecida"| D["Erro com ação segura"]
-    B -->|"Timeout"| E["Consultar resultado"]
-    E -->|"Concluído"| C
-    E -->|"Não iniciado"| F["Tentar novamente com a mesma operação"]
-    E -->|"Indeterminado"| G["Aguardar e consultar novamente"]
+TD flowchart
+    A["Confirm payment"] --> B["Processing"]
+    B -->|"Confirmed"| C["Success"]
+    B -->|"Known fault"| D["Error with safe action"]
+    B -->|"Timeout"| E["See result"]
+    E -->|"Done"| C
+    E -->|"Not started"| F["Try again with the same operation"]
+    E -->|"Undetermined"| G["Wait and check again"]
 ```
 
-Estados indeterminados não devem sugerir uma nova operação com identidade diferente.
+Indeterminate states should not suggest a new operation with a different identity.

@@ -1,62 +1,62 @@
 ---
-title: Workflow 04 — implementação autônoma
+title: Workflow 04 — autonomous implementation
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 04 — implementação autônoma
+# Workflow 04 — autonomous implementation
 
-> Bloco executável do [🔁 Ralph Loop](../docs/loops/04-autonomous-implementation.md): executa tarefas pequenas e independentes em paralelo, cada uma girando contra gates locais objetivos e sob limites explícitos de retry, escopo e escrita.
+> [🔁 Ralph Loop](../docs/loops/04-autonomous-implementation.md) executable block: executes small, independent tasks in parallel, each rotating against objective local gates and under explicit retry, scope, and write limits.
 
-O Orchestrator coordena a DAG e consolida estado; ele não escreve código. Cada Software Engineer Agent possui exatamente uma missão, um Work Item e uma superfície de escrita. Paralelismo só existe quando dependências e writer scopes provam independência.
+The Orchestrator coordinates the DAG and consolidates state; he doesn't write code. Each Software Engineer Agent has exactly one mission, one Work Item and one writing surface. Parallelism only exists when dependencies and writer scopes prove independence.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma rodada fechada entrega diffs rastreáveis, commits quando autorizados, testes/documentação e evidências locais por Work Item. Dependentes só ficam elegíveis depois que a evidência do predecessor existe; gate verde torna a mudança pronta para ataque adversarial, nunca aprovada.
+A closed round delivers trackable diffs, commits when authorized, tests/documentation and local evidence per Work Item. Dependents only become eligible after evidence of the predecessor exists; green gate makes the change ripe for adversarial attack, never approved.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | cada missão terminou contra sensors e critérios próprios, dentro do budget |
-| **Agentes** | Engineers preservaram escopo; Orchestrator consolidou estado e dependências, não código |
-| **Repositórios** | branch/base/worktree e estado preexistente estão registrados; writers concorrentes não colidiram |
-| **Workspace** | Work Items e evidências foram atualizados antes de `STATUS.md` e `BOARD.md` |
-| **Handoff** | Red Team recebe diffs, baselines, resultados brutos, pendências e fora de escopo |
+| **Loop** | each mission ended against its own sensors and criteria, within the budget |
+| **Agents** | Engineers preserved scope; Orchestrator consolidated state and dependencies, not code |
+| **Repositories** | branch/base/worktree and pre-existing state are registered; competing writers did not collide |
+| **Workspace** | Work Items and Evidence were updated before `STATUS.md` and `BOARD.md` |
+| **Handoff** | Red Team receives diffs, baselines, raw results, pending issues and out of scope |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 4 — construção e validação |
-| **Unidade de execução** | uma tarefa elegível por missão de Engineer; uma rodada agrega missões independentes |
-| **Consolida estado** | [Orchestrator Agent](../agents/orchestrator-agent/AGENT.md) |
-| **Implementam** | um ou mais [Software Engineer Agents](../agents/software-engineer-agent/AGENT.md) |
-| **Owner humano** | Tech Lead, por política e exceção |
-| **Entrada** | Work Items `ready`, SPEC/baseline, critérios, repositórios, permissões, risco e gates |
-| **Saída** | diffs, testes, docs, commits autorizados, evidence packs locais e handoff consolidado |
-| **Gate por missão** | sensors locais exigidos pelo risco + critérios da tarefa aprovados e registrados |
-| **Gate da rodada** | missões terminais reconciliadas; dependências corretas; nenhuma colisão/expansão silenciosa; handoff completo |
-| **Volta dominante** | interna — retry do mesmo agente contra gate objetivo, com limite de tentativas e tempo |
-| **Próximo workflow** | [05 — validação adversarial](05-adversarial-validation.md) |
+| **Step** | 4 — construction and validation |
+| **Execution unit** | one eligible task per Engineer mission; a round adds independent missions |
+| **Consolidates status** | [Orchestrator Agent](../agents/orchestrator-agent/AGENT.md) |
+| **Implement** | one or more [Software Engineer Agents](../agents/software-engineer-agent/AGENT.md) |
+| **Human owner** | Tech Lead, by policy and exception |
+| **Input** | Work Items `ready`, SPEC/baseline, criteria, repositories, permissions, risk and gates |
+| **Exit** | diffs, tests, docs, authorized commits, local evidence packs and consolidated handoff |
+| **Gate per mission** | local sensors required by risk + task criteria approved and recorded |
+| **Gate of the round** | terminal missions reconciled; correct dependencies; no collision/silent expansion; handoff complete |
+| **Dominant lap** | internal — retry of the same agent against objective gate, with limit of attempts and time |
+| **Next workflow** | [05 — adversarial validation](05-adversarial-validation.md) |
 
 ---
 
-## Preflight da rodada
+## Round Preflight
 
-1. Ler plano, SPEC, TASKS, CHECKLIST e Work Items; montar DAG com dependências reais.
-2. Selecionar apenas itens `ready`, sem `blocked_by`, com owner humano, risco, critérios, repositório e permissões definidos.
-3. Resolver cada repositório por `engineering/repositories.yaml`; ler instruções locais e verificar estado Git antes de qualquer edição.
-4. Preservar alterações preexistentes e registrar branch, base, worktree e paths autorizados no Work Item.
-5. Detectar colisões: duas missões que escrevem o mesmo arquivo, contrato, migração ou recurso externo não rodam em paralelo sem divisão explícita.
-6. Fixar concurrency limit, budget, tentativas, sensores, condição de parada e política de commit/push por missão.
-7. Registrar a assunção no Work Item e criar estado transitório em `.coordination/active/<mission-id>.md`.
+1. Read plan, SPEC, TASKS, CHECKLIST and Work Items; assemble DAG with real dependencies.
+2. Select only items `ready`, without `blocked_by`, with human owner, risk, criteria, repository and permissions defined.
+3. Resolve each repository by `engineering/repositories.yaml`; Read local instructions and check Git status before any edits.
+4. Preserve pre-existing changes and register branch, base, worktree and authorized paths in the Work Item.
+5. Detect collisions: two missions that write the same file, contract, migration or external resource do not run in parallel without explicit splitting.
+6. Set concurrency limit, budget, attempts, sensors, stopping condition and commit/push policy per mission.
+7. Register the assumption in the Work Item and create a transient state in `.coordination/active/<mission-id>.md`.
 
-Código e testes nunca são gravados em `plans/assets/`; vivem no worktree. O preflight é bloqueante quando o estado local não pode ser preservado com segurança ou a tarefa exige decisão ausente.
+Code and tests are never written to `plans/assets/`; live in worktree. Preflight is blocking when local state cannot be safely preserved or the task requires missing decision.
 
-### Envelope de missão
+### Mission envelope
 
 ```yaml
 mission_id: "RALPH-<id>"
@@ -85,154 +85,154 @@ stop_conditions: []
 
 ---
 
-## Scheduler e plano de missões
+## Scheduler and mission plan
 
 ```mermaid
-flowchart TD
-    A[TASKS + Work Items] --> B[Orchestrator<br/>DAG + elegibilidade + locks]
+TD flowchart
+    A[TASKS + Work Items] --> B[Orchestrator<br/>DAG + eligibility + locks]
     B --> C1[Engineer A<br/>worktree A]
     B --> C2[Engineer B<br/>worktree B]
     B --> C3[Engineer C<br/>worktree C]
     C1 --> D1{Sensors A}
     C2 --> D2{Sensors B}
     C3 --> D3{Sensors C}
-    D1 -- corrigível --> C1
-    D2 -- corrigível --> C2
-    D3 -- corrigível --> C3
-    D1 -- passou --> E[Orchestrator<br/>reconcilia DAG]
-    D2 -- passou --> E
-    D3 -- passou --> E
-    D1 -- limite/decisão --> F[Escalonamento]
-    D2 -- limite/decisão --> F
-    D3 -- limite/decisão --> F
-    E --> G[Handoff único ao Red Team]
+    D1 -- correctable --> C1
+    D2 -- correctable --> C2
+    D3 -- correctable --> C3
+    D1 -- passed --> E[Orchestrator<br/>reconciles DAG]
+    D2 -- passed --> E
+    D3 -- passed --> E
+    D1 -- limit/decision --> F[Escalation]
+    D2 -- limit/decision --> F
+    D3 -- limit/decision --> F
+    E --> G[Single handoff to Red Team]
 ```
 
-### Ciclo de uma missão
+### Mission cycle
 
-1. confirmar baseline, estado Git e escopo de escrita;
-2. ler antes de editar e formular a menor mudança que satisfaz a tarefa;
-3. implementar código, testes e documentação afetada;
-4. executar sensors na ordem definida pelo harness e risco;
-5. registrar comandos, ambiente, resultado e artefatos no evidence pack;
-6. em falha corrigível, explicar causa e delta da próxima tentativa antes do retry;
-7. ao passar, criar commit rastreável se autorizado e emitir envelope;
-8. ao exceder limite ou descobrir decisão nova, parar e escalar sem afrouxar gate.
+1. confirm baseline, Git status and writing scope;
+2. read before editing and formulate the smallest change that satisfies the task;
+3. implement affected code, tests and documentation;
+4. execute sensors in the order defined by the harness and risk;
+5. record commands, environment, results and artifacts in the evidence pack;
+6. in case of correctable failure, explain the cause and delta of the next attempt before retry;
+7. when passing, create trackable commit if authorized and issue envelope;
+8. When exceeding limit or discovering new decision, stop and climb without loosening gate.
 
-O Orchestrator desbloqueia dependentes somente após o passo 7 e a persistência da evidência. Resposta textual do Engineer não satisfaz dependência.
+Orchestrator unblocks dependents only after step 7 and evidence persistence. Engineer's textual response does not satisfy dependency.
 
 ---
 
-## Locks e contenção de concorrência
+## Locks and competition containment
 
-| Recurso | Regra |
+| Resource | Rule |
 |---|---|
-| Work Item | um agent owner ativo por missão |
-| worktree | exclusivo por Work Item; não reutiliza worktree de outra missão |
-| arquivo/contrato | writer scope declarado; sobreposição serializa ou bloqueia |
-| migração/schema | um writer por ordem de aplicação; dependentes aguardam |
-| serviço externo | concorrência limitada pela política e idempotência comprovada |
-| board/status | reconciliados pelo Orchestrator depois dos Work Items, não editados livremente pelos Engineers |
+| Work Item | one active agent owner per mission |
+| worktree | exclusive per Work Item; does not reuse worktree from another mission |
+| file/contract | writer scope declared; overlay serializes or blocks |
+| migration/schema | one writer per order of application; dependents await |
+| external service | competition limited by politics and proven idempotence |
+| board/status | reconciled by Orchestrator after Work Items, not freely edited by Engineers |
 
-Mudança fora de `write_scope` exige pausa e revisão da missão. Não basta o arquivo ser “necessário”; a expansão altera risco, paralelismo e revisão.
+Changing outside of `write_scope` requires pausing and reviewing the mission. It is not enough for the file to be “necessary”; expansion changes risk, parallelism, and review.
 
 ---
 
-## Fronteiras de autoridade
+## Authority boundaries
 
-| Participante | Faz | Não faz |
+| Participant | Do | Doesn't |
 |---|---|---|
-| Orchestrator | agenda, limita concorrência, bloqueia dependentes, reúne envelopes e estado | escreve código, fecha critério técnico ou aprova mudança |
-| Software Engineer | implementa uma tarefa no worktree designado e prova gates locais | altera SPEC/escopo, afrouxa gate ou usa trabalho preexistente sem autorização |
-| Tech Lead humano | resolve arquitetura, exceção, permissão e risco acima da missão | tem decisão presumida por inatividade |
+| Orchestrator | agenda, limits competition, blocks dependents, gathers envelopes and state | writes code, closes technical criteria or approves changes |
+| Software Engineer | implements a task in the designated worktree and tests local gates | changes SPEC/scope, loosens gate or uses pre-existing work without authorization |
+| Human Tech Lead | resolves architecture, exception, permission, and risk above mission | has a presumed decision due to inactivity |
 
-Alterar verificação para fazer o código passar é uma missão separada e precisa de autorização própria. Autor e aprovador permanecem instâncias diferentes.
+Changing verification to make the code pass is a separate mission and needs its own authorization. Author and approver remain different instances.
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Participante | Skills prioritárias |
+| Participant | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | Orchestrator | `dev-flow`, `update-docs` |
-| Software Engineer | `implement`, `fix-bug`, `test-integration-local`, `dev-flow`, `commit` conforme a tarefa |
+| Software Engineer | `implement`, `fix-bug`, `test-integration-local`, `dev-flow`, `commit` depending on the task |
 
-Cada envelope registra `skills_used`. O Engineer recebe apenas sua tarefa, trechos de SPEC/contratos necessários, paths, critérios e gates; não recebe memória integral nem tarefas independentes. Skill aderente não pode ser omitida sem justificativa.
-
----
-
-## Evidência por missão
-
-O evidence pack local registra, no mínimo:
-
-- baseline e commit inicial;
-- arquivos alterados e diff/commit resultante;
-- critério de aceite → teste/sensor → resultado;
-- comandos exatos, ambiente e timestamps;
-- falhas de cada tentativa e delta aplicado;
-- documentação atualizada ou justificativa verificável;
-- fora de escopo, riscos residuais e decisões solicitadas.
-
-O teste prático é reprodução independente. “Passou localmente” sem comando, ambiente e resultado bruto não é evidência.
+Each envelope records `skills_used`. The Engineer only receives his task, necessary SPEC/contract excerpts, paths, criteria and gates; does not receive full memory or independent tasks. Adherent skill cannot be omitted without justification.
 
 ---
 
-## Persistência e fechamento
+## Evidence per mission
 
-| Artefato | Destino | Writer |
+The local evidence pack records, at a minimum:
+
+- baseline and initial commit;
+- changed files and resulting diff/commit;
+- acceptance criteria → test/sensor → result;
+- exact commands, environment and timestamps;
+- failures of each attempt and delta applied;
+- updated documentation or verifiable justification;
+- out of scope, residual risks and requested decisions.
+
+The practical test is independent reproduction. “Passed locally” without command, environment and raw result is not evidence.
+
+---
+
+## Persistence and closure
+
+| Artifact | Destination | Writer |
 |---|---|---|
-| código, testes e docs | `repos/worktrees/<org>/<repo>/<WI-id>/` | Engineer da missão |
-| Work Item | `projects/<project>/work-items/<WI-id>.md` | owner da missão; fonte autoritativa |
-| evidence pack | `projects/<project>/execution/evidence/<WI-id>/` | Engineer; consolidado por links |
-| estado da rodada | `.coordination/active/<mission-id>.md` | Orchestrator; trânsito |
-| handoff de validação | `projects/<project>/execution/handoffs/` | Orchestrator |
-| `STATUS.md`, `MEMORY.md`, `BOARD.md` | workspace de Tech Lead | Orchestrator autorizado, após Work Items |
+| code, tests and docs | `repos/worktrees/<org>/<repo>/<WI-id>/` | Mission Engineer |
+| Work Item | `projects/<project>/work-items/<WI-id>.md` | mission owner; authoritative source |
+| evidence pack | `projects/<project>/execution/evidence/<WI-id>/` | Engineer; consolidated by links |
+| round status | `.coordination/active/<mission-id>.md` | Orchestrator; traffic |
+| validation handoff | `projects/<project>/execution/handoffs/` | Orchestrator |
+| `STATUS.md`, `MEMORY.md`, `BOARD.md` | Tech Lead workspace | Authorized Orchestrator, after Work Items |
 
-Ordem: persistir evidência individual → atualizar Work Item → reconciliar DAG → atualizar `STATUS.md`/memória quando aplicável → reconciliar board → promover handoff → remover/referenciar estado transitório conforme política. O Orchestrator lista mudanças e evidências; não combina código de missões por conta própria.
+Order: persist individual evidence → update Work Item → reconcile DAG → update `STATUS.md`/memory when applicable → reconcile board → promote handoff → remove/reference transient state as per policy. Orchestrator lists changes and evidence; does not combine quest code on its own.
 
 ---
 
 ## Gates
 
-### Gate por missão
+### Gate per mission
 
-- [ ] baseline, branch, base, worktree e escopo correspondem ao Work Item;
-- [ ] mudança permanece dentro da tarefa ou expansão foi autorizada;
-- [ ] critérios têm testes/evidências reproduzíveis;
-- [ ] hooks pre-commit/pre-push exigidos pelo risco foram executados;
-- [ ] documentação afetada foi atualizada;
-- [ ] falhas não foram ocultadas e gates não foram enfraquecidos;
-- [ ] commit é rastreável quando a missão autoriza commit.
+- [ ] baseline, branch, base, worktree and scope correspond to the Work Item;
+- [ ] change remains within the task or expansion has been authorized;
+- [ ] criteria have reproducible tests/evidence;
+- [ ] pre-commit/pre-push hooks required by the risk were executed;
+- [ ] affected documentation has been updated;
+- [ ] flaws were not hidden and gates were not weakened;
+- [ ] commit is traceable when the mission authorizes commit.
 
-### Gate da rodada
+### Round gate
 
-- [ ] DAG final distingue `completed`, `partial` e `blocked` por missão;
-- [ ] dependentes só avançaram após evidência persistida;
-- [ ] não houve colisão de writer scope ou worktree;
-- [ ] todos os envelopes informam `skills_used`, fontes, outputs, riscos e gates;
-- [ ] Work Items, evidence packs, `STATUS.md` e board estão reconciliados;
-- [ ] handoff ao Red Team cobre baselines, diffs, checklist, tentativas, pendências e fora de escopo.
+- [ ] Final DAG distinguishes `completed`, `partial` and `blocked` by mission;
+- [ ] dependents only advanced after persistent evidence;
+- [ ] there was no writer scope or worktree collision;
+- [ ] all envelopes inform `skills_used`, sources, outputs, risks and gates;
+- [ ] Work Items, evidence packs, `STATUS.md` and board are reconciled;
+- [ ] handoff to the Red Team covers baselines, diffs, checklist, attempts, pending issues and out of scope.
 
 ---
 
-## Retry, falhas e escalonamento
+## Retry, failures and escalation
 
-| Condição | Ação |
+| Condition | Action |
 |---|---|
-| falha determinística e corrigível dentro do escopo | retry do mesmo Engineer, registrando causa e delta |
-| mesma causa após duas tentativas | bloquear; escalar com opções e evidências |
-| requisito contradiz código/contrato | parar e devolver ao Specification TL/Tech Lead |
-| mudança exige arquitetura ou permissão nova | bloquear antes da ação |
-| dependência circular | Orchestrator interrompe a rodada e solicita replanejamento |
-| alteração local de terceiro ou colisão descoberta | preservar estado; não sobrescrever; reatribuir/serializar |
-| risco excede missão | Tech Lead decide expansão, mitigação ou retorno |
+| deterministic and correctable failure within scope | retry from the same Engineer, recording cause and delta |
+| same cause after two attempts | block; scale with options and evidence |
+| requirement contradicts code/contract | stop and return to Specification TL/Tech Lead |
+| change requires new architecture or permission | block before action |
+| circular dependency | Orchestrator interrupts the round and requests replanning |
+| third-party local change or discovered collision | preserve state; do not overwrite; reassign/serialize |
+| risk exceeds mission | Tech Lead decides expansion, mitigation or return |
 
-Rodada pode terminar `partial` com missões independentes concluídas, desde que dependentes bloqueados e impacto estejam explícitos. Ela não entrega ao Red Team uma composição que dependa de trabalho ainda inexistente.
+Round can end `partial` with independent missions completed, as long as blocked dependents and impact are explicit. It does not deliver to the Red Team a composition that depends on work that does not yet exist.
 
 ---
 
-## Envelope final da rodada
+## Final round envelope
 
 ```yaml
 mission_id: "RALPH-BATCH-<id>"
@@ -261,4 +261,4 @@ gates:
 handoff_to: []
 ```
 
-`ready_for_adversarial_validation` significa “pronto para ser atacado”, não aprovado.
+`ready_for_adversarial_validation` means “ready to be attacked”, not approved.

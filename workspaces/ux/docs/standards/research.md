@@ -1,7 +1,7 @@
-# Padrão de pesquisa
+# Search pattern
 
-- Declare pergunta, método, amostra, recrutamento e limitações.
-- Obtenha consentimento e minimize dados coletados.
-- Preserve citações com evidência localizável e anonimizada.
-- Separe observação, interpretação e recomendação.
-- Não generalize além do que a amostra sustenta.
+- State question, method, sample, recruitment and limitations.
+- Obtain consent and minimize data collected.
+- Preserve citations with localizable, anonymized evidence.
+- Separate observation, interpretation and recommendation.
+- Do not generalize beyond what the sample supports.

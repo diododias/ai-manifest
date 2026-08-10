@@ -1,24 +1,24 @@
 ---
 name: workspace-board
-description: Seleciona, assume e reconcilia Work Items com o `BOARD.md` de um workspace. Use ao escolher trabalho elegível, mudar o estado de uma missão, registrar bloqueio, preparar revisão ou encerrar uma entrega.
+description: Selects, assumes, and reconciles Work Items with the `BOARD.md` of a workspace. Use when choosing eligible work, changing the status of a mission, recording block, preparing review, or ending a delivery.
 ---
 
-# Board do workspace
+# Workspace board
 
-## Regras de autoridade
+## Authority Rules
 
-- `BOARD.md` é uma visão consolidada; o arquivo do Work Item é a fonte autoritativa de estado, owner, escopo, dependências e evidências.
-- Nunca mova um card apenas para refletir expectativa. Primeiro atualize ou confirme o Work Item; depois reconcilie o board e `STATUS.md` quando o contrato local o exigir.
-- Não assuma, altere ou encerre item pertencente a outro agente sem divisão explícita de responsabilidade.
+- `BOARD.md` is a consolidated vision; the Work Item file is the authoritative source of state, owner, scope, dependencies, and evidence.
+- Never move a card just to reflect expectations. First update or commit the Work Item; then reconcile the board and `STATUS.md` when the local contract requires it.
+- Do not assume, change or close an item belonging to another agent without explicit division of responsibility.
 
-## Fluxo
+## Flow
 
-1. Leia o board e selecione somente item elegível para a fase: dependências resolvidas, owner humano, escopo, risco e critério de conclusão definidos.
-2. Abra o Work Item e confirme fontes de entrada, repositório, branch/base/worktree quando houver código, e gates aplicáveis.
-3. Registre a assunção no Work Item antes de modificar artefatos. Ao bloquear, documente causa, impacto, evidência e próximo owner.
-4. Antes de cada transição, confirme os critérios do novo estado. Para `done`, exija evidência de todos os critérios; para entrega parcial, mantenha o estado que reflita a pendência.
-5. Reconcilie `BOARD.md` como índice e atualize `STATUS.md` com o estado verificável. Produza handoff quando a responsabilidade mudar.
+1. Read the board and select only the item eligible for the phase: dependencies resolved, human owner, scope, risk and completion criteria defined.
+2. Open the Work Item and confirm input sources, repository, branch/base/worktree when there is code, and applicable gates.
+3. Record the assumption in the Work Item before modifying artifacts. When blocking, document cause, impact, evidence, and next owner.
+4. Before each transition, confirm the new state criteria. For `done`, require evidence of all criteria; for partial delivery, maintain the status that reflects the pending status.
+5. Reconcile `BOARD.md` as index and update `STATUS.md` with the verifiable state. Produce handoff when responsibility changes.
 
-## Resultado esperado
+## Expected result
 
-No envelope de saída, informe `work_item_id`, estado anterior e atual, evidência dos gates e próximo owner. Declare qualquer divergência entre board, Work Item e estado real como bloqueio ou risco.
+In the output envelope, enter `work_item_id`, previous and current state, evidence of gates and next owner. Declare any divergence between board, Work Item and actual state as blocking or risk.

@@ -6,16 +6,16 @@ owner: <owner>
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Especificação>
+# <Specification>
 
-## Problema e escopo
+## Problem and scope
 
-<O que será resolvido e o que fica de fora.>
+<What will be resolved and what is left out.>
 
-## Contrato
+## Contract
 
-<Comportamento, interfaces e invariantes.>
+<Behavior, interfaces and invariants.>
 
-## Validação
+## Validation
 
-<Como provar o contrato.>
+<How to prove the contract.>

@@ -1,22 +1,22 @@
 ---
-id: HANDOFF-<WI>-<ORIGEM>-<DESTINO>
+id: HANDOFF-<WI>-<ORIGIN>-<DESTINATION>
 project: <project-slug>
 work_item: <WI-NNN>
-from: <origem>
-to: <destino>
+from: <origin>
+to: <destination>
 created_at: <ISO-8601>
 ---
 
-# Handoff — <missão>
+# Handoff — <mission>
 
-## Estado entregue
+## Delivered status
 
-<O que foi feito, arquivos e decisões.>
+<What was done, files and decisions.>
 
-## Código e evidências
+## Code and evidence
 
-<Repositórios, branches, worktrees, commits e provas.>
+<Repositories, branches, worktrees, commits and proofs.>
 
-## Pendências e próxima ação
+## To-dos and next action
 
-<Riscos, bloqueios e ação esperada do destino.>
+<Risks, roadblocks and expected action from the target.>

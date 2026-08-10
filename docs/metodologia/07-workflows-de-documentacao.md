@@ -1,108 +1,108 @@
-# 07 — Workflows de documentação
+#07 — Documentation workflows
 
-> Como a documentação se mantém viva: quem produz cada artefato, o que dispara uma atualização e o que impede que ela seja esquecida.
+> How documentation stays alive: who produces each artifact, what triggers an update and what prevents it from being forgotten.
 
-[Documentation](../DOCUMENTATION.md) descreve **onde** a documentação vive dentro do repositório — rules, ADRs, evidence pack, estrutura de arquivos. Esta página descreve **como ela se mantém correta ao longo do tempo**, que é um problema diferente e mais difícil.
+[Documentation](../DOCUMENTATION.md) describes **where** the documentation lives within the repository — rules, ADRs, evidence pack, file structure. This page describes **how it stays correct over time**, which is a different, more difficult problem.
 
-O antipadrão que ela combate tem nome: **documentação atualizada por lembrança**. Ela funciona por algumas semanas, degrada em silêncio e é descoberta no pior momento possível — quando um agente lê uma rule desatualizada, segue-a corretamente e produz algo errado. Num fluxo com agentes, documentação obsoleta não é dívida cosmética: é instrução ativa e equivocada.
+The anti-pattern it fights has a name: **documentation updated by memory**. It works for a few weeks, degrades silently, and is discovered at the worst possible time — when an agent reads an outdated rule, follows it correctly, and produces something wrong. In a flow with agents, obsolete documentation is not cosmetic debt: it is active and mistaken instruction.
 
-A resposta do modelo é a mesma que ele dá em todo lugar: **transformar lembrança em gatilho.** Cada artefato tem um evento observável que exige sua atualização, e a verificação disso mora no gate, não na memória de quem revisa.
+The model's answer is the same as it gives everywhere: **transform memory into trigger.** Each artifact has an observable event that requires its updating, and the verification of this lives in the gate, not in the memory of the person reviewing it.
 
 ---
 
-## Quem produz o quê
+## Who produces what
 
-Todo artefato documental tem exatamente um consolidador e um destino canônico — o mesmo princípio dos loops, aplicado à documentação.
+Every documentary artifact has exactly one consolidator and one canonical destination — the same principle of loops, applied to documentation.
 
-| Artefato | Nasce em | Consolida | Owner humano | Fonte canônica |
+| Artifact | Born in | Consolidate | Human owner | Canonical source |
 |---|---|---|---|---|
 | Work Item | [🚦 Triage](../loops/00-intake-and-triage.md) | Intake Agent | PM | `projects/<project>/work-items/` |
-| `PB.md` | [🔦 Scout](../loops/01-discovery-and-research.md) | Product Manager Agent | PM | workspace de produto |
-| `PRD.md` | [🎨 Studio](../loops/02-product-and-ux-planning.md) | Product Manager + UX Specification | PM, com UX | workspace de produto |
-| `SPEC`, `PLAN`, `TASKS` | [🗺️ Drafting](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead | workspace técnico |
-| ADR | [🗺️ Drafting](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead | `docs/adr/` no repositório |
-| `docs/rules/*.md` | qualquer loop que adote uma convenção | o agente que a introduziu | Tech Lead | repositório |
-| `AGENTS.md` | [🔁 Ralph](../loops/04-autonomous-implementation.md) | Software Engineer Agent | Tech Lead | repositório |
-| `skills/<skill>/SKILL.md` | [🗄️ Archivist](../loops/09-knowledge-curation.md) | Knowledge Agent | owner do domínio | repositório |
-| Evidence pack | [⚔️ Red Team](../loops/05-adversarial-validation.md) e [🚪 Gatekeeper](../loops/06-pr-and-merge.md) | gerado por `scripts/evidence.sh` | Tech Lead | `docs/evidence/<work-item>/` |
-| `MEMORY.md` | [☀️ Daily](../loops/11-daily-operations.md) e [🌙 Dream](../loops/10-continuous-improvement.md) | Knowledge Agent | trio | workspace correspondente |
+| `PB.md` | [🔦 Scout](../loops/01-discovery-and-research.md) | Product Manager Agent | PM | product workspace |
+| `PRD.md` | [🎨 Studio](../loops/02-product-and-ux-planning.md) | Product Manager + UX Specification | PM, with UX | product workspace |
+| `SPEC`, `PLAN`, `TASKS` | [🗺️ Drafting](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead | technical workspace |
+| ADR | [🗺️ Drafting](../loops/03-technical-specification.md) | Specification Tech Lead | Tech Lead | `docs/adr/` in the repository |
+| `docs/rules/*.md` | any loop that adopts a convention | the agent who introduced it | Tech Lead | repository |
+| `AGENTS.md` | [🔁 Ralph](../loops/04-autonomous-implementation.md) | Software Engineer Agent | Tech Lead | repository |
+| `skills/<skill>/SKILL.md` | [🗄️ Archivist](../loops/09-knowledge-curation.md) | Knowledge Agent | domain owner | repository |
+| Evidence pack | [⚔️ Red Team](../loops/05-adversarial-validation.md) and [🚪 Gatekeeper](../loops/06-pr-and-merge.md) | generated by `scripts/evidence.sh` | Tech Lead | `docs/evidence/<work-item>/` |
+| `MEMORY.md` | [☀️ Daily](../loops/11-daily-operations.md) and [🌙 Dream](../loops/10-continuous-improvement.md) | Knowledge Agent | threesome | corresponding workspace |
 
-Duas linhas merecem comentário. O **evidence pack é gerado por script**, nunca montado à mão ao final da tarefa — evidência manual é seletiva por natureza, e a seleção é feita justamente por quem tem interesse no resultado. E o **`MEMORY.md` tem dois produtores com janelas diferentes**: o diário propõe com evidência de sessão, o semanal valida contra baseline.
+Two lines deserve comment. The **evidence pack is generated by script**, never assembled by hand at the end of the task — manual evidence is selective by nature, and the selection is made precisely by those who are interested in the result. And **`MEMORY.md` has two producers with different windows**: the daily proposes with session evidence, the weekly validates against baseline.
 
 ---
 
-## O que dispara uma atualização
+## What triggers an update
 
-Cada gatilho abaixo é um evento observável, não uma boa intenção. É a diferença entre "lembrar de atualizar a documentação" e "a documentação ser atualizada".
+Each trigger below is an observable event, not a good intention. It's the difference between "remembering to update the documentation" and "the documentation is updated".
 
-| Gatilho | Atualiza | Quem |
+| Trigger | Update | Who |
 |---|---|---|
-| Decisão de arquitetura tomada ou revertida | **novo** ADR, nunca edição do anterior | Specification Tech Lead |
-| Convenção nova adotada de fato no código | a rule correspondente em `docs/rules/` | o agente que a introduziu, via `update-docs` |
-| Procedimento repetido pela terceira vez | nova skill em `skills/` | Knowledge Agent |
-| Comando de build, teste ou execução alterado | `AGENTS.md` | Software Engineer Agent, no mesmo PR |
-| Contrato público ou schema alterado | rule, ADR e documentação de contrato | Specification Tech Lead |
-| Incidente com causa raiz identificada | rule, ADR ou skill, conforme a natureza | owner do domínio |
-| Aprendizado validado no ☀️ ou 🌙 | `MEMORY.md` | Knowledge Agent |
-| Exceção arquitetural aberta | ADR com prazo e plano de reversão | Tech Lead |
-| Gate, sensor ou nível de autonomia alterado | a documentação do harness e o registro da mudança | Tech Lead + revisor independente |
+| Architectural decision made or reversed | **new** ADR, never edition of the previous one | Specification Tech Lead |
+| New convention actually adopted in the code | the corresponding rule in `docs/rules/` | the agent who introduced it, via `update-docs` |
+| Procedure repeated for the third time | new skill in `skills/` | Knowledge Agent |
+| Build, test or run command changed | `AGENTS.md` | Software Engineer Agent, in the same PR |
+| Public contract or changed schema | rule, ADR and contract documentation | Specification Tech Lead |
+| Incident with root cause identified | rule, ADR or skill, depending on the nature | domain owner |
+| Learning validated on ☀️ or 🌙 | `MEMORY.md` | Knowledge Agent |
+| Open architectural exception | ADR with term and reversion plan | Tech Lead |
+| Gate, sensor or autonomy level changed | harness documentation and change log | Tech Lead + independent reviewer |
 
-### A regra do ADR
+### The ADR rule
 
-ADR registra **a decisão tomada**, não a regra vigente. A rule em `architecture.md` diz *"módulos de domínio não importam de infraestrutura"*; o ADR correspondente diz por que essa decisão foi tomada, o que foi considerado e o que ela custa.
+ADR records **the decision made**, not the current rule. The rule in `architecture.md` says *"domain modules do not matter from infrastructure"*; the corresponding ADR tells you why this decision was made, what was considered and what it costs.
 
-A consequência prática é a linha mais importante da tabela acima: **reverter uma decisão cria um ADR novo que supersede o anterior — nunca edita o antigo.** Um agente que lê apenas rules sabe o que fazer; um agente que também lê ADRs sabe por quê, e decide corretamente no caso de borda que a rule não previu. Apagar o histórico destrói exatamente essa capacidade.
+The practical consequence is the most important line in the table above: **reversing a decision creates a new ADR that supersedes the previous one — never edits the old one.** An agent that only reads rules knows what to do; an agent that also reads ADRs knows why, and decides correctly in the case of an edge that the rule did not predict. Deleting history destroys exactly this ability.
 
-### A trava
+### The lock
 
-**Um PR que altera comportamento sem atualizar o artefato correspondente é reprovado no gate — não no review humano.**
+**A PR that changes behavior without updating the corresponding artifact fails the gate — not the human review.**
 
-Deixar isso para o julgamento de quem revisa transfere para uma pessoa um trabalho que uma máquina faz melhor, e o resultado é conhecido: a verificação acontece nas primeiras semanas e desaparece depois. O detalhe de como o gate implementa isso está em [Gates](../GATES.md).
+Leaving this to the judgment of those who review transfers to a person a job that a machine does better, and the result is known: the check happens in the first few weeks and disappears afterwards. The detail of how the gate implements this is in [Gates](../GATES.md).
 
 ---
 
-## Estados e ciclo de vida
+## States and life cycle
 
-Todo documento canônico carrega um estado, e o estado tem significado operacional para o agente que o lê.
+Every canonical document carries a state, and the state has operational meaning for the agent that reads it.
 
-| Estado | Significa | O agente pode |
+| Status | Means | The agent can |
 |---|---|---|
-| `proposed` | escrito, ainda não aceito como referência | ler como contexto, nunca como regra |
-| `canonical` | é a referência vigente para o tema | seguir sem confirmação |
-| `superseded` | substituído por outro documento | ler para entender o histórico; nunca seguir |
-| `archived` | não se aplica mais e não foi substituído | ignorar, salvo investigação histórica |
+| `proposed` | written, not yet accepted as a reference | read as context, never as a rule |
+| `canonical` | is the current reference for the topic | follow without confirmation |
+| `superseded` | replaced by another document | read to understand the history; never follow |
+| `archived` | no longer applies and has not been replaced | ignore unless historical investigation |
 
-Um documento `superseded` **nunca é apagado**: ele aponta para quem o substituiu. É o que permite reconstruir por que algo é como é — a mesma razão que sustenta a regra do ADR.
+A `superseded` document is **never deleted**: it points to whoever replaced it. It's what allows you to reconstruct why something is the way it is — the same reason that supports the ADR rule.
 
-O front matter mínimo é `title`, `status` e `updated_at`; documentos com titularidade não óbvia acrescentam `owner`. A ausência de `status` faz o agente tratar o documento como `proposed`, que é o comportamento seguro.
+The minimum front matter is `title`, `status` and `updated_at`; documents with non-obvious ownership add `owner`. The absence of `status` causes the agent to treat the document as `proposed`, which is safe behavior.
 
 ---
 
-## O padrão de escrita
+## The writing pattern
 
-As regras abaixo existem para que o documento sirva a dois leitores no mesmo arquivo: quem chega sem contexto e tem poucos minutos, e quem já decidiu que vale e precisa do detalhe operacional.
+The rules below exist so that the document serves two readers in the same file: those who arrive without context and have just a few minutes, and those who have already decided that it is worth it and need the operational detail.
 
-| Regra | Aplicação |
+| Rule | Application |
 |---|---|
-| **Nenhuma seção começa com lista** | listas descrevem itens; prosa e tabelas descrevem relações |
-| **Prosa antes de estrutura** | cada bloco abre explicando por que existe e como se liga ao anterior |
-| **Consequência explícita** | todo bloco com decisão fecha com o que acontece se a regra não for seguida |
-| **Um conceito, um lugar** | conteúdo que já existe em outra camada é linkado, nunca reescrito |
-| **Duas camadas acima de 150 linhas** | abertura curta em prosa, depois o corpo navegável |
-| **Front matter obrigatório** | `title`, `status`, `updated_at` |
+| **No section begins with list** | lists describe items; prose and tables describe relationships |
+| **Prose before structure** | each block opens explaining why it exists and how it connects to the previous one |
+| **Explicit consequence** | every block with a decision closes with what happens if the rule is not followed |
+| **One concept, one place** | content that already exists on another layer is linked, never rewritten |
+| **Two layers over 150 lines** | short opening in prose, then the navigable body |
+| **Front matter mandatory** | `title`, `status`, `updated_at` |
 
-**Exceção explícita:** documentos curtos de contrato — os arquivos de [`loops/`](../loops/README.md) e de [`agentes/`](../agentes/README.md) — dispensam a camada rápida. Eles já cabem em uma tela, abrem com um parágrafo de propósito seguido da tabela de contrato, e a regra prática é direta: se o documento inteiro é lido em menos tempo do que o resumo economizaria, não há resumo a escrever.
-
----
-
-## Como auditar
-
-Três perguntas respondem se a documentação está viva. Elas podem ser feitas a qualquer momento, sobre qualquer repositório.
-
-1. **Existe alguma rule que o código já não segue?** Se sim, ou a rule morreu e ninguém a marcou como `superseded`, ou o código divergiu e nenhum gate percebeu. As duas causas são defeitos.
-2. **Existe alguma decisão relevante sem ADR?** O sintoma é reconhecível: uma escolha estrutural que ninguém consegue explicar. Ver o antipadrão em [Papéis](01-papeis.md).
-3. **O último evidence pack permite refazer a verificação sem perguntar nada?** Se não, o que existe é um resumo, e as aprovações recentes se basearam na impressão que ele causou.
+**Explicit exception:** short contract documents — the [`loops/`](../loops/README.md) and [`agentes/`](../agentes/README.md) files — do not require the quick layer. They already fit on one screen, they open with a purposeful paragraph followed by the contract table, and the rule of thumb is straightforward: if the entire document is read in less time than the summary would save, there is no summary to write.
 
 ---
 
-*Anterior: [Jornada comentada](06-jornada-comentada.md) · Volta ao [índice da metodologia](README.md).*
+## How to audit
+
+Three questions answer whether the documentation is alive. They can be done at any time, on any repository.
+
+1. **Is there a rule that the code no longer follows?** If so, either the rule died and no one marked it as `superseded`, or the code diverged and no gate noticed. Both causes are defects.
+2. **Is there any relevant decision without ADR?** The symptom is recognizable: a structural choice that no one can explain. See the antipattern in [Papers](01-papeis.md).
+3. **Does the latest evidence pack allow you to redo the check without asking anything?** If not, what exists is a summary, and recent approvals were based on the impression it made.
+
+---
+
+*Previous: [Commented journey](06-jornada-comentada.md) · Return to [methodology index](README.md).*

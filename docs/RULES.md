@@ -1,55 +1,55 @@
-# Rules
+#Rules
 
-Rules descrevem estado desejado, não procedimento. "Módulos de domínio não importam de infraestrutura" é rule. "Para adicionar um adapter, crie a interface em X e a implementação em Y" é skill. A confusão entre os dois produz rules longas que ninguém lê e skills vagas que não se consegue executar.
+Rules describe desired state, not procedure. "Domain modules don't matter infrastructure" is a rule. "To add an adapter, create the interface in X and the implementation in Y" is a skill. The confusion between the two produces long rules that no one reads and vague skills that you can't execute.
 
-Toda rule carrega o motivo junto. Isso não é cortesia editorial: um agente que conhece a razão de uma regra decide corretamente no caso de borda que a regra não previu, enquanto um agente que só conhece a regra ou a aplica cegamente ou a ignora.
+Every rule carries the reason along with it. This is not editorial courtesy: an agent who knows the reason for a rule correctly decides in the edge case that the rule did not predict, while an agent who only knows the rule either applies it blindly or ignores it.
 
-## Arquivos de rules
+## Rules files
 
-As rules se dividem em arquivos separados, cada um cobrindo uma frente distinta. Essa separação é uma decisão de orçamento de contexto: rules são lidas sob demanda conforme a tarefa, não carregadas inteiras em toda execução.
+The rules are divided into separate files, each covering a different front. This separation is a context budget decision: rules are read on demand according to the task, not loaded in their entirety during every execution.
 
-| Arquivo | Define |
+| Archive | Define |
 |---|---|
-| `docs/rules/architecture.md` | módulos, fronteiras, dependências permitidas e proibidas |
-| `docs/rules/coding.md` | convenções, padrões aceitos, naming, injeção de dependência |
-| `docs/rules/testing.md` | níveis obrigatórios por tipo de mudança |
-| `docs/rules/security.md` | dados, secrets, autenticação, privacidade |
-| `docs/rules/operations.md` | SLOs, observabilidade, rollout, rollback |
+| `docs/rules/architecture.md` | modules, boundaries, permitted and prohibited dependencies |
+| `docs/rules/coding.md` | conventions, accepted standards, naming, dependency injection |
+| `docs/rules/testing.md` | mandatory levels by type of change |
+| `docs/rules/security.md` | data, secrets, authentication, privacy |
+| `docs/rules/operations.md` | SLOs, observability, rollout, rollback |
 
-## `AGENTS.md` — o contrato de entrada
+## `AGENTS.md` — the entry contract
 
-O `AGENTS.md` é lido antes de qualquer ação, o que torna cada linha dele um custo fixo por execução. Ele responde o que o agente precisa para agir corretamente na primeira tentativa, e delega o resto por ponteiro. Seus blocos são:
+`AGENTS.md` is read before any action, which makes each line of it a fixed cost per execution. It responds to what the agent needs to act correctly on the first attempt, and delegates the rest via pointer. Its blocks are:
 
-| Bloco | Conteúdo | Erro comum |
+| Block | Content | Common error |
 |---|---|---|
-| Identidade | o que o serviço faz e para quem, em três frases | reescrever o pitch do produto |
-| Comandos | instalar, buildar, testar, verificar, rodar local | listar comandos que ninguém usa mais |
-| Fronteiras | o que não pode ser alterado sem autorização | descrever a arquitetura inteira |
-| Verificação | o que precisa passar antes de considerar pronto | duplicar a configuração de CI |
-| Escalonamento | as condições em que se para e devolve a decisão | omitir — é o bloco mais esquecido |
-| Ponteiros | onde ficam rules, ADRs, skills e evidências | inlinar o conteúdo apontado |
+| Identity | what the service does and for whom, in three sentences | rewrite the product pitch |
+| Commands | install, build, test, verify, run local | list commands that no one uses anymore |
+| Borders | what cannot be changed without authorization | describe the entire architecture |
+| Verification | what needs to go through before considering it ready | duplicate CI configuration |
+| Escalation | the conditions under which the decision is stopped and returned | omit — it's the most forgotten block |
+| Pointers | where rules, ADRs, skills and evidence are located | inline the pointed content |
 
-O bloco de escalonamento é o que mais falta e o que mais importa. Sem ele, um agente diante de requisito contraditório escolhe uma interpretação e segue — e a escolha só aparece na revisão, quando o trabalho já foi feito.
+The scaling block is what is most lacking and what matters most. Without it, an agent faced with a contradictory requirement chooses an interpretation and follows through — and the choice only appears in the review, when the work has already been done.
 
-## Condições de escalonamento
+## Escalation conditions
 
-O agente deve parar e devolver a decisão diante de qualquer uma das situações abaixo:
+The agent must stop and return the decision in any of the following situations:
 
-- Requisito contraditório ou sem owner definido
-- Confiança abaixo do threshold declarado em `settings.json`
-- Duas ou mais tentativas de correção sem progresso
-- Mudança fora do escopo aprovado
-- Necessidade de nova permissão ou acesso externo
-- Falha não reproduzível ou evidência inconsistente
-- Decisão irreversível ou impacto não calculável
-- Divergência entre agentes sem critério objetivo de desempate
+- Contradictory requirement or without defined owner
+- Confidence below the threshold declared in `settings.json`
+- Two or more correction attempts without progress
+- Change outside the approved scope
+- Need for new permission or external access
+- Non-reproducible failure or inconsistent evidence
+- Irreversible decision or non-calculable impact
+- Divergence between agents without objective tiebreaker criteria
 
-## A estratégia de testes como rule
+## The testing strategy as a rule
 
-A estratégia de testes merece destaque porque é a rule que os gates traduzem diretamente em bloqueio. A escada completa é:
+The testing strategy deserves to be highlighted because it is the rule that the gates translate directly into blocking. The complete ladder is:
 
 ```
-unitários → arquitetura → integração → contrato → end-to-end → acessibilidade → mutação
+unitary → architecture → integration → contract → end-to-end → accessibility → mutation
 ```
 
-A rule define quais níveis são obrigatórios por tipo de mudança. Sem esse mapeamento, o agente ou escreve testes de menos — e o gate reprova tarde — ou escreve testes demais, elevando o custo por entrega sem ganho de segurança.
+The rule defines which levels are mandatory per type of change. Without this mapping, the agent either writes too few tests — and the gate fails late — or writes too many tests, increasing the cost per delivery without gaining security.

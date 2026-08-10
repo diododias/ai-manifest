@@ -6,10 +6,10 @@ source: PRD-001
 updated_at: 2026-08-08
 ---
 
-# Pagamento idempotente
+# Idempotent payment
 
-> Derivação técnica do snapshot de produto. Confirme o comportamento esperado no [PRD canônico do PM](../../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md) antes de alterar a implementação.
+> Technical derivation of the product snapshot. Confirm expected behavior in [PM canonical PRD](../../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md) before changing the implementation.
 
-Dada uma chave de idempotência válida, repetições semanticamente equivalentes devem retornar o resultado persistido da primeira tentativa e não criar nova cobrança.
+Given a valid idempotence key, semantically equivalent retries should return the persisted result of the first attempt and not create a new charge.
 
-Reutilizar a chave com conteúdo conflitante deve produzir erro de conflito e não alterar o resultado original.
+Reusing the key with conflicting content should produce a conflict error and not change the original result.

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Board do Workspace"
-  short_description: "Selecione e reconcilie Work Items com o board."
-  default_prompt: "Use $workspace-board para assumir ou atualizar um Work Item."
+  display_name: "Workspace Board"
+  short_description: "Select and reconcile Work Items with the board."
+  default_prompt: "Use $workspace-board to assume or update a Work Item."

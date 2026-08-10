@@ -1,3 +1,3 @@
-# Worktrees de missões
+# Quest worktrees
 
-Crie worktrees em `<organização>/<repositório>/<work-item>/`. O conteúdo desta pasta é local e ignorado pelo Git do exemplo.
+Create worktrees in `<organization>/<repository>/<work-item>/`. The contents of this folder are local and ignored by the example Git.

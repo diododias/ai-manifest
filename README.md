@@ -1,18 +1,18 @@
 # Agent-Team
 
-**Agent-Team** é um manifesto: um conjunto de documentos que descreve, de forma completa e verificável, como um time de agentes de IA pode colaborar na construção de software — do intake de uma ideia até a operação em produção — com pontos de decisão humana bem definidos.
+**Agent-Team** is a manifesto: a set of documents that describe, in a complete and verifiable way, how a team of AI agents can collaborate in building software — from idea intake to production operation — with well-defined human decision points.
 
-Este repositório não contém uma aplicação para instalar ou rodar. Ele contém **a especificação de um método de trabalho**: papéis, procedimentos, ordens de execução e regras de governança, todos versionados como texto para que tanto pessoas quanto agentes consigam lê-los e segui-los sem ambiguidade.
+This repository does not contain an application to install or run. It contains **the specification of a working method**: roles, procedures, execution orders and governance rules, all versioned as text so that both people and agents can read and follow them without ambiguity.
 
-Se esta é a sua primeira visita, pense neste README como uma introdução guiada. Ele explica a ideia central do projeto, como o conteúdo está organizado e por onde começar a leitura — sem exigir que você já conheça o vocabulário do resto da documentação.
+If this is your first visit, think of this README as a guided introduction. It explains the central idea of ​​the project, how the content is organized and where to start reading — without requiring you to already know the vocabulary of the rest of the documentation.
 
 ---
 
-## Experiência interativa
+## Interactive experience
 
-Abra [`index.html`](index.html) para explorar a documentação em uma interface dark, com busca global, navegação por drilldown e uma pirâmide interativa das seis camadas. O arquivo funciona localmente, sem servidor.
+Open [`index.html`](index.html) to explore the documentation in a dark interface, with global search, drilldown navigation, and an interactive six-layer pyramid. The file works locally, without a server.
 
-O HTML é gerado a partir dos Markdown vigentes — nunca editado como uma fonte paralela:
+HTML is generated from current Markdown — never edited as a parallel source:
 
 ```bash
 uv run scripts/build-docs-site.py
@@ -20,106 +20,106 @@ uv run scripts/build-docs-site.py
 
 ---
 
-## A ideia central: uma pirâmide de seis camadas
+## The central idea: a six-layer pyramid
 
-O método é organizado em seis camadas, do mais concreto ao mais abstrato. Cada camada responde a uma pergunta diferente e depende da camada anterior já existir — pular uma delas é, segundo o próprio manifesto, o que produz documentação que ninguém consegue executar de fato.
+The method is organized into six layers, from the most concrete to the most abstract. Each layer answers a different question and depends on whether the previous layer already exists — skipping one of them is, according to the manifesto itself, what produces documentation that no one can actually execute.
 
-| # | Camada | Pergunta que responde | Documento principal |
+| # | Layer | Question that answers | Main document |
 |---|---|---|---|
-| 1 | **Harness** | O que o repositório da aplicação precisa carregar para ser operado por agentes? | [`docs/REPO_HARNESS.md`](docs/REPO_HARNESS.md) |
-| 2 | **Agentes** | *Quem* executa cada tarefa, sob qual autoridade e com qual limite? | [`docs/AGENTES.md`](docs/AGENTES.md) |
-| 3 | **Skills** | *Como* uma tarefa recorrente deve ser executada corretamente? | [`docs/SKILLS.md`](docs/SKILLS.md) |
-| 4 | **Loops** | *Em que ordem* os agentes colaboram, e quando parar? | [`docs/LOOPS.md`](docs/LOOPS.md) |
-| 5 | **Metodologia** | *Quem opera* o sistema no dia a dia, e o que exige uma pessoa? | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) |
-| 6 | **Workspace** | *Onde* cada artefato de uma execução vive, fora do código? | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) |
+| 1 | **Harness** | What does the application repository need to load to be operated by agents? | [`docs/REPO_HARNESS.md`](docs/REPO_HARNESS.md) |
+| 2 | **Agents** | *Who* performs each task, under what authority and with what limits? | [`docs/AGENTES.md`](docs/AGENTES.md) |
+| 3 | **Skills** | *How* should a recurring task be performed correctly? | [`docs/SKILLS.md`](docs/SKILLS.md) |
+| 4 | **Loops** | *In what order* do agents collaborate, and when to stop? | [`docs/LOOPS.md`](docs/LOOPS.md) |
+| 5 | **Methodology** | *Who operates* the system on a day-to-day basis, and what does it require of a person? | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) |
+| 6 | **Workspace** | *Where* does each artifact of an execution live, outside of the code? | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) |
 
-Uma forma simples de entender a relação entre as camadas: o **harness** é o que torna um repositório legível para um agente; os **agentes** são quem faz o trabalho dentro desse repositório; as **skills** são as receitas que cada agente segue para não reinventar o procedimento a cada tarefa; os **loops** definem a ordem de uma etapa da jornada, do intake ao deploy; a **metodologia** explica o que uma pessoa precisa decidir ao longo desse caminho; e o **workspace** é o lugar, fora do código, onde as decisões e artefatos de cada execução ficam guardados.
+A simple way to understand the relationship between the layers: **harness** is what makes a repository readable for an agent; **agents** are those who do the work within this repository; **skills** are the recipes that each agent follows so as not to reinvent the procedure for each task; **loops** define the order of a stage of the journey, from intake to deployment; the **methodology** explains what a person needs to decide along this path; and the **workspace** is the place, outside the code, where the decisions and artifacts of each execution are stored.
 
 ---
 
-## Estrutura do repositório
+## Repository structure
 
 ```text
 ai-manifest/
-├── README.md              # este arquivo
-├── docs/                  # a documentação do método — comece por aqui
-│   ├── README.md          # índice completo da pirâmide, com trilhas de leitura
-│   ├── REPO_HARNESS.md    # camada 1 — harness do repositório
-│   ├── TOOLS.md           # ferramentas que um agente pode invocar
-│   ├── MCPS.md            # servidores MCP e escopos autorizados
-│   ├── SKILLS.md          # camada 3 — catálogo de procedimentos
-│   ├── RULES.md           # estado desejado do repositório e AGENTS.md
-│   ├── SENSORS.md         # verificações locais (pre-commit, pre-push)
-│   ├── GATES.md           # verificação do commit ao deploy, níveis de maturidade
-│   ├── DOCUMENTATION.md   # ADRs e evidence pack
-│   ├── AGENTES.md         # camada 2 — como um agente funciona
-│   ├── agentes/           # os 23 contratos individuais de agentes
-│   ├── LOOPS.md           # camada 4 — como as etapas da jornada se coordenam
-│   ├── loops/              # os 12 contratos de etapa, do intake à operação diária
-│   ├── METODOLOGIA.md     # camada 5 — como uma pessoa opera o sistema
-│   ├── metodologia/        # as sete páginas operacionais
-│   ├── WORKSPACE.md       # camada 6 — onde o trabalho vive fora do código
-│   └── workspace/          # as quatro páginas operacionais
-├── agents/                 # os prompts executáveis de cada agente (AGENT.md)
-├── skills/                  # os procedimentos executáveis (SKILL.md)
-├── workflows/               # a versão executável dos loops
-├── templates/               # modelos usados por PM, UX e Tech Lead
-├── workspaces/               # exemplos de workspace para os três papéis
-└── scripts/                  # utilitários de apoio à documentação
+├── README.md # this file
+├── docs/ # the method documentation — start here
+│ ├── README.md # complete pyramid index, with reading tracks
+│ ├── REPO_HARNESS.md # layer 1 — repository harness
+│ ├── TOOLS.md # tools that an agent can invoke
+│ ├── MCPS.md # MCP servers and authorized scopes
+│ ├── SKILLS.md # layer 3 — procedure catalog
+│ ├── RULES.md # desired state of repository and AGENTS.md
+│ ├── SENSORS.md # local checks (pre-commit, pre-push)
+│ ├── GATES.md # check commit to deploy, maturity levels
+│ ├── DOCUMENTATION.md # ADRs and evidence pack
+│ ├── AGENTS.md # layer 2 — how an agent works
+│ ├── agents/ # the 23 individual agent contracts
+│ ├── LOOPS.md # layer 4 — how the steps of the journey coordinate
+│ ├── loops/ # the 12 stage contracts, from intake to daily operation
+│ ├── METODOLOGIA.md # layer 5 — how a person operates the system
+│ ├── methodology/ # the seven operational pages
+│ ├── WORKSPACE.md # layer 6 — where the work lives outside the code
+│ └── workspace/ # the four operational pages
+├── agents/ # the executable prompts for each agent (AGENT.md)
+├── skills/ # executable procedures (SKILL.md)
+├── workflows/ # the executable version of the loops
+├── templates/ # templates used by PM, UX and Tech Lead
+├── workspaces/ # workspace examples for the three roles
+└── scripts/ # documentation support utilities
 ```
 
-A regra prática para se orientar: **`docs/` explica o conceito e o porquê; as pastas irmãs (`agents/`, `skills/`, `workflows/`, `templates/`, `workspaces/`) contêm a versão executável daquilo que `docs/` descreve.** Ler um documento de conceito antes do artefato correspondente evita aplicar um procedimento sem entender a razão por trás dele.
+The rule of thumb to guide yourself: **`docs/` explains the concept and why; the sister folders (`agents/`, `skills/`, `workflows/`, `templates/`, `workspaces/`) contain the executable version of what `docs/` describes.** Reading a concept document before the corresponding artifact avoids applying a procedure without understanding the reason behind it.
 
 ---
 
-## Por onde começar
+## Where to start
 
-A documentação completa, com o índice detalhado de cada camada e trilhas de leitura por perfil, está em **[`docs/README.md`](docs/README.md)**. A tabela abaixo é um atalho para os objetivos mais comuns.
+The complete documentation, with the detailed index for each layer and reading tracks per profile, is at **[`docs/README.md`](docs/README.md)**. The table below is a shortcut to the most common objectives.
 
-| Se você quer… | Comece por… |
+| If you want… | Start with… |
 |---|---|
-| Entender a ideia do projeto em conjunto | [`docs/README.md`](docs/README.md) |
-| Preparar um repositório de aplicação para ser operado por agentes | [Harness](docs/REPO_HARNESS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
-| Conhecer o catálogo de agentes e o que cada um faz | [`docs/AGENTES.md`](docs/AGENTES.md) → [contratos individuais](docs/agentes/README.md) |
-| Ver a jornada completa, do intake ao deploy | [`docs/LOOPS.md`](docs/LOOPS.md) → [as 12 etapas](docs/loops/README.md) |
-| Saber o que cabe a uma pessoa decidir, na prática | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) → [manual do operador](docs/metodologia/05-manual-do-operador.md) |
-| Saber onde cada artefato de uma execução deve ser salvo | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) → [estrutura do workspace](docs/workspace/01-estrutura-do-workspace.md) |
+| Understand the project idea together | [`docs/README.md`](docs/README.md) |
+| Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Get to know the agent catalog and what each one does | [`docs/AGENTES.md`](docs/AGENTES.md) → [individual contracts](docs/agentes/README.md) |
+| See the complete journey, from intake to deployment | [`docs/LOOPS.md`](docs/LOOPS.md) → [the 12 steps](docs/loops/README.md) |
+| Knowing what is up to a person to decide, in practice | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) → [operator manual](docs/metodologia/05-manual-do-operador.md) |
+| Know where each artifact of a run should be saved | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) → [workspace structure](docs/workspace/01-estrutura-do-workspace.md) |
 
 ---
 
-## Conceitos essenciais, em linguagem simples
+## Essential concepts, in simple language
 
-Estes cinco conceitos aparecem em quase todos os documentos do repositório. Vale fixá-los antes de seguir para o material completo.
+These five concepts appear in almost all documents in the repository. It's worth fixing them before moving on to the complete material.
 
-**Agente.** Um processo com missão delimitada: recebe um objetivo, lê o contexto necessário, age dentro de ferramentas autorizadas, submete o resultado a uma verificação objetiva e devolve um relatório padronizado. Um nome bonito em um diagrama não é um agente — só vira um quando essas cinco partes estão definidas.
+**Agent.** A process with a delimited mission: receives an objective, reads the necessary context, acts within authorized tools, submits the result to objective verification and returns a standardized report. A nice name on a diagram is not an agent — it only becomes one when these five parts are defined.
 
-**Skill.** O procedimento verificável para uma tarefa recorrente que exige julgamento — por exemplo, como investigar um bug ou como escrever uma especificação técnica. Uma skill é diferente de um script porque cobre o que exige critério, não apenas o determinístico.
+**Skill.** The verifiable procedure for a recurring task that requires judgment — for example, how to investigate a bug or how to write a technical specification. A skill is different from a script because it covers criteria, not just deterministic criteria.
 
-**Loop.** O contrato de colaboração de uma etapa da jornada: quem participa, em que ordem, o que passa de um agente para o outro e o que precisa ser verdade para seguir adiante. O nome "loop", em vez de "workflow", é proposital — o trabalho gira (tenta, é corrigido, é contestado, converge) em vez de andar em linha reta.
+**Loop.** The collaboration contract for a stage of the journey: who participates, in what order, what passes from one agent to the other and what needs to be true to move forward. The name "loop", rather than "workflow", is intentional — the work rotates (tries, is corrected, is challenged, converges) instead of moving in a straight line.
 
-**Metodologia.** A camada que explica o que uma pessoa faz de fato: quando ela é chamada para decidir, o que precisa ver para responder, e o que acontece se ela não responder. Cinco compromissos sustentam essa camada — entre eles, o mais estrutural: **quem propõe não aprova**.
+**Methodology.** The layer that explains what a person actually does: when they are called upon to decide, what they need to see to respond, and what happens if they don't respond. Five commitments support this layer — among them, the most structural: **whoever proposes does not approve**.
 
-**Workspace.** O lugar físico, fora do código da aplicação, onde um Work Item é aberto, uma decisão vira artefato e um agente retoma o contexto de uma sessão anterior. Existe um workspace por papel — PM, UX e Tech Lead — cada um com sua própria fonte canônica de verdade.
+**Workspace.** The physical place, outside the application code, where a Work Item is opened, a decision becomes an artifact, and an agent returns to the context of a previous session. There is one workspace per role — PM, UX, and Tech Lead — each with its own canonical source of truth.
 
 ---
 
-## Maturidade do repositório e autonomia do agente
+## Repository maturity and agent autonomy
 
-Um princípio atravessa todo o manifesto: **a autonomia concedida a um agente nunca é maior do que aquilo que o repositório consegue verificar automaticamente.** Um repositório sem gates suficientes não deveria operar com agentes de alta autonomia, mesmo que pareça estar funcionando bem — a aparência de sucesso não substitui a verificação.
+One principle runs through the entire manifesto: **the autonomy granted to an agent is never greater than what the repository can automatically verify.** A repository without sufficient gates should not operate with high-autonomy agents, even if it appears to be working well — the appearance of success is no substitute for verification.
 
-| Nível | O repositório tem | Autonomia sustentada |
+| Level | The repository has | Sustained autonomy |
 |---|---|---|
-| **HL0 — nu** | apenas README, testes eventuais, CI de build | nenhuma — trabalho assistido |
-| **HL1 — legível** | `AGENTS.md`, rules mínimas, script de verificação, pre-commit | baixa (A0–A1) |
-| **HL2 — verificável** | CI por risco, proteção de branch, evidence pack | média (A2) |
-| **HL3 — operável por time** | skills do repositório, identidades por agente, gates de ambiente e pós-deploy | alta (A3–A4) |
+| **HL0 — naked** | just README, occasional tests, build CI | none — assisted work |
+| **HL1 — readable** | `AGENTS.md`, minimum rules, verification script, pre-commit | low (A0–A1) |
+| **HL2 — verifiable** | CI by risk, branch protection, evidence pack | average (A2) |
+| **HL3 — operable by team** | repository skills, identities per agent, environment and post-deploy gates | high (A3–A4) |
 
-O detalhamento completo — o que cada nível exige e por quê — está em [`docs/GATES.md`](docs/GATES.md).
+The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md).
 
 ---
 
-## Como este repositório evolui
+## How this repository evolves
 
-Cada camada tem seu próprio checklist de mudança, versionamento explícito e critério de avaliação — nunca usados como ranking de desempenho individual, apenas para melhorar o contrato, o contexto e as ferramentas de cada papel. Antes de propor uma alteração relevante em uma camada, vale ler o documento correspondente até o fim: cada um termina com o checklist e as regras de versionamento que se aplicam a mudanças naquela camada específica.
+Each layer has its own change checklist, explicit versioning and evaluation criteria — never used as an individual performance ranking, only to improve the contract, context and tools for each role. Before proposing a relevant change to a layer, it is worth reading the corresponding document to the end: each one ends with the checklist and versioning rules that apply to changes in that specific layer.
 
-Para o mapa completo, com todos os documentos e as trilhas de leitura por perfil, veja **[`docs/README.md`](docs/README.md)**.
+For the complete map, with all documents and reading tracks per profile, see **[`docs/README.md`](docs/README.md)**.

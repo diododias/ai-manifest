@@ -1,77 +1,77 @@
 ---
-title: Workflow 09 — curadoria de conhecimento
+title: Workflow 09 — knowledge curation
 status: proposed
 updated_at: 2026-08-09
 ---
 
-# Workflow 09 — curadoria de conhecimento
+# Workflow 09 — knowledge curation
 
-> Bloco executável do [🗄️ Archivist Loop](../docs/loops/09-knowledge-curation.md): transforma evidência de entrega, decisão ou incidente em atualização da fonte canônica correta, sem promover memória temporária a regra.
+> [🗄️ Archivist Loop](../docs/loops/09-knowledge-curation.md) executable block: transforms evidence of delivery, decision or incident into an update from the correct canonical source, without promoting temporary memory to the rule.
 
-Este workflow fecha a distância entre “o sistema mudou” e “as instruções agora descrevem o sistema real”. Toda atualização possui gatilho observável, writer único, owner humano, evidência, alcance, data e limite de validade.
+This workflow closes the gap between “the system has changed” and “the instructions now describe the real system”. Every update has an observable trigger, unique writer, human owner, evidence, scope, date and validity limit.
 
 ---
 
-## Resultado do bloco
+## Block result
 
-Uma execução fechada atualiza exatamente uma fonte autoritativa por conceito, preserva histórico e registra o que permaneceu hipótese. Conteúdo sensível, contraditório ou de baixa confiança passa por Critic independente antes de orientar agentes futuros.
+A closed run updates exactly one authoritative source per concept, preserves history, and records what remains hypothesis. Sensitive, contradictory, or low-trust content goes through independent Critic before guiding future agents.
 
-| Camada | Condição de fechamento |
+| Layer | Closing condition |
 |---|---|
-| **Loop** | mudança e evidência foram mapeadas para fontes afetadas e contradições resolvidas |
-| **Agentes** | Knowledge consolidou; Critic contestou quando acionado sem editar o artefato |
-| **Workspaces/repositórios** | cada owner escreveu no próprio domínio; links cruzados não viraram cópias autoritativas |
-| **Ciclo documental** | `proposed/canonical/superseded/archived` e sucessores estão explícitos |
-| **Memória** | apenas aponta para decisões/fatos canônicos; hipóteses continuam marcadas |
+| **Loop** | change and evidence have been mapped to affected sources and contradictions resolved |
+| **Agents** | Knowledge consolidated; Critic objected when triggered without editing the artifact |
+| **Workspaces/repositories** | each owner wrote on their own domain; cross-links did not become authoritative copies |
+| **Documentary cycle** | `proposed/canonical/superseded/archived` and successors are explicit |
+| **Memory** | only points to canonical decisions/facts; hypotheses remain marked |
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | Definição |
+| Contract | Definition |
 |---|---|
-| **Etapa** | 9 — conhecimento e melhoria |
-| **Unidade de execução** | um gatilho documental identificado por `knowledge_change_id` |
-| **Consolida** | [Knowledge Agent](../agents/knowledge-agent/AGENT.md) |
-| **Desafia** | [Critic Agent](../agents/critic-agent/AGENT.md) quando mudança é sensível, contraditória, ampla ou de baixa confiança |
-| **Owner humano** | owner do domínio/fonte alterada |
-| **Entrada** | decisões, PRs, releases, homologação, incidentes, aprendizados candidatos e fontes atuais |
-| **Saída** | fonte canônica atualizada ou proposta explícita, review, changelog de conhecimento e conflitos pendentes |
-| **Gate de conteúdo** | origem, atualidade, alcance, validade e ausência de contradição silenciosa |
-| **Gate do bloco** | conteúdo + writer/owner corretos + crítica proporcional + links/estado/reconciliação |
-| **Volta dominante** | média — conclusão sensível é contestada antes da promoção |
-| **Próximo workflow** | [10 — melhoria contínua](10-continuous-improvement.md) quando o próprio sistema de trabalho precisar mudar |
+| **Step** | 9 — knowledge and improvement |
+| **Execution unit** | a documentary trigger identified by `knowledge_change_id` |
+| **Consolidates** | [Knowledge Agent](../agents/knowledge-agent/AGENT.md) |
+| **Challenge** | [Critic Agent](../agents/critic-agent/AGENT.md) when change is sensitive, contradictory, broad or low confidence |
+| **Human owner** | domain owner/source changed |
+| **Input** | decisions, PRs, releases, approval, incidents, candidate learnings and current sources |
+| **Exit** | updated canonical source or explicit proposal, review, knowledge changelog and pending conflicts |
+| **Content gate** | origin, topicality, scope, validity and absence of silent contradiction |
+| **Block Gate** | content + correct writer/owner + proportional criticism + links/state/reconciliation |
+| **Dominant lap** | average — sensitive conclusion is challenged before promotion |
+| **Next workflow** | [10 — continuous improvement](10-continuous-improvement.md) when the work system itself needs to change |
 
 ---
 
-## Gatilhos de abertura
+## Opening triggers
 
-| Evento observável | Artefato candidato | Consolidador/owner |
+| Observable event | Candidate artifact | Consolidator/owner |
 |---|---|---|
-| decisão arquitetural tomada/revertida | novo ADR; anterior fica `superseded` | Specification TL / Tech Lead |
-| convenção adotada no código | `docs/rules/` correspondente | agente que introduziu / Tech Lead |
-| procedimento repetido e estabilizado | `skills/<skill>/SKILL.md` | Knowledge / owner do domínio |
-| comando de build/teste/execução alterado | `AGENTS.md` no mesmo change set | Software Engineer / Tech Lead |
-| contrato público/schema alterado | regra, ADR e documentação de contrato | Specification TL / Tech Lead |
-| incidente com causa raiz | rule, ADR, skill ou playbook | owner do domínio |
-| aprendizado validado pelo Daily/Dream | `MEMORY.md` e/ou fonte de domínio | Knowledge / owner |
-| gate, sensor, autonomia ou política alterados | documentação do harness + decisão | Tech Lead + crítico independente |
+| architectural decision taken/reversed | new ADR; previous one is `superseded` | Specification TL / Tech Lead |
+| convention adopted in the code | corresponding `docs/rules/` | agent who introduced / Tech Lead |
+| procedure repeated and stabilized | `skills/<skill>/SKILL.md` | Domain knowledge / owner |
+| build/test/run command changed | `AGENTS.md` in the same change set | Software Engineer / Tech Lead |
+| public contract/amended scheme | rule, ADR and contract documentation | Specification TL / Tech Lead |
+| incident with root cause | rule, ADR, skill or playbook | domain owner |
+| learning validated by Daily/Dream | `MEMORY.md` and/or domain source | Knowledge / owner |
+| gate, sensor, autonomy or policy changed | harness documentation + decision | Tech Lead + independent critic |
 
-Entrada sem gatilho/evidência permanece candidato em `LEARNINGS.md` ou `.coordination/`; não é promovida por parecer plausível.
+Entry without trigger/evidence remains candidate in `LEARNINGS.md` or `.coordination/`; is not promoted because it seems plausible.
 
 ---
 
-## Preflight de autoridade
+## Authority Preflight
 
-1. Fixar `knowledge_change_id`, evento, fontes de evidência, conceito afetado, alcance e owner.
-2. Inventariar todas as páginas que reivindicam autoridade sobre o conceito; se duas forem canônicas, bloquear a promoção até resolver ownership.
-3. Ler a fonte vigente, seus links, estado, histórico/sucessores e o sistema real que ela descreve.
-4. Consultar memória apenas para descoberta e confirmar cada afirmação em Work Items, decisões, código, release ou evidência.
-5. Classificar a proposta: correção factual, nova regra, decisão, procedimento, aprendizado, supersessão ou arquivamento.
-6. Avaliar sensibilidade/confiança e acionar Critic antes da escrita canônica quando necessário.
-7. Resolver o writer do domínio. Knowledge Agent prepara handoff em vez de editar fonte que pertence a outro owner sem autorização.
+1. Fix `knowledge_change_id`, event, sources of evidence, affected concept, scope and owner.
+2. Inventory all pages that claim authority over the concept; if two are canonical, block the promotion until ownership is resolved.
+3. Read the current source, its links, status, history/successors and the real system it describes.
+4. Query discovery-only memory and confirm each assertion in Work Items, decisions, code, release, or evidence.
+5. Classify the proposal: factual correction, new rule, decision, procedure, learning, supersession or archiving.
+6. Assess sensitivity/confidence and trigger Critic before canonical writing when necessary.
+7. Resolve the domain writer. Knowledge Agent prepares handoff instead of editing source that belongs to another owner without authorization.
 
-### Envelope de abertura
+### Opening envelope
 
 ```yaml
 mission_id: "ARCHIVIST-<id>"
@@ -94,126 +94,126 @@ stop_conditions: []
 
 ---
 
-## Plano de missões
+## Mission plan
 
 ```mermaid
-flowchart TD
-    A[Evento + evidência] --> B[Knowledge Agent<br/>mapa de autoridade]
-    B --> C[Proposta + alcance + validade]
-    C --> D{Sensível, contraditória<br/>ou baixa confiança?}
-    D -- sim --> E[Critic Agent<br/>refutação independente]
-    D -- não --> F[Gate de conhecimento]
-    E --> G[Knowledge Agent<br/>responde crítica]
+TD flowchart
+    A[Event + evidence] --> B[Knowledge Agent<br/>authority map]
+    B --> C[Proposal + scope + validity]
+    C --> D{Sensitive, contradictory<br/>or low confidence?}
+    D -- yes --> E[Critic Agent<br/>independent rebuttal]
+    D -- no --> F[Knowledge Gate]
+    E --> G[Knowledge Agent<br/>replies criticism]
     G --> F
-    F -- hipótese/gap --> H[LEARNINGS ou coordination]
-    F -- conflito de owner --> I[Escalonar ao domínio]
-    F -- aprovado --> J[Writer do domínio<br/>promove fonte canônica]
-    J --> K[Validar links, estado<br/>e consumidores]
-    K --> L[Atualizar memória/índices por referência]
+    F -- hypothesis/gap --> H[LEARNINGS or coordination]
+    F -- owner conflict --> I[Scale to domain]
+    F -- approved --> J[Domain writer<br/>promotes canonical source]
+    J --> K[Validate links, status<br/>and consumers]
+    K --> L[Update memory/indices by reference]
 ```
 
-| Missão | Responsável | Saída |
+| Mission | Responsible | Output |
 |---|---|---|
-| M1 — mapear fontes | Knowledge Agent | autoridade, duplicidade, obsolescência e consumidores |
-| M2 — propor mudança | Knowledge Agent | patch/proposta com origem, data, alcance, validade e impacto |
-| M3 — criticar | Critic independente | confirmação, contestação ou pedido de evidência |
-| M4 — responder | Knowledge Agent | resolução por finding ou hipótese preservada |
-| M5 — decidir/promover | owner/writer do domínio | fonte canônica atualizada e estado documental correto |
-| M6 — verificar | Knowledge Agent | links, referências, ausência de contradição e changelog |
-| M7 — reconciliar contexto | Knowledge Agent | memória/índices apontam para fonte, sem duplicar verdade |
+| M1 — map fonts | Knowledge Agent | authority, duplicity, obsolescence and consumers |
+| M2 — propose change | Knowledge Agent | patch/proposal with origin, date, scope, validity and impact |
+| M3 — criticize | Independent critic | confirmation, rebuttal or request for evidence |
+| M4 — reply | Knowledge Agent | resolution by finding or preserved hypothesis |
+| M5 — decide/promote | domain owner/writer | updated canonical source and correct documentary status |
+| M6 — check | Knowledge Agent | links, references, absence of contradiction and changelog |
+| M7 — reconcile context | Knowledge Agent | memory/indexes point to source, without duplicating true |
 
 ---
 
-## Ciclo de vida documental
+## Documentary life cycle
 
-| Estado | Uso pelo agente | Transição |
+| Status | Use by agent | Transition |
 |---|---|---|
-| `proposed` | contexto; nunca regra vigente | owner aprova para `canonical` ou rejeita |
-| `canonical` | fonte vigente do conceito | nova decisão pode superseder/arquivar |
-| `superseded` | histórico e racional; nunca instrução atual | aponta para sucessor canônico |
-| `archived` | investigação histórica | não possui sucessor obrigatório |
+| `proposed` | context; never current rule | owner approves to `canonical` or rejects |
+| `canonical` | current source of the concept | new decision can supersede/archive |
+| `superseded` | historical and rational; never current statement | points to canonical successor |
+| `archived` | historical research | has no mandatory successor |
 
-Documento sem `status` é tratado como `proposed`. ADR nunca é reescrita para apagar uma decisão anterior: uma nova ADR a supersede e liga passado/futuro.
+Document without `status` is treated as `proposed`. ADR is never rewritten to erase a previous decision: a new ADR to superseat and past/future league.
 
 ---
 
-## Fronteiras de autoridade
+## Authority boundaries
 
-| Participante | Faz | Não faz |
+| Participant | Do | Doesn't |
 |---|---|---|
-| Knowledge Agent | encontra autoridade, propõe, consolida, verifica e mantém links | converte hipótese em regra ou decide domínio alheio |
-| Critic Agent | tenta refutar sustentação, alcance e confiança | usa mesmo raciocínio do autor ou edita artefato criticado |
-| owner/writer do domínio | aprova e promove conteúdo no destino canônico | tem aprovação presumida por silêncio |
-| consumidor/agente futuro | segue somente `canonical` | trata memória, `.coordination/` ou `proposed` como regra |
+| Knowledge Agent | finds authority, proposes, consolidates, verifies and maintains links | convert hypothesis into rule or decide on someone else's domain |
+| Critical Agent | tries to refute support, reach and confidence | uses the same reasoning as the author or edits criticized artifact |
+| domain owner/writer | approves and promotes content in canonical destination | has presumed approval due to silence |
+| future consumer/agent | follow only `canonical` | treats memory, `.coordination/` or `proposed` as rule |
 
 ---
 
-## Skills e contexto mínimo
+## Skills and minimal context
 
-| Agente | Skills prioritárias |
+| Agent | Priority skills |
 |---|---|
-| todos | `workspace-memory`, `workspace-projects`, `workspace-board` conforme operação |
+| all | `workspace-memory`, `workspace-projects`, `workspace-board` depending on operation |
 | Knowledge Agent | `update-docs`, `refine-spec`, `technical-discovery` |
-| Critic Agent | `review-prd`, `review-spec`, `code-review`, `review-cross-prd-spec` conforme a fonte |
+| Critical Agent | `review-prd`, `review-spec`, `code-review`, `review-cross-prd-spec` depending on the source |
 
-Cada envelope registra `skills_used`. O Critic recebe proposta, evidências, critérios e fonte atual; não recebe conclusão privada do autor como fato.
+Each envelope records `skills_used`. The Critic receives proposal, evidence, criteria and current source; does not receive the author's private conclusion as fact.
 
 ---
 
-## Persistência e promoção
+## Persistence and promotion
 
-| Artefato | Destino | Regra |
+| Artifact | Destination | Rule |
 |---|---|---|
-| atualização canônica | fonte do domínio | writer único autorizado |
-| aprendizado candidato/aceito | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | seção candidata não orienta como regra |
-| review do Critic | `execution/reviews/knowledge-<id>.md` | quando acionado |
-| ADR sucessora | `engineering/adr/<ADR-id>.md` | liga e supersede, não apaga anterior |
-| proposta não decidida | `.coordination/` | trânsito com owner/prazo |
-| changelog de conhecimento | ligado ao `knowledge_change_id` | fontes, before/after, consumidores e gate |
-| `MEMORY.md` | workspace correspondente | índice/resumo com link; nunca única casa da decisão |
+| canonical update | domain source | authorized sole writer |
+| candidate/accepted learning | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | candidate section does not guide as a rule |
+| Critic review | `execution/reviews/knowledge-<id>.md` | when triggered |
+| Successor ADR | `engineering/adr/<ADR-id>.md` | league and super headquarters, don't delete previous |
+| proposal not decided | `.coordination/` | transit with owner/deadline |
+| knowledge changelog | linked to `knowledge_change_id` | sources, before/after, consumers and gate |
+| `MEMORY.md` | corresponding workspace | index/summary with link; never single house of decision |
 
-Promoção: persistir proposta/review → owner decide → writer atualiza fonte → validar links/consumidores → marcar documento anterior → registrar changelog → atualizar memória/índices por referência.
+Promotion: persist proposal/review → owner decides → writer updates source → validate links/consumers → mark previous document → record changelog → update memory/indexes by reference.
 
 ---
 
 ## Gates
 
-### Gate de conhecimento
+### Knowledge gate
 
-- [ ] gatilho, fonte, data e owner são localizáveis;
-- [ ] conceito tem uma única fonte canônica identificada;
-- [ ] texto descreve o estado real, não apenas intenção/histórico da entrega;
-- [ ] alcance, contexto e limite de validade estão explícitos;
-- [ ] fatos, inferências e hipóteses permanecem separados;
-- [ ] contradições foram resolvidas ou bloqueiam promoção;
-- [ ] estado documental e sucessores estão corretos.
+- [ ] trigger, source, data and owner are findable;
+- [ ] concept has a single identified canonical source;
+- [ ] text describes the actual state, not just intention/delivery history;
+- [ ] scope, context and limit of validity are explicit;
+- [ ] facts, inferences and hypotheses remain separate;
+- [ ] contradictions have been resolved or block promotion;
+- [ ] documentary status and successors are correct.
 
-### Gate de execução em bloco
+### Block execution gate
 
-- [ ] Critic atuou quando sensibilidade/confiança exigiu;
-- [ ] crítica tem linha independente e respostas por finding;
-- [ ] writer e owner do domínio autorizaram a promoção;
-- [ ] links, índices, agentes/skills consumidores e documentação relacionada foram verificados;
-- [ ] memória e `.coordination/` não foram tratadas como destino final;
-- [ ] Work Item/changelog/evidência permitem auditar a mudança.
+- [ ] Critic acted when sensitivity/confidence required;
+- [ ] criticism has an independent line and answers by finding;
+- [ ] writer and domain owner authorized the promotion;
+- [ ] links, indexes, consumer agents/skills and related documentation have been checked;
+- [ ] memory and `.coordination/` were not treated as final destination;
+- [ ] Work Item/changelog/evidence allow you to audit the change.
 
 ---
 
-## Falhas e escalonamento
+## Failures and escalation
 
-| Condição | Ação |
+| Condition | Action |
 |---|---|
-| duas fontes reivindicam autoridade | bloquear e owner do domínio escolhe/consolida |
-| evidência insuficiente | manter como hipótese/candidato com próxima prova |
-| evidências contraditórias | Critic + owner; não selecionar versão silenciosamente |
-| mudança apaga decisão válida | criar sucessor/supersessão, preservando histórico |
-| política, segurança ou autonomia afetada | revisão independente e decisão humana obrigatórias |
-| writer/owner ausente | handoff bloqueado; Knowledge não assume domínio |
-| implementação diverge da rule | corrigir código ou superseder rule por decisão; nunca apenas “atualizar docs” para legitimar desvio |
+| two sources claim authority | block and domain owner choose/consolidate |
+| insufficient evidence | keep as hypothesis/candidate with next test |
+| contradictory evidence | Critic + owner; do not select version silently |
+| change erases valid decision | create successor/supersession, preserving history |
+| politics, security or autonomy affected | mandatory independent review and human decision |
+| missing writer/owner | blocked handoff; Knowledge does not assume dominance |
+| implementation diverges from the rule | correct code or superseder rule by decision; never just “update docs” to legitimize deviation |
 
 ---
 
-## Envelope final
+## Final envelope
 
 ```yaml
 mission_id: "ARCHIVIST-<id>"
@@ -244,4 +244,4 @@ gates:
 handoff_to: []
 ```
 
-`canonical_updated` exige fonte vigente identificada, owner autorizado, contradições resolvidas e consumidores verificáveis.
+`canonical_updated` requires an identified current source, authorized owner, resolved contradictions and verifiable consumers.

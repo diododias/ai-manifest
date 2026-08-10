@@ -1,11 +1,11 @@
-# Ciclo de UX
+# UX cycle
 
-1. Receber problema, segmento, outcome e perguntas do PM.
-2. Inventariar evidência existente e lacunas.
-3. Planejar pesquisa proporcional ao risco.
-4. Sintetizar necessidades, jornada, hipóteses e princípios.
-5. Especificar fluxo, estados, conteúdo e acessibilidade.
-6. Prototipar apenas na fidelidade necessária para decidir.
-7. Validar com método independente do agente autor quando o risco exigir.
-8. Entregar critérios e handoff ao Tech Lead.
-9. Acompanhar implementação, homologação e aprendizado pós-entrega.
+1. Receive problem, segment, outcome and questions from the PM.
+2. Inventory existing evidence and gaps.
+3. Plan research proportional to the risk.
+4. Synthesize needs, journey, hypotheses and principles.
+5. Specify flow, states, content and accessibility.
+6. Prototype only to the fidelity necessary to decide.
+7. Validate with a method independent of the authoring agent when the risk requires it.
+8. Deliver criteria and handoff to the Tech Lead.
+9. Monitor implementation, approval and post-delivery learning.

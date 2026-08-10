@@ -1,69 +1,69 @@
-# 5. Metodologia
+# 5. Methodology
 
 ---
 
 ## Overview — How Humans Operate It
 
-As quatro seções anteriores descrevem **o sistema**: o que o repositório precisa carregar para ser operável por agentes, quem são os agentes e sob qual autoridade agem, quais procedimentos eles executam e em que ordem colaboram em cada etapa da jornada. Nenhuma delas responde à pergunta que uma pessoa faz na segunda-feira de manhã: **e eu, o que faço?**
+The previous four sections describe **the system**: what the repository needs to carry to be operable by agents, who the agents are and under what authority they act, what procedures they perform, and in what order they collaborate at each step of the journey. None of them answer the question a person asks on a Monday morning: **and me, what do I do?**
 
-Essa é a lacuna que a metodologia preenche. Ela não introduz nenhum conceito novo, não amplia a autonomia de ninguém e não redefine contrato algum. Ela é a **cola**: mostra como as camadas já documentadas se comportam quando alguém as opera de verdade — o que dispara o quê, quando uma pessoa é chamada, o que ela precisa ver para responder, e o que acontece se ela não responder.
+This is the gap that the methodology fills. It does not introduce any new concepts, does not expand anyone's autonomy and does not redefine any contract. It is the **glue**: it shows how the already documented layers behave when someone actually operates them — what triggers what, when a person is called, what they need to see to respond, and what happens if they don't respond.
 
-O deslocamento que justifica a seção é conhecido. Quando agentes assumem a produção de código, escrever deixa de ser caro; o que fica caro é decidir o que construir, provar que foi construído certo e impedir que decisões, código e documentação se separem. Um time que não trata esse deslocamento gera volume sem confiança. A resposta do modelo é uma inversão: **o núcleo humano opera o sistema em vez de executar o trabalho.**
+The displacement that justifies the section is known. When agents take over code production, writing is no longer expensive; What gets expensive is deciding what to build, proving it was built right, and preventing decisions, code, and documentation from becoming separated. A team that does not deal with this displacement generates volume without confidence. The model's answer is an inversion: **the human core operates the system rather than performing the work.**
 
-### Onde está cada coisa
+### Where is everything
 
-A regra de leitura da documentação inteira cabe em uma tabela. Confundir estas camadas é o que produz documentação que ninguém consegue executar — e é o que esta seção evita ao linkar em vez de reescrever.
+The entire documentation reading rule fits in a table. Confusing these layers is what produces documentation that no one can execute — and is what this section avoids by linking rather than rewriting.
 
-| Camada | Responde | Onde vive |
+| Layer | Reply | Where do you live |
 |---|---|---|
-| **Harness** | o que o repositório precisa carregar para sustentar tudo isso | [`REPO_HARNESS.md`](REPO_HARNESS.md) e vizinhos |
-| **Agente** | *quem* executa, sob qual autoridade e com qual limite | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
-| **Skill** | *como* uma tarefa recorrente é executada corretamente | [`SKILLS.md`](SKILLS.md) |
-| **Loop** | *em que ordem*, o que atravessa a fronteira e quando parar | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
-| **Metodologia** | *quem opera*, o que dispara o quê e o que exige gente | esta seção |
+| **Harness** | what the repository needs to load to support all of this | [`REPO_HARNESS.md`](REPO_HARNESS.md) and neighbors |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
+| **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| **Loop** | *in what order*, what crosses the border and when to stop | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
+| **Methodology** | *who operates*, what triggers what and what demands people | this section |
 
-Uma consequência prática: quando um documento desta seção descreve a sequência interna de uma etapa, ele está errado por construção. Sequência é assunto de [`loops/`](loops/README.md). Aqui se documenta o gatilho, o ponto de decisão humana e a responsabilidade — nunca a mecânica.
+A practical consequence: When a document in this section describes the internal sequence of a step, it is wrong by construction. Sequence is the subject of [`loops/`](loops/README.md). Here the trigger, the human decision point and the responsibility are documented — never the mechanics.
 
-### Os cinco compromissos
+### The five commitments
 
-Tudo nesta seção deriva de cinco compromissos. Eles resolvem antecipadamente as disputas mais comuns em um fluxo com agentes, e cada página adiante é o desdobramento operacional de um ou mais deles.
+Everything in this section derives from five commitments. They resolve the most common disputes in advance in a flow with agents, and each page forward is the operational deployment of one or more of them.
 
-| Compromisso | O que ele impede |
+| Commitment | What does it prevent |
 |---|---|
-| **Quem propõe não aprova** | que o incentivo de declarar o próprio trabalho pronto se converta em aprovação |
-| **Aprovação exige evidência, e silêncio nunca aprova** | que um item avance por cansaço, prazo ou ausência de resposta |
-| **Mudança material invalida a aprovação anterior** | que uma decisão tomada sobre um artefato cubra outro |
-| **Autonomia sobe por métrica, não por confiança** | que a percepção de que "está funcionando bem" substitua a evidência de que está |
-| **Artefato só existe na fonte canônica** | que uma decisão viva em um handoff temporário e se perca na volta seguinte |
+| **Whoever proposes does not approve** | that the incentive to declare one's work ready turns into approval |
+| **Approval requires evidence, and silence never approves** | an item advances due to fatigue, deadline or lack of response |
+| **Material change invalidates previous approval** | that a decision made about one artifact covers another |
+| **Autonomy increases by metric, not by confidence** | that the perception that "it's working well" replaces the evidence that it is |
+| **Artifact only exists in the canonical source** | that a decision lives in a temporary handoff and is lost in the next round |
 
-### O que uma pessoa faz, afinal
+### What does a person do, after all
 
-A resposta curta, antes do detalhe: uma pessoa **decide**, **desbloqueia** e **corrige o sistema**. Não acompanha execução, não revisa diff inteiro, não narra status.
+The short answer, before the details: one person **decides**, **unlocks** and **fixes the system**. Does not track execution, does not review entire diff, does not narrate status.
 
-| Atividade | Frequência | Onde está documentada |
+| Activity | Frequency | Where is it documented |
 |---|---|---|
-| Responder a um checkpoint de decisão | por entrega, 3 a 6 vezes | [Checkpoints humanos](metodologia/02-checkpoints-humanos.md) |
-| Ler o briefing diário e desbloquear | diária, poucos minutos | [Ritmos e cadências](metodologia/04-ritmos-e-cadencias.md) |
-| Responder a um escalonamento | por exceção | [Manual do operador](metodologia/05-manual-do-operador.md) |
-| Ordenar melhorias do próprio sistema | semanal | [Ritmos e cadências](metodologia/04-ritmos-e-cadencias.md) |
-| Ajustar gate, risco ou autonomia | por marco | [Checkpoints humanos](metodologia/02-checkpoints-humanos.md) |
+| Respond to a decision checkpoint | per delivery, 3 to 6 times | [Human checkpoints](metodologia/02-checkpoints-humanos.md) |
+| Read the daily briefing and unlock | daily, few minutes | [Rhythms and cadences](metodologia/04-ritmos-e-cadencias.md) |
+| Respond to an escalation | by exception | [Operator Manual](metodologia/05-manual-do-operador.md) |
+| Order improvements to the system itself | weekly | [Rhythms and cadences](metodologia/04-ritmos-e-cadencias.md) |
+| Adjust gate, risk or autonomy | by Marco | [Human checkpoints](metodologia/02-checkpoints-humanos.md) |
 
 ---
 
-## Índice da seção
+## Section index
 
-| Página | Responde |
+| Page | Reply |
 |---|---|
-| [Papéis](metodologia/01-papeis.md) | quem é dono de qual decisão, e como se resolve um empate |
-| [Checkpoints humanos](metodologia/02-checkpoints-humanos.md) | onde uma pessoa entra, com qual pergunta e por quanto tempo |
-| [Gatilhos e disparos](metodologia/03-gatilhos-e-disparos.md) | o que dispara o quê, quando, e o que nunca dispara sozinho |
-| [Ritmos e cadências](metodologia/04-ritmos-e-cadencias.md) | o que acontece todo dia, toda semana e a cada marco |
-| [Manual do operador](metodologia/05-manual-do-operador.md) | como operar na prática: despachar, ler saída, intervir |
-| [Jornada comentada](metodologia/06-jornada-comentada.md) | o ciclo inteiro visto pelos pontos humanos |
-| [Workflows de documentação](metodologia/07-workflows-de-documentacao.md) | como a documentação se mantém viva sozinha |
+| [Papers](metodologia/01-papeis.md) | who owns which decision, and how a tie is resolved |
+| [Human checkpoints](metodologia/02-checkpoints-humanos.md) | where a person enters, with what question and for how long |
+| [Triggers and shots](metodologia/03-gatilhos-e-disparos.md) | what triggers what, when, and what never fires alone |
+| [Rhythms and cadences](metodologia/04-ritmos-e-cadencias.md) | what happens every day, every week and every milestone |
+| [Operator Manual](metodologia/05-manual-do-operador.md) | how to operate in practice: dispatch, read output, intervene |
+| [Commented journey](metodologia/06-jornada-comentada.md) | the entire cycle seen by human points |
+| [Documentation workflows](metodologia/07-workflows-de-documentacao.md) | how documentation stays alive on its own |
 
-O índice completo, com trilhas de leitura por perfil, está em [`metodologia/README.md`](metodologia/README.md).
+The complete index, with reading tracks per profile, is in [`metodologia/README.md`](metodologia/README.md).
 
 ---
 
-*Anterior: [Loops](LOOPS.md) · Detalhe: [as sete páginas da metodologia](metodologia/README.md) · Próximo: [Workspace](WORKSPACE.md) — onde esse trabalho vive fora do código.*
+*Previous: [Loops](LOOPS.md) · Detail: [the seven pages of the methodology](metodologia/README.md) · Next: [Workspace](WORKSPACE.md) — where this work lives outside the code.*

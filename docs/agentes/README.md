@@ -1,86 +1,86 @@
-# Contratos individuais dos agentes
+# Individual agent contracts
 
-Este diretório contém a documentação de cada um dos 23 papéis do Agent Team, um arquivo por agente. O conceito geral — o que um agente é, o que consome, como executa uma missão e quando escala — está em [Agentes — How Agents Work](../AGENTES.md); aqui ficam os contratos específicos.
+This directory contains documentation for each of the 23 Agent Team roles, one file per agent. The general concept — what an agent is, what it consumes, how it performs a mission and when it scales — is in [Agents — How Agents Work](../AGENTES.md); Here are the specific contracts.
 
-## Como ler um contrato
+## How to read a contract
 
-Cada arquivo segue a mesma estrutura, e a leitura na ordem abaixo responde às perguntas na sequência em que normalmente surgem:
+Each file follows the same structure, and reading in the order below answers the questions in the sequence in which they normally arise:
 
-| Seção | Responde |
+| Section | Reply |
 |---|---|
-| **Contrato operacional** | quem patrocina, o que o agente recebe, o que entrega, quais tools e skills usa, qual gate satisfaz e quando escala |
-| **O que este agente não faz** | os limites explícitos do papel e a razão de cada um |
-| **Presença e instintos** | a personalidade operacional que orienta o julgamento em casos não previstos |
-| **Notas de operação** | as decisões e armadilhas específicas do papel na prática |
-| **Prompt operacional** | onde está a única instrução executável do papel em `agents/` |
+| **Operating contract** | who sponsors, what the agent receives, what they deliver, what tools and skills they use, which gate satisfies and when they scale |
+| **What this agent doesn't do** | the explicit limits of the role and the reason for each |
+| **Presence and instincts** | the operational personality that guides judgment in unforeseen cases |
+| **Operation notes** | role-specific decisions and pitfalls in practice |
+| **Operational prompt** | where is the only executable statement from the paper in `agents/` |
 
-Todo agente cumpre, além dessas particularidades, o **contrato comum**: identidade de missão completa, regras universais de verdade, limite, skills e entrega, envelope padronizado de saída e as condições universais de escalonamento. Um contrato individual deve ser lido como "o contrato comum, mais estas particularidades".
+Every agent fulfills, in addition to these particularities, the **common contract**: complete mission identity, universal rules of truth, limit, skills and delivery, standardized exit envelope and universal escalation conditions. An individual contract should be read as "the common contract, plus these particulars".
 
-## Entrada e coordenação
+## Entry and coordination
 
-Recebem o que chega de fora e organizam o trabalho dos demais. Nenhum deles decide ou aprova: preparam e roteiam.
+They receive what arrives from outside and organize the work of others. None of them decide or approve: they prepare and route.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
-| [📥 Intake Agent](intake-agent.md) | Product Manager | Work Item triado e priorizável |
-| [📝 Meeting Context Agent](meeting-context-agent.md) | owner da reunião | resumo e context pack da transcrição |
-| [🎛️ Orchestrator Agent](orchestrator-agent.md) | owner humano da fase | missões roteadas e estado consolidado |
+| [📥 Intake Agent](intake-agent.md) | Product Manager | Work Item triaged and prioritized |
+| [📝 Meeting Context Agent](meeting-context-agent.md) | meeting owner | transcript summary and context pack |
+| [🎛️ Orchestrator Agent](orchestrator-agent.md) | human owner of the stage | routed missions and consolidated state |
 
-## Produto, UX e discovery
+## Product, UX and discovery
 
-Estruturam o problema antes de qualquer solução, com o par produção/crítica já presente.
+They structure the problem before any solution, with the production/criticism pair already present.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
-| [📋 Product Manager Agent](product-manager-agent.md) | Product Manager | `PB.md` ou `PRD.md` |
-| [🧭 UX Specification Agent](ux-specification-agent.md) | UX | jornada, fluxos e UX spec |
-| [🔭 Tech Lead Discovery Agent](tech-lead-discovery-agent.md) | Tech Lead | viabilidade e riscos iniciais |
-| [🥊 Adversarial Product Manager Agent](adversarial-product-manager-agent.md) | Product Manager | crítica de produto classificada |
+| [📋 Product Manager Agent](product-manager-agent.md) | Product Manager | `PB.md` or `PRD.md` |
+| [🧭 UX Specification Agent](ux-specification-agent.md) | UX | journey, flows and UX spec |
+| [🔭 Tech Lead Discovery Agent](tech-lead-discovery-agent.md) | Tech Lead | feasibility and initial risks |
+| [🥊 Adversarial Product Manager Agent](adversarial-product-manager-agent.md) | Product Manager | rated product review |
 
-## Especificação técnica
+## Technical specification
 
-Convertem o produto aprovado em estratégia técnica executável.
+They convert the approved product into an executable technical strategy.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
 | [📐 Specification Tech Lead Agent](specification-tech-lead-agent.md) | Tech Lead | `PLAN`, `SPEC`, `ADR`, `TASKS`, `CHECKLIST` |
-| [♟️ Adversarial Tech Lead Agent](adversarial-tech-lead-agent.md) | Tech Lead | crítica técnica e trade-offs |
-| [🧩 Security, Data & Platform Specialist Agent](specialist-security-data-platform-agent.md) | Tech Lead ou especialista | análise especializada de domínio |
+| [♟️ Adversarial Tech Lead Agent](adversarial-tech-lead-agent.md) | Tech Lead | technical criticism and trade-offs |
+| [🧩 Security, Data & Platform Specialist Agent](specialist-security-data-platform-agent.md) | Tech Lead or specialist | specialized domain analysis |
 
-## Construção e validação
+## Construction and validation
 
-O maior grupo, e onde a separação entre produzir e aprovar fica mais visível.
+The largest group, and where the separation between producing and approving is most visible.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
-| [🛠️ Software Engineer Agent](software-engineer-agent.md) | Tech Lead | código, testes, documentação e commits |
-| [🧪 QA & Validation Agent](qa-validation-agent.md) | Tech Lead | matriz critério-evidência |
-| [🛡️ Security Review Agent](security-review-agent.md) | Tech Lead ou Security Owner | achados de segurança e privacidade |
-| [🏛️ Architecture Review Agent](architecture-review-agent.md) | Tech Lead | conformidade arquitetural |
-| [🔎 Adversarial Code Reviewer Agent](adversarial-code-reviewer-agent.md) | Tech Lead | achados de corretude e manutenção |
+| [🛠️ Software Engineer Agent](software-engineer-agent.md) | Tech Lead | code, tests, documentation and commits |
+| [🧪 QA & Validation Agent](qa-validation-agent.md) | Tech Lead | criterion-evidence matrix |
+| [🛡️ Security Review Agent](security-review-agent.md) | Tech Lead or Security Owner | security and privacy findings |
+| [🏛️ Architecture Review Agent](architecture-review-agent.md) | Tech Lead | architectural compliance |
+| [🔎 Adversarial Code Reviewer Agent](adversarial-code-reviewer-agent.md) | Tech Lead | correctness and maintenance findings |
 
-## Integração, homologação e operação
+## Integration, approval and operation
 
-Levam a mudança validada até a produção e observam sua saúde.
+They take the validated change to production and observe its health.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
-| [🔀 PR Agent](pr-agent.md) | Tech Lead | PR e evidence pack |
-| [✅ Product Validation Agent](product-validation-agent.md) | Product Manager e UX | relatório de homologação |
-| [🚀 Release Agent](release-agent.md) | Tech Lead | release rastreável e reversível |
-| [📡 Observability Agent](observability-agent.md) | Tech Lead | health report e alertas |
+| [🔀 PR Agent](pr-agent.md) | Tech Lead | PR and evidence pack |
+| [✅ Product Validation Agent](product-validation-agent.md) | Product Manager and UX | approval report |
+| [🚀 Release Agent](release-agent.md) | Tech Lead | traceable and reversible release |
+| [📡 Observability Agent](observability-agent.md) | Tech Lead | health report and alerts |
 
-## Conhecimento e melhoria
+## Knowledge and improvement
 
-Fecham o ciclo sobre o próprio sistema.
+They close the cycle on the system itself.
 
-| Agente | Sponsor | Saída central |
+| Agent | Sponsor | Central exit |
 |---|---|---|
-| [📚 Knowledge Agent](knowledge-agent.md) | owner do domínio | fontes canônicas atualizadas |
-| [📊 Telemetry Agent](telemetry-agent.md) | trio | dataset governado e painel do fluxo |
-| [💭 Auto Dream Agent](auto-dream-agent.md) | trio | aprendizados e demandas P0–P3 |
-| [⚖️ Critic Agent](critic-agent.md) | owner da decisão | crítica independente |
+| [📚 Knowledge Agent](knowledge-agent.md) | domain owner | updated canonical sources |
+| [📊 Telemetry Agent](telemetry-agent.md) | threesome | governed dataset and flow dashboard |
+| [💭 Auto Dream Agent](auto-dream-agent.md) | threesome | learning and demands P0–P3 |
+| [⚖️ Critic Agent](critic-agent.md) | decision owner | independent review |
 
 ---
 
-*Voltar para [Agentes — How Agents Work](../AGENTES.md) · [Harness do Repositório](../REPO_HARNESS.md)*
+*Return to [Agentes — How Agents Work](../AGENTES.md) · [Repository Harness](../REPO_HARNESS.md)*

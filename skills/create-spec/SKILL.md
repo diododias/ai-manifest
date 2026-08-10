@@ -1,6 +1,6 @@
 ---
 name: create-spec
-description: Cria uma SPEC técnica a partir de PRD, visão técnica e decisões de refinamento. Use depois do refinamento técnico quando a implementação precisar de componentes, contratos, riscos e critérios técnicos rastreáveis.
+description: Creates a technical SPEC from PRD, technical vision and refinement decisions. Use after technical refinement when implementation requires traceable components, contracts, risks, and technical criteria.
 ---
 
 ## User Input
@@ -13,117 +13,117 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Gerar o SPEC Plan consolidando a solução técnica detalhada para cada história, com critérios de aceite técnicos e plano de implementação.
+Generate the SPEC Plan consolidating the detailed technical solution for each story, with technical acceptance criteria and implementation plan.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar a SPEC, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating the SPEC, follow [the shared contract](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/prd/<feature-slug>/PRD.md`
-- **Obrigatório:** `teamwork/plan/feature-plan-<feature-slug>/visao-tecnica.md`
-- **Obrigatório:** transcrição da agenda técnica
-- **Opcional:** `teamwork/plan/feature-plan-<feature-slug>/historias.md`
+- **Required:** `.agents/prd/<feature-slug>/PRD.md`
+- **Required:** `teamwork/plan/feature-plan-<feature-slug>/visao-tecnica.md`
+- **Mandatory:** transcription of the technical agenda
+- **Optional:** `teamwork/plan/feature-plan-<feature-slug>/historias.md`
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira dos artefatos.
-- Verifique se os arquivos de entrada existem.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from artifacts.
+- Check if the input files exist.
 
-### 2. Carregar contexto
+### 2. Load context
 
-- Leia `PRD.md` — requisitos e histórias.
-- Leia `visao-tecnica.md` — análise técnica prévia.
-- Leia a transcrição da agenda técnica — decisões e discussões.
-- Leia `historias.md` se existir — contexto adicional.
+- Read `PRD.md` — requirements and stories.
+- Read `visao-tecnica.md` — preview technical analysis.
+- Read the transcript of the technical agenda — decisions and discussions.
+- Read `historias.md` if it exists — additional context.
 
-### 3. Para cada história, definir a solução técnica
+### 3. For each story, define the technical solution
 
-Estruture:
+Structure:
 
-- **Abordagem técnica:** como resolver (padrões, algoritmos, integrações).
-- **Componentes:** arquivos, módulos, classes, endpoints a criar/modificar.
-- **Fluxo de implementação:** ordem das mudanças, dependências internas.
-- **Critérios de aceite técnicos:** testes unitários, integração, performance.
-- **Dados:** modelos, migrations, validações.
+- **Technical approach:** how to solve (patterns, algorithms, integrations).
+- **Components:** files, modules, classes, endpoints to create/modify.
+- **Implementation flow:** order of changes, internal dependencies.
+- **Technical acceptance criteria:** unit tests, integration, performance.
+- **Data:** models, migrations, validations.
 
-### 4. Definir contrato de interfaces (se aplicável)
+### 4. Define interface contract (if applicable)
 
-Para APIs, endpoints ou contratos entre módulos:
+For APIs, endpoints, or contracts between modules:
 - Request/response format
-- Validações
-- Códigos de erro
+- Validations
+- Error codes
 
-### 5. Gerar output
+### 5. Generate output
 
-Crie `.agents/spec/<feature-slug>/SPEC.md` (crie os diretórios se necessário) no formato:
+Create `.agents/spec/<feature-slug>/SPEC.md` (create directories if necessary) in the format:
 
 ```markdown
 # SPEC — <Feature Name>
 
 **Feature:** <slug>
-**Status:** 🟡 Em revisão
-**Data:** <YYYY-MM-DD>
+**Status:** 🟡 Under review
+**Date:** <YYYY-MM-DD>
 **PRD:** .agents/prd/<feature-slug>/PRD.md
-**Autor:** Tech Lead (via create-spec)
+**Author:** Tech Lead (via create-spec)
 
 ---
 
-## 1. Visão Geral da Solução
+## 1. Solution Overview
 
-<descrição técnica consolidada da abordagem>
+<consolidated technical description of the approach>
 
-## 2. Stack e Dependências
+## 2. Stack and Dependencies
 
-| Necessidade | Tecnologia | Versão | Status |
+| Need | Technology | Version | Status |
 |-------------|-----------|--------|--------|
-| ... | ... | ... | Existente / Nova |
+| ... | ... | ... | Existing / New |
 
-## 3. Modelo de Dados
+## 3. Data Model
 
-### Entidades
+### Entities
 
-#### <Entidade>
-| Campo | Tipo | Validação | Obrigatório |
+#### <Entity>
+| Field | Type | Validation | Mandatory |
 |-------|------|-----------|-------------|
-| ... | ... | ... | Sim/Não |
+| ... | ... | ... | Yes/No |
 
-### Relacionamentos
-<descrição dos relacionamentos entre entidades>
+### Relationships
+<description of relationships between entities>
 
 ### Migrations
-<estrutura das migrations necessárias>
+<structure of necessary migrations>
 
-## 4. Solução por História
+## 4. Solution by Story
 
-### HIST-01: <Título>
+### HIST-01: <Title>
 
-#### Componentes
-| Arquivo | Tipo | Ação |
+#### Components
+| Archive | Type | Action |
 |---------|------|------|
-| ... | ... | Criar / Modificar |
+| ... | ... | Create / Modify |
 
-#### Fluxo de Implementação
-1. <passo 1>
-2. <passo 2>
+#### Implementation Flow
+1. <step 1>
+2. <step 2>
 
-#### Critérios de Aceite Técnicos
-- [ ] CT-01: <critério técnico testável>
-- [ ] CT-02: <critério técnico testável>
+#### Technical Acceptance Criteria
+- [ ] CT-01: <testable technical criterion>
+- [ ] CT-02: <testable technical criterion>
 
-#### Testes
-- Unitários: <o que testar>
-- Integração: <o que testar>
+#### Tests
+- Unitary: <what to test>
+- Integration: <what to test>
 
 ---
 
-## 5. Contratos de Interface (se aplicável)
+## 5. Interface Agreements (if applicable)
 
 ### <Endpoint/Interface>
-**Método:** GET/POST/...
+**Method:** GET/POST/...
 
 **Request:**
 ```json
@@ -135,60 +135,60 @@ Crie `.agents/spec/<feature-slug>/SPEC.md` (crie os diretórios se necessário) 
 { ... }
 ```
 
-**Erros:**
-| Código | Descrição |
-|--------|-----------|
+**Errors:**
+| Code | Description |
+|-----------|-----------|
 | ... | ... |
 
 ---
 
-## 6. Fluxo Geral de Implementação
+## 6. General Implementation Flow
 
-### Fase 1: Setup
-<inicialização, configs, dependências>
+### Phase 1: Setup
+<initialization, configs, dependencies>
 
-### Fase 2: Componentes Fundamentais
-<modelos, services, middlewares>
+### Phase 2: Fundamental Components
+<models, services, middleware>
 
-### Fase 3+: Por História
-<histórias em ordem de dependência>
+### Phase 3+: By History
+<stories in order of dependency>
 
-## 7. Riscos Técnicos
+## 7. Technical Risks
 
-| Risco | Impacto | Mitigação |
-|-------|---------|-----------|
+| Risk | Impact | Mitigation |
+|-------|--------|-----------|
 | ... | ... | ... |
 
-## 8. Validação
+## 8. Validation
 
-### Cenários de Validação
-<quickstart: como provar que funciona end-to-end>
+### Validation Scenarios
+<quickstart: how to prove it works end-to-end>
 
-## 9. Gaps e Pendências
+## 9. Gaps and Issues
 
-| ID | Descrição | Status |
+| ID | Description | Status |
 |----|-----------|--------|
-| ... | ... | ⏳ Aberto |
+| ... | ... | ⏳ Open |
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Resumo: X histórias com solução definida, Y componentes a criar/modificar, Z testes planejados.
-- Riscos técnicos de maior atenção.
-- Pronto para `review-spec`.
+- Summary: X stories with a defined solution, Y components to create/modify, Z tests planned.
+- Technical risks require greater attention.
+- Ready for `review-spec`.
 
-## Convenções
+## Conventions
 
-- SPEC é o contrato técnico — deve ser suficiente para um engenheiro implementar sem perguntas.
-- CT-XX para critérios de aceite técnicos.
-- Status: 🟡 Em revisão → 🟢 Aprovado → ✅ Implementado.
-- Português. Código e nomes técnicos em inglês.
+- SPEC is the technical contract — it should be enough for an engineer to implement without questions.
+- CT-XX for technical acceptance criteria.
+- Status: 🟡 Under review → 🟢 Approved → ✅ Implemented.
+- Portuguese. Code and technical names in English.
 
-## Done When
+##DoneWhen
 
-- [ ] `SPEC.md` criado em `.agents/spec/<feature-slug>/`
-- [ ] Cada história do PRD com solução técnica definida
-- [ ] Modelo de dados documentado
-- [ ] Contratos de interface definidos (se aplicável)
-- [ ] Fluxo de implementação sequenciado
-- [ ] Resumo reportado no chat
+- [ ] `SPEC.md` created in `.agents/spec/<feature-slug>/`
+- [ ] Each PRD story with a defined technical solution
+- [ ] Documented data model
+- [ ] Defined interface agreements (if applicable)
+- [ ] Sequenced implementation flow
+- [ ] Summary reported in chat

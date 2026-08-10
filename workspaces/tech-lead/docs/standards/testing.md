@@ -1,6 +1,6 @@
-# Padrão de testes
+# Test pattern
 
-- Cada critério de aceite deve apontar para uma evidência verificável.
-- Cubra a unidade de negócio e as integrações alteradas.
-- Registre comando, resultado, data e ambiente em `execution/evidence/`.
-- Falhas não relacionadas devem ser separadas e registradas, nunca ocultadas.
+- Each acceptance criterion must point to verifiable evidence.
+- Cover the business unit and changed integrations.
+- Record command, result, date and environment in `execution/evidence/`.
+- Unrelated failures must be separated and recorded, never hidden.

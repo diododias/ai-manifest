@@ -1,10 +1,10 @@
 # Status — Checkout UX
 
-- Fase: specification
-- Item ativo: `UX-WI-001`
-- Pesquisa: evidência ilustrativa insuficiente para conclusão real
+- Phase: specification
+- Active item: `UX-WI-001`
+- Research: insufficient illustrative evidence for real conclusion
 - UX spec: draft
-- Validação: pending
-- Bloqueios: baseline e pesquisa real ausentes
-- Próxima decisão de UX: aprovar plano de pesquisa ou aceitar risco explicitamente
-- Última atualização: 2026-08-08
+- Validation: pending
+- Blocks: baseline and real search missing
+- Next UX decision: approve research plan or explicitly accept risk
+- Last updated: 2026-08-08

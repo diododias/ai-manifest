@@ -1,146 +1,146 @@
 ---
-title: Agent Team — fluxo da jornada
+title: Agent Team — journey flow
 status: reference
 updated_at: 2026-08-08
 ---
 
-# Agent Team — fluxo da jornada
+# Agent Team — journey flow
 
-> Visão visual do [sistema operacional do trio humano](../rules/operating-model.md) e do [modelo operacional 90/10](operating-model-90-10.md) · [Fluxos separados por fase](journey-by-phase.md) · [workflows multiagente](../workflows/README.md).
+> Visual view of [human trio operating system](../rules/operating-model.md) and [90/10 operating model](operating-model-90-10.md) · [Phase-separated flows](journey-by-phase.md) · [multi-agent workflows](../workflows/README.md).
 
-Cada etapa com colaboração entre agentes possui um contrato detalhado no [mapa de workflows](../workflows/README.md): [intake](../workflows/00-intake-and-triage.md), [discovery](../workflows/01-discovery-and-research.md), [produto e UX](../workflows/02-product-and-ux-planning.md), [especificação](../workflows/03-technical-specification.md), [implementação](../workflows/04-autonomous-implementation.md), [validação](../workflows/05-adversarial-validation.md), [PR](../workflows/06-pr-and-merge.md), [homologação](../workflows/07-release-candidate-validation.md), [produção](../workflows/08-production-release-and-observation.md), [conhecimento](../workflows/09-knowledge-curation.md) e [melhoria contínua](../workflows/10-continuous-improvement.md).
+Each stage with collaboration between agents has a detailed contract in the [workflow map](../workflows/README.md): [intake](../workflows/00-intake-and-triage.md), [discovery](../workflows/01-discovery-and-research.md), [product and UX](../workflows/02-product-and-ux-planning.md), [specification](../workflows/03-technical-specification.md), [implementation](../workflows/04-autonomous-implementation.md), [validation](../workflows/05-adversarial-validation.md), [PR](../workflows/06-pr-and-merge.md), [approval](../workflows/07-release-candidate-validation.md), [production](../workflows/08-production-release-and-observation.md), [knowledge](../workflows/09-knowledge-curation.md) and [continuous improvement](../workflows/10-continuous-improvement.md).
 
-## Jornada de desenvolvimento
+## Development journey
 
 ```mermaid
-flowchart TD
-    START([Necessidade, problema ou oportunidade])
+TD flowchart
+    START([Need, problem or opportunity])
 
-    subgraph PRODUCT["Produto e descoberta"]
-        S0["0. Backlog e triagem<br/>Intake Agent + Product Manager Agent"]
-        G0{{"Gate automático<br/>contexto, owner, duplicidade e risco"}}
+    subgraph PRODUCT["Product and discovery"]
+        S0["0. Backlog and triage<br/>Intake Agent + Product Manager Agent"]
+        G0{{"Automatic gate<br/>context, owner, duplicity and risk"}}
 
         S1["1. Discovery<br/>PM + UX Specification + Tech Lead"]
-        G1{{"Gate automático<br/>PB completo, evidências e riscos"}}
-        H1{"H1 · Vale investir?"}
+        G1{{"Automatic gate<br/>Complete PB, evidence and risks"}}
+        H1{"H1 · Is it worth investing?"}
 
-        S2["2. Planejamento de produto<br/>PM + Adversarial PM"]
-        G2{{"Gate automático<br/>PRD claro, testável e rastreável"}}
-        H2{"H2 · É isto que construiremos?"}
+        S2["2. Product Planning<br/>PM + Adversarial PM"]
+        G2{{"Automatic gate<br/>Clear, testable and traceable PRD"}}
+        H2{"H2 · Is this what we will build?"}
     end
 
-    subgraph DESIGN["Decisão e especificação técnica"]
-        S3["3. Especificação técnica<br/>Specification TL + Adversarial TL"]
-        G3{{"Gate automático<br/>SPEC, ADR, tarefas, riscos e trade-offs"}}
-        D3{"Há nova ADR,<br/>exceção ou risco R3/R4?"}
-        H3{"H3 · Aceitamos<br/>os trade-offs?"}
+    subgraph DESIGN["Decision and technical specification"]
+        S3["3. Technical Specification<br/>Specification TL + Adversarial TL"]
+        G3{{"Automatic gate<br/>SPEC, ADR, tasks, risks and trade-offs"}}
+        D3{"Is there a new ADR,<br/>exception or risk R3/R4?"}
+        H3{"H3 · Do we accept<br/>the trade-offs?"}
     end
 
-    subgraph BUILD["Construção e validação autônomas"]
-        S4["4. Implementação<br/>Orchestrator + Engineer Agents"]
-        L4{{"Hooks locais<br/>pre-commit + pre-push"}}
-        S5["5. Validação adversarial<br/>QA + Security + Architecture + Reviewer Agents"]
-        G5{{"CI fast + deep lanes<br/>todos os checks obrigatórios"}}
+    subgraph BUILD["Autonomous construction and validation"]
+        S4["4. Implementation<br/>Orchestrator + Engineer Agents"]
+        L4{{"Local hooks<br/>pre-commit + pre-push"}}
+        S5["5. Adversarial validation<br/>QA + Security + Architecture + Reviewer Agents"]
+        G5{{"CI fast + deep lanes<br/>all checks required"}}
     end
 
-    subgraph DELIVERY["Integração, homologação e produção"]
+    subgraph DELIVERY["Integration, approval and production"]
         S6["6. PR + evidence pack<br/>PR Agent + Reviewer Agents"]
-        H4{"H4 · Podemos integrar?"}
-        M6["Merge protegido<br/>ruleset + checks + approvals"]
+        H4{"H4 · Can we integrate?"}
+        M6["Protected merge<br/>ruleset + checks + approvals"]
 
-        S7["7. Homologação automatizada<br/>preview, smoke, E2E e evidências"]
-        G7{{"Gate de release candidate<br/>critérios de aceite validados"}}
+        S7["7. Automated approval<br/>preview, smoke, E2E and evidence"]
+        G7{{"Release candidate gate<br/>validated acceptance criteria"}}
 
-        D8{"Risco R3/R4 ou<br/>exposição crítica?"}
-        H5{"H5 · Podemos expor<br/>o risco em produção?"}
-        S8["8. Produção<br/>rollout progressivo + rollback"]
-        G8{{"Gate pós-deploy<br/>SLOs, erros e métricas de produto"}}
+        D8{"R3/R4 risk or<br/>critical exposure?"}
+        H5{"H5 · Can we expose<br/>the risk in production?"}
+        S8["8. Production<br/>progressive rollout + rollback"]
+        G8{{"Post-deploy gate<br/>SLOs, errors and product metrics"}}
     end
 
-    subgraph LEARNING["Conhecimento e melhoria contínua"]
-        S9["9. Base de conhecimento<br/>Knowledge Agent"]
-        OBS["Sessões + feedbacks + métricas<br/>falhas + retries + escalonamentos"]
-        CLOCK([Execução semanal])
-        S10["10. Auto Dream<br/>análise contínua do sistema de trabalho"]
-        D10{"Memória sensível, P0/P1<br/>ou mudança de gate?"}
-        H6{"H6 · O sistema aprendeu<br/>corretamente?"}
-        LEARN{"Tipo de resultado"}
-        MEM["Aprendizado validado<br/>atualizar MEMORY.md"]
-        IMP["Falha ou atrito<br/>gerar demanda de melhoria"]
-        TYPES["Processo · harness · skill · script<br/>gate · automação · fluxo"]
+    subgraph LEARNING["Knowledge and continuous improvement"]
+        S9["9. Knowledge base<br/>Knowledge Agent"]
+        NOTE["Sessions + feedback + metrics<br/>failures + retries + escalations"]
+        CLOCK([Weekly run])
+        S10["10. Auto Dream<br/>continuous work system analysis"]
+        D10{"Sensitive memory, P0/P1<br/>or gate change?"}
+        H6{"H6 · Did the system learn<br/>correctly?"}
+        LEARN{"Result type"}
+        MEM["Learning validated<br/>update MEMORY.md"]
+        IMP["Failure or friction<br/>generate demand for improvement"]
+        TYPES["Process · harness · skill · script<br/>gate · automation · flow"]
     end
 
-    END([Ciclo entregue e observado])
+    END([Cycle delivered and observed])
 
     START --> S0 --> G0
-    G0 -- "aprovado" --> S1
-    G0 -- "incompleto" --> S0
+    G0 -- "approved" --> S1
+    G0 -- "incomplete" --> S0
 
     S1 --> G1
-    G1 -- "aprovado" --> H1
+    G1 -- "approved" --> H1
     G1 -- "gap" --> S1
-    H1 -- "avançar" --> S2
-    H1 -- "ajustar" --> S1
-    H1 -- "adiar ou encerrar" --> S0
+    H1 -- "forward" --> S2
+    H1 -- "adjust" --> S1
+    H1 -- "postpone or terminate" --> S0
 
     S2 --> G2
-    G2 -- "aprovado" --> H2
-    G2 -- "ambiguidade" --> S2
-    H2 -- "aprovar" --> S3
-    H2 -- "revisar produto" --> S2
+    G2 -- "approved" --> H2
+    G2 -- "ambiguity" --> S2
+    H2 -- "approve" --> S3
+    H2 -- "review product" --> S2
 
     S3 --> G3
-    G3 -- "gap técnico" --> S3
-    G3 -- "aprovado" --> D3
-    D3 -- "sim" --> H3
-    D3 -- "não" --> S4
-    H3 -- "aceitar" --> S4
-    H3 -- "revisar decisão" --> S3
+    G3 -- "technical gap" --> S3
+    G3 -- "approved" --> D3
+    D3 -- "yes" --> H3
+    D3 -- "no" --> S4
+    H3 -- "accept" --> S4
+    H3 -- "review decision" --> S3
 
     S4 --> L4
-    L4 -- "falhou" --> S4
-    L4 -- "aprovado" --> S5
+    L4 -- "failed" --> S4
+    L4 -- "approved" --> S5
     S5 --> G5
-    G5 -- "falhou" --> S4
-    G5 -- "aprovado" --> S6
+    G5 -- "failed" --> S4
+    G5 -- "approved" --> S6
 
     S6 --> H4
-    H4 -- "ajustes de código" --> S4
-    H4 -- "ajustes de escopo" --> S2
-    H4 -- "aprovar" --> M6
+    H4 -- "code adjustments" --> S4
+    H4 -- "scope adjustments" --> S2
+    H4 -- "approve" --> M6
     M6 --> S7 --> G7
-    G7 -- "falhou" --> S4
-    G7 -- "aprovado" --> D8
+    G7 -- "failed" --> S4
+    G7 -- "approved" --> D8
 
-    D8 -- "não · R0/R1" --> S8
-    D8 -- "sim" --> H5
-    H5 -- "aprovar" --> S8
-    H5 -- "revisar release" --> S7
+    D8 -- "no · R0/R1" --> S8
+    D8 -- "yes" --> H5
+    H5 -- "approve" --> S8
+    H5 -- "review release" --> S7
     S8 --> G8
-    G8 -- "regressão" --> ROLLBACK["Rollback ou pausa automática"]
+    G8 -- "regression" --> ROLLBACK["Rollback or automatic pause"]
     ROLLBACK --> S4
-    G8 -- "saudável" --> S9 --> END
+    G8 -- "healthy" --> S9 --> END
 
-    S0 -. "telemetria" .-> OBS
-    S1 -. "telemetria" .-> OBS
-    S2 -. "telemetria" .-> OBS
-    S3 -. "telemetria" .-> OBS
-    S4 -. "telemetria" .-> OBS
-    S5 -. "telemetria" .-> OBS
-    S6 -. "telemetria" .-> OBS
-    S7 -. "telemetria" .-> OBS
-    S8 -. "telemetria" .-> OBS
-    S9 -. "telemetria" .-> OBS
+    S0 -. "telemetry" .-> OBS
+    S1 -. "telemetry" .-> OBS
+    S2 -. "telemetry" .-> OBS
+    S3 -. "telemetry" .-> OBS
+    S4 -. "telemetry" .-> OBS
+    S5 -. "telemetry" .-> OBS
+    S6 -. "telemetry" .-> OBS
+    S7 -. "telemetry" .-> OBS
+    S8 -. "telemetry" .-> OBS
+    S9 -. "telemetry" .-> OBS
 
     CLOCK --> S10
-    OBS --> S10 --> D10
-    D10 -- "sim" --> H6 --> LEARN
-    D10 -- "não ou amostragem automática" --> LEARN
-    LEARN -- "funcionou e pode ser reutilizado" --> MEM
-    LEARN -- "deu errado ou gerou atrito" --> IMP
+    NOTE --> S10 --> D10
+    D10 -- "yes" --> H6 --> LEARN
+    D10 -- "no or automatic sampling" --> LEARN
+    LEARN -- "it worked and can be reused" --> MEM
+    LEARN -- "went wrong or generated friction" --> IMP
     IMP --> TYPES
-    TYPES -- "nova demanda priorizável" --> S0
-    MEM -. "contexto para o próximo ciclo" .-> S1
+    TYPES -- "new prioritizable demand" --> S0
+    MEM -. "context for next cycle" .-> S1
 
     classDef agent fill:#dbeafe,stroke:#2563eb,color:#172554,stroke-width:1.5px;
     classDef automation fill:#dcfce7,stroke:#16a34a,color:#052e16,stroke-width:1.5px;
@@ -157,30 +157,30 @@ flowchart TD
     class ROLLBACK failure;
 ```
 
-## Como ler o fluxo
+## How to read the stream
 
-- **Azul:** trabalho executado pelos Agent Teams
-- **Verde:** automações, gates, hooks e decisões por política
-- **Amarelo:** checkpoints de decisão humana
-- **Roxo:** conhecimento, telemetria e Auto Dream
-- **Vermelho:** regressão e caminho de recuperação
-- **Linha contínua:** fluxo de entrega
-- **Linha pontilhada:** coleta ou reutilização de conhecimento
+- **Blue:** work performed by Agent Teams
+- **Green:** automations, gates, hooks and policy decisions
+- **Yellow:** human decision checkpoints
+- **Purple:** knowledge, telemetry and Auto Dream
+- **Red:** regression and recovery path
+- **Continuous line:** delivery flow
+- **Dotted line:** knowledge collection or reuse
 
-## Intervenções humanas
+## Human interventions
 
-- **H1:** confirmar se o problema merece investimento
-- **H2:** confirmar escopo, experiência e resultado esperado
-- **H3:** avaliar apenas decisões técnicas excepcionais ou de alto risco
-- **H4:** autorizar integração conforme a classe de risco
-- **H5:** autorizar exposição crítica em produção
-- **H6:** validar aprendizados sensíveis, demandas P0/P1 e mudanças de gates
+- **H1:** confirm whether the problem deserves investment
+- **H2:** confirm scope, experience and expected result
+- **H3:** evaluate only exceptional or high-risk technical decisions
+- **H4:** authorize integration according to risk class
+- **H5:** authorize critical exposure in production
+- **H6:** validate sensitive learning, P0/P1 demands and gate changes
 
-## Fechamento do ciclo
+## Closing the cycle
 
-- O Knowledge Agent registra o conhecimento específico da entrega
-- O Auto Dream analisa semanalmente o conjunto das sessões
-- Aprendizados validados atualizam o `MEMORY.md`
-- Falhas e atritos geram demandas rastreáveis no backlog
-- As demandas podem melhorar processo, harness, skills, scripts, gates ou fluxo
-- O backlog reinicia o ciclo com conhecimento e controles melhores
+- Knowledge Agent records delivery-specific knowledge
+- Auto Dream analyzes all sessions weekly
+- Validated learnings update `MEMORY.md`
+- Failures and friction generate traceable demands in the backlog
+- Demands can improve process, harness, skills, scripts, gates or flow
+- The backlog restarts the cycle with better knowledge and controls

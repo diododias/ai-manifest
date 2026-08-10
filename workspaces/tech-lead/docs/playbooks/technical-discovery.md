@@ -1,8 +1,8 @@
-# Descoberta técnica
+# Technical discovery
 
-1. Crie um Work Item com pergunta, limites e timebox.
-2. Levante contexto, repositórios e decisões existentes.
-3. Registre hipóteses separadamente de fatos observados.
-4. Colete evidências reproduzíveis.
-5. Produza recomendação, riscos e questões abertas.
-6. Promova decisões aceitas para ADR ou spec e arquive o plano.
+1. Create a Work Item with question, limits and timebox.
+2. Survey existing context, repositories and decisions.
+3. Record hypotheses separately from observed facts.
+4. Collect reproducible evidence.
+5. Produce recommendation, risks and open questions.
+6. Promote accepted decisions to ADR or spec and archive the plan.

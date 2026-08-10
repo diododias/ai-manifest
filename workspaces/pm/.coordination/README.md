@@ -1,3 +1,3 @@
-# Coordenação de PM
+# PM Coordination
 
-Use arquivos separados para entradas não triadas, decisões pendentes e handoffs transversais. Promova conteúdo durável ao projeto correspondente.
+Use separate files for unscreened inputs, pending decisions, and cross-cutting handoffs. Promote durable content to the corresponding project.

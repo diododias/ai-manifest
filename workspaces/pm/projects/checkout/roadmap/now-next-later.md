@@ -1,15 +1,15 @@
-# Now / Next / Later
+#Now/Next/Later
 
 ## Now
 
-- Entregar e validar idempotência do pagamento.
+- Deliver and validate payment idempotence.
 
-## Next
+##Next
 
-- Medir retries recuperados e contatos ao suporte.
+- Measure recovered retries and contacts to support.
 
-## Later
+##Later
 
-- Avaliar expansão do padrão para outras operações financeiras.
+- Evaluate expansion of the standard for other financial operations.
 
-Este sequenciamento é ilustrativo; prioridade real depende de decisão do PM.
+This sequencing is illustrative; real priority depends on the PM's decision.

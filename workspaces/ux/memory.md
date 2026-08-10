@@ -1,7 +1,7 @@
-# Memória do workspace de UX
+# UX workspace memory
 
-- Projeto ilustrativo: checkout.
+- Illustrative project: checkout.
 - Spec: draft.
-- Bloqueio: pesquisa real ausente.
+- Blocking: real search missing.
 
-Confirme sempre `BOARD.md` e as fontes do projeto antes de agir.
+Always confirm `BOARD.md` and project sources before taking action.

@@ -1,11 +1,11 @@
-# Transcrição — revisão de arquitetura de idempotência (fictícia)
+# Transcript — idempotence architecture review (fictitious)
 
-Participantes: Tech Lead, Specification Tech Lead Agent.
+Participants: Tech Lead, Specification Tech Lead Agent.
 
-**Tech Lead:** o risco principal é corrida entre tentativas de pagamento com o mesmo payload.
+**Tech Lead:** the main risk is race between payment attempts with the same payload.
 
-**Specification Tech Lead Agent:** proponho chave de idempotência única por tentativa, com comparação de impressão digital do payload para detectar replay divergente.
+**Specification Tech Lead Agent:** I propose single idempotence key per attempt, with payload fingerprint comparison to detect divergent replay.
 
-**Tech Lead:** aceito. Registrar como ADR-001 e cobrir com teste de concorrência.
+**Tech Lead:** aceito. Register as ADR-001 and cover with competition test.
 
-Decisões e trade-offs completos estão em `engineering/adr/ADR-001-idempotency-key.md`.
+Complete decisions and trade-offs are in `engineering/adr/ADR-001-idempotency-key.md`.

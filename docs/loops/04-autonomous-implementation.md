@@ -1,98 +1,98 @@
-# 🔁 Ralph Loop
+# 🔁Ralph Loop
 
-> Implementação autônoma — várias missões pequenas girando em paralelo contra sensors locais, sob um orquestrador que coordena dependências e nunca escreve código.
+> Autonomous deployment — several small missions running in parallel against local sensors, under an orchestrator that coordinates dependencies and never writes code.
 
-O nome vem da *Ralph Wiggum technique*: manter um agente girando sobre o mesmo prompt até que a tarefa passe nas verificações. É a volta interna em estado puro — barata, repetível, sem julgamento humano no circuito. O Ralph Loop leva essa ideia ao limite, com várias instâncias girando ao mesmo tempo sobre tarefas isoladas.
+The name comes from the *Ralph Wiggum technique*: keeping an agent rotating on the same prompt until the task passes the checks. It's pure internal looping—cheap, repeatable, with no human judgment in the loop. Ralph Loop takes this idea to the limit, with multiple instances spinning at the same time over isolated tasks.
 
-O codinome carrega junto o aviso: **um agente que gira sem gate não converge, apenas insiste.** Tudo neste loop existe para garantir que cada volta termine contra um critério objetivo e que a insistência tenha limite declarado.
+The codename carries with it the warning: **an agent that turns without a gate does not converge, it just insists.** Everything in this loop exists to guarantee that each turn ends against an objective criterion and that the insistence has a declared limit.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 4 — construção e validação |
-| **Consolida** | [🎛️ Orchestrator Agent](../agentes/orchestrator-agent.md) |
-| **Colaboram** | um ou mais [🛠️ Software Engineer Agents](../agentes/software-engineer-agent.md) |
-| **Owner humano** | Tech Lead, por política e exceção |
-| **Entrada** | tarefa elegível, `SPEC.md`, critérios de aceite, permissões, classe de risco e gates |
-| **Saída** | diff rastreável, testes, documentação afetada, resultados locais e handoff para validação |
-| **Gate de saída** | sensors locais e critérios da tarefa aprovados, com resultado registrado |
-| **Volta dominante** | interna — retry do próprio agente contra `.hooks/`, com limite de tentativas e budget |
+| **Step** | 4 — construction and validation |
+| **Consolidates** | [🎛️ Orchestrator Agent](../agentes/orchestrator-agent.md) |
+| **Collaborate** | one or more [🛠️ Software Engineer Agents](../agentes/software-engineer-agent.md) |
+| **Human owner** | Tech Lead, by policy and exception |
+| **Input** | eligible task, `SPEC.md`, acceptance criteria, permissions, risk class and gates |
+| **Exit** | traceable diff, tests, affected documentation, local results and handoff to validation |
+| **Exit gate** | local sensors and task criteria approved, with result recorded |
+| **Dominant lap** | internal — retry of the agent itself against `.hooks/`, with limit of attempts and budget |
 
 ```mermaid
 flowchart LR
-    A[TASKS.md] --> B[Orchestrator\nDAG e missões elegíveis]
-    B --> C[Engineer A\ntarefa isolada]
-    B --> D[Engineer B\ntarefa independente]
-    C --> E[hooks e evidências locais]
+    A[TASKS.md] --> B[Orchestrator\nDAG and eligible missions]
+    B --> C[Engineer A\nisolated task]
+    B --> D[Engineer B\nindependent task]
+    C --> E[hooks and local evidence]
     D --> E
-    E -- falha corrigível --> C
-    E -- aprovado --> F[Orchestrator\nconsolida handoff]
-    E -- repetida ou decisão --> G[escalonamento ao Tech Lead]
+    E -- correctable fault --> C
+    E -- approved --> F[Orchestrator\nconsolidates handoff]
+    E -- repeated or decision --> G[escalation to Tech Lead]
     F --> H[⚔️ Red Team Loop]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O Orchestrator monta o DAG a partir de `TASKS.md`, seleciona apenas missões com dependências satisfeitas e distribui o **contexto mínimo** de cada uma.
-2. Cada Engineer Agent declara escopo, arquivos, branch/worktree e validações. Trabalho concorrente no mesmo repositório usa isolamento por Work Item.
-3. O Engineer implementa a menor mudança possível, atualiza testes e documentação e executa os gates locais.
-4. Falha corrigível retorna ao mesmo agente, dentro dos limites de tentativa e tempo. O Orchestrator bloqueia dependentes até a evidência existir.
-5. O Orchestrator consolida **o estado, não o código**: lista de mudanças, evidências, dependências resolvidas e pendências para validação.
+1. Orchestrator assembles the DAG from `TASKS.md`, selects only missions with satisfied dependencies and distributes the **minimum context** of each one.
+2. Each Engineer Agent declares scope, files, branch/worktree and validations. Concurrent work in the same repository uses isolation per Work Item.
+3. The Engineer implements the smallest change possible, updates tests and documentation, and runs local gates.
+4. Correctable failure returns to the same agent, within the attempt and time limits. Orchestrator blocks dependents until evidence exists.
+5. Orchestrator consolidates **the state, not the code**: list of changes, evidence, resolved dependencies, and pending validation.
 
-**Regras de colaboração.** Esta é a etapa mais paralela da jornada, e as regras existem para impedir que dois agentes destruam o trabalho um do outro. Agentes não editam simultaneamente o mesmo artefato sem divisão explícita, e nenhuma tarefa usa branch, worktree ou alteração preexistente de outra missão sem autorização.
+**Collaboration rules.** This is the most parallel stage of the journey, and the rules are there to prevent two agents from destroying each other's work. Agents do not simultaneously edit the same artifact without explicit splitting, and no task uses a branch, worktree, or pre-existing change from another mission without authorization.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | uma tarefa por missão, com critério de conclusão próprio e contexto mínimo — não o `SPEC.md` inteiro |
-| **Saída** | diff + resultado dos sensors + o que ficou fora de escopo, consolidado pelo Orchestrator em um único handoff |
+| **Input** | one task per mission, with its own completion criteria and minimal context — not the entire `SPEC.md` |
+| **Exit** | diff + sensor results + what was out of scope, consolidated by Orchestrator in a single handoff |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** declarar a mudança aprovada.
+**Does not:** declare the change approved.
 
-Gate local verde significa que a mudança está **pronta para ser atacada** — não que está correta. A conclusão local nunca substitui a validação adversarial, e um agente que trata o próprio hook verde como aprovação transferiu para si uma autoridade que o loop não lhe deu.
+Green local gate means the change is **ready to be attacked** — not that it is correct. Local completion never replaces adversarial validation, and an agent that treats the green hook itself as approval has transferred to itself an authority that the loop did not give it.
 
-O corolário mais importante: **alterar código e alterar verificação são coisas estruturalmente separadas.** Quando um agente está bloqueado por um gate, o caminho de menor resistência é afrouxar o gate. Essa separação não pode depender de instrução de prompt.
+The most important corollary: **changing code and changing verification are structurally separate things.** When an agent is blocked by a gate, the path of least resistance is to loosen the gate. This separation cannot depend on prompt instruction.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Giro sem convergência | o agente repete a mesma tentativa com variações cosméticas | limite de tentativas declarado; ao estourar, escala com opções |
-| Tarefas agrupadas | um commit resolve três tarefas | uma tarefa por vez; diff pequeno é revisável, diff grande esconde defeito |
-| Colisão de worktree | dois agentes editam o mesmo arquivo | isolamento por Work Item, declarado antes de começar |
-| Escopo expandido silenciosamente | o diff toca arquivos fora da tarefa | escopo declarado na abertura da missão é o limite auditável |
+| Spin without convergence | the agent repeats the same attempt with cosmetic variations | declared attempt limit; when popping, scale with options |
+| Grouped tasks | one commit solves three tasks | one task at a time; small diff is reviewable, large diff hides defect |
+| Worktree collision | two agents edit the same file | isolation by Work Item, declared before starting |
+| Scope Expanded Quietly | diff touches files outside of task | scope declared at the opening of the mission is the auditable limit |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Código implementado | `repos/worktrees/<org>/<repo>/<WI-id>/` — fora do workspace | sim |
-| Work Item atualizado | `work-items/<WI-id>.md` — status, branch, worktree | sim |
-| Evidências locais | `execution/evidence/<WI-id>/` | sim |
-| `STATUS.md` | fase `implementation`, próximo gate `technical review` | sim |
-| `MEMORY.md` | progresso e bloqueios relevantes | se houve mudança |
-| Missões ativas e dependências | `.coordination/active/` | trânsito |
+| Code implemented | `repos/worktrees/<org>/<repo>/<WI-id>/` — outside workspace | yes |
+| Work Item updated | `work-items/<WI-id>.md` — status, branch, worktree | yes |
+| Local evidence | `execution/evidence/<WI-id>/` | yes |
+| `STATUS.md` | phase `implementation`, next gate `technical review` | yes |
+| `MEMORY.md` | progress and relevant blockages | if there was a change |
+| Active missions and dependencies | `.coordination/active/` | traffic |
 
-**Nenhum arquivo de implementação vai para `plans/assets/`.** O rastro auditável da implementação é o diff no repositório e as evidências em `execution/evidence/`.
+**No implementation files go to `plans/assets/`.** The auditable trace of the implementation is the diff in the repository and the evidence in `execution/evidence/`.
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar por falha repetida, requisito contraditório, dependência circular, necessidade de permissão ou risco acima da missão. O escalonamento contém **decisão solicitada, opções, impacto e evidências** — não apenas logs.
+Escalate due to repeated failure, contradictory requirement, circular dependency, need for permission, or risk beyond the mission. Escalation contains **requested decision, options, impact, and evidence** — not just logs.

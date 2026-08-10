@@ -1,3 +1,3 @@
-# Arquivo de UX
+# UX file
 
-Pesquisa, fluxos ou specs desativados permanecem aqui somente quando houver valor de rastreabilidade, com motivo, data e substituto.
+Disabled research, flows or specs remain here only when there is traceability value, with reason, date and substitute.

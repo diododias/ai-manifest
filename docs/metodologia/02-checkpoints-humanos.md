@@ -1,135 +1,135 @@
-# 02 — Checkpoints humanos
+#02 — Human checkpoints
 
-> Onde exatamente uma pessoa entra, com qual pergunta, por quanto tempo e o que ela precisa ver para responder.
+> Where exactly a person enters, with what question, for how long and what they need to see to answer.
 
-O princípio que organiza esta página: **o humano não revisa o processo — ele responde a uma pergunta objetiva.** Ninguém acompanha o diff inteiro nem lê o PRD linha por linha. Em cada checkpoint, o sistema entrega a decisão pedida, a recomendação dos agentes, as alternativas descartadas, os riscos e as evidências dos gates. A pessoa responde.
+The principle that organizes this page: **the human does not review the process — he answers an objective question.** No one follows the entire diff or reads the PRD line by line. At each checkpoint, the system delivers the requested decision, the agents' recommendations, the discarded alternatives, the risks and the gate evidence. The person responds.
 
-O que torna isso possível não é confiança no agente: é a [arquitetura de gates](../GATES.md). Cinco camadas de verificação filtram tudo que é determinístico antes de qualquer pessoa ser chamada. **Um checkpoint só existe onde uma máquina não pode decidir.** Se um humano está sendo chamado para algo verificável, o gate está no lugar errado — e isso é um defeito do harness, não do checkpoint.
+What makes this possible is not trust in the agent: it is the [gate architecture](../GATES.md). Five layers of verification filter out everything deterministic before anyone is called. **A checkpoint only exists where a machine cannot decide.** If a human is being called for something verifiable, the gate is in the wrong place — and that is a defect in the harness, not the checkpoint.
 
 ---
 
-## Os seis checkpoints
+## The six checkpoints
 
-| Marco | Pergunta | Gatilho | Owner | Tempo esperado |
+| Milestone | Question | Trigger | Owner | Expected time |
 |---|---|---|---|---:|
-| **H1** | Vale investir neste problema? | gate de discovery aprovado | PM ou sponsor | 5–10 min |
-| **H2** | É isto que construiremos? | gate de produto aprovado | PM, com UX como coautor | 10–15 min |
-| **H3** | Aceitamos o trade-off? | nova ADR, exceção arquitetural ou risco R3/R4 | Tech Lead ou especialista do domínio | 10–20 min |
-| **H4** | Podemos integrar? | PR aberto com CI verde, conforme classe de risco | Code Owner do path | 5–15 min |
-| **H5** | Podemos expor o risco? | release candidate aprovado, em R3/R4 ou exposição crítica | Tech Lead; PM coaprova | 3–10 min |
-| **H6** | O sistema aprendeu corretamente? | ciclo semanal do [🌙 Dream Loop](../loops/10-continuous-improvement.md) | owner do sistema de trabalho | 10–20 min |
+| **H1** | Is it worth investing in this problem? | approved discovery gate | PM or sponsor | 5–10 min |
+| **H2** | Is this what we will build? | approved product gate | PM, with UX as co-author | 10–15 min |
+| **H3** | Do we accept the trade-off? | new ADR, architectural exception or R3/R4 risk | Tech Lead or Domain Expert | 10–20 min |
+| **H4** | Can we integrate? | Open PR with green CI, according to risk class | Code Owner of the path | 5–15 min |
+| **H5** | Can we expose the risk? | approved release candidate, in R3/R4 or critical exposure | Tech Lead; PM coapproves | 3–10 min |
+| **H6** | Did the system learn correctly? | weekly cycle of [🌙 Dream Loop](../loops/10-continuous-improvement.md) | work system owner | 10–20 min |
 
-Somados, os seis representam entre 30 e 45 minutos de tempo humano por entrega de risco médio. **H3 e H5 são condicionais**: em um item de baixo risco com gates verdes, o ciclo vai de H2 direto a H4 — três decisões humanas do problema à produção.
+Combined, the six represent between 30 and 45 minutes of human time per medium-risk delivery. **H3 and H5 are conditional**: on a low-risk item with green gates, the cycle goes from H2 straight to H4 — three human decisions from problem to production.
 
-### O que cada um decide
+### What each person decides
 
-**H1 — vale investir?** Ocorre depois do [🔦 Scout Loop](../loops/01-discovery-and-research.md), sobre um `PB.md` consolidado. A pessoa revisa problema, usuário, valor, restrições e riscos, e decide avançar, ajustar a pergunta, adiar ou encerrar. Encerrar é uma resposta legítima e a mais barata de todas neste ponto.
+**H1 — is it worth investing?** Occurs after the [🔦 Scout Loop](../loops/01-discovery-and-research.md), over a consolidated `PB.md`. The person reviews the problem, user, value, constraints and risks, and decides to move forward, adjust the question, postpone or close. Terminating is a legitimate response and the cheapest of all at this point.
 
-**H2 — é isto que construiremos?** Ocorre depois do [🎨 Studio Loop](../loops/02-product-and-ux-planning.md), sobre um `PRD.md` já submetido a crítica adversarial. A revisão é sobre **decisões e gaps**, não sobre o documento inteiro: o que a crítica levantou e como foi respondido. Decide aprovar, reduzir, ampliar ou devolver.
+**H2 — is this what we will build?** It occurs after [🎨 Studio Loop](../loops/02-product-and-ux-planning.md), on top of a `PRD.md` already subjected to adversarial criticism. The review is about **decisions and gaps**, not about the entire document: what the criticism raised and how it was responded to. Decide to approve, reduce, expand or return.
 
-**H3 — aceitamos o trade-off?** Condicional. Só ocorre quando o [🗺️ Drafting Loop](../loops/03-technical-specification.md) produz uma ADR nova, uma exceção arquitetural ou uma mudança de risco alto. A revisão cobre a decisão, as alternativas descartadas e o impacto futuro — não o desenho completo. Quando não há decisão estrutural nova, este checkpoint não acontece.
+**H3 — do we accept the trade-off?** Conditional. Only occurs when [🗺️ Drafting Loop](../loops/03-technical-specification.md) produces a new ADR, an architectural exception, or a high-risk change. The review covers the decision, discarded alternatives, and future impact—not the entire design. When there is no new structural decision, this checkpoint does not happen.
 
-**H4 — podemos integrar?** Ocorre no [🚪 Gatekeeper Loop](../loops/06-pr-and-merge.md), e o peso varia por classe de risco. A pessoa revisa o evidence pack, os trechos de maior risco e as exceções — nunca o diff completo.
+**H4 — can we integrate?** Occurs in the [🚪 Gatekeeper Loop](../loops/06-pr-and-merge.md), and the weight varies by risk class. The person reviews the evidence pack, the highest risk sections and exceptions — never the complete diff.
 
-**H5 — podemos expor o risco?** Condicional, no [🐤 Canary Loop](../loops/08-production-release-and-observation.md). Revisa impacto, plano de rollout, rollback e sinais de saúde. R0 e R1 seguem sem checkpoint quando o rollback é comprovado.
+**H5 — can we expose the risk?** Conditional, in [🐤 Canary Loop](../loops/08-production-release-and-observation.md). Reviews impact, rollout plan, rollback and health signals. R0 and R1 continue without checkpoint when rollback is proven.
 
-**H6 — o sistema aprendeu corretamente?** Único checkpoint que não trata de produto: trata do próprio sistema de trabalho. Obrigatório para mudança sensível de memória, item P0/P1 e **qualquer alteração de gate**; por amostragem no restante.
+**H6 — did the system learn correctly?** The only checkpoint that does not deal with the product: it deals with the work system itself. Mandatory for sensitive memory changes, item P0/P1 and **any gate change**; by sampling in the remainder.
 
 ---
 
-## O que a pessoa recebe
+## What the person receives
 
-Um checkpoint sem evidence pack não é uma decisão: é um pedido de confiança. O pacote é gerado automaticamente — evidência montada manualmente ao final da tarefa é seletiva por natureza.
+A checkpoint without an evidence pack is not a decision: it is a request for trust. The package is generated automatically — evidence assembled manually at the end of the task is selective in nature.
 
-| Item | Conteúdo |
+| Item | Content |
 |---|---|
-| **Decisão solicitada** | uma frase, no formato de pergunta fechada |
-| **Recomendação** | a posição dos agentes e sua confiança |
-| **Alternativas** | o que foi considerado e por que foi descartado |
-| **Riscos e trade-offs** | o que se aceita ao aprovar |
-| **Delta** | o que mudou desde o checkpoint anterior |
-| **Evidências** | resultado dos gates executados, com link para a saída bruta |
-| **Pendências** | exceções em aberto e nível de confiança declarado |
-| **Links** | artefatos completos, código e execução |
+| **Decision requested** | one sentence, in closed question format |
+| **Recommendation** | the position of agents and their trust |
+| **Alternatives** | what was considered and why it was discarded |
+| **Risks and trade-offs** | what is accepted when approving |
+| **Delta** | what has changed since the previous checkpoint |
+| **Evidence** | result of the executed gates, with link to the raw output |
+| **Pending issues** | open exceptions and declared confidence level |
+| **Links** | complete artifacts, code and execution |
 
-O **delta** é o campo que mais reduz tempo humano na segunda passagem: quando um item volta para nova decisão, a pessoa lê o que mudou, não o conjunto inteiro.
+**delta** is the field that most reduces human time in the second pass: when an item returns for a new decision, the person reads what changed, not the entire set.
 
-O detalhe da estrutura em disco do evidence pack está em [Documentation](../DOCUMENTATION.md). O teste de qualidade é o mesmo lá e aqui: **outra pessoa consegue refazer a verificação sem perguntar nada a quem a produziu?**
-
----
-
-## As duas travas
-
-Duas regras protegem o mecanismo inteiro. Elas não são recomendações de etiqueta — são condições de validade da aprovação.
-
-**Silêncio nunca é aprovação.** Ausência de resposta mantém o item parado. A pressão de prazo aparece como item parado e visível, não como avanço tácito. O [☀️ Daily Loop](../loops/11-daily-operations.md) existe, em parte, para que um item parado apareça no dia seguinte.
-
-**Mudança material invalida a aprovação relacionada.** Se o artefato mudou de forma relevante depois do aval, o aval não cobre a nova versão. O que conta como material é definido por classe de risco e verificado por automação — não pela avaliação de quem fez a mudança.
+Details of the evidence pack's disk structure are in [Documentation](../DOCUMENTATION.md). The quality test is the same there and here: **can someone else redo the check without asking anyone who produced it?**
 
 ---
 
-## Como o risco muda o checkpoint
+## The two locks
 
-A classe de risco é o que determina quantas aprovações a mudança exige e quanto de automação ela pode usar. Ela é proposta por um agente e contestada por outro; **o maior risco justificado prevalece**.
+Two rules protect the entire mechanism. They are not label recommendations — they are conditions of approval validity.
 
-| Classe | Caracteriza | O que exige em H4 e H5 |
+**Silence is never approval.** Lack of response keeps the item at a standstill. Deadline pressure appears as a stopped and visible item, not as tacit progress. [☀️ Daily Loop](../loops/11-daily-operations.md) exists, in part, so that a stopped item appears the next day.
+
+**Material change invalidates the related approval.** If the artifact changed materially after the endorsement, the endorsement does not cover the new version. What counts as material is defined by risk class and verified by automation — not by the assessment of who made the change.
+
+---
+
+## How risk changes the checkpoint
+
+The risk class is what determines how many approvals the change requires and how much automation it can use. It is proposed by one agent and contested by another; **the highest justified risk prevails**.
+
+| Class | Features | What does it require in H4 and H5 |
 |---|---|---|
-| **R0 — mínimo** | documentação e formatação; sem mudança de comportamento, dados ou contratos | merge automático após gates; revisão por amostragem |
-| **R1 — baixo** | refatoração ou mudança localizada coberta por testes existentes | uma revisão curta do owner; deploy automático com observação |
-| **R2 — médio** | novo comportamento de produto ou mudança de contrato interno | aprovação do responsável afetado; canary e rollback automatizados |
-| **R3 — alto** | dados persistidos, migrações, contratos públicos, autenticação, secrets, pagamentos, disponibilidade | aprovação técnica **e** de produto; aval explícito antes de produção |
-| **R4 — crítico** | impacto regulatório, financeiro ou destrutivo; ação irreversível | dupla aprovação com segregação de função e acompanhamento durante a liberação |
+| **R0 — minimum** | documentation and formatting; no change in behavior, data or contracts | automatic merge after gates; sample review |
+| **R1 — low** | refactoring or localized change covered by existing tests | a short owner review; automatic deployment with observation |
+| **R2 — medium** | new product behavior or change in internal contract | approval of the affected person; automated canary and rollback |
+| **R3 — high** | persisted data, migrations, public contracts, authentication, secrets, payments, availability | technical **and** product approval; explicit approval before production |
+| **R4 — critical** | regulatory, financial or destructive impact; irreversible action | double approval with segregation of duties and monitoring during release |
 
-Redução manual de risco exige justificativa registrada. Mudança de escopo recalcula o risco. Paths sensíveis elevam risco automaticamente. E **dúvida não resolvida impede classificação como R0 ou R1** — a ausência de informação é um risco, não a ausência dele.
+Manual risk reduction requires recorded justification. Scope change recalculates risk. Sensitive paths automatically elevate risk. And **unresolved doubts prevent classification as R0 or R1** — the absence of information is a risk, not the absence of it.
 
 ---
 
-## Autonomia — quantos checkpoints existem hoje
+## Autonomy — how many checkpoints there are today
 
-O número de checkpoints não é fixo: ele diminui conforme o sistema demonstra que os gates são confiáveis. Essa é a única dimensão do modelo que se move deliberadamente ao longo do tempo.
+The number of checkpoints is not fixed: it decreases as the system demonstrates that the gates are trustworthy. This is the only dimension of the model that moves deliberately over time.
 
-| Nível | O sistema faz | A pessoa faz |
+| Level | The system does | The person does |
 |---|---|---|
-| **A0 — assistido** | executa sob supervisão | aprova todas as transições |
-| **A1 — execução autônoma** | implementa e valida | mantém H1, H2, H4 e H5 |
-| **A2 — merge por risco** | auto-merge em R0 | revisão curta em R1; owners específicos em R2+ |
-| **A3 — entrega autônoma controlada** | deploy automático em R0/R1, com rollback obrigatório | atua em exceções e riscos altos |
-| **A4 — orientado a exceções** | opera o fluxo saudável sem intervenção | recebe decisões e incidentes; audita por amostragem |
+| **A0 — watched** | performs under supervision | approves all transitions |
+| **A1 — autonomous execution** | implements and validates | keeps H1, H2, H4 and H5 |
+| **A2 — merge due to risk** | auto-merge in R0 | short review in R1; specific owners in R2+ |
+| **A3 — controlled autonomous delivery** | automatic deploy to R0/R1, with mandatory rollback | operates in exceptions and high risks |
+| **A4 — exception-oriented** | operates healthy flow without intervention | receives decisions and incidents; sample audit |
 
-**Elevar autonomia exige todos os critérios simultaneamente:** volume mínimo de entregas observado, baixa taxa de defeitos escapados, rollback testado e confiável, gates com poucos falsos positivos, risco classificado corretamente, evidências auditáveis e tempo humano de fato reduzido.
+**Increasing autonomy requires all criteria simultaneously:** minimum volume of deliveries observed, low rate of escaped defects, tested and reliable rollback, gates with few false positives, correctly classified risk, auditable evidence and actually reduced human time.
 
-A restrição que fecha o mecanismo: **o harness impõe teto à autonomia.** Um repositório sem a camada de verificação correspondente não sustenta o nível, independentemente do histórico do time. O detalhe dos níveis de maturidade está em [Gates](../GATES.md).
+The restriction that closes the mechanism: **the harness imposes a ceiling on autonomy.** A repository without the corresponding verification layer does not sustain the level, regardless of the team's history. Details of maturity levels are in [Gates](../GATES.md).
 
 ---
 
-## Onde cortar checkpoint com segurança
+## Where to safely cut checkpoint
 
-Cada corte abaixo só é seguro depois que o histórico demonstrar que o gate correspondente é confiável. Cortar antes disso não aumenta autonomia — aumenta risco não observado, que é o pior tipo.
+Each cut below is only safe after history demonstrates that the corresponding gate is trustworthy. Cutting before that doesn't increase autonomy — it increases unobserved risk, which is the worst kind.
 
-| Movimento | Pré-requisito |
+| Movement | Prerequisite |
 |---|---|
-| Combinar H2 e H3 em mudanças pequenas e conhecidas | padrão já validado em ciclos anteriores |
-| Eliminar H3 quando não houver ADR, exceção ou risco relevante | classificação de risco confiável |
-| Aplicar H4 por amostragem em R0 | histórico baixo de defeitos escapados |
-| Tornar H5 automático em R0/R1 | rollback comprovado em produção |
-| Mostrar apenas o delta desde a última aprovação | evidence pack com delta |
-| Direcionar a pessoa aos hotspots, não ao diff | análise de risco por trecho |
-| Remover um gate sem valor | medição de falsos positivos |
+| Combine H2 and H3 into small, known changes | standard already validated in previous cycles |
+| Eliminate H3 when there is no ADR, exception or relevant risk | reliable risk rating |
+| Apply H4 by sampling in R0 | low history of escaped defects |
+| Make H5 automatic in R0/R1 | Proven rollback in production |
+| Show only delta since last approval | evidence pack with delta |
+| Direct the person to the hotspots, not the diff | risk analysis per section |
+| Remove a valueless gate | measurement of false positives |
 
-O sinal de que o corte foi cedo demais não é o incidente: é o **retrabalho após o checkpoint seguinte**. Ele aparece antes, e é a métrica a observar.
+The sign that the cut was too early is not the incident: it is the **rework after the next checkpoint**. It appears first, and is the metric to watch.
 
 ---
 
-## O que degrada primeiro
+## What degrades first
 
-Quando este mecanismo começa a falhar, o sintoma não é um checkpoint a mais. É a proporção humana subindo silenciosamente, sempre por uma destas três causas.
+When this mechanism starts to fail, the symptom is not one more checkpoint. It is the human proportion rising silently, always for one of these three causes.
 
-| Sintoma | Causa provável | Onde corrigir |
+| Symptom | Probable cause | Where to fix |
 |---|---|---|
-| A pessoa pede o artefato completo antes de responder | evidence pack incompleto ou sem delta | [Workflows de documentação](07-workflows-de-documentacao.md) |
-| Checkpoints se acumulam sem resposta | pergunta mal formulada, ou owner errado | [Papéis](01-papeis.md) |
-| A mesma decisão volta duas vezes | mudança material sem invalidação automática | [Gates](../GATES.md) |
+| The person asks for the complete artifact before responding | evidence pack incomplete or without delta | [Documentation workflows](07-workflows-de-documentacao.md) |
+| Checkpoints pile up unanswered | poorly formulated question, or wrong owner | [Papers](01-papeis.md) |
+| The same decision comes back twice | material change without automatic invalidation | [Gates](../GATES.md) |
 
 ---
 
-*Anterior: [Papéis](01-papeis.md) · Próximo: [Gatilhos e disparos](03-gatilhos-e-disparos.md).*
+*Previous: [Papers](01-papeis.md) · Next: [Triggers and shots](03-gatilhos-e-disparos.md).*

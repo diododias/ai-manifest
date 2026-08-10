@@ -1,88 +1,88 @@
 # 🗄️ Archivist Loop
 
-> Curadoria de conhecimento — mantém as fontes canônicas alinhadas à entrega, sem deixar memória temporária virar verdade permanente.
+> Knowledge curation — keeps canonical sources aligned with delivery, without letting temporary memory become permanent truth.
 
-O Archivist Loop trata a documentação como consequência da entrega, não como tarefa paralela a ela. E resolve o problema que assombra qualquer sistema com memória: **uma observação registrada uma vez tende a ser lida para sempre como fato**. Por isso toda atualização carrega origem, data, contexto de aplicação e limite de validade — e a crítica independente é obrigatória para alteração sensível ou conclusão de baixa confiança.
+Archivist Loop treats documentation as a consequence of delivery, not as a parallel task to it. And it solves the problem that haunts any system with memory: **an observation recorded once tends to be read forever as fact**. That's why every update carries origin, date, application context and validity limit — and independent criticism is mandatory for sensitive changes or low confidence conclusions.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 9 — conhecimento e melhoria |
-| **Consolida** | [📚 Knowledge Agent](../agentes/knowledge-agent.md) |
-| **Colabora** | [⚖️ Critic Agent](../agentes/critic-agent.md) quando a mudança for sensível, contraditória ou de baixa confiança |
-| **Owner humano** | owner do domínio alterado |
-| **Entrada** | decisões, PR, release, evidências de homologação, incidentes e fontes canônicas afetadas |
-| **Saída** | documentação e conhecimento reutilizável atualizados, ou proposta explícita para revisão |
-| **Gate de saída** | rastreabilidade, atualidade e ausência de contradições não resolvidas |
-| **Volta dominante** | média — o Critic contesta a conclusão antes de ela virar fonte canônica |
+| **Step** | 9 — knowledge and improvement |
+| **Consolidates** | [📚 Knowledge Agent](../agentes/knowledge-agent.md) |
+| **Collaborate** | [⚖️ Critic Agent](../agentes/critic-agent.md) when the change is sensitive, contradictory or low confidence |
+| **Human owner** | domain owner changed |
+| **Input** | decisions, PR, release, approval evidence, incidents and affected canonical sources |
+| **Exit** | updated documentation and reusable knowledge, or explicit proposal for revision |
+| **Exit gate** | traceability, timeliness and absence of unresolved contradictions |
+| **Dominant lap** | average — the Critic disputes the conclusion before it became a canonical source |
 
 ```mermaid
 flowchart LR
-    A[Entrega, decisão ou incidente] --> B[Knowledge Agent\nmapa de fontes afetadas]
-    B --> C[proposta de atualização]
-    C --> D{Sensível ou incerta?}
-    D -- sim --> E[Critic Agent\ncontesta evidência]
-    E --> F[Knowledge Agent\nconsolida ou preserva hipótese]
-    D -- não --> F
-    F --> G{Gate de conhecimento}
-    G -- aprovado --> H[fontes canônicas]
-    G -- pendência --> I[owner do domínio]
+    A[Delivery, decision or incident] --> B[Knowledge Agent\nmap of affected sources]
+    B --> C[update proposal]
+    C --> D{Sensitive or uncertain?}
+    D -- yes --> E[Critic Agent\ndisputes evidence]
+    E --> F[Knowledge Agent\nconsolidates or preserves hypothesis]
+    D -- no --> F
+    F --> G{Knowledge Gate}
+    G -- approved --> H[canonical sources]
+    G -- pending --> I[domain owner]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. O Knowledge Agent relaciona mudança e evidência às fontes canônicas afetadas e identifica conteúdo obsoleto ou contraditório.
-2. Propõe a atualização com **origem, data, contexto de aplicação e limites de validade**.
-3. Para memória sensível, baixa confiança ou contradição, o Critic Agent verifica se a conclusão é sustentada pela evidência. Hipótese inconclusiva permanece identificada como tal.
-4. O Knowledge Agent consolida somente o que passou pelo gate e entrega ao owner do domínio os links para auditoria.
+1. The Knowledge Agent matches change and evidence to the affected canonical sources and identifies obsolete or contradictory content.
+2. Proposes updating with **origin, date, application context and validity limits**.
+3. For sensitive memory, low confidence, or contradiction, the Critic Agent checks whether the conclusion is supported by the evidence. Inconclusive hypothesis remains identified as such.
+4. The Knowledge Agent consolidates only what passed through the gate and delivers the links for auditing to the domain owner.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | decisões, evidências e incidentes das etapas anteriores, com data e origem preservadas |
-| **Saída** | atualização em fonte canônica, ou hipótese explicitamente marcada como não confirmada — nunca a terceira opção, que é afirmação sem lastro |
+| **Input** | decisions, evidence and incidents from previous stages, with date and origin preserved |
+| **Exit** | update in canonical source, or hypothesis explicitly marked as unconfirmed — never the third option, which is an unsupported statement |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** promover memória de trânsito a fonte canônica.
+**Does not:** promote transit memory to canonical source.
 
-`memory.md` e `.coordination/` guardam contexto retomável de uma execução. Eles registram o que um agente achou naquele momento, com o contexto daquele momento. Promover esse conteúdo a fonte canônica sem passar pelo gate é como transformar a anotação de uma reunião em política da empresa — e o custo aparece meses depois, quando um agente age sobre uma "regra" que ninguém decidiu.
+`memory.md` and `.coordination/` store the resumable context of an execution. They record what an agent thought at that moment, with the context of that moment. Promoting this content to the canonical source without going through the gate is like turning a meeting note into company policy — and the cost appears months later, when an agent acts on a "rule" that no one decided on.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Fato sem data | a documentação afirma algo que era verdade há um ano | toda atualização carrega data e limite de validade |
-| Contradição silenciosa | duas fontes canônicas discordam e ambas seguem válidas | contradição não resolvida bloqueia o gate |
-| Documentação como resumo | a página descreve o que foi feito, não o que vale hoje | a fonte canônica registra o estado vigente, não o histórico da entrega |
-| Confiança inflada | hipótese aparece redigida como conclusão | baixa confiança preserva a marcação de hipótese |
+| Undated fact | documentation states something that was true a year ago | every update carries an expiration date and limit |
+| Silent contradiction | two canonical sources disagree and both remain valid | unresolved contradiction blocks the gate |
+| Documentation as a summary | the page describes what was done, not what it is worth today | the canonical source records the current state, not the delivery history |
+| Inflated confidence | hypothesis appears written as conclusion | low confidence preserves hypothesis marking |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Atualização de fonte canônica | fonte canônica do domínio alterado | sim |
-| Aprendizados da rodada | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | quando houver |
-| Review do Critic Agent | `execution/reviews/knowledge-<id>.md` | quando acionado |
-| ADR revisada ou superseded | `engineering/adr/` | quando a decisão mudou |
-| Propostas ainda não decididas | `.coordination/` | trânsito |
+| Canonical Source Update | canonical source of changed domain | yes |
+| Learnings from the round | `<tech-lead-workspace>/projects/<project>/LEARNINGS.md` | when there is |
+| Critic Agent Review | `execution/reviews/knowledge-<id>.md` | when triggered |
+| Revised or superseded ADR | `engineering/adr/` | when the decision changed |
+| Proposals not yet decided | `.coordination/` | traffic |
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar ao owner se não houver fonte canônica definida, se a evidência conflitar, ou se a alteração puder afetar política, segurança ou decisão vigente.
+Escalate to owner if there is no canonical source defined, if the evidence conflicts, or if the change could affect current policy, security, or decision.

@@ -1,7 +1,7 @@
-# API
+#API
 
 ## `POST /payments`
 
-Cabeçalho obrigatório: `Idempotency-Key`.
+Mandatory header: `Idempotency-Key`.
 
-Respostas relevantes: sucesso original ou repetido, `400` para chave ausente e `409` quando a mesma chave representa outra solicitação. O contrato publicável deve ser mantido no repositório da API e referenciado aqui.
+Relevant answers: original or repeated success, `400` for missing key, and `409` when the same key represents another request. The publishable contract must be maintained in the API repository and referenced here.

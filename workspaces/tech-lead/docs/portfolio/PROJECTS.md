@@ -1,7 +1,7 @@
-# Portfólio técnico
+# Technical portfolio
 
-| Projeto | Estado | Prioridade | Tech Lead | Próximo marco |
+| Project | Status | Priority | Tech Lead | Next Milestone |
 |---|---|---|---|---|
-| [`checkout`](../../projects/checkout/README.md) | implementation | high | tech-lead | Validar idempotência de pagamentos |
+| [`checkout`](../../projects/checkout/README.md) | implementation | high | tech-lead | Validate payment idempotence |
 
-Este arquivo ordena prioridades entre projetos; detalhes operacionais pertencem ao `STATUS.md` de cada projeto.
+This file orders priorities between projects; Operational details belong to each project's `STATUS.md`.

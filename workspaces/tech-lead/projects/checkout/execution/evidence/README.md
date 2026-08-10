@@ -1,5 +1,5 @@
-# Evidências
+# Evidence
 
-Cada evidência deve apontar para o Work Item, critério de aceite, ambiente, comando ou procedimento, resultado e data. Não inclua segredos nem dados pessoais.
+Each piece of evidence must point to the Work Item, acceptance criteria, environment, command or procedure, result and date. Do not include secrets or personal data.
 
-- [`WI-031.md`](WI-031.md): estrutura preparada para a missão ativa.
+- [`WI-031.md`](WI-031.md): structure prepared for the active mission.

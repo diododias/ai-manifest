@@ -1,9 +1,9 @@
-# Métricas
+# Metrics
 
-| Métrica | Definição | Meta do exemplo | Fonte real necessária |
+| Metric | Definition | Example Goal | Actual Source Required |
 |---|---|---|---|
-| Cobranças duplicadas | cobranças adicionais para a mesma chave válida | 0 | ledger de pagamentos |
-| Retry recuperado | retries equivalentes com resultado consistente | observar baseline | telemetria da API |
-| Contato por incerteza | contatos relacionados a timeout e cobrança | reduzir após lançamento | suporte |
+| Duplicate charges | additional charges for the same valid key | 0 | payment ledger |
+| Retry recovered | equivalent retries with consistent results | observe baseline | API telemetry |
+| Contact due to uncertainty | contacts related to timeout and billing | reduce after launch | support |
 
-As metas sem baseline permanecem hipóteses e exigem decisão do PM antes de uso operacional.
+Goals without a baseline remain hypotheses and require a PM decision before operational use.

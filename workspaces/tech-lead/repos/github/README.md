@@ -1,3 +1,3 @@
-# Clones canônicos
+# Canonical clones
 
-Clone repositórios em `<organização>/<repositório>/`. O conteúdo desta pasta é ignorado pelo Git do exemplo.
+Clone repositories in `<organization>/<repository>/`. The contents of this folder are ignored by the example Git.

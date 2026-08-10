@@ -1,13 +1,13 @@
-# Board de UX
+# UX Board
 
-Resumo consolidado; o arquivo de cada Work Item mantém o estado autoritativo.
+Consolidated summary; The file for each Work Item maintains the authoritative state.
 
 ## Refinement
 
-- [`UX-WI-001` — Especificar recuperação do pagamento](projects/checkout/work-items/UX-WI-001.md) — checkout
+- [`UX-WI-001` — Specify payment recovery](projects/checkout/work-items/UX-WI-001.md) — checkout
 
-## Demais estados
+## Other states
 
-Não há itens de exemplo nos demais estados.
+There are no example items in the other states.
 
-Última consolidação: 2026-08-08.
+Last consolidation: 2026-08-08.

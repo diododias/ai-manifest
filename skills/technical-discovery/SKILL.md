@@ -1,6 +1,6 @@
 ---
 name: technical-discovery
-description: Prepara uma visão técnica baseada no PRD, mapeando componentes, dependências, riscos e decisões abertas. Use antes de uma agenda de refinamento técnico ou de escrever a SPEC de uma feature.
+description: Prepares a technical vision based on the PRD, mapping components, dependencies, risks and open decisions. Use before a technical refinement agenda or writing a feature SPEC.
 ---
 
 ## User Input
@@ -13,115 +13,115 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Goal
 
-Gerar a visão técnica estruturada da solução como base para a discussão na agenda de refinamento técnico.
+Generate the structured technical vision of the solution as a basis for discussion in the technical refinement agenda.
 
-## Contrato de artefatos
+## Artifact contract
 
-Antes de criar a visão técnica, siga [o contrato compartilhado](../references/workflow-contract.md).
+Before creating the technical view, follow [the shared agreement](../references/workflow-contract.md).
 
 ## Inputs
 
-- **Obrigatório:** `.agents/prd/<feature-slug>/PRD.md`
-- **Opcional:** contexto técnico do time (arquitetura existente, stack, convenções)
-- **Opcional:** `requisitos.md` para contexto adicional
+- **Required:** `.agents/prd/<feature-slug>/PRD.md`
+- **Optional:** technical context of the team (existing architecture, stack, conventions)
+- **Optional:** `requisitos.md` for additional context
 
 ## Execution Steps
 
-### 1. Localizar a feature
+### 1. Find the feature
 
-- Se `$ARGUMENTS` contém slug, use-o. Caso contrário, infira do PRD.
-- Verifique se o PRD existe.
+- If `$ARGUMENTS` contains slug, use it. Otherwise, infer from the PRD.
+- Check if the PRD exists.
 
-### 2. Carregar contexto
+### 2. Load context
 
-- Leia `PRD.md` — base para a análise técnica.
-- Leia `requisitos.md` se existir — contexto de negócio adicional.
-- Identifique stack, arquitetura e convenções existentes no repositório.
+- Read `PRD.md` — basis for technical analysis.
+- Read `requisitos.md` if exists — additional business context.
+- Identify existing stack, architecture and conventions in the repository.
 
-### 3. Analisar impacto técnico
+### 3. Analyze technical impact
 
-Para cada história do PRD, avalie:
+For each PRD story, evaluate:
 
-- **Componentes afetados:** quais módulos, serviços, APIs precisam de mudança.
-- **Dependências externas:** APIs de terceiros, bancos de dados, filas.
-- **Riscos técnicos:** complexidade, incertezas, spike necessário.
-- **Estimativa de esforço:** relativa (S/M/L/XL) baseada em complexidade.
+- **Affected components:** which modules, services, APIs need to change.
+- **External dependencies:** Third-party APIs, databases, queues.
+- **Technical risks:** complexity, uncertainties, necessary spike.
+- **Effort estimate:** relative (S/M/L/XL) based on complexity.
 
-### 4. Mapear stack e decisões
+### 4. Map stack and decisions
 
-- **Tecnologias necessárias:** libs, frameworks, serviços.
-- **Padrões existentes:** como resolver problemas similares no código atual.
-- **Decisões abertas:** pontos que precisam de consenso no refinamento.
+- **Necessary technologies:** libs, frameworks, services.
+- **Existing standards:** how to solve similar problems in the current code.
+- **Open decisions:** points that require consensus for refinement.
 
-### 5. Gerar output
+### 5. Generate output
 
-Crie `teamwork/plan/feature-plan-<feature-slug>/visao-tecnica.md` no formato:
+Create `teamwork/plan/feature-plan-<feature-slug>/visao-tecnica.md` in the format:
 
 ```markdown
-# Visão Técnica — <Feature Name>
+# Technical Overview — <Feature Name>
 
 **Feature:** <slug>
-**Data:** <YYYY-MM-DD>
+**Date:** <YYYY-MM-DD>
 **PRD:** .agents/prd/<feature-slug>/PRD.md
 
 ---
 
-## 1. Resumo da Solução
+## 1. Solution Summary
 
-<descrição técnica de alto nível da abordagem>
+<high-level technical description of the approach>
 
-## 2. Impacto por História
+## 2. Impact by Story
 
-### HIST-01: <Título>
+### HIST-01: <Title>
 
-| Dimensão | Detalhe |
-|----------|---------|
-| Componentes | <módulos/serviços afetados> |
-| Dependências | <APIs externas, bancos, filas> |
-| Risco | 🟢 Baixo / 🟡 Médio / 🔴 Alto |
-| Esforço | S / M / L / XL |
-| Decisões abertas | <o que precisa de consenso> |
+| Dimension | Detail |
+|----------|------------|
+| Components | <affected modules/services> |
+| Dependencies | <External APIs, banks, queues> |
+| Risk | 🟢 Low / 🟡 Medium / 🔴 High |
+| Effort | S/M/L/XL |
+| Open decisions | <what needs consensus> |
 
-## 3. Stack e Tecnologias
+## 3. Stack and Technologies
 
-| Necessidade | Tecnologia | Status |
+| Need | Technology | Status |
 |-------------|-----------|--------|
-| ... | ... | Existente / Nova / Avaliar |
+| ... | ... | Existing / New / Evaluate |
 
-## 4. Padrões e Convenções
+## 4. Standards and Conventions
 
-- <padrões do repositório que devem ser seguidos>
-- <convenções de código, testes, deploy>
+- <repository standards that must be followed>
+- <code conventions, tests, deployment>
 
-## 5. Riscos e Mitigações
+## 5. Risks and Mitigations
 
-| Risco | Impacto | Mitigação |
-|-------|---------|-----------|
+| Risk | Impact | Mitigation |
+|-------|--------|-----------|
 | ... | ... | ... |
 
-## 6. Questões para Refinamento
+## 6. Questions for Refinement
 
-- <pontos que precisam de decisão coletiva>
-- <alternativas técnicas a considerar>
-- <dependências de outros times>
+- <points that require collective decision>
+- <technical alternatives to consider>
+- <dependencies on other teams>
 ```
 
-### 6. Reportar no chat
+### 6. Report in chat
 
-- Resumo: X componentes impactados, Y riscos identificados, Z decisões abertas.
-- Riscos de maior atenção.
-- Questões para levar ao refinamento técnico.
+- Summary: X components impacted, Y risks identified, Z open decisions.
+- Risks of greater attention.
+- Questions to lead to technical refinement.
 
-## Convenções
+## Conventions
 
-- Documento interno do Tech Lead — não é entregável para o time externo.
-- Risco: 🟢 Baixo (padrão conhecido), 🟡 Médio (complexidade moderada), 🔴 Alto (spike/incerteza).
-- Esforço relativo: S (< 1 dia), M (1-3 dias), L (3-5 dias), XL (> 1 semana).
-- Português.
+- Internal Tech Lead document — not deliverable to the external team.
+- Risk: 🟢 Low (known standard), 🟡 Medium (moderate complexity), 🔴 High (spike/uncertainty).
+- Relative effort: S (< 1 day), M (1-3 days), L (3-5 days), XL (> 1 week).
+- Portuguese.
 
-## Done When
+##DoneWhen
 
-- [ ] `visao-tecnica.md` criado em `teamwork/plan/feature-plan-<feature-slug>/`
-- [ ] Cada história do PRD analisada tecnicamente
-- [ ] Riscos e decisões abertas documentados
-- [ ] Resumo reportado no chat
+- [ ] `visao-tecnica.md` created in `teamwork/plan/feature-plan-<feature-slug>/`
+- [ ] Each PRD story technically analyzed
+- [ ] Documented open risks and decisions
+- [ ] Summary reported in chat

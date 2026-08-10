@@ -7,16 +7,16 @@ work_items: []
 updated_at: <YYYY-MM-DD>
 ---
 
-# <Objetivo do plano>
+# <Purpose of the plan>
 
-## Resultado esperado
+## Expected result
 
-<Resultado observável.>
+<Observable result.>
 
-## Etapas
+## Steps
 
-- [ ] <Etapa e validação>
+- [ ] <Step and validation>
 
-## Riscos
+## Risks
 
-- <Risco e mitigação>
+- <Risk and mitigation>

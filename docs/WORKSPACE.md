@@ -2,55 +2,55 @@
 
 ---
 
-## Overview — Onde o Trabalho Vive
+## Overview — Where Work Lives
 
-As cinco seções anteriores descrevem **o sistema**: o que o repositório precisa carregar para ser operável por agentes, quem são os agentes e sob qual autoridade agem, como uma tarefa recorrente é executada, em que ordem eles colaboram em cada etapa e como o núcleo humano opera tudo isso. Falta a peça que todas elas pressupõem sem nomear: **o lugar físico onde esse trabalho de fato acontece.**
+The previous five sections describe **the system**: what the repository needs to carry to be operable by agents, who the agents are and under what authority they act, how a recurring task is performed, in what order they collaborate at each step, and how the human core operates it all. The piece that they all presuppose without naming is missing: **the physical place where this work actually happens.**
 
-Esse lugar é o **workspace**. Ele não é material de referência — é o ponto de trabalho onde cada papel humano e seus agentes executam o fluxo de verdade: onde um Work Item é aberto, onde uma decisão vira artefato, onde um agente retoma o contexto de uma sessão anterior. Um agente que entende perfeitamente um loop e o contrato de um agente ainda não sabe operar se não souber onde ler e onde escrever — é essa lacuna que esta seção fecha.
+This place is the **workspace**. It is not reference material — it is the work point where each human role and its agents actually execute the flow: where a Work Item is opened, where a decision becomes an artifact, where an agent returns to the context of a previous session. An agent who perfectly understands a loop and an agent's contract still doesn't know how to operate if he doesn't know where to read and where to write — this is the gap that this section closes.
 
-Existe um workspace por papel: `pm/`, `ux/` e `tech-lead/`. Cada um tem uma raiz independente para que seus contratos, exemplos e fontes de verdade evoluam sem misturar responsabilidades. A separação espelha a mesma distinção que organiza [Papéis](metodologia/01-papeis.md): o PM registra valor e requisitos, o UX registra evidência e experiência, o Tech Lead registra arquitetura, execução e o próprio harness.
+There is one workspace per role: `pm/`, `ux/` and `tech-lead/`. Each has an independent root so that their contracts, examples and sources of truth evolve without mixing responsibilities. The separation mirrors the same distinction that organizes [Papers](metodologia/01-papeis.md): the PM records value and requirements, the UX records evidence and experience, the Tech Lead records architecture, execution and the harness itself.
 
-### A fronteira com o repo harness
+### The frontier with repo harness
 
-A pergunta que mais confunde quem chega a esta seção é onde termina o [repo harness](REPO_HARNESS.md) e onde começa o workspace. As duas camadas parecem redundantes até se aplicar o teste correto.
+The question that most confuses those who come to this section is where the [repo harness](REPO_HARNESS.md) ends and where the workspace begins. The two layers appear redundant until the correct test is applied.
 
-| Camada | Responde | Onde vive |
+| Layer | Reply | Where do you live |
 |---|---|---|
-| **Harness do repositório** | o que o repositório precisa carregar para ser operável | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
-| **Agente** | *quem* executa, sob qual autoridade e com qual limite | [`AGENTES.md`](AGENTES.md) |
-| **Skill** | *como* uma tarefa recorrente é executada corretamente | [`SKILLS.md`](SKILLS.md) |
-| **Loop** | *em que ordem*, o que atravessa a fronteira e quando parar | [`LOOPS.md`](LOOPS.md) |
-| **Metodologia** | *quem opera*, o que dispara o quê e o que exige gente | [`METODOLOGIA.md`](METODOLOGIA.md) |
-| **Workspace** | *onde* cada artefato de uma execução vive, fora do código | esta seção |
+| **Repository Harness** | what the repository needs to load to be operable | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md) |
+| **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| **Loop** | *in what order*, what crosses the border and when to stop | [`LOOPS.md`](LOOPS.md) |
+| **Methodology** | *who operates*, what triggers what and what demands people | [`METODOLOGIA.md`](METODOLOGIA.md) |
+| **Workspace** | *where* every artifact of an execution lives, outside the code | this section |
 
-A regra de decisão é a mesma em todas as páginas seguintes, e vale memorizá-la antes de prosseguir: **se a informação continua verdadeira quando outro time clona o repositório de código, ela pertence ao repo harness. Se ela descreve como o trabalho está organizado esta semana — quais projetos existem, quem faz o quê, em qual Work Item — ela pertence ao workspace.** O repo harness organiza o trabalho do agente *dentro* do código; o workspace organiza o trabalho do agente *fora* dele. Nenhum dos dois substitui o outro, e um agente competente precisa dos dois ao mesmo tempo.
+The decision rule is the same on all the following pages, and it is worth memorizing it before proceeding: **if the information remains true when another team clones the code repository, it belongs to the repo harness. If it describes how the work is organized this week — what projects there are, who does what, in which Work Item — it belongs in the workspace.** The repo harness organizes the agent's work *within* the code; the workspace organizes the agent's work *outside* of it. Neither replaces the other, and a competent agent needs both at the same time.
 
-### As quatro peças de qualquer workspace
+### The four pieces of any workspace
 
-Independentemente do papel, todo workspace mantém quatro peças. Conhecê-las é suficiente para se orientar em qualquer um dos três — e é o assunto da primeira página desta seção.
+Regardless of role, every workspace maintains four pieces. Knowing them is enough to orient yourself in any of the three — and is the subject of the first page of this section.
 
-| Peça | Responde | Natureza |
+| Ask | Reply | Nature |
 |---|---|---|
-| `AGENTS.md` | como operar neste workspace | contrato de operação |
-| `BOARD.md` | quais Work Items estão em andamento | visão consolidada, nunca fonte de verdade |
-| `memory.md` | onde retomo o contexto | auxiliar, nunca fonte canônica |
-| `projects/<project>/` | os artefatos reais de cada iniciativa | fonte canônica |
+| `AGENTS.md` | how to operate in this workspace | operating contract |
+| `BOARD.md` | which Work Items are in progress | consolidated vision, never source of truth |
+| `memory.md` | where I return to the context | auxiliary, never canonical source |
+| `projects/<project>/` | the actual artifacts of each initiative | canonical source |
 
-Quando um agente inicia uma missão, ele lê o `AGENTS.md` do workspace, identifica as skills aplicáveis — as três skills de base descritas em [Skills](SKILLS.md) existem justamente para ensinar essa navegação — e segue a estrutura de `projects/` em vez de inventar convenções próprias. Uma implementação navegável dessas quatro peças está em [`workspaces/`](../workspaces/README.md), com raízes de exemplo para os três papéis.
+When an agent starts a mission, he reads the workspace's `AGENTS.md`, identifies the applicable skills — the three base skills described in [Skills](SKILLS.md) exist precisely to teach this navigation — and follows the structure of `projects/` instead of inventing his own conventions. A browsable implementation of these four parts is in [`workspaces/`](../workspaces/README.md), with example roots for the three roles.
 
 ---
 
-## Índice da seção
+## Section index
 
-| Página | Responde |
+| Page | Reply |
 |---|---|
-| [01 — Estrutura do workspace](workspace/01-estrutura-do-workspace.md) | os arquivos que todo workspace mantém e como `projects/` organiza cada iniciativa |
-| [02 — Ownership entre workspaces](workspace/02-ownership-entre-workspaces.md) | qual workspace é dono de qual verdade, e como buscar contexto de outro domínio sem duplicá-lo |
-| [03 — Harness do workspace](workspace/03-harness-do-workspace.md) | o que torna o espaço operável por agentes de forma repetível, inclusive vários ao mesmo tempo |
-| [04 — Board e Work Items](workspace/04-board-e-work-items.md) | por que `BOARD.md` não é a fonte de verdade, e qual é |
+| [01 — Workspace structure](workspace/01-estrutura-do-workspace.md) | the files that every workspace maintains and how `projects/` organizes each initiative |
+| [02 — Ownership between workspaces](workspace/02-ownership-entre-workspaces.md) | which workspace owns which truth, and how to fetch context from another domain without duplicating it |
+| [03 — Workspace harness](workspace/03-harness-do-workspace.md) | which makes the space operable by agents in a repeatable way, including several at the same time |
+| [04 — Board and Work Items](workspace/04-board-e-work-items.md) | why `BOARD.md` is not the source of truth, and what is |
 
-O índice completo, com a regra que governa as quatro páginas e trilhas de leitura por perfil, está em [`workspace/README.md`](workspace/README.md).
+The complete index, with the rule that governs the four pages and reading tracks per profile, is in [`workspace/README.md`](workspace/README.md).
 
 ---
 
-*Anterior: [Metodologia](METODOLOGIA.md) · Detalhe: [as quatro páginas do workspace](workspace/README.md).*
+*Previous: [Methodology](METODOLOGIA.md) · Detail: [the four workspace pages](workspace/README.md).*

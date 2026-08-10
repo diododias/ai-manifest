@@ -8,14 +8,14 @@ generated_for:
 created_at: 2026-08-08
 ---
 
-# Sessão — revisão de arquitetura de idempotência
+# Session — idempotence architecture review
 
-Material bruto coletado para a especificação técnica de `PLAN-014`. Fictício, usado apenas para ilustrar a convenção de assets por sessão.
+Raw material collected for the technical specification of `PLAN-014`. Fictional, used only to illustrate the convention of assets per session.
 
-## Conteúdo
+## Content
 
-- [`transcripts/revisao-arquitetura-idempotencia.md`](transcripts/revisao-arquitetura-idempotencia.md): transcrição da sessão de revisão com o Tech Lead e o Specification Tech Lead Agent.
+- [`transcripts/revisao-arquitetura-idempotencia.md`](transcripts/revisao-arquitetura-idempotencia.md): transcript of the review session with the Tech Lead and the Specification Tech Lead Agent.
 
-## Uso
+## Usage
 
-As decisões extraídas desta sessão já foram promovidas para `engineering/adr/ADR-001-idempotency-key.md` e `plans/active/PLAN-014.md`. Esta pasta permanece apenas como evidência auditável; não a edite para registrar novas decisões.
+The decisions taken from this session have already been promoted to `engineering/adr/ADR-001-idempotency-key.md` and `plans/active/PLAN-014.md`. This folder remains as auditable evidence only; do not edit it to record new decisions.

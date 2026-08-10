@@ -1,116 +1,116 @@
 # ☀️ Daily Loop
 
-> Operação diária — converte as sessões do dia anterior em memória, melhoria e sinalização ao owner, sem deixar o registro do dia virar relatório.
+> Daily operation — converts the previous day's sessions into memory, improvement and signaling to the owner, without letting the day's record become a report.
 
-O Daily Loop é o único circuito que gira por calendário e não por Work Item. Todos os demais loops são disparados por algo que chegou — uma solicitação, um push, um gate reprovado. Este gira todo dia, tenha ou não havido entrega, porque o que ele observa não é o item: é **o que aconteceu enquanto o sistema trabalhava**.
+The Daily Loop is the only circuit that rotates by calendar and not by Work Item. All other loops are triggered by something arriving — a request, a push, a gate fail. This rotates every day, whether or not there was a delivery, because what it observes is not the item: it is **what happened while the system was working**.
 
-A distinção que sustenta o loop inteiro: **registrar o dia não é priorizar o dia**. O agente lê, separa e sinaliza; o owner decide o que fazer com o que foi sinalizado. Um loop diário que também define prioridade fecha o ciclo sobre si mesmo e deixa de ser observação.
+The distinction that underpins the entire loop: **recording the day is not prioritizing the day**. The agent reads, separates and signals; the owner decides what to do with what was signaled. A daily loop that also sets priority closes the loop on itself and ceases to be observation.
 
 ---
 
-## Contrato operacional
+## Operating contract
 
-| Contrato | |
+| Contract | |
 |---|---|
-| **Etapa** | 11 — conhecimento e melhoria |
-| **Consolida** | [💭 Auto Dream Agent](../agentes/auto-dream-agent.md) |
-| **Colaboram** | [📊 Telemetry Agent](../agentes/telemetry-agent.md) para coleta e custo; [📚 Knowledge Agent](../agentes/knowledge-agent.md) para memória; [🎛️ Orchestrator Agent](../agentes/orchestrator-agent.md) para itens em voo e bloqueios; [📥 Intake Agent](../agentes/intake-agent.md) como destino das melhorias |
-| **Owner humano** | owner do workspace |
-| **Entrada** | sessões encerradas desde a última execução, com envelopes de saída, gates reprovados, retries, escalonamentos abertos e itens em voo |
-| **Saída** | briefing do owner, propostas de atualização de `MEMORY.md`, Work Items de melhoria no intake e lista de pendências e pontos de atenção |
-| **Gate de saída** | toda afirmação vinculada a uma sessão identificável; toda melhoria com destino explícito — Work Item criado ou descarte registrado |
-| **Volta dominante** | do sistema, com janela de 24 h |
+| **Step** | 11 — knowledge and improvement |
+| **Consolidates** | [💭 Auto Dream Agent](../agentes/auto-dream-agent.md) |
+| **Collaborate** | [📊 Telemetry Agent](../agentes/telemetry-agent.md) for collection and cost; [📚 Knowledge Agent](../agentes/knowledge-agent.md) for memory; [🎛️ Orchestrator Agent](../agentes/orchestrator-agent.md) for in-flight items and blocks; [📥 Intake Agent](../agentes/intake-agent.md) as a destination for improvements |
+| **Human owner** | workspace owner |
+| **Input** | sessions closed since last run, with output envelopes, failed gates, retries, open escalations and items in flight |
+| **Exit** | owner's briefing, proposals for updating `MEMORY.md`, Work Items for improving intake and to-do list and points of attention |
+| **Exit gate** | every statement linked to an identifiable session; every improvement with explicit destination — Work Item created or discard recorded |
+| **Dominant lap** | of the system, with a 24-hour window |
 
 ```mermaid
 flowchart LR
-    A[Sessões do dia anterior] --> B[Telemetry\ncoleta e anonimiza]
-    O[Itens em voo] --> C[Orchestrator\nbloqueios e pendências]
-    B --> D[Auto Dream\nlê e separa]
+    A[Sessions from the previous day] --> B[Telemetry\collects and anonymizes]
+    O[Items in flight] --> C[Orchestrator\nblocks and issues]
+    B --> D[Auto Dream\nread and separate]
     C --> D
-    D --> E{Natureza}
-    E -- padrão com evidência --> F[proposta para MEMORY.md]
-    E -- atrito reproduzível --> G[Work Item no 🚦 Triage]
-    E -- decisão pendente --> H[briefing do owner]
-    E -- ocorrência isolada --> I[hipótese em observação]
-    F --> J[Knowledge Agent\naplica na memória]
+    D --> E{Nature}
+    E -- pattern with evidence --> F[proposal for MEMORY.md]
+    E -- reproducible friction --> G[Work Item in 🚦 Triage]
+    E -- pending decision --> H[owner's briefing]
+    E -- isolated occurrence --> I[hypothesis under observation]
+    F --> J[Knowledge Agent\naapplies in memory]
 ```
 
 ---
 
-## Sequência
+## Sequence
 
-1. **Coleta.** O Telemetry Agent reúne as sessões do período com envelopes de saída, gates, retries, escalonamentos e custo. **Secrets e dados pessoais são removidos antes da análise**, não depois. O Orchestrator acrescenta os itens em voo, seus bloqueios e o tempo em cada estado.
-2. **Leitura.** O Auto Dream percorre o material e separa quatro naturezas que não podem ser tratadas juntas: o que foi concluído, o que ficou pendente, o que falhou e por qual causa, e o que só uma pessoa pode decidir.
-3. **Aprendizado.** Padrão recorrente com evidência de sessão vira proposta de atualização de memória. Ocorrência isolada permanece marcada como hipótese — um aprendizado de baixa confiança **não** entra em `MEMORY.md`.
-4. **Melhoria.** Atrito reproduzível vira Work Item no [🚦 Triage Loop](00-intake-and-triage.md), com sintoma, evidência, impacto, causa provável e owner recomendado. Atrito sem evidência não vira item; vira hipótese.
-5. **Memória.** O Knowledge Agent aplica as propostas aceitas em `MEMORY.md`, preservando origem, contexto e validade declarada de cada entrada.
-6. **Sinalização.** O briefing chega ao owner em três categorias, nesta ordem: **bloqueado** — precisa de decisão hoje; **em risco** — vai bloquear se ninguém agir; **em andamento** — informativo. A ordem é parte do contrato: um briefing que abre pelo informativo deixa de ser lido pelo fim.
+1. **Collection.** The Telemetry Agent gathers the period's sessions with output envelopes, gates, retries, schedules and cost. **Secrets and personal data are removed before analysis**, not after. Orchestrator adds the items in flight, their blocks, and the time in each state.
+2. **Reading.** Auto Dream goes through the material and separates four natures that cannot be treated together: what was completed, what was pending, what failed and for what reason, and what only one person can decide.
+3. **Learning.** Recurrent pattern with session evidence becomes a proposal for memory updating. Isolated occurrence remains marked as hypothesis — low confidence learning **does not** go into `MEMORY.md`.
+4. **Improvement.** Reproducible friction becomes Work Item in [🚦 Triage Loop](00-intake-and-triage.md), with symptom, evidence, impact, probable cause and recommended owner. Friction without evidence does not become an item; becomes a hypothesis.
+5. **Memory.** The Knowledge Agent applies the proposals accepted in `MEMORY.md`, preserving the origin, context and declared validity of each entry.
+6. **Signaling.** The briefing reaches the owner in three categories, in this order: **blocked** — needs a decision today; **at risk** — will block if no one takes action; **in progress** — informative. The order is part of the contract: a briefing that opens with the newsletter stops being read at the end.
 
 ---
 
-## Handoffs
+##Handoffs
 
-| Direção | Carrega |
+| Direction | Load |
 |---|---|
-| **Entrada** | sessões anonimizadas com envelope de saída íntegro, e o estado dos itens em voo com tempo em cada etapa |
-| **Saída** | briefing com decisões requeridas e prazo; propostas de memória com evidência e validade; Work Items com owner recomendado — e nunca uma observação genérica sem destino |
+| **Input** | anonymized sessions with intact output envelope, and the status of items in flight with time at each stage |
+| **Exit** | briefing with required decisions and deadline; memory proposals with evidence and validity; Work Items with recommended owner — and never a generic note with no destination |
 
 ---
 
-## O que este loop não faz
+## What this loop doesn't do
 
-**Não faz:** priorizar as melhorias que ele mesmo levanta, nem aprovar alteração de gate, de política ou de autonomia.
+**It does not:** prioritize the improvements that it raises, nor approve changes to gates, policies or autonomy.
 
-Um circuito que observa o sistema, cria demanda e define a própria prioridade converge para um backlog que serve ao observador. O Daily Loop entrega ao intake; a ordenação pertence ao PM. Toda proposta que altere gate, política ou nível de autonomia atravessa H6 no [🌙 Dream Loop](10-continuous-improvement.md), nunca aqui.
+A circuit that observes the system, creates demand and defines its own priority converges into a backlog that serves the observer. Daily Loop delivers to intake; the order belongs to the PM. Any proposal that changes gate, policy or level of autonomy crosses H6 in [🌙 Dream Loop](10-continuous-improvement.md), never here.
 
-**Também não faz:** substituir a curadoria do [🗄️ Archivist Loop](09-knowledge-curation.md). O conhecimento específico de uma entrega é registrado lá, com a entrega. O que este loop registra é o que atravessa entregas.
+**It also does not:** replace the curation of [🗄️ Archivist Loop](09-knowledge-curation.md). The specific knowledge of a delivery is recorded there, with the delivery. What this loop records is what goes through deliveries.
 
 ---
 
-## Diário e semanal — por que são dois loops
+## Daily and weekly — why are there two loops
 
-A pergunta natural é por que existem dois circuitos de aprendizado. Eles diferem em janela, insumo e rigor de crítica — e é essa diferença que os torna complementares em vez de redundantes.
+The natural question is why there are two learning loops. They differ in window, input, and rigor of critique—and it is this difference that makes them complementary rather than redundant.
 
-| | ☀️ Daily | 🌙 Dream |
+| | ☀️ Daily | 🌙Dream |
 |---|---|---|
-| **Janela** | 24 h | semana ou ciclo |
-| **Escopo** | um workspace | todos os loops e workspaces |
-| **Insumo** | sessões e envelopes brutos | telemetria agregada e baseline |
-| **Crítica** | leve — evidência de sessão basta | [⚖️ Critic Agent](../agentes/critic-agent.md) independente, obrigatório |
-| **Saída** | briefing, memória, item no intake | aprendizado validado, demanda P0/P1, proposta de alteração de gate |
-| **Gate humano** | nenhum; o owner lê o briefing | H6 |
-| **Falha típica** | virar relatório que ninguém lê | virar regra a partir de três ocorrências |
+| **Window** | 24h | week or cycle |
+| **Scope** | a workspace | all loops and workspaces |
+| **Input** | sessions and raw envelopes | aggregated telemetry and baseline |
+| **Criticism** | light — session evidence is enough | [⚖️ Critic Agent](../agentes/critic-agent.md) independent, mandatory |
+| **Exit** | briefing, memory, item in intake | validated learning, P0/P1 demand, gate change proposal |
+| **Human gate** | none; the owner reads the briefing | H6 |
+| **Typical fault** | become a report that no one reads | become a rule after three occurrences |
 
-O diário alimenta o semanal: o que este loop registra como hipótese é exatamente o material que o Dream Loop confirma ou descarta com baseline e crítica independente.
+The diary feeds the weekly: what this loop records as a hypothesis is exactly the material that the Dream Loop confirms or discards with baseline and independent criticism.
 
 ---
 
-## Falhas típicas
+## Typical faults
 
-| Falha | Sintoma | Correção |
+| Failure | Symptom | Correction |
 |---|---|---|
-| Briefing vira narrativa | o owner lê o que aconteceu, não o que precisa decidir | o briefing abre pelos bloqueados e tem tamanho limitado |
-| Melhoria sem destino | o mesmo atrito é registrado dia após dia sem virar item | toda melhoria sai como Work Item ou como descarte registrado |
-| Memória inflacionada | `MEMORY.md` cresce sem critério e deixa de ser lido | entrada exige validade declarada; entrada expirada é revisada, não mantida |
-| Sessão perdida | um dia sem execução some do histórico | falha de coleta abre alerta, nunca resultado vazio silencioso |
-| Sinalização sem prazo | tudo aparece como "atenção" e nada é decidido | cada item bloqueado carrega a decisão pedida e a data-limite |
+| Briefing becomes narrative | the owner reads what happened, not what needs to be decided | the briefing opens by blocked users and is limited in size |
+| Improvement without destination | the same friction is recorded day after day without becoming an item | every improvement comes out as a Work Item or as a recorded disposal |
+| Inflated memory | `MEMORY.md` grows without criteria and stops being read | entry requires declared validity; expired entry is reviewed, not maintained |
+| Missed session | a day without execution disappears from the history | collection failure opens alert, never silent empty result |
+| Signage without deadline | everything appears as "attention" and nothing is decided | each blocked item carries the requested decision and the deadline |
 
 ---
 
-## Artefatos e onde vivem
+## Artifacts and where they live
 
-| Artefato | Destino | Obrigatório |
+| Artifact | Destination | Mandatory |
 |---|---|---|
-| Briefing diário | `<workspace-do-owner>/.coordination/daily/<data>.md` | sim |
-| Proposta de atualização de memória | `MEMORY.md` do workspace correspondente | quando validada |
-| Work Item de melhoria | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | quando houver atrito reproduzível |
-| Hipóteses em observação | `.coordination/` até nova evidência | trânsito |
-| Sessões coletadas e anonimizadas | insumo do [🌙 Dream Loop](10-continuous-improvement.md) | trânsito |
+| Daily briefing | `<workspace-do-owner>/.coordination/daily/<data>.md` | yes |
+| Memory upgrade proposal | `MEMORY.md` from the corresponding workspace | when validated |
+| Work Improvement Item | `<pm-workspace>/projects/<project>/work-items/<WI-id>.md` | when there is reproducible friction |
+| Hypotheses under observation | `.coordination/` until further evidence | traffic |
+| Sessions collected and anonymized | input from [🌙 Dream Loop](10-continuous-improvement.md) | traffic |
 
-O briefing é o único artefato deste loop cuja fonte canônica é `.coordination/` — ele é, por natureza, um documento com validade de um dia. Tudo o que precisa sobreviver a ele já saiu como memória ou como Work Item.
+The briefing is the only artifact in this loop whose canonical source is `.coordination/` — it is, by nature, a document valid for one day. Everything that needs to survive it has already left as memory or as a Work Item.
 
 ---
 
-## Escalonamento
+## Escalation
 
-Escalar ao owner quando um item permanecer bloqueado por mais de um ciclo diário, quando um escalonamento aberto não tiver resposta, ou quando a coleta falhar. **Falha de coleta abre alerta, não briefing vazio** — um dia sem dados é um sinal, não a ausência de um.
+Escalate to owner when an item remains locked for more than one daily cycle, when an open escalation has no response, or when collection fails. **Collection failure opens alert, not empty briefing** — a day without data is a signal, not the absence of one.
