@@ -16,17 +16,21 @@ from __future__ import annotations
 
 import html
 import json
-import os.path
 import re
 import unicodedata
 from datetime import date
 from pathlib import Path
+from urllib.parse import quote
 
 import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "index.html"
 SEP = "~"
+GITHUB_REPOSITORY = "https://github.com/diododias/ai-manifest"
+GITHUB_REF = "languague/english"
+LINKEDIN_PROFILE = "https://www.linkedin.com/in/luiz-gustavo-dias/"
+EMAIL_ADDRESS = "luizdiodo@icloud.com"
 
 SECTIONS = [
     {
@@ -113,6 +117,12 @@ def title_from(body: str, meta: dict[str, str], fallback: str) -> str:
 
 def page(path: str, section: str, group: str, title: str | None = None) -> dict[str, str]:
     return {"path": path, "section": section, "group": group, "title": title or ""}
+
+
+def github_file_url(path: str) -> str:
+    encoded_path = quote(path, safe="/")
+    kind = "tree" if (ROOT / path).is_dir() else "blob"
+    return f"{GITHUB_REPOSITORY}/{kind}/{GITHUB_REF}/{encoded_path}"
 
 
 PAGES = [
@@ -255,9 +265,11 @@ def rewrite_links(
             return match.group(0)
         if key in page_map:
             return f'href="{route(page_map[key], fragment)}"'
-        relative = os.path.relpath(resolved, OUTPUT.parent)
         suffix = f"#{fragment}" if fragment else ""
-        return f'href="{html.escape(relative + suffix)}" class="external-file" title="Open {html.escape(key)}"'
+        return (
+            f'href="{html.escape(github_file_url(key) + suffix)}" '
+            f'class="external-file" title="Open {html.escape(key)} on GitHub"'
+        )
 
     return re.sub(r'href="([^"]+)"', replace, rendered)
 
@@ -332,7 +344,14 @@ def build() -> None:
         ensure_ascii=False,
         separators=(",", ":"),
     ).replace("</", "<\\/")
-    OUTPUT.write_text(TEMPLATE.replace("/*__DATA__*/", payload), encoding="utf-8")
+    output = (
+        TEMPLATE.replace("/*__DATA__*/", payload)
+        .replace("/*__GITHUB_REPOSITORY__*/", GITHUB_REPOSITORY)
+        .replace("/*__GITHUB_REF__*/", GITHUB_REF)
+        .replace("/*__LINKEDIN_PROFILE__*/", LINKEDIN_PROFILE)
+        .replace("/*__EMAIL_ADDRESS__*/", EMAIL_ADDRESS)
+    )
+    OUTPUT.write_text(output, encoding="utf-8")
     print(f"site generated: {OUTPUT.relative_to(ROOT)} ({OUTPUT.stat().st_size // 1024} KB)")
 
 
@@ -359,10 +378,11 @@ TEMPLATE = r'''<!DOCTYPE html>
 body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 75% 12%,rgba(34,211,238,.08),transparent 27rem),linear-gradient(rgba(255,255,255,.017) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.017) 1px,transparent 1px);background-size:auto,36px 36px,36px 36px}
 a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:2px;width:0;background:var(--cyan);box-shadow:0 0 14px var(--cyan);transition:width .08s linear}
 .app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line-soft);background:rgba(14,20,24,.92);backdrop-filter:blur(20px);display:flex;flex-direction:column;z-index:50}
-.brand{display:flex;gap:12px;align-items:center;padding:22px 20px 18px;text-decoration:none;border-bottom:1px solid var(--line-soft)}.brand-mark{width:37px;height:37px;border:1px solid rgba(34,211,238,.42);background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));display:grid;place-items:center;color:var(--cyan);font:bold 12px var(--mono);clip-path:polygon(50% 0,100% 100%,0 100%)}.brand-copy strong{display:block;letter-spacing:-.01em}.brand-copy span{display:block;color:var(--faint);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.brand{display:flex;gap:12px;align-items:center;padding:22px 20px 18px;text-decoration:none;border-bottom:1px solid var(--line-soft)}.brand-mark{width:37px;height:37px;border:1px solid rgba(34,211,238,.42);border-radius:9px;background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));display:grid;place-items:center;color:var(--cyan);font:bold 12px var(--mono)}.brand-copy strong{display:block;letter-spacing:-.01em}.brand-copy span{display:block;color:var(--faint);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
 .search-box{padding:15px 14px 12px;position:relative}.search-box label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.search-box input{width:100%;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:10px;padding:10px 36px 10px 12px;font:13px var(--sans);outline:0}.search-box input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}.shortcut{position:absolute;right:24px;top:25px;color:var(--faint);font:10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
 .language-toggle{margin:0 14px 14px;width:calc(100% - 28px);border:1px solid var(--line);background:var(--charcoal);color:var(--muted);border-radius:8px;padding:8px 10px;font:11px var(--mono);cursor:pointer}.language-toggle:hover,.language-toggle:focus-visible{border-color:var(--cyan);color:var(--text);outline:0}
 .nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
+.link-icon{width:16px;height:16px;display:block;fill:currentColor}.footer-link-icon{width:14px;height:14px;vertical-align:-2px;margin-right:5px}
 .main{min-width:0}.view{min-height:100vh}.menu-toggle{display:none;position:fixed;z-index:70;top:14px;left:14px;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:9px;width:42px;height:42px;font-size:18px}.overlay{display:none}
 .home{max-width:1440px;margin:auto;padding:clamp(34px,5vw,76px)}.hero{min-height:calc(100vh - 152px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);column-gap:clamp(36px,6vw,92px);row-gap:clamp(30px,4vw,54px);align-items:center}.hero-heading{grid-column:1/-1;max-width:1040px}.eyebrow{color:var(--cyan);font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:28px;height:1px;background:var(--cyan)}.hero h1{font-size:clamp(52px,7.2vw,104px);line-height:.92;letter-spacing:-.06em;margin:20px 0 0;max-width:980px}.hero h1 span{color:var(--cyan)}.hero-copy{align-self:start;padding-top:8px}.hero-lede{color:var(--muted);font-size:clamp(16px,1.4vw,20px);max-width:590px;margin-top:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}.button{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:650}.button.primary{background:var(--cyan);border-color:var(--cyan);color:#062127}.button:hover{transform:translateY(-1px);border-color:var(--cyan)}.button .arrow{font-family:var(--mono)}
 .layers-panel{position:relative;padding:28px 26px 24px;border:1px solid var(--line-soft);background:linear-gradient(160deg,rgba(32,40,46,.86),rgba(11,15,18,.52));border-radius:24px;box-shadow:0 34px 90px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.04);overflow:hidden}.layers-panel::after{content:"";position:absolute;width:320px;height:320px;border:1px solid rgba(34,211,238,.08);border-radius:50%;right:-150px;top:-150px;box-shadow:0 0 80px rgba(34,211,238,.04)}.layers-head{display:flex;justify-content:space-between;align-items:end;margin:0 4px 18px}.layers-head strong{font-size:14px}.layers-head span{color:var(--faint);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}.layers{display:grid;gap:8px;position:relative;z-index:1}.layer{width:100%;min-height:66px;padding:12px 18px;display:grid;grid-template-columns:34px minmax(118px,.42fr) minmax(0,1fr);align-items:center;gap:12px;text-decoration:none;background:linear-gradient(90deg,rgba(34,211,238,.04),rgba(34,211,238,.12),rgba(34,211,238,.04));border:1px solid rgba(34,211,238,.18);border-radius:10px;transition:transform .22s ease,filter .22s ease,background .22s ease}.layer:hover,.layer:focus-visible{background:linear-gradient(90deg,rgba(34,211,238,.13),rgba(34,211,238,.28),rgba(34,211,238,.13));filter:drop-shadow(0 0 14px rgba(34,211,238,.2));transform:translateX(5px);outline:0}.layer-number{font:10px var(--mono);color:var(--cyan)}.layer-title{font-weight:750;letter-spacing:.02em}.layer-question{color:var(--muted);font-size:11px;line-height:1.45}.layers-base{display:flex;justify-content:space-between;color:var(--faint);font:9px var(--mono);text-transform:uppercase;letter-spacing:.13em;margin:14px 5px 0}
@@ -376,9 +396,10 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 .mermaid-wrap{margin:28px 0;border:1px solid var(--line-soft);border-radius:14px;background:var(--charcoal);padding:15px;overflow:auto}.mermaid-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.mermaid-head figcaption{font:9px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint)}.mermaid-tools{display:flex;gap:5px;align-items:center}.mermaid-tools button{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:5px 8px;font:11px var(--mono);cursor:pointer}.mermaid-tools button:hover{color:var(--cyan);border-color:var(--cyan)}.mermaid-tools span{font:9px var(--mono);color:var(--faint);min-width:54px;text-align:center}.mermaid{background:transparent!important;border:0!important;text-align:center;margin:0!important}.mermaid svg{max-width:100%;height:auto}.mermaid-fallback{font-size:11px;color:var(--faint);margin:10px 0 0!important}.mermaid-wrap.rendered .mermaid-fallback{display:none}.mermaid-src{font-size:11px;margin-top:10px!important}
 .search-view{max-width:1000px;margin:auto;padding:90px clamp(24px,6vw,70px)}.search-view h1{font-size:clamp(42px,6vw,74px);letter-spacing:-.05em;margin:10px 0}.search-intro{color:var(--muted);margin-bottom:40px}.result-list{display:grid;gap:10px}.result{display:grid;grid-template-columns:95px 1fr auto;gap:18px;align-items:start;text-decoration:none;padding:18px;border:1px solid var(--line-soft);border-radius:12px;background:rgba(22,28,33,.55)}.result:hover{border-color:var(--cyan)}.result-section{font:9px var(--mono);text-transform:uppercase;color:var(--cyan)}.result strong{display:block}.result p{margin:5px 0 0;color:var(--muted);font-size:12px}.result-path{font:9px var(--mono);color:var(--faint)}.empty-state{border:1px dashed var(--line);border-radius:14px;padding:36px;color:var(--muted)}
 .not-found{max-width:700px;margin:auto;padding:120px 30px}.not-found strong{font:100px/1 var(--mono);color:var(--cyan)}.not-found h1{font-size:42px}.not-found p{color:var(--muted)}
+.site-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;border-top:1px solid var(--line-soft);padding:22px clamp(24px,6vw,76px);color:var(--faint);font:10px var(--mono);letter-spacing:.04em}.footer-links{display:flex;gap:16px}.footer-links a{color:var(--muted);text-decoration:none}.footer-links a:hover{color:var(--cyan)}
 @media(max-width:1080px){.hero{grid-template-columns:1fr;min-height:auto}.hero-heading{grid-column:auto}.layers-panel{max-width:720px;width:100%;margin:auto}.doc-grid{grid-template-columns:minmax(0,1fr) 200px;gap:36px}}
 @media(max-width:900px){.app{display:block}.sidebar{position:fixed;left:0;transform:translateX(-105%);width:min(88vw,320px);transition:transform .2s ease}.sidebar.open{transform:none}.menu-toggle{display:block}.overlay{display:block;position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s}.overlay.open{opacity:1;pointer-events:auto}.home,.section-view,.doc-page,.search-view{padding-top:82px}.doc-grid{display:block}.toc{position:static;border-left:0;border-top:1px solid var(--line-soft);padding:24px 0 0;margin-top:45px;max-height:none}}
-@media(max-width:650px){.home{padding-left:18px;padding-right:18px}.hero h1{font-size:clamp(46px,14vw,62px)}.layers-panel{padding:22px 14px}.layers-head{align-items:start;gap:12px}.layers-head span{line-height:1.4;text-align:right}.layer{grid-template-columns:28px 1fr;gap:8px;min-height:58px;padding:10px 12px}.layer-question{grid-column:2;font-size:10px}.page-grid{grid-template-columns:1fr}.section-view{padding-left:18px;padding-right:18px}.section-hero h1{font-size:55px}.layer-track span{display:none}.doc-page{padding-left:18px;padding-right:18px}.pager{grid-template-columns:1fr}.pager-link:last-child{text-align:left}.result{grid-template-columns:1fr}.result-path{display:none}}
+@media(max-width:650px){.home{padding-left:18px;padding-right:18px}.hero h1{font-size:clamp(46px,14vw,62px)}.layers-panel{padding:22px 14px}.layers-head{align-items:start;gap:12px}.layers-head span{line-height:1.4;text-align:right}.layer{grid-template-columns:28px 1fr;gap:8px;min-height:58px;padding:10px 12px}.layer-question{grid-column:2;font-size:10px}.page-grid{grid-template-columns:1fr}.section-view{padding-left:18px;padding-right:18px}.section-hero h1{font-size:55px}.layer-track span{display:none}.doc-page{padding-left:18px;padding-right:18px}.pager{grid-template-columns:1fr}.pager-link:last-child{text-align:left}.result{grid-template-columns:1fr}.result-path{display:none}.site-footer{align-items:flex-start;flex-direction:column;padding-left:18px;padding-right:18px}.footer-links{gap:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.button:hover,.page-card:hover,.layer:hover{transform:none}}
 @media print{.sidebar,.menu-toggle,.overlay,.reading-progress,.toc,.pager{display:none!important}.app{display:block}.doc-page{padding:20px}.doc-grid{display:block}.article{max-width:none}.article a{color:inherit}}
 </style>
@@ -396,11 +417,13 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
     <nav class="nav-scroll" id="navigation" aria-label="Main navigation"></nav>
   </aside>
   <div class="overlay" id="overlay"></div>
-  <main class="main"><div class="view" id="view"></div></main>
+  <main class="main"><div class="view" id="view"></div><footer class="site-footer"><span>Agent Team · interactive documentation</span><span class="footer-links"><a href="/*__GITHUB_REPOSITORY__*/" target="_blank" rel="noreferrer"><svg class="footer-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.26c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.8c1.02 0 2.05.14 3.01.41 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5"/></svg>GitHub repository</a><a href="/*__LINKEDIN_PROFILE__*/" target="_blank" rel="noreferrer"><svg class="footer-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V8.99H3.56v11.46zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>LinkedIn</a><a href="mailto:/*__EMAIL_ADDRESS__*/">/*__EMAIL_ADDRESS__*/</a></span></footer></main>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
 const DATA=/*__DATA__*/;
+const SITE_LINKS={repository:"/*__GITHUB_REPOSITORY__*/",ref:"/*__GITHUB_REF__*/",linkedin:"/*__LINKEDIN_PROFILE__*/",email:"/*__EMAIL_ADDRESS__*/"};
+const ICONS={github:'<svg class="link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.26c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.8c1.02 0 2.05.14 3.01.41 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5"/></svg>',linkedin:'<svg class="link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V8.99H3.56v11.46zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.21 24 24 .77 24 1.72v20.56C24 23.23 23.21 24 22.23 24z"/></svg>'};
 const view=document.querySelector('#view'),nav=document.querySelector('#navigation');
 const searchInput=document.querySelector('#global-search'),sidebar=document.querySelector('#sidebar');
 const menuToggle=document.querySelector('#menu-toggle'),overlay=document.querySelector('#overlay');
@@ -428,6 +451,7 @@ function localize(){
 }
 const routeFor=page=>page.section==='overview'?`#/documento/${page.id}`:`#/secao/${page.section}/${page.id}`;
 const sectionRoute=section=>`#/secao/${section.id}`;
+const repositoryFileUrl=path=>`${SITE_LINKS.repository}/blob/${SITE_LINKS.ref}/${path.split('/').map(encodeURIComponent).join('/')}`;
 function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}
 function groupsFor(sectionId){const groups=new Map();DATA.pages.filter(p=>p.section===sectionId).forEach(page=>{if(!groups.has(page.group))groups.set(page.group,[]);groups.get(page.group).push(page)});return groups}
 function renderNav(sectionId='',pageId=''){
@@ -437,7 +461,7 @@ function renderNav(sectionId='',pageId=''){
     context='<div class="nav-divider"></div><div class="nav-label">In this layer</div>';
     for(const [group,pages] of groupsFor(sectionId)) context+=`<details class="context-group" open><summary>${esc(group)}</summary>${pages.map(page=>`<a class="nav-link ${page.id===pageId?'active':''}" href="${routeFor(page)}">${esc(page.title)}</a>`).join('')}</details>`;
   }
-  nav.innerHTML=`<div class="nav-label">Explore</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>Overview</span></a><div class="nav-label">The six layers</div>${layers}${context}`;
+  nav.innerHTML=`<div class="nav-label">Explore</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>Overview</span></a><div class="nav-label">The six layers</div>${layers}${context}<div class="nav-label">Links</div><a class="nav-link" href="${SITE_LINKS.repository}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.github}</span><span>GitHub repository</span></a><a class="nav-link" href="${SITE_LINKS.linkedin}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.linkedin}</span><span>LinkedIn</span></a><a class="nav-link" href="mailto:${SITE_LINKS.email}"><span class="nav-num">@</span><span>${SITE_LINKS.email}</span></a>`;
 }
 function homeMarkup(){
   const layers=DATA.sections.map(section=>`<a class="layer" href="${sectionRoute(section)}" aria-label="Layer ${section.number}, ${esc(section.title)}: ${esc(section.question)}"><span class="layer-number">${section.number}</span><span class="layer-title">${esc(section.title)}</span><span class="layer-question">${esc(section.question)}</span></a>`).join('');
@@ -456,7 +480,7 @@ function renderDocument(page,anchor=''){
   activePage=page;const siblings=DATA.pages.filter(item=>item.section===page.section);const index=siblings.findIndex(item=>item.id===page.id),previous=siblings[index-1],next=siblings[index+1];const section=sectionsById.get(page.section),sectionTitle=section?.title||'Overview',sectionHref=section?sectionRoute(section):'#/';
   const badge=page.status?`<span class="badge ${esc(page.status)}">${esc(page.status)}</span>`:'';
   const updated=page.updated?`<span class="badge">updated ${esc(page.updated)}</span>`:'';
-  view.innerHTML=`<section class="doc-page"><div class="breadcrumbs"><a href="#/">HOME</a><span>/</span><a href="${sectionHref}">${esc(sectionTitle)}</a><span>/</span><span>${esc(page.group)}</span></div><div class="doc-grid"><article class="article"><div class="doc-meta">${badge}${updated}<a class="source-path" href="${esc(page.path)}">${esc(page.path)}</a></div>${page.html}<nav class="pager" aria-label="Adjacent documents">${previous?`<a class="pager-link" href="${routeFor(previous)}"><span>← previous</span><strong>${esc(previous.title)}</strong></a>`:'<span class="pager-spacer"></span>'}${next?`<a class="pager-link" href="${routeFor(next)}"><span>next →</span><strong>${esc(next.title)}</strong></a>`:'<span class="pager-spacer"></span>'}</nav></article><aside class="toc">${tocMarkup(page)}</aside></div></section>`;
+  view.innerHTML=`<section class="doc-page"><div class="breadcrumbs"><a href="#/">HOME</a><span>/</span><a href="${sectionHref}">${esc(sectionTitle)}</a><span>/</span><span>${esc(page.group)}</span></div><div class="doc-grid"><article class="article"><div class="doc-meta">${badge}${updated}<a class="source-path" href="${repositoryFileUrl(page.path)}" target="_blank" rel="noreferrer" title="Open ${esc(page.path)} on GitHub">${esc(page.path)}</a></div>${page.html}<nav class="pager" aria-label="Adjacent documents">${previous?`<a class="pager-link" href="${routeFor(previous)}"><span>← previous</span><strong>${esc(previous.title)}</strong></a>`:'<span class="pager-spacer"></span>'}${next?`<a class="pager-link" href="${routeFor(next)}"><span>next →</span><strong>${esc(next.title)}</strong></a>`:'<span class="pager-spacer"></span>'}</nav></article><aside class="toc">${tocMarkup(page)}</aside></div></section>`;
   renderNav(section?page.section:'',page.id);document.title=`${page.title} — Agent Team`;closeMenu();renderDiagrams();
   requestAnimationFrame(()=>{if(anchor){const target=document.getElementById(`${page.id}~${decodeURIComponent(anchor)}`);if(target)target.scrollIntoView()}else window.scrollTo(0,0);updateProgress()});
 }
