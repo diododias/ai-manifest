@@ -3,12 +3,12 @@
 # requires-python = ">=3.10"
 # dependencies = ["Markdown>=3.7,<4"]
 # ///
-"""Generates index.html: Agent Team's navigable, self-contained documentation.
+"""Generates index.html and index.pt.html: Agent Team's navigable, self-contained documentation.
 
 Uso:
     uv run scripts/build-docs-site.py
 
-Repository Markdown files are the source of truth. The generated file can be
+Repository Markdown files are the source of truth. The generated files can be
 opened directly, without a server; Mermaid uses a CDN with a source-code fallback.
 """
 
@@ -26,9 +26,11 @@ import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "index.html"
+OUTPUT_PT = ROOT / "index.pt.html"
 SEP = "~"
 GITHUB_REPOSITORY = "https://github.com/diododias/ai-manifest"
-GITHUB_REF = "languague/english"
+GITHUB_REF = "language/english"
+GITHUB_REF_PT = "language/portuguese"
 LINKEDIN_PROFILE = "https://www.linkedin.com/in/luiz-gustavo-dias/"
 EMAIL_ADDRESS = "luizdiodo@icloud.com"
 
@@ -111,7 +113,7 @@ def title_from(body: str, meta: dict[str, str], fallback: str) -> str:
         return meta["title"]
     if meta.get("name"):
         return meta["name"]
-    heading = re.search(r"^#\s+(.+?)\s*$", body, re.MULTILINE)
+    heading = re.search(r"^#\s*(?:\d+\s*[—\-]\s*)?(.+?)\s*$", body, re.MULTILINE)
     return heading.group(1).strip() if heading else fallback
 
 
@@ -350,25 +352,47 @@ def build() -> None:
         ensure_ascii=False,
         separators=(",", ":"),
     ).replace("</", "<\\/")
-    output = (
-        TEMPLATE.replace("/*__DATA__*/", payload)
-        .replace("/*__GITHUB_REPOSITORY__*/", GITHUB_REPOSITORY)
-        .replace("/*__GITHUB_REF__*/", GITHUB_REF)
-        .replace("/*__LINKEDIN_PROFILE__*/", LINKEDIN_PROFILE)
-        .replace("/*__EMAIL_ADDRESS__*/", EMAIL_ADDRESS)
-    )
-    OUTPUT.write_text(output, encoding="utf-8")
+
+    def render_html(default_lang: str) -> str:
+        is_pt = default_lang == "pt"
+        return (
+            TEMPLATE.replace("/*__DATA__*/", payload)
+            .replace("/*__GITHUB_REPOSITORY__*/", GITHUB_REPOSITORY)
+            .replace("/*__GITHUB_REF__*/", GITHUB_REF_PT if is_pt else GITHUB_REF)
+            .replace("/*__LINKEDIN_PROFILE__*/", LINKEDIN_PROFILE)
+            .replace("/*__EMAIL_ADDRESS__*/", EMAIL_ADDRESS)
+            .replace("/*__HTML_LANG__*/", "pt-BR" if is_pt else "en")
+            .replace(
+                "/*__META_DESCRIPTION__*/",
+                (
+                    "Documentação interativa Agent Team: harness, agentes, skills, loops, metodologia e workspace."
+                    if is_pt
+                    else "Interactive Agent Team documentation: harness, agents, skills, loops, methodology, and workspace."
+                ),
+            )
+            .replace(
+                "/*__PAGE_TITLE__*/",
+                "Agent Team — documentação interativa" if is_pt else "Agent Team — interactive documentation",
+            )
+            .replace("/*__DEFAULT_LANG__*/", default_lang)
+            .replace("/*__INITIAL_FLAG__*/", "🇺🇸" if is_pt else "🇧🇷")
+            .replace("/*__INITIAL_LANG_CODE__*/", "EN" if is_pt else "PT-BR")
+        )
+
+    OUTPUT.write_text(render_html("en"), encoding="utf-8")
     print(f"site generated: {OUTPUT.relative_to(ROOT)} ({OUTPUT.stat().st_size // 1024} KB)")
+    OUTPUT_PT.write_text(render_html("pt"), encoding="utf-8")
+    print(f"site generated: {OUTPUT_PT.relative_to(ROOT)} ({OUTPUT_PT.stat().st_size // 1024} KB)")
 
 
 TEMPLATE = r'''<!DOCTYPE html>
-<html lang="en">
+<html lang="/*__HTML_LANG__*/">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f12">
-<meta name="description" content="Interactive Agent Team documentation: harness, skills, agents, loops, methodology, and workspace.">
-<title>Agent Team — interactive documentation</title>
+<meta name="description" content="/*__META_DESCRIPTION__*/">
+<title>/*__PAGE_TITLE__*/</title>
 <style>
 :root {
   color-scheme: dark;
@@ -386,7 +410,7 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 .app{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;border-right:1px solid var(--line-soft);background:rgba(14,20,24,.92);backdrop-filter:blur(20px);display:flex;flex-direction:column;z-index:50}
 .brand{display:flex;gap:12px;align-items:center;padding:22px 20px 18px;text-decoration:none;border-bottom:1px solid var(--line-soft)}.brand-mark{width:37px;height:37px;border:1px solid rgba(34,211,238,.42);border-radius:9px;background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));display:grid;place-items:center;color:var(--cyan);font:bold 12px var(--mono)}.brand-copy strong{display:block;letter-spacing:-.01em}.brand-copy span{display:block;color:var(--faint);font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
 .search-box{padding:15px 14px 12px;position:relative}.search-box label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.search-box input{width:100%;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:10px;padding:10px 36px 10px 12px;font:13px var(--sans);outline:0}.search-box input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}.shortcut{position:absolute;right:24px;top:25px;color:var(--faint);font:10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
-.language-toggle{margin:0 14px 14px;width:calc(100% - 28px);border:1px solid var(--line);background:var(--charcoal);color:var(--muted);border-radius:8px;padding:8px 10px;font:11px var(--mono);cursor:pointer}.language-toggle:hover,.language-toggle:focus-visible{border-color:var(--cyan);color:var(--text);outline:0}
+.lang-fab{position:fixed;top:1rem;right:1rem;z-index:9999;display:flex;align-items:center;gap:.4rem;padding:.45rem .8rem;border-radius:2rem;background:var(--charcoal);border:1px solid var(--line);color:var(--muted);font:12px/1 var(--mono);cursor:pointer;backdrop-filter:blur(8px);transition:border-color .15s,color .15s;box-shadow:0 2px 12px rgba(0,0,0,.3)}.lang-fab:hover,.lang-fab:focus-visible{border-color:var(--cyan);color:var(--text);outline:0}.lang-flag{font-size:15px;line-height:1}
 .nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
 .link-icon{width:16px;height:16px;display:block;fill:currentColor}.footer-link-icon{width:14px;height:14px;vertical-align:-2px;margin-right:5px}
 .main{min-width:0}.view{min-height:100vh}.menu-toggle{display:none;position:fixed;z-index:70;top:14px;left:14px;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:9px;width:42px;height:42px;font-size:18px}.overlay{display:none}
@@ -420,12 +444,12 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
       <span class="brand-mark">AT</span><span class="brand-copy"><strong>Agent Team</strong><span>operating system</span></span>
     </a>
     <div class="search-box"><label for="global-search">Search documentation</label><input id="global-search" type="search" placeholder="Search concept, agent, skill…" autocomplete="off"><span class="shortcut">/</span></div>
-    <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language">PT-BR</button>
     <nav class="nav-scroll" id="navigation" aria-label="Main navigation"></nav>
   </aside>
   <div class="overlay" id="overlay"></div>
   <main class="main"><div class="view" id="view"></div><footer class="site-footer"><span>Agent Team · interactive documentation</span><span class="footer-links"><a href="/*__GITHUB_REPOSITORY__*/" target="_blank" rel="noreferrer"><svg class="footer-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.26c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.8c1.02 0 2.05.14 3.01.41 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5"/></svg>GitHub repository</a><a href="/*__LINKEDIN_PROFILE__*/" target="_blank" rel="noreferrer"><svg class="footer-link-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.26 2.37 4.26 5.46v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V8.99H3.56v11.46zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>LinkedIn</a><a href="mailto:/*__EMAIL_ADDRESS__*/">/*__EMAIL_ADDRESS__*/</a></span></footer></main>
 </div>
+<button class="lang-fab" id="language-toggle" type="button" aria-label="Switch language"><span class="lang-flag" aria-hidden="true">/*__INITIAL_FLAG__*/</span><span class="lang-code">/*__INITIAL_LANG_CODE__*/</span></button>
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
 const DATA=/*__DATA__*/;
@@ -439,9 +463,10 @@ const languageToggle=document.querySelector('#language-toggle');
 const pagesById=new Map(DATA.pages.map(page=>[page.id,page]));
 const sectionsById=new Map(DATA.sections.map(section=>[section.id,section]));
 let activePage=null;
-let language='en';
+let language='/*__DEFAULT_LANG__*/';
 const PT_TEXT=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJvcGVyYXRpbmcgc3lzdGVtIjoic2lzdGVtYSBvcGVyYWNpb25hbCIsIk9wZW4gbmF2aWdhdGlvbiI6IkFicmlyIG5hdmVnYcOnw6NvIiwiQWdlbnQgVGVhbSDigJQgaG9tZSI6IkFnZW50IFRlYW0g4oCUIGluw61jaW8iLCJTZWFyY2ggZG9jdW1lbnRhdGlvbiI6IkJ1c2NhciBuYSBkb2N1bWVudGHDp8OjbyIsIlNlYXJjaCBjb25jZXB0LCBhZ2VudCwgc2tpbGzigKYiOiJCdXNjYXIgY29uY2VpdG8sIGFnZW50ZSwgc2tpbGzigKYiLCJNYWluIG5hdmlnYXRpb24iOiJOYXZlZ2HDp8OjbyBwcmluY2lwYWwiLCJJbiB0aGlzIGxheWVyIjoiTmVzdGEgY2FtYWRhIiwiRXhwbG9yZSI6IkV4cGxvcmFyIiwiT3ZlcnZpZXciOiJWaXPDo28gZ2VyYWwiLCJUaGUgc2l4IGxheWVycyI6IkFzIHNlaXMgY2FtYWRhcyIsIkxheWVyICI6IkNhbWFkYSAiLCJPcGVyYXRpb25hbCBkb2N1bWVudGF0aW9uIjoiRG9jdW1lbnRhw6fDo28gb3BlcmFjaW9uYWwiLCJBIHN5c3RlbSBmb3IgdGVhbXMgdGhhdCAiOiJVbSBzaXN0ZW1hIHBhcmEgdGltZXMgcXVlICIsImxlYWQgYWdlbnRzLiI6ImRpcmlnZW0gYWdlbnRlcy4iLCJBZ2VudCBUZWFtIHR1cm5zIGludGVudCwgY29udGV4dCwgYW5kIHZlcmlmaWNhdGlvbiBpbnRvIGFuIG9wZXJhYmxlIGRldmVsb3BtZW50IGN5Y2xlLiBFeHBsb3JlIGZyb20gdGhlIHRlY2huaWNhbCBmb3VuZGF0aW9uIHRvIHRoZSBwbGFjZSB3aGVyZSBldmVyeSBkZWNpc2lvbiBsZWF2ZXMgYSB0cmFjZS4iOiJPIEFnZW50IFRlYW0gdHJhbnNmb3JtYSBpbnRlbsOnw6NvLCBjb250ZXh0byBlIHZlcmlmaWNhw6fDo28gZW0gdW0gY2ljbG8gZGUgZGVzZW52b2x2aW1lbnRvIG9wZXLDoXZlbC4gRXhwbG9yZSBkYSBmdW5kYcOnw6NvIHTDqWNuaWNhIGFvIGx1Z2FyIG9uZGUgY2FkYSBkZWNpc8OjbyBkZWl4YSByYXN0cm8uIiwiU3RhcnQgZnJvbSB0aGUgZm91bmRhdGlvbiI6IkNvbWXDp2FyIHBlbGEgYmFzZSIsIlZpZXcgdGhlIGNvbXBsZXRlIGluZGV4IjoiVmVyIMOtbmRpY2UgY29tcGxldG8iLCJPcGVyYXRpbmcgbGF5ZXJzIjoiQ2FtYWRhcyBvcGVyYWNpb25haXMiLCJjbGljayB0byBleHBsb3JlIjoiY2xpcXVlIHBhcmEgZXhwbG9yYXIiLCJmb3VuZGF0aW9uIjoiZnVuZGHDp8OjbyIsIm9wZXJhdGlvbiI6Im9wZXJhw6fDo28iLCJQb3NpdGlvbiBpbiB0aGUgbGF5ZXJzIjoiUG9zacOnw6NvIG5hcyBjYW1hZGFzIiwib3BlbiDihpciOiJhYnJpciDihpciLCJIT01FIjoiSU7DjUNJTyIsIkxBWUVSICI6IkNBTUFEQSAiLCJvcGVyYXRpbmcgbGF5ZXIiOiJjYW1hZGEgb3BlcmFjaW9uYWwiLCJSZXR1cm4gdG8gdGhlIG1hcCI6IlZvbHRhciBhbyBtYXBhIiwiVmlldyBhbGwgc3Vic2VjdGlvbnMiOiJWZXIgdG9kYXMgYXMgc3Vic2XDp8O1ZXMiLCJJbiB0aGlzIGRvY3VtZW50IjoiTmVzdGUgZG9jdW1lbnRvIiwidXBkYXRlZCAiOiJhdHVhbGl6YWRvICIsIkFkamFjZW50IGRvY3VtZW50cyI6IkRvY3VtZW50b3MgYWRqYWNlbnRlcyIsIuKGkCBwcmV2aW91cyI6IuKGkCBhbnRlcmlvciIsIm5leHQg4oaSIjoicHLDs3hpbW8g4oaSIiwiRW50ZXIgYSBjb25jZXB0LCBhZ2VudCwgc2tpbGwsIGFydGlmYWN0LCBvciBqb3VybmV5IHN0YWdlLiI6IkRpZ2l0ZSB1bSBjb25jZWl0bywgYWdlbnRlLCBza2lsbCwgYXJ0ZWZhdG8gb3UgZXRhcGEgZGEgam9ybmFkYS4iLCJObyBkb2N1bWVudHMgZm91bmQuIFRyeSBhIGJyb2FkZXIgdGVybS4iOiJOZW5odW0gZG9jdW1lbnRvIGVuY29udHJhZG8uIFRlbnRlIHVtIHRlcm1vIG1haXMgYW1wbG8uIiwiR2xvYmFsIHNlYXJjaCI6IkJ1c2NhIGdsb2JhbCIsIlJlc3VsdHMgZm9yICI6IlJlc3VsdGFkb3MgcGFyYSAiLCJFeHBsb3JlIHRoZSBjb2xsZWN0aW9uIjoiRXhwbG9yZSBvIGFjZXJ2byIsIlNlYXJjaCBkb2N1bWVudCB0aXRsZXMsIHBhdGhzLCBhbmQgY29udGVudC4iOiJQZXNxdWlzZSBwb3IgdMOtdHVsb3MsIGNhbWluaG9zIGUgY29udGXDumRvIGRhIGRvY3VtZW50YcOnw6NvLiIsIlNlYXJjaCI6IkJ1c2NhIiwiVGhpcyByb3V0ZSBkb2VzIG5vdCBleGlzdC4iOiJFc3RhIHJvdGEgbsOjbyBleGlzdGUuIiwiVGhlIGRvY3VtZW50YXRpb24gbWF5IGhhdmUgbW92ZWQuIFJldHVybiB0byB0aGUgbWFpbiBtYXAgdG8gY29udGludWUuIjoiQSBkb2N1bWVudGF0aW9uIG1heSBoYXZlIG1vdmVkLiBSZXR1cm4gdG8gdGhlIG1haW4gbWFwIHRvIGNvbnRpbnVlLiIsIlJldHVybiBob21lIjoiVm9sdGFyIGFvIGluw61jaW8iLCJOb3QgZm91bmQg4oCUIEFnZW50IFRlYW0iOiJOw6NvIGVuY29udHJhZG8g4oCUIEFnZW50IFRlYW0iLCJJbnRlcmFjdGl2ZSBkaWFncmFtIjoiRGlhZ3JhbWEgaW50ZXJhdGl2byIsIlpvb20gb3V0IjoiUmVkdXppciBkaWFncmFtYSIsImZpdHRlZCI6ImFqdXN0YWRvIiwiWm9vbSBpbiI6IkFtcGxpYXIgZGlhZ3JhbWEiLCJmaXQiOiJhanVzdGFyIiwiVGhlIHZpc3VhbGl6YXRpb24gdXNlcyBNZXJtYWlkLiBJZiB5b3UgYXJlIG9mZmxpbmUsIHRoZSBzb3VyY2UgY29kZSByZW1haW5zIGF2YWlsYWJsZSBiZWxvdy4iOiJBIHZpc3VhbGl6YcOnw6NvIHVzYSBNZXJtYWlkLiBTZSBlc3RpdmVyIG9mZmxpbmUsIG8gY8OzZGlnby1mb250ZSBwZXJtYW5lY2UgZGlzcG9uw612ZWwgYWJhaXhvLiIsIlZpZXcgZGlhZ3JhbSBzb3VyY2UgY29kZSI6IlZlciBjw7NkaWdvIGRvIGRpYWdyYW1hIiwiT3BlbiAiOiJBYnJpciAiLCJBZ2VudCBUZWFtIOKAlCBpbnRlcmFjdGl2ZSBkb2N1bWVudGF0aW9uIjoiQWdlbnQgVGVhbSDigJQgZG9jdW1lbnRhw6fDo28gaW50ZXJhdGl2YSJ9'),char=>char.charCodeAt(0))));
 Object.assign(PT_TEXT,JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJBZ2VudCBUZWFtIHR1cm5zIGludGVudCwgY29udGV4dCwgYW5kIHZlcmlmaWNhdGlvbiBpbnRvIGFuIG9wZXJhYmxlIGRldmVsb3BtZW50IGN5Y2xlLiAiOiJPIEFnZW50IFRlYW0gdHJhbnNmb3JtYSBpbnRlbsOnw6NvLCBjb250ZXh0byBlIHZlcmlmaWNhw6fDo28gZW0gdW0gY2ljbG8gZGUgZGVzZW52b2x2aW1lbnRvIG9wZXLDoXZlbC4gIiwiRXhwbG9yZSBmcm9tIHRoZSB0ZWNobmljYWwgZm91bmRhdGlvbiB0byB0aGUgcGxhY2Ugd2hlcmUgZXZlcnkgZGVjaXNpb24gbGVhdmVzIGEgdHJhY2UuIjoiRXhwbG9yZSBkYSBmdW5kYcOnw6NvIHTDqWNuaWNhIGFvIGx1Z2FyIG9uZGUgY2FkYSBkZWNpc8OjbyBkZWl4YSByYXN0cm8uIiwiU3dpdGNoIGxhbmd1YWdlIHRvIEVuZ2xpc2giOiJNdWRhciBpZGlvbWEgcGFyYSBpbmdsw6pzIiwiU3dpdGNoIGxhbmd1YWdlIHRvIEJyYXppbGlhbiBQb3J0dWd1ZXNlIjoiTXVkYXIgaWRpb21hIHBhcmEgcG9ydHVndcOqcyBicmFzaWxlaXJvIn0='),char=>char.charCodeAt(0)))));
+Object.assign(PT_TEXT,JSON.parse(new TextDecoder().decode(Uint8Array.from(atob('eyJBZ2VudHMiOiAiQWdlbnRlcyIsICJNZXRob2RvbG9neSI6ICJNZXRvZG9sb2dpYSIsICJXaGF0IG1ha2VzIGEgcmVwb3NpdG9yeSBvcGVyYWJsZSBieSBhZ2VudHM/IjogIk8gcXVlIHRvcm5hIHVtIHJlcG9zaXTDs3JpbyBvcGVyw6F2ZWwgcG9yIGFnZW50ZXM/IiwgIldobyBleGVjdXRlcywgd2l0aCB3aGF0IGF1dGhvcml0eSBhbmQgbGltaXRzPyI6ICJRdWVtIGV4ZWN1dGEsIGNvbSBxdWFsIGF1dG9yaWRhZGUgZSBsaW1pdGVzPyIsICJIb3cgaXMgYSByZWN1cnJpbmcgdGFzayBleGVjdXRlZCBjb3JyZWN0bHk/IjogIkNvbW8gdW1hIHRhcmVmYSByZWNvcnJlbnRlIMOpIGV4ZWN1dGFkYSBjb3JyZXRhbWVudGU/IiwgIkluIHdoYXQgb3JkZXIgZG8gYWdlbnRzIGNvbGxhYm9yYXRlLCBhbmQgd2hlbiBkbyB0aGV5IHN0b3A/IjogIkVtIHF1ZSBvcmRlbSBvcyBhZ2VudGVzIGNvbGFib3JhbSBlIHF1YW5kbyBwYXJhbT8iLCAiSG93IGRvIHBlb3BsZSBvcGVyYXRlIHRoZSBzeXN0ZW0gZGF5IHRvIGRheT8iOiAiQ29tbyBhcyBwZXNzb2FzIG9wZXJhbSBvIHNpc3RlbWEgbm8gZGlhIGEgZGlhPyIsICJXaGVyZSBkbyB3b3JrIGFuZCBhcnRpZmFjdHMgbGl2ZT8iOiAiT25kZSB2aXZlbSBvIHRyYWJhbGhvIGUgb3MgYXJ0ZWZhdG9zPyIsICJDb250ZXh0LCB0b29scywgcnVsZXMsIGFuZCB2ZXJpZmljYXRpb24gdHVybiB0YWNpdCBrbm93bGVkZ2UgaW50byBhIHJlbGlhYmxlIG9wZXJhdGluZyBmb3VuZGF0aW9uLiI6ICJDb250ZXh0bywgZmVycmFtZW50YXMsIHJlZ3JhcyBlIHZlcmlmaWNhw6fDo28gdHJhbnNmb3JtYW0gY29uaGVjaW1lbnRvIHTDoWNpdG8gZW0gdW1hIGZ1bmRhw6fDo28gb3BlcmFjaW9uYWwgY29uZmnDoXZlbC4iLCAiU3BlY2lhbGl6ZWQgcm9sZXMgd2l0aCBhIG1pc3Npb24sIGNvbnRleHQsIHBlcm1pc3Npb25zLCB2ZXJpZmljYXRpb24sIGFuZCBhbiBleHBsaWNpdCBvdXRwdXQgY29udHJhY3QuIjogIlBhcMOpaXMgZXNwZWNpYWxpemFkb3MgY29tIG1pc3PDo28sIGNvbnRleHRvLCBwZXJtaXNzw7VlcywgdmVyaWZpY2HDp8OjbyBlIHVtIGNvbnRyYXRvIGRlIHNhw61kYSBleHBsw61jaXRvLiIsICJWZXJpZmlhYmxlIHByb2NlZHVyZXMgcmVkdWNlIGltcHJvdmlzYXRpb24gYW5kIGtlZXAgYXJ0aWZhY3RzLCBldmlkZW5jZSwgYW5kIGNyaXRlcmlhIGNvbnNpc3RlbnQuIjogIlByb2NlZGltZW50b3MgdmVyaWZpY8OhdmVpcyByZWR1emVtIGEgaW1wcm92aXNhw6fDo28gZSBtYW50w6ptIGFydGVmYXRvcywgZXZpZMOqbmNpYXMgZSBjcml0w6lyaW9zIGNvbnNpc3RlbnRlcy4iLCAiQ29sbGFib3JhdGlvbiBjb250cmFjdHMgb3JnYW5pemUgYXR0ZW1wdHMsIGNyaXRpcXVlLCBjb252ZXJnZW5jZSwgaGFuZG9mZnMsIGFuZCBnYXRlcyBhY3Jvc3MgdGhlIGpvdXJuZXkuIjogIkNvbnRyYXRvcyBkZSBjb2xhYm9yYcOnw6NvIG9yZ2FuaXphbSB0ZW50YXRpdmFzLCBjcsOtdGljYSwgY29udmVyZ8OqbmNpYSwgZW50cmVnYXMgZSBnYXRlcyBhbyBsb25nbyBkYSBqb3JuYWRhLiIsICJIdW1hbiByb2xlcywgY2hlY2twb2ludHMsIHRyaWdnZXJzLCBhbmQgY2FkZW5jZXMga2VlcCBpbnRlbnQsIHJpc2ssIGFuZCBhcHByb3ZhbCB1bmRlciBjb250cm9sLiI6ICJQYXDDqWlzIGh1bWFub3MsIGNoZWNrcG9pbnRzLCBnYXRpbGhvcyBlIGNhZMOqbmNpYXMgbWFudMOqbSBpbnRlbsOnw6NvLCByaXNjbyBlIGFwcm92YcOnw6NvIHNvYiBjb250cm9sZS4iLCAiVGhlIG9wZXJhdGluZyBzcGFjZSBwcmVzZXJ2ZXMgb3duZXJzaGlwLCBzdGF0ZSwgZGVjaXNpb25zLCByZXN1bXB0aW9uIG1lbW9yeSwgYW5kIGV2aWRlbmNlIGZvciBldmVyeSBleGVjdXRpb24uIjogIk8gZXNwYcOnbyBvcGVyYWNpb25hbCBwcmVzZXJ2YSBwcm9wcmllZGFkZSwgZXN0YWRvLCBkZWNpc8O1ZXMsIG1lbcOzcmlhIGRlIHJldG9tYWRhIGUgZXZpZMOqbmNpYXMgZGUgY2FkYSBleGVjdcOnw6NvLiIsICJTdGFydCBoZXJlIjogIkNvbWXDp2FyIGFxdWkiLCAiRnVuZGFtZW50YWxzIjogIkZ1bmRhbWVudG9zIiwgIlJlcG9zaXRvcnkgY29udHJvbHMiOiAiQ29udHJvbGVzIGRvIHJlcG9zaXTDs3JpbyIsICJJbmRpdmlkdWFsIGNvbnRyYWN0cyI6ICJDb250cmF0b3MgaW5kaXZpZHVhaXMiLCAiRXhlY3V0YWJsZSBhcnRpZmFjdHMiOiAiQXJ0ZWZhdG9zIGV4ZWN1dMOhdmVpcyIsICJFeGVjdXRhYmxlIHByb21wdHMiOiAiUHJvbXB0cyBleGVjdXTDoXZlaXMiLCAiRXhlY3V0YWJsZSBwcm9jZWR1cmVzIjogIlByb2NlZGltZW50b3MgZXhlY3V0w6F2ZWlzIiwgIlNoYXJlZCBjb250cmFjdHMiOiAiQ29udHJhdG9zIGNvbXBhcnRpbGhhZG9zIiwgIlN1cHBvcnRpbmcgbWF0ZXJpYWxzIjogIk1hdGVyaWFpcyBkZSBhcG9pbyIsICJKb3VybmV5IGNvbnRyYWN0cyI6ICJDb250cmF0b3MgZGUgam9ybmFkYSIsICJFeGVjdXRhYmxlIHdvcmtmbG93cyI6ICJXb3JrZmxvd3MgZXhlY3V0w6F2ZWlzIiwgIkh1bWFuIG9wZXJhdGlvbiI6ICJPcGVyYcOnw6NvIGh1bWFuYSIsICJPcGVyYXRpbmcgc3RydWN0dXJlIjogIkVzdHJ1dHVyYSBvcGVyYWNpb25hbCIsICJSZWZlcmVuY2UgaW1wbGVtZW50YXRpb25zIjogIkltcGxlbWVudGHDp8O1ZXMgZGUgcmVmZXLDqm5jaWEiLCAiVGVtcGxhdGVzIjogIk1vZGVsb3MiLCAiSW5mb2dyYXBoaWNzIGFuZCBkaWFncmFtcyI6ICJJbmZvZ3LDoWZpY29zIGUgZGlhZ3JhbWFzIiwgIkdpdEh1YiByZXBvc2l0b3J5IjogIlJlcG9zaXTDs3JpbyBHaXRIdWIifQ=='),char=>char.charCodeAt(0)))));
 const esc=value=>String(value??'').replace(/[&<>"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
 function localize(){
   const pairs=(language==='pt'?[...Object.entries(PT_TEXT)]:Object.entries(PT_TEXT).map(([en,pt])=>[pt,en])).sort((a,b)=>b[0].length-a[0].length);
@@ -453,7 +478,8 @@ function localize(){
   const heroLede=document.querySelector('.hero-lede');
   if(heroLede){const englishLede='Agent Team turns intent, context, and verification into an operable development cycle. Explore from the technical foundation to the place where every decision leaves a trace.';heroLede.textContent=language==='pt'?PT_TEXT[englishLede]:englishLede}
   document.documentElement.lang=language==='pt'?'pt-BR':'en';
-  languageToggle.textContent=language==='pt'?'EN':'PT-BR';
+  languageToggle.querySelector('.lang-flag').textContent=language==='pt'?'🇺🇸':'🇧🇷';
+  languageToggle.querySelector('.lang-code').textContent=language==='pt'?'EN':'PT-BR';
   languageToggle.setAttribute('aria-label',replace(language==='pt'?'Switch language to English':'Switch language to Brazilian Portuguese'));
 }
 const routeFor=page=>page.section==='overview'?`#/documento/${page.id}`:`#/secao/${page.section}/${page.id}`;
