@@ -1,19 +1,19 @@
 # Agent-Team — Documentation
 
-> The pillars of an agentic team, from lowest to highest, like a pyramid: **harness → agents → skills → loops → methodology → workspace**. Each layer answers a different question and builds on the previous one; skipping a layer is what produces documentation that no one can execute.
+> The pillars of an agentic team, from lowest to highest, like a pyramid: **harness → skills → agents → loops → methodology → workspace**. Each layer answers a different question and builds on the previous one; skipping a layer is what produces documentation that no one can execute.
 
 ## The pyramid
 
 | # | Layer | Reply | Where do you live |
 |---|---|---|---|
 | 1 | **Harness** | what the repository needs to load to be operable by agents | [`REPO_HARNESS.md`](REPO_HARNESS.md) and neighbors |
-| 2 | **Agents** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
-| 3 | **Skills** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| 2 | **Skills** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| 3 | **Agents** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | 4 | **Loops** | *in what order* do agents collaborate and when to stop | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
 | 5 | **Methodology** | *who operates*, what triggers what and what demands people | [`METODOLOGIA.md`](METODOLOGIA.md), [`metodologia/`](metodologia/README.md) |
 | 6 | **Workspace** | *where* every artifact of an execution lives, outside the code | [`WORKSPACE.md`](WORKSPACE.md), [`workspace/`](workspace/README.md) |
 
-The base supports the top, not the other way around: an agent (2) is only trustworthy if the harness (1) exists; a skill (3) is only applied by an agent who already has a contract; a loop (4) only coordinates agents and skills that already exist; methodology (5) does not introduce a new concept, it only explains how a person operates the four layers below; and the workspace (6) is the physical place where all this leaves a trace outside the code.
+The base supports the top, not the other way around: a skill (2) is only verifiable if the harness (1) exists; an agent (3) is only trustworthy when it executes the skills that already exist over that harness; a loop (4) only coordinates agents and skills that already exist; methodology (5) does not introduce a new concept, it only explains how a person operates the four layers below; and the workspace (6) is the physical place where all this leaves a trace outside the code.
 
 ---
 
@@ -32,13 +32,13 @@ The **repo harness** converts the tacit knowledge of the repository into version
 | **Documentation** | `AGENTS.md`, ADRs at `docs/adr/` and the evidence pack at `docs/evidence/` | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
 | **MCPs** | Model Context Protocol servers, authorized scopes and the difference for a local tool | [`MCPS.md`](MCPS.md) |
 
-## 2. Agents
-
-An agent is a process with a delimited mission, versioned context, declared tools, objective verification and a standardized output envelope. The concept — anatomy, what it consumes, when it scales — is in [`AGENTES.md`](AGENTES.md); the 23 individual contracts, grouped by phase (entry and coordination, product/UX/discovery, technical specification, construction and validation, integration/approval/operation, knowledge and improvement), are in [`agentes/`](agentes/README.md).
-
-## 3. Skills
+## 2. Skills
 
 A skill is the verifiable procedure for a recurring task that requires judgment — which distinguishes it from a script, which covers the deterministic. Before acting, an agent checks the available skills and uses all that apply to the mission. The catalog — workspace base skills, skills by stage of the journey and the limits of autonomy that no skill extends — is in [`SKILLS.md`](SKILLS.md); the executable procedures, one `SKILL.md` per skill, are in [`skills/`](../skills/README.md).
+
+## 3. Agents
+
+An agent is a process with a delimited mission, versioned context, declared tools, objective verification and a standardized output envelope. The concept — anatomy, what it consumes, when it scales — is in [`AGENTES.md`](AGENTES.md); the 23 individual contracts, grouped by phase (entry and coordination, product/UX/discovery, technical specification, construction and validation, integration/approval/operation, knowledge and improvement), are in [`agentes/`](agentes/README.md).
 
 ## 4. Loops
 

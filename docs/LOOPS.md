@@ -14,8 +14,8 @@ Three layers of the harness answer different questions, and confusing them produ
 
 | Layer | Reply | Where do you live |
 |---|---|---|
-| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md), `skills/<skill>/SKILL.md` |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Loop** | *in what order*, what crosses the border and when to stop | this page, [`loops/`](loops/README.md) |
 
 A loop does not redefine any agent's contract, does not expand anyone's autonomy and does not create its own gates. He composes pieces that already exist. When a loop needs permission that the agent doesn't have, the problem is with the agent's contract — not the loop.

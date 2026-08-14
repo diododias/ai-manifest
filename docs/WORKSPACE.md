@@ -17,8 +17,8 @@ The question that most confuses those who come to this section is where the [rep
 | Layer | Reply | Where do you live |
 |---|---|---|
 | **Repository Harness** | what the repository needs to load to be operable | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
-| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md) |
 | **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md) |
 | **Loop** | *in what order*, what crosses the border and when to stop | [`LOOPS.md`](LOOPS.md) |
 | **Methodology** | *who operates*, what triggers what and what demands people | [`METODOLOGIA.md`](METODOLOGIA.md) |
 | **Workspace** | *where* every artifact of an execution lives, outside the code | this section |

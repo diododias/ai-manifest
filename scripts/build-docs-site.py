@@ -41,18 +41,18 @@ SECTIONS = [
         "summary": "Context, tools, rules, and verification turn tacit knowledge into a reliable operating foundation.",
     },
     {
-        "id": "agentes",
-        "number": "02",
-        "title": "Agents",
-        "question": "Who executes, with what authority and limits?",
-        "summary": "Specialized roles with a mission, context, permissions, verification, and an explicit output contract.",
-    },
-    {
         "id": "skills",
-        "number": "03",
+        "number": "02",
         "title": "Skills",
         "question": "How is a recurring task executed correctly?",
         "summary": "Verifiable procedures reduce improvisation and keep artifacts, evidence, and criteria consistent.",
+    },
+    {
+        "id": "agentes",
+        "number": "03",
+        "title": "Agents",
+        "question": "Who executes, with what authority and limits?",
+        "summary": "Specialized roles with a mission, context, permissions, verification, and an explicit output contract.",
     },
     {
         "id": "loops",
@@ -135,14 +135,14 @@ PAGES = [
     page("docs/GATES.md", "harness", "Repository controls", "Gates"),
     page("docs/DOCUMENTATION.md", "harness", "Repository controls", "Documentation"),
     page("docs/MCPS.md", "harness", "Repository controls", "MCPs"),
+    page("docs/SKILLS.md", "skills", "Fundamentals", "How skills work"),
+    page("skills/README.md", "skills", "Fundamentals", "Skills catalog"),
+    page("skills/references/workflow-contract.md", "skills", "Shared contracts", "Artifact contract"),
     page("docs/AGENTES.md", "agentes", "Fundamentals", "How agents work"),
     page("docs/agentes/README.md", "agentes", "Fundamentals", "Contract catalog"),
     page("agents/README.md", "agentes", "Executable artifacts", "Operational prompts"),
     page("agents/catalog.md", "agentes", "Executable artifacts", "Materialized catalog"),
     page("agents/meeting-context-agent.md", "agentes", "Supporting materials", "Meeting context agent"),
-    page("docs/SKILLS.md", "skills", "Fundamentals", "How skills work"),
-    page("skills/README.md", "skills", "Fundamentals", "Skills catalog"),
-    page("skills/references/workflow-contract.md", "skills", "Shared contracts", "Artifact contract"),
     page("docs/LOOPS.md", "loops", "Fundamentals", "How loops work"),
     page("docs/loops/README.md", "loops", "Fundamentals", "Loop catalog"),
     page("workflows/README.md", "loops", "Executable workflows", "Workflow map"),
@@ -152,12 +152,6 @@ PAGES = [
     page("docs/workspace/README.md", "workspace", "Fundamentals", "Workspace pages"),
     page("workspaces/README.md", "workspace", "Reference implementations", "Example workspaces"),
     page("templates/README.md", "workspace", "Templates", "Template catalog"),
-    page(
-        "workspaces/tech-lead/docs/diagrams/tech-lead-workspace.md",
-        "workspace",
-        "Infographics and diagrams",
-        "Anatomy of the Tech Lead workspace",
-    ),
 ]
 
 
@@ -169,17 +163,29 @@ def extend(pattern: str, section: str, group: str, excluded: set[str] | None = N
             PAGES.append(page(relative, section, group))
 
 
+extend("skills/*/SKILL.md", "skills", "Executable procedures")
 extend("docs/agentes/*.md", "agentes", "Individual contracts", {"docs/agentes/README.md"})
 extend("agents/*/AGENT.md", "agentes", "Executable prompts")
-extend("skills/*/SKILL.md", "skills", "Executable procedures")
 extend("docs/loops/[0-9][0-9]-*.md", "loops", "Journey contracts")
 extend("workflows/[0-9][0-9]-*.md", "loops", "Executable workflows")
 extend("docs/metodologia/[0-9][0-9]-*.md", "metodologia", "Human operation")
 extend("docs/workspace/[0-9][0-9]-*.md", "workspace", "Operating structure")
+def optional(path: str, section: str, group: str, title: str | None = None) -> None:
+    """Reference implementations evolve; only publish the pages that still exist."""
+    if (ROOT / path).is_file():
+        PAGES.append(page(path, section, group, title))
+
+
+optional(
+    "workspaces/tech-lead/kb-store/diagrams/tech-lead-workspace.md",
+    "workspace",
+    "Infographics and diagrams",
+    "Anatomy of the Tech Lead workspace",
+)
 for role in ("pm", "ux", "tech-lead"):
-    PAGES.append(page(f"workspaces/{role}/README.md", "workspace", "Reference implementations"))
-    PAGES.append(page(f"workspaces/{role}/WORKSPACE.md", "workspace", "Reference implementations"))
-    PAGES.append(page(f"templates/{role}/README.md", "workspace", "Templates"))
+    optional(f"workspaces/{role}/README.md", "workspace", "Reference implementations")
+    optional(f"workspaces/{role}/WORKSPACE.md", "workspace", "Reference implementations")
+    optional(f"templates/{role}/README.md", "workspace", "Templates")
 
 
 def extract_mermaid(text: str) -> tuple[str, list[str]]:
@@ -361,7 +367,7 @@ TEMPLATE = r'''<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0f12">
-<meta name="description" content="Interactive Agent Team documentation: harness, agents, skills, loops, methodology, and workspace.">
+<meta name="description" content="Interactive Agent Team documentation: harness, skills, agents, loops, methodology, and workspace.">
 <title>Agent Team — interactive documentation</title>
 <style>
 :root {
@@ -387,17 +393,18 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 .home{max-width:1440px;margin:auto;padding:clamp(34px,5vw,76px)}.hero{min-height:calc(100vh - 152px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);column-gap:clamp(36px,6vw,92px);row-gap:clamp(30px,4vw,54px);align-items:center}.hero-heading{grid-column:1/-1;max-width:1040px}.eyebrow{color:var(--cyan);font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:28px;height:1px;background:var(--cyan)}.hero h1{font-size:clamp(52px,7.2vw,104px);line-height:.92;letter-spacing:-.06em;margin:20px 0 0;max-width:980px}.hero h1 span{color:var(--cyan)}.hero-copy{align-self:start;padding-top:8px}.hero-lede{color:var(--muted);font-size:clamp(16px,1.4vw,20px);max-width:590px;margin-top:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}.button{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:650}.button.primary{background:var(--cyan);border-color:var(--cyan);color:#062127}.button:hover{transform:translateY(-1px);border-color:var(--cyan)}.button .arrow{font-family:var(--mono)}
 .layers-panel{position:relative;padding:28px 26px 24px;border:1px solid var(--line-soft);background:linear-gradient(160deg,rgba(32,40,46,.86),rgba(11,15,18,.52));border-radius:24px;box-shadow:0 34px 90px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.04);overflow:hidden}.layers-panel::after{content:"";position:absolute;width:320px;height:320px;border:1px solid rgba(34,211,238,.08);border-radius:50%;right:-150px;top:-150px;box-shadow:0 0 80px rgba(34,211,238,.04)}.layers-head{display:flex;justify-content:space-between;align-items:end;margin:0 4px 18px}.layers-head strong{font-size:14px}.layers-head span{color:var(--faint);font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase}.layers{display:grid;gap:8px;position:relative;z-index:1}.layer{width:100%;min-height:66px;padding:12px 18px;display:grid;grid-template-columns:34px minmax(118px,.42fr) minmax(0,1fr);align-items:center;gap:12px;text-decoration:none;background:linear-gradient(90deg,rgba(34,211,238,.04),rgba(34,211,238,.12),rgba(34,211,238,.04));border:1px solid rgba(34,211,238,.18);border-radius:10px;transition:transform .22s ease,filter .22s ease,background .22s ease}.layer:hover,.layer:focus-visible{background:linear-gradient(90deg,rgba(34,211,238,.13),rgba(34,211,238,.28),rgba(34,211,238,.13));filter:drop-shadow(0 0 14px rgba(34,211,238,.2));transform:translateX(5px);outline:0}.layer-number{font:10px var(--mono);color:var(--cyan)}.layer-title{font-weight:750;letter-spacing:.02em}.layer-question{color:var(--muted);font-size:11px;line-height:1.45}.layers-base{display:flex;justify-content:space-between;color:var(--faint);font:9px var(--mono);text-transform:uppercase;letter-spacing:.13em;margin:14px 5px 0}
 .section-view{max-width:1260px;margin:auto;padding:clamp(70px,8vw,110px) clamp(26px,6vw,82px)}.breadcrumbs{display:flex;align-items:center;gap:8px;color:var(--faint);font:11px var(--mono);margin-bottom:32px}.breadcrumbs a{text-decoration:none}.breadcrumbs a:hover{color:var(--cyan)}.section-hero{padding-bottom:44px;border-bottom:1px solid var(--line-soft)}.section-index{font:11px var(--mono);color:var(--cyan);letter-spacing:.14em;text-transform:uppercase}.section-hero h1{font-size:clamp(54px,8vw,102px);line-height:.9;letter-spacing:-.055em;margin:16px 0 23px}.section-question{font-size:clamp(18px,2vw,25px);margin:0 0 12px;max-width:770px}.section-summary{color:var(--muted);max-width:760px;margin:0}
-.layer-track{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:30px 0 62px}.track-item{height:6px;background:var(--elevated);border-radius:9px;position:relative}.track-item.active{background:var(--cyan);box-shadow:0 0 14px rgba(34,211,238,.34)}.track-item span{position:absolute;top:13px;left:0;color:var(--faint);font:8px var(--mono);text-transform:uppercase;white-space:nowrap}.track-item.active span{color:var(--cyan)}
+.layer-track{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:34px 0 78px}.track-item{height:7px;background:var(--elevated);border-radius:9px;position:relative;transition:background .22s ease,box-shadow .22s ease}.track-item.active{background:var(--cyan);box-shadow:0 0 16px rgba(34,211,238,.38)}.track-item span{position:absolute;top:16px;left:0;color:var(--muted);font:600 13px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;transition:color .22s ease}.track-item.active{background:var(--cyan)}.track-item.active span{color:var(--cyan);text-shadow:0 0 20px rgba(34,211,238,.45)}.track-item:hover,.track-item:focus-visible{background:rgba(34,211,238,.55);outline:0}.track-item:hover span,.track-item:focus-visible span{color:var(--text)}
 .group-block{margin-top:50px}.group-head{margin-bottom:16px}.group-head h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin:0}.page-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.page-card{display:flex;flex-direction:column;min-height:194px;text-decoration:none;border:1px solid var(--line-soft);border-radius:14px;padding:21px;background:rgba(22,28,33,.66);transition:border .18s ease,transform .18s ease,background .18s ease}.page-card:hover,.page-card:focus-visible{border-color:rgba(34,211,238,.45);background:var(--charcoal);transform:translateY(-2px);outline:0}.card-action{align-self:flex-end;color:var(--faint);font:9px var(--mono);text-transform:uppercase;letter-spacing:.08em}.card-title{font-size:18px;line-height:1.25;margin:17px 0 10px}.card-excerpt{color:var(--muted);font-size:12px;line-height:1.55;margin:0}.card-path{color:var(--faint);font:9px var(--mono);margin-top:auto;padding-top:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .doc-page{max-width:1220px;margin:auto;padding:72px clamp(24px,6vw,76px) 120px}.doc-grid{display:grid;grid-template-columns:minmax(0,var(--reading)) 230px;gap:64px;align-items:start}.doc-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px}.badge{font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:4px 8px;color:var(--muted)}.badge.canonical{color:var(--success);border-color:rgba(94,230,179,.28)}.badge.proposed{color:var(--warning);border-color:rgba(242,198,109,.28)}.source-path{font:10px var(--mono);color:var(--faint);text-decoration:none}.source-path:hover{color:var(--cyan)}
-.article h1{font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.04em;margin:0 0 29px}.article h2{font-size:27px;line-height:1.2;letter-spacing:-.025em;margin:58px 0 18px;padding-top:24px;border-top:1px solid var(--line-soft)}.article h3{font-size:19px;margin:36px 0 13px}.article h4{font-size:15px;color:var(--muted);margin:28px 0 10px}.article p{margin:0 0 17px}.article a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(34,211,238,.26)}.article a:hover{border-color:var(--cyan)}.article blockquote{margin:0 0 28px;border-left:2px solid var(--cyan);padding:14px 18px;background:var(--cyan-soft);color:#bdd0d8}.article ul,.article ol{padding-left:22px;margin:0 0 21px}.article li{margin:6px 0}.article hr{border:0;border-top:1px solid var(--line-soft);margin:42px 0}.article code{font:13px var(--mono);background:var(--elevated);padding:2px 5px;border-radius:4px;color:#bdebf3}.article pre{background:#0c1114;border:1px solid var(--line-soft);border-radius:12px;padding:17px 19px;overflow:auto;margin:0 0 23px;line-height:1.55}.article pre code{background:none;padding:0;color:#c5d1d6}.article table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin:0 0 27px;font-size:13px}.article th,.article td{border:1px solid var(--line-soft);padding:10px 12px;text-align:left;vertical-align:top}.article th{background:var(--elevated);white-space:nowrap}.article tr:nth-child(even) td{background:rgba(32,40,46,.36)}.article img{max-width:100%}.article details{margin:16px 0}.article summary{cursor:pointer;color:var(--cyan)}
+.article{font-size:19px;line-height:1.7}
+.article h1{font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.04em;margin:0 0 29px}.article h2{font-size:27px;line-height:1.2;letter-spacing:-.025em;margin:58px 0 18px;padding-top:24px;border-top:1px solid var(--line-soft)}.article h3{font-size:23px;margin:36px 0 13px}.article h4{font-size:17px;color:var(--muted);margin:28px 0 10px}.article p{margin:0 0 17px}.article a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(34,211,238,.26)}.article a:hover{border-color:var(--cyan)}.article blockquote{margin:0 0 28px;border-left:2px solid var(--cyan);padding:14px 18px;background:var(--cyan-soft);color:#bdd0d8}.article ul,.article ol{padding-left:22px;margin:0 0 21px}.article li{margin:6px 0}.article hr{border:0;border-top:1px solid var(--line-soft);margin:42px 0}.article code{font:16px var(--mono);background:var(--elevated);padding:2px 5px;border-radius:4px;color:#bdebf3}.article pre{background:#0c1114;border:1px solid var(--line-soft);border-radius:12px;padding:17px 19px;overflow:auto;margin:0 0 23px;line-height:1.55}.article pre code{background:none;padding:0;color:#c5d1d6}.article table{display:block;width:100%;overflow:auto;border-collapse:collapse;margin:0 0 27px;font-size:15px}.article th,.article td{border:1px solid var(--line-soft);padding:10px 12px;text-align:left;vertical-align:top}.article th{background:var(--elevated);white-space:nowrap}.article tr:nth-child(even) td{background:rgba(32,40,46,.36)}.article img{max-width:100%}.article details{margin:16px 0}.article summary{cursor:pointer;color:var(--cyan)}
 .toc{position:sticky;top:36px;border-left:1px solid var(--line-soft);padding-left:20px;max-height:calc(100vh - 72px);overflow:auto}.toc-title{font:9px var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:13px}.toc a{display:block;color:var(--muted);text-decoration:none;font-size:11px;line-height:1.35;padding:6px 0}.toc a.level-3{padding-left:12px;color:var(--faint)}.toc a:hover{color:var(--cyan)}
 .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:70px;padding-top:24px;border-top:1px solid var(--line-soft)}.pager-link{border:1px solid var(--line-soft);border-radius:12px;padding:15px;text-decoration:none}.pager-link:last-child{text-align:right}.pager-link:hover{border-color:var(--cyan)}.pager-link span{display:block;color:var(--faint);font:9px var(--mono);text-transform:uppercase}.pager-link strong{display:block;margin-top:4px;font-size:13px}.pager-spacer{min-height:1px}
 .mermaid-wrap{margin:28px 0;border:1px solid var(--line-soft);border-radius:14px;background:var(--charcoal);padding:15px;overflow:auto}.mermaid-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.mermaid-head figcaption{font:9px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint)}.mermaid-tools{display:flex;gap:5px;align-items:center}.mermaid-tools button{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:5px 8px;font:11px var(--mono);cursor:pointer}.mermaid-tools button:hover{color:var(--cyan);border-color:var(--cyan)}.mermaid-tools span{font:9px var(--mono);color:var(--faint);min-width:54px;text-align:center}.mermaid{background:transparent!important;border:0!important;text-align:center;margin:0!important}.mermaid svg{max-width:100%;height:auto}.mermaid-fallback{font-size:11px;color:var(--faint);margin:10px 0 0!important}.mermaid-wrap.rendered .mermaid-fallback{display:none}.mermaid-src{font-size:11px;margin-top:10px!important}
 .search-view{max-width:1000px;margin:auto;padding:90px clamp(24px,6vw,70px)}.search-view h1{font-size:clamp(42px,6vw,74px);letter-spacing:-.05em;margin:10px 0}.search-intro{color:var(--muted);margin-bottom:40px}.result-list{display:grid;gap:10px}.result{display:grid;grid-template-columns:95px 1fr auto;gap:18px;align-items:start;text-decoration:none;padding:18px;border:1px solid var(--line-soft);border-radius:12px;background:rgba(22,28,33,.55)}.result:hover{border-color:var(--cyan)}.result-section{font:9px var(--mono);text-transform:uppercase;color:var(--cyan)}.result strong{display:block}.result p{margin:5px 0 0;color:var(--muted);font-size:12px}.result-path{font:9px var(--mono);color:var(--faint)}.empty-state{border:1px dashed var(--line);border-radius:14px;padding:36px;color:var(--muted)}
 .not-found{max-width:700px;margin:auto;padding:120px 30px}.not-found strong{font:100px/1 var(--mono);color:var(--cyan)}.not-found h1{font-size:42px}.not-found p{color:var(--muted)}
 .site-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;border-top:1px solid var(--line-soft);padding:22px clamp(24px,6vw,76px);color:var(--faint);font:10px var(--mono);letter-spacing:.04em}.footer-links{display:flex;gap:16px}.footer-links a{color:var(--muted);text-decoration:none}.footer-links a:hover{color:var(--cyan)}
-@media(max-width:1080px){.hero{grid-template-columns:1fr;min-height:auto}.hero-heading{grid-column:auto}.layers-panel{max-width:720px;width:100%;margin:auto}.doc-grid{grid-template-columns:minmax(0,1fr) 200px;gap:36px}}
+@media(max-width:1080px){.hero{grid-template-columns:1fr;min-height:auto}.hero-heading{grid-column:auto}.layers-panel{max-width:720px;width:100%;margin:auto}.doc-grid{grid-template-columns:minmax(0,1fr) 200px;gap:36px}.track-item span{font-size:11px;letter-spacing:.04em}}
 @media(max-width:900px){.app{display:block}.sidebar{position:fixed;left:0;transform:translateX(-105%);width:min(88vw,320px);transition:transform .2s ease}.sidebar.open{transform:none}.menu-toggle{display:block}.overlay{display:block;position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s}.overlay.open{opacity:1;pointer-events:auto}.home,.section-view,.doc-page,.search-view{padding-top:82px}.doc-grid{display:block}.toc{position:static;border-left:0;border-top:1px solid var(--line-soft);padding:24px 0 0;margin-top:45px;max-height:none}}
 @media(max-width:650px){.home{padding-left:18px;padding-right:18px}.hero h1{font-size:clamp(46px,14vw,62px)}.layers-panel{padding:22px 14px}.layers-head{align-items:start;gap:12px}.layers-head span{line-height:1.4;text-align:right}.layer{grid-template-columns:28px 1fr;gap:8px;min-height:58px;padding:10px 12px}.layer-question{grid-column:2;font-size:10px}.page-grid{grid-template-columns:1fr}.section-view{padding-left:18px;padding-right:18px}.section-hero h1{font-size:55px}.layer-track span{display:none}.doc-page{padding-left:18px;padding-right:18px}.pager{grid-template-columns:1fr}.pager-link:last-child{text-align:left}.result{grid-template-columns:1fr}.result-path{display:none}.site-footer{align-items:flex-start;flex-direction:column;padding-left:18px;padding-right:18px}.footer-links{gap:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.button:hover,.page-card:hover,.layer:hover{transform:none}}

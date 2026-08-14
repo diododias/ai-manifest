@@ -27,13 +27,13 @@ The method is organized into six layers, from the most concrete to the most abst
 | # | Layer | Question that answers | Main document |
 |---|---|---|---|
 | 1 | **Harness** | What does the application repository need to load to be operated by agents? | [`docs/REPO_HARNESS.md`](docs/REPO_HARNESS.md) |
-| 2 | **Agents** | *Who* performs each task, under what authority and with what limits? | [`docs/AGENTES.md`](docs/AGENTES.md) |
-| 3 | **Skills** | *How* should a recurring task be performed correctly? | [`docs/SKILLS.md`](docs/SKILLS.md) |
+| 2 | **Skills** | *How* should a recurring task be performed correctly? | [`docs/SKILLS.md`](docs/SKILLS.md) |
+| 3 | **Agents** | *Who* performs each task, under what authority and with what limits? | [`docs/AGENTES.md`](docs/AGENTES.md) |
 | 4 | **Loops** | *In what order* do agents collaborate, and when to stop? | [`docs/LOOPS.md`](docs/LOOPS.md) |
 | 5 | **Methodology** | *Who operates* the system on a day-to-day basis, and what does it require of a person? | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) |
 | 6 | **Workspace** | *Where* does each artifact of an execution live, outside of the code? | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) |
 
-A simple way to understand the relationship between the layers: **harness** is what makes a repository readable for an agent; **agents** are those who do the work within this repository; **skills** are the recipes that each agent follows so as not to reinvent the procedure for each task; **loops** define the order of a stage of the journey, from intake to deployment; the **methodology** explains what a person needs to decide along this path; and the **workspace** is the place, outside the code, where the decisions and artifacts of each execution are stored.
+A simple way to understand the relationship between the layers: **harness** is what makes a repository readable for an agent; **skills** are the recipes that keep a recurring procedure from being reinvented on each task; **agents** are those who do the work within this repository, following those recipes; **loops** define the order of a stage of the journey, from intake to deployment; the **methodology** explains what a person needs to decide along this path; and the **workspace** is the place, outside the code, where the decisions and artifacts of each execution are stored.
 
 ---
 
@@ -47,12 +47,12 @@ ai-manifest/
 │ ├── REPO_HARNESS.md # layer 1 — repository harness
 │ ├── TOOLS.md # tools that an agent can invoke
 │ ├── MCPS.md # MCP servers and authorized scopes
-│ ├── SKILLS.md # layer 3 — procedure catalog
+│ ├── SKILLS.md # layer 2 — procedure catalog
 │ ├── RULES.md # desired state of repository and AGENTS.md
 │ ├── SENSORS.md # local checks (pre-commit, pre-push)
 │ ├── GATES.md # check commit to deploy, maturity levels
 │ ├── DOCUMENTATION.md # ADRs and evidence pack
-│ ├── AGENTS.md # layer 2 — how an agent works
+│ ├── AGENTS.md # layer 3 — how an agent works
 │ ├── agents/ # the 23 individual agent contracts
 │ ├── LOOPS.md # layer 4 — how the steps of the journey coordinate
 │ ├── loops/ # the 12 stage contracts, from intake to daily operation
@@ -91,9 +91,9 @@ The complete documentation, with the detailed index for each layer and reading t
 
 These five concepts appear in almost all documents in the repository. It's worth fixing them before moving on to the complete material.
 
-**Agent.** A process with a delimited mission: receives an objective, reads the necessary context, acts within authorized tools, submits the result to objective verification and returns a standardized report. A nice name on a diagram is not an agent — it only becomes one when these five parts are defined.
-
 **Skill.** The verifiable procedure for a recurring task that requires judgment — for example, how to investigate a bug or how to write a technical specification. A skill is different from a script because it covers criteria, not just deterministic criteria.
+
+**Agent.** A process with a delimited mission: receives an objective, reads the necessary context, acts within authorized tools, submits the result to objective verification and returns a standardized report. A nice name on a diagram is not an agent — it only becomes one when these five parts are defined.
 
 **Loop.** The collaboration contract for a stage of the journey: who participates, in what order, what passes from one agent to the other and what needs to be true to move forward. The name "loop", rather than "workflow", is intentional — the work rotates (tries, is corrected, is challenged, converges) instead of moving in a straight line.
 

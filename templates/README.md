@@ -38,7 +38,7 @@ This catalog is a **copy** of the templates for each workspace. The source of ea
 | Paper | Original |
 |---|---|
 | PM | [`workspaces/pm/docs/templates/`](../workspaces/pm/docs/templates/README.md) |
-| Tech Lead | [`workspaces/tech-lead/docs/templates/`](../workspaces/tech-lead/docs/templates/README.md) |
+| Tech Lead | [`workspaces/tech-lead/kb-store/templates/`](../workspaces/tech-lead/kb-store/templates/README.md) |
 | UX | [`workspaces/ux/docs/templates/`](../workspaces/ux/docs/templates/README.md) |
 
 As there are two independent copies, a change in a template needs to be manually replicated on the other side (`templates/<papel>/` ↔ `workspaces/<papel>/docs/templates/`) to avoid divergence.

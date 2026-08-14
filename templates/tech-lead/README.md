@@ -8,4 +8,4 @@
 
 Copy the template to the project's source of truth and replace all fields with `<...>`.
 
-> Synchronized copy of [`workspaces/tech-lead/docs/templates/`](../../workspaces/tech-lead/docs/templates/README.md). See [sync note](../README.md#originals-and-sync).
+> Synchronized copy of [`workspaces/tech-lead/kb-store/templates/`](../../workspaces/tech-lead/kb-store/templates/README.md). See [sync note](../README.md#originals-and-sync).
