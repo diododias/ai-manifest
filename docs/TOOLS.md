@@ -79,7 +79,7 @@ Biome and Ruff are the current generation of these checks: single-binary, Rust-b
 
 ## Typecheck and static analysis
 
-Typecheck is the cheapest gate to catch broken contracts between modules. TypeScript (`tsc --noEmit`), mypy or Pyright, rustc and equivalents must be run before testing — a type error makes test results ambiguous.
+Typecheck is a sensor, not a gate: it runs locally, in seconds, and belongs in pre-commit alongside lint — the cheapest layer of the verification ladder ([Sensors](SENSORS.md)). It is the cheapest way to catch broken contracts between modules. TypeScript (`tsc --noEmit`), mypy or Pyright, rustc and equivalents must be run before testing — a type error makes test results ambiguous.
 
 Static analysis goes beyond type: it checks data flow, prohibited dependencies between modules (ArchUnit, dependency-cruiser) and patterns that lint does not capture. The result of a well-configured static analysis is that the agent knows, before opening a PR, whether the change violates an architectural boundary declared in the rules.
 

@@ -17,6 +17,8 @@ Versioned sensors eliminate the discrepancy between what the agent checks locall
 
 The pre-commit sensor runs with each commit and should complete in seconds. Its scope: deterministic and low-cost checks — formatting, linting, typecheck, affected unit tests and checking for accidental secrets.
 
+Lint and typecheck are sensors, not gates — they are deterministic, run in seconds and fail often, which is exactly the profile of the local layer. Treating them as CI gates delays by minutes a signal the agent could have had before the commit.
+
 A failure should indicate exactly what is wrong and how to fix it. A sensor that just says "failed" forces the agent to try again without information — each attempt wastes a cycle.
 
 ## Pre-push
