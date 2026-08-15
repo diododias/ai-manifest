@@ -95,7 +95,7 @@ An HL3 level repository — the full maturity target — has the following struc
 ├── scripts/
 │   ├── verify.sh                # single entry of local checks
 │   ├── evidence.sh              # collects and packages evidence
-│   └── harness-doctor.sh        # reports the maturity level actually reached
+│   └── harness-doctor.sh        # reports repository-control readiness
 │
 ├── .hooks/                      # versioned sensors (pre-commit, pre-push)
 └── .github/workflows/           # fast lane and deep lane
@@ -103,7 +103,7 @@ An HL3 level repository — the full maturity target — has the following struc
 
 The last path is the one to adapt: it is written as GitHub Actions because that is the common case, and it maps to `.gitlab-ci.yml` or the equivalent elsewhere. What matters is not the directory but that the two lanes are separate files and that neither is editable from inside the flow they gate.
 
-Repositories in HL1 or HL2 contain subsets of this tree. Maturity levels define which subset is sufficient for each level of autonomy — the item-by-item breakdown is in [Maturity](MATURITY.md).
+Repositories at different HL verification levels contain subsets of this tree. [Gates](GATES.md#progressive-autonomy-and-the-harness-ceiling) defines the autonomy ceiling supported by those controls; [Maturity](MATURITY.md) assesses the broader squad operating model.
 
 ## What each file carries
 

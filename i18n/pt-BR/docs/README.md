@@ -17,6 +17,17 @@ A base sustenta o topo, não o contrário: uma skill (2) só é verificável se 
 
 ---
 
+## Overview transversal
+
+Duas páginas descrevem a saúde e a evolução de todo o sistema de desenvolvimento de software. Elas ficam no Overview principal porque atravessam todas as camadas da pirâmide, em vez de pertencerem ao harness do repositório.
+
+| Página | Responde |
+|---|---|
+| [**Maturidade**](MATURITY.md) | como uma squad evolui do uso oportunista de IA para um modelo operacional adaptativo e governado entre produto, fluxo, engenharia, conhecimento, plataforma e colaboração humano-IA |
+| [**Métricas**](METRICS.md) | como medir valor de produto, implantações, implantações com falha, fluxo, qualidade, confiabilidade, colaboração com IA, economia e saúde da squad sem premiar volume |
+
+---
+
 ## 1. Harness do repositório da aplicação
 
 O **repo harness** converte o conhecimento tácito do repositório em arquivos versionados que o agente lê sozinho e em verificações que rodam sem pedir licença. A visão geral, as cinco camadas cumulativas (Contexto, Procedimento, Verificação, Permissão, Evidência) e as quatro propriedades de que elas precisam quando o harness é operado (Confiança, Resiliência, Coordenação, Economia) estão em [`REPO_HARNESS.md`](REPO_HARNESS.md).
@@ -33,7 +44,7 @@ O **repo harness** converte o conhecimento tácito do repositório em arquivos v
 | **Documentation** | `AGENTS.md`, ADRs, o evidence pack e a identidade que produziu cada artefato | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
 | **MCPs** | servidores Model Context Protocol, escopos autorizados e a diferença para uma tool local | [`MCPS.md`](MCPS.md) |
 
-Outras sete páginas cobrem aquilo de que as cinco camadas precisam quando o harness é operado, em vez de apenas construído — vários agentes ao mesmo tempo, entrada hostil, verificações que param de rodar e um histórico de versões dos próprios controles.
+Outras cinco páginas cobrem aquilo de que as cinco camadas precisam quando o harness é operado, em vez de apenas construído — vários agentes ao mesmo tempo, entrada hostil, verificações que param de rodar e um histórico de versões dos próprios controles.
 
 | Seção | Responde | Arquivo |
 |---|---|---|
@@ -42,8 +53,6 @@ Outras sete páginas cobrem aquilo de que as cinco camadas precisam quando o har
 | **Concorrência** | vários agentes em voo, frescor de evidência e ordem de integração | [`CONCURRENCY.md`](CONCURRENCY.md) |
 | **Orçamento** | custo, turnos, tempo de relógio e contexto — e o que degrada quando acabam | [`BUDGET.md`](BUDGET.md) |
 | **Versionamento** | o harness tem uma versão, e mudá-la invalida aprovações concedidas antes | [`VERSIONING.md`](VERSIONING.md) |
-| **Métricas** | taxa de escape dos gates e o painel que sobe ou baixa o nível de autonomia | [`METRICS.md`](METRICS.md) |
-| **Maturidade** | o checklist item a item por nível e o script que calcula onde um repositório está | [`MATURITY.md`](MATURITY.md) |
 
 ## 2. Skills
 
@@ -78,7 +87,7 @@ Toda página deste índice é publicada em inglês e português brasileiro a par
 | Você quer… | Leia |
 |---|---|
 | Preparar um repositório para ser operado por agentes | [Harness](REPO_HARNESS.md) → [Permissões](PERMISSIONS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
-| Descobrir em qual nível de maturidade um repositório realmente está | [Maturidade](MATURITY.md) → [Gates](GATES.md) → [Métricas](METRICS.md) |
+| Avaliar o perfil de maturidade da squad e decidir o que melhorar em seguida | [Maturidade](MATURITY.md) → [Métricas](METRICS.md) |
 | Operar agentes em produção, em volume | [Confiança](TRUST.md) → [Falha](FAILURE.md) → [Concorrência](CONCURRENCY.md) → [Orçamento](BUDGET.md) → [Versionamento](VERSIONING.md) |
 | Entender o catálogo de agentes | [Agentes](AGENTES.md) → [contratos individuais](agentes/README.md) |
 | Ver a jornada de ponta a ponta | [Loops](LOOPS.md) → [as 12 etapas](loops/README.md) |

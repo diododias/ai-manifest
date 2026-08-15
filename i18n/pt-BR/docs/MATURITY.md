@@ -1,104 +1,138 @@
 # Maturidade
 
-[Gates](GATES.md#autonomia-progressiva-e-o-teto-do-harness) estabelece a escada e a regra que a governa: o nível do harness é o teto da autonomia, nunca sua consequência. Esta página torna a escada operável — o que cada nível exige item a item e como um repositório descobre em qual nível realmente está, em vez daquele em que acredita estar.
+Maturidade no desenvolvimento de software assistido por IA é a capacidade de uma squad transformar um problema real em um resultado de produto mensurável **de forma repetível, segura e sustentável**. Ela não é o número de ferramentas de IA em uso, a porcentagem de código gerado por um modelo nem o quanto a participação humana foi reduzida. Gerar código mais rápido sem clareza de produto, disciplina de engenharia e feedback rápido apenas produz mais trabalho em andamento e antecipa defeitos.
 
-Os níveis de autonomia concedidos pela escada, de A0 a A4, são definidos em [Checkpoints humanos](metodologia/02-checkpoints-humanos.md).
+Esta página oferece um modelo completo para avaliar uma squad, escolher a próxima melhoria e decidir quanta autonomia o sistema atual consegue sustentar. Ele se aplica a um produto ou fluxo de valor — o caminho ponta a ponta de uma necessidade até um outcome observado em produção — independentemente de linguagem, plataforma, framework de processo ou provedor de IA.
 
-## O nível é calculado, não declarado
+## Como ler o modelo
 
-Um nível de maturidade é uma afirmação, e cada item abaixo foi escrito para que um script possa verificá-lo. Essa é toda a restrição de design desta página: um checklist que exige julgamento recebe uma resposta otimista de quem é consultado, e o nível declarado de um repositório, de outro modo, apenas registra a última vez em que alguém pensou sobre ele.
+A unidade de avaliação é a **squad que opera um produto ou fluxo de valor**, não uma pessoa, um modelo ou um repositório isolado. Maturidade é um perfil entre dimensões, não uma nota única para exibição.
 
-Duas regras decorrem de tornar o processo mecânico:
+Quatro regras mantêm a avaliação honesta:
 
-**O nível é o mínimo, não a média.** Um repositório que atende a todos os itens do HL2, exceto proteção de branch, está no HL1. Não há crédito parcial, porque o item ausente é exatamente aquele que um incidente encontrará.
+1. **Os níveis são cumulativos.** Uma squad só sustenta um nível quando as práticas dos níveis anteriores continuam funcionando.
+2. **Comportamento observado vale mais que processo declarado.** Use evidências de uma janela recente e representativa, não um checklist de ferramentas compradas ou documentos criados.
+3. **Não esconda uma fraqueza crítica na média.** Uma plataforma forte não compensa um processo de release inseguro; automação excelente não compensa um resultado de usuário desconhecido.
+4. **Autonomia acompanha risco e evidência.** Uma squad madura pode automatizar uma mudança reversível e bem observada e ainda exigir julgamento humano para uma decisão irreversível ou ambígua.
 
-**Um modo degradado declarado reduz o nível enquanto durar** ([Falha](FAILURE.md#declarando-um-modo-degradado)). Um gate em quarentena é um gate ausente enquanto a quarentena permanecer.
+Uma janela de quatro a doze semanas costuma bastar para a primeira baseline. Use um período maior quando releases ou incidentes forem pouco frequentes.
 
-## HL1 — legível
+## As seis dimensões
 
-O agente consegue entender o repositório e verificar o próprio trabalho localmente.
-
-| Item | Verificável por |
-|---|---|
-| `AGENTS.md` na raiz, com todos os seis blocos presentes | o arquivo existe; o cabeçalho de cada bloco é encontrado; o bloco de escalação não está vazio |
-| `docs/rules/` com pelo menos `architecture.md` e `testing.md` | os arquivos existem e não estão vazios |
-| `testing.md` mapeia o tipo de mudança para os níveis obrigatórios | a tabela de mapeamento está presente ([Rules](RULES.md#a-estratégia-de-testes-como-rule)) |
-| `scripts/verify.sh` existe e aceita `--staged`, `--affected`, `--full` | invocar cada opção com `--help` ou em uma execução simulada |
-| `verify.sh` falha diante de uma entrada reconhecidamente ruim | executá-lo contra a fixture canário |
-| `verify.sh` verifica se as próprias tools estão instaladas | remover uma tool do `PATH`; esperar falha, não um salto |
-| `.hooks/` com um sensor de pre-commit, mais o bootstrap que define `core.hooksPath` | `git config core.hooksPath` retorna `.hooks` depois do bootstrap |
-| Secret scanning roda no pre-commit | a fixture com credencial falsa é rejeitada |
-| `.agent/settings.json` com `allowed` / `ask` / `denied` e um orçamento | o arquivo é interpretado; `allowed` não está vazio; não há curingas sobre famílias de comando |
-
-## HL2 — verificável
-
-Um ambiente limpo reproduz a verificação, e o resultado de uma mudança pode ser auditado por alguém que não a produziu.
-
-| Item | Verificável por |
-|---|---|
-| Fast lane e deep lane de CI como configurações separadas | os dois arquivos existem; nenhum pode ser editado pelo fluxo que controla |
-| Filtros de caminho da fast lane têm um teste | o teste dos filtros existe e roda ([Falha](FAILURE.md#verificando-o-verificador)) |
-| Proteção de branch: sem push direto na branch padrão, com status checks obrigatórios | consultar a API da plataforma, não a documentação |
-| `CODEOWNERS` cobrindo `.agent/`, `.hooks/`, configuração de CI e `docs/rules/` | cada caminho corresponde a um responsável que ainda existe |
-| Evidence pack gerado por `scripts/evidence.sh` | executá-lo; o diretório contém `summary.md`, `verify-output.txt`, `gate-status.json` |
-| `gate-status.json` distingue `passed`, `failed`, `skipped` | os três estados podem ser produzidos |
-| `.agent/mcps.json` existe, ou o repositório declara que nenhum MCP está autorizado | o arquivo existe, ou a declaração explícita de escopo zero existe |
-| `.agent/trust.md` declara quais caminhos são instrução | o arquivo existe; a lista de caminhos de instrução é exaustiva |
-| `HARNESS_VERSION` e `.agent/CHANGELOG.md` | ambos existem; a versão pode ser interpretada ([Versionamento](VERSIONING.md)) |
-| Um canário reconhecidamente ruim para os gates de arquitetura e de segredos | ambos os canários rodam de forma agendada e estão passando no momento |
-
-## HL3 — operável por um time
-
-Vários agentes operam o repositório ao mesmo tempo, e os controles se mantêm sem uma pessoa em cada loop.
-
-| Item | Verificável por |
-|---|---|
-| Uma identidade distinta para cada papel de agente que escreve | as identidades existem e são diferentes; os commits são assinados |
-| O gate de merge rejeita aprovação por um autor da mesma mudança | tentar em uma mudança de teste; esperar rejeição |
-| `attestation.json` produzido e validado no merge | o gate de merge falha diante de uma atestação ausente ou divergente |
-| Skills do repositório em `skills/<skill>/SKILL.md` | os procedimentos recorrentes deste repositório estão cobertos |
-| O agente não possui credencial de produção | o inventário de credenciais mostra segredos de deploy apenas na identidade do pipeline |
-| Baseline pós-deploy e critério de rollback automático | o critério está declarado e já foi exercitado pelo menos uma vez |
-| Frescor da evidência verificado antes da integração | um pack obsoleto é rejeitado pela fila de merge ([Concorrência](CONCURRENCY.md)) |
-| Um orçamento por Work Item, não apenas por invocação | excedê-lo escala em vez de truncar |
-| Taxa de escape registrada por gate | o campo existe e foi preenchido por achados reais ([Métricas](METRICS.md)) |
-
-## `harness-doctor`
-
-Cada linha acima é uma verificação, e o conjunto de verificações é um script. `scripts/harness-doctor.sh` as executa e informa o nível que o repositório realmente alcançou:
-
-```
-$ scripts/harness-doctor.sh
-
-HL1  legível             9/9   ✓
-HL2  verificável         8/10  ✗
-     ✗ proteção de branch: a branch padrão aceita push direto
-     ✗ canário: não há fixture reconhecidamente ruim para o gate de arquitetura
-HL3  operável por time   2/9   ✗
-
-Nível: HL1        Autonomia sustentada: A0–A1
-Operando atualmente em: A2   ← teto excedido
-```
-
-A última linha é o resultado que importa. Comparar o nível calculado com a autonomia efetivamente concedida transforma a regra central da escada, de princípio em alarme — e é a verificação que nenhum repositório realiza sobre si mesmo por acidente.
-
-Executá-lo na deep lane e de forma agendada. Em geral, um repositório não desce a escada por decisão; ele cai quando um grupo no `CODEOWNERS` é excluído, um filtro de caminho deixa de corresponder ou uma tool sai da imagem.
-
-## Chegando ao próximo nível
-
-A ordem não é uma preferência. Cada camada remove uma classe de falha que torna a seguinte mensurável, e construir fora de ordem produz controles nos quais não se pode confiar:
-
-| Construir | Antes de | Porque |
+| Dimensão | A pergunta que responde | Evidência de maturidade |
 |---|---|---|
-| `AGENTS.md` e as rules | qualquer automação | um agente sem contrato de entrada improvisa, e então a improvisação está sendo automatizada |
-| `verify.sh` e os sensores | CI | uma CI que não corresponde à verificação local produz falhas que ninguém consegue reproduzir |
-| Os canários | conceder autonomia quando tudo está verde | um gate que nunca rejeitou nada não demonstrou que funciona |
-| Evidência e atestação | vários agentes | com vários agentes em voo, "quem produziu isto e contra o quê" deixa de ser respondido de memória |
-| Identidade e proteção de branch | merge sem acompanhamento | a separação de responsabilidades ou é estrutural ou não existe |
-| Métricas | promover o nível | promoção baseada apenas em artefatos mede intenção, não capacidade |
+| **Produto e valor para o usuário** | Sabemos qual problema de quem está sendo resolvido e se o resultado ajudou? | outcomes explícitos, telemetria de produto, feedback de usuários, métricas de proteção e decisões ligadas a evidências |
+| **Fluxo e desenho do trabalho** | Uma ideia consegue avançar em lotes pequenos, visíveis e reversíveis? | trabalho em andamento limitado, estados explícitos, loops curtos de feedback, tamanho de lote administrável e bloqueios conhecidos |
+| **Qualidade de engenharia e confiabilidade** | A squad consegue mudar o sistema sem transferir risco aos usuários? | controle de versão, verificação automatizada, padrões seguros, operabilidade, objetivos de nível de serviço (SLOs), entrega progressiva e prática de recuperação |
+| **Conhecimento e dados** | Pessoas e IA conseguem recuperar contexto atual e autoritativo? | fontes canônicas, histórico de decisões, contratos localizáveis, dados saudáveis, proveniência e controles de frescor |
+| **Plataforma e automação** | O ambiente torna o caminho correto o caminho mais fácil? | workflows self-service, ambientes reproduzíveis, pipelines observáveis, capacidades reutilizáveis e feedback claro |
+| **Colaboração humano-IA e governança** | As tarefas são alocadas, revisadas e escaladas conforme o risco? | postura explícita sobre IA, ferramentas e dados autorizados, revisão independente, outputs rastreáveis, loops de aprendizado e owners responsáveis |
 
-**A primeira semana de um repositório vazio** são as duas primeiras linhas e nada mais: escrever `AGENTS.md` com um bloco de escalação honesto, escrever os dois arquivos de rule, tornar `verify.sh` real, instalar o sensor de pre-commit com secret scanning e adicionar a verificação de instalação das tools para que nada disso pare de rodar silenciosamente. Isso é HL1, sustenta A0–A1 e vale mais que um checklist HL3 preenchido por aspiração — porque no HL1 o teto e a prática estão de acordo, a única propriedade capaz de dar significado a qualquer nível.
+Avalie cada dimensão separadamente. Um resultado útil se parece com `Produto M2 · Fluxo M3 · Qualidade M2 · Conhecimento M1 · Plataforma M2 · Colaboração M1`. Esse perfil mostra o gargalo. Um rótulo único como “somos M3” o esconde.
+
+## A escada de maturidade
+
+| Nível | Modelo operacional | Papel da IA | Papel das pessoas | Evidência de que o nível é real |
+|---|---|---|---|---|
+| **M0 — Oportunista** | o trabalho depende de esforço individual e conhecimento implícito | assistência ocasional, sem governança | compensam manualmente a falta de processo e contexto | exemplos isolados, sem baseline comparável |
+| **M1 — Assistido** | o trabalho básico é visível e repetível | copiloto em tarefas delimitadas, sob revisão direta | especificam, executam e verificam toda decisão material | trabalho versionado, testes básicos, ownership explícito e baseline inicial de métricas |
+| **M2 — Padronizado** | a squad compartilha práticas, contexto e critérios de qualidade | executa etapas recorrentes por ferramentas e padrões aprovados | desenham o workflow, revisam exceções e melhoram padrões | lotes pequenos, definições compartilhadas, checks automatizados e dados de entrega comparáveis |
+| **M3 — Integrado** | produto, engenharia e operação formam um fluxo único e medido | coordena trabalho delimitado entre etapas e sistemas | definem outcomes, resolvem ambiguidade e tomam decisões conforme o risco | rastreabilidade ponta a ponta, telemetria de produto, plataforma self-service e gates independentes |
+| **M4 — Autonomia governada** | vários fluxos operam em paralelo dentro de políticas explícitas | executa e coordena trabalho reversível dentro da autoridade delegada | governam políticas, tratam exceções e decidem trade-offs de alto impacto | aplicação de políticas, privilégio mínimo, evidências, entrega progressiva, rollback e estabilidade sustentada |
+| **M5 — Adaptativo** | o sistema sociotécnico melhora por experimentos controlados | seleciona ferramentas e estratégias dentro de limites medidos | definem direção, desafiam o sistema e aprovam mudanças estruturais | experimentos causais, aprendizado contínuo, roteamento dinâmico e melhores resultados sem enfraquecer proteções |
+
+### M0 — Oportunista
+
+O uso de IA começa por iniciativa pessoal. Prompts, decisões e contexto útil permanecem com quem executou a tarefa. O trabalho chega em lotes grandes, a validação é principalmente manual e a squad não sabe dizer se a IA melhorou a entrega ou apenas aumentou o output.
+
+O objetivo no M0 não é autonomia. É visibilidade: selecionar um fluxo de valor, identificar o resultado para o usuário, colocar código e configuração sob controle de versão, tornar os estados do trabalho explícitos e registrar uma baseline antes de mudar o processo.
+
+**Falha típica:** tratar acesso a ferramentas como transformação e escalar uma prática não medida por toda a organização.
+
+### M1 — Assistido
+
+A IA é uma assistente supervisionada. Pode explicar código, rascunhar testes, resumir evidências ou propor uma pequena mudança, mas uma pessoa fornece o contexto e verifica o output material antes que ele avance. Ownership, critérios de aceitação e fonte da verdade são explícitos.
+
+A squad tem um caminho reproduzível para mudanças básicas, checks automatizados para as falhas mais comuns e um conjunto pequeno de métricas de entrega, qualidade e produto. O objetivo é tornar o bom trabalho repetível antes de torná-lo autônomo.
+
+**Pronto para avançar quando:** trabalhos comparáveis seguem o mesmo caminho e a variação causada por contexto ou verificações ausentes fica visível.
+
+### M2 — Padronizado
+
+A squad deixa de depender da técnica individual de prompting. Atividades recorrentes têm procedimentos compartilhados, contexto reutilizável e critérios claros de entrada e saída. As mudanças são pequenas, o trabalho em andamento é controlado, as ferramentas de IA aprovadas são conhecidas e os dados sensíveis têm uma política explícita.
+
+A automação cobre a verificação determinística; as pessoas se concentram em ambiguidade e julgamento. Trabalhos assistidos e não assistidos por IA podem ser comparados sem ranquear pessoas. Checks com falha, retrabalho e escalações alimentam melhorias no workflow.
+
+**Pronto para avançar quando:** o caminho padronizado reduz cycle time ou toil sem aumentar mudanças com falha, defeitos que escapam ou esforço humano de correção.
+
+### M3 — Integrado
+
+Discovery, planejamento, implementação, revisão, release e observação formam um fluxo rastreável. Outcomes de produto orientam prioridades; feedback operacional retorna ao planejamento. A IA consegue coordenar tarefas delimitadas entre ferramentas porque contexto, interfaces, permissões e outputs esperados são explícitos.
+
+A plataforma fornece ambientes reproduzíveis e feedback rápido. Checkpoints humanos ficam onde risco ou ambiguidade exigem julgamento, não onde a automação por acaso termina. A squad consegue ligar um resultado em produção à decisão, à mudança e às evidências que o produziram.
+
+**Pronto para avançar quando:** o fluxo ponta a ponta permanece previsível por vários ciclos de release e controles independentes capturam modos de falha conhecidos.
+
+### M4 — Autonomia governada
+
+Agentes especializados podem planejar e executar trabalho reversível, operar em paralelo e entregar por exposição progressiva. A autoridade é limitada por política, classificação dos dados, classe de risco e ambiente. Identidade, proveniência, evidências e custo acompanham cada mudança material.
+
+As pessoas supervisionam o sistema, não cada etapa. Elas são responsáveis por política, arquitetura, direção de produto e exceções. Rollback ou contenção automática limita o impacto quando o comportamento observado cruza um limite predefinido.
+
+**Pronto para avançar quando:** maior autonomia delegada produz melhores resultados e menos atrito durante uma janela sustentada, sem degradar estabilidade, segurança ou accountability.
+
+### M5 — Adaptativo
+
+A squad trata seu modelo operacional como um produto. Ela testa mudanças em prompts, modelos, contexto, workflow e plataforma com baseline, hipótese e guardrails. O roteamento pode se adaptar a risco, custo e tipo de tarefa; conhecimento e controles evoluem quando as evidências revelam drift.
+
+M5 não significa “sem pessoas”. Significa concentrar a atenção humana em direção, julgamento novo e mudança estrutural, enquanto decisões rotineiras, observáveis e reversíveis são tratadas no nível adequado de automação.
+
+**Evidência de M5:** a melhoria pode ser atribuída a mudanças controladas no sistema, não a mais uso de modelos, mais output ou um pico temporário de esforço.
+
+## Promoção, regressão e autonomia
+
+Uma capacidade só está pronta para avançar quando três tipos de evidência concordam:
+
+| Evidência | O que precisa ser verdade |
+|---|---|
+| **Capacidade** | a prática, skill, caminho de plataforma ou controle exigido existe e tem owner |
+| **Comportamento** | a squad realmente o utiliza em trabalho representativo, incluindo exceções e caminhos de falha |
+| **Resultado** | velocidade, qualidade, valor, custo ou experiência da squad melhora enquanto os guardrails permanecem saudáveis |
+
+Promoção é uma decisão sobre dimensão e escopo específicos, não um selo permanente. Reavalie depois de uma mudança material de plataforma, arquitetura, equipe ou política. Bypasses recorrentes, contexto obsoleto, estabilidade piorando ou telemetria ausente justificam regressão até a capacidade ser restaurada.
+
+A autonomia também depende do contexto. Uma squad pode sustentar automação M4 para atualização de dependências e permanecer no M2 para decisões de preço, privacidade ou migração de dados. O comportamento maduro é usar a maior autonomia **sustentada** pelo risco em questão, não a maior autonomia tecnicamente possível.
+
+## Executando uma avaliação
+
+1. Escolha um produto ou fluxo de valor e nomeie seus usuários, serviços e a fronteira da squad.
+2. Colete uma baseline pelas mesmas definições e fontes durante quatro a doze semanas.
+3. Para cada dimensão, encontre o nível mais alto sustentado por evidências de capacidade, comportamento e resultado.
+4. Registre o perfil, as evidências, lacunas e confiança; use `unknown` quando faltar telemetria.
+5. Selecione a dimensão crítica de risco mais baixa como a próxima restrição a melhorar.
+6. Execute um experimento de melhoria delimitado, com owner, meta, guardrail e data de revisão.
+7. Reavalie depois da janela; mantenha, altere ou reverta a intervenção conforme o resultado.
+
+O output deve ser um backlog curto de melhorias, não um exercício de certificação. Se a avaliação produzir dezenas de iniciativas simultâneas, ela falhou em identificar a restrição.
+
+## Os primeiros 90 dias na prática
+
+| Janela | Foco | Resultado esperado |
+|---|---|---|
+| **Dias 0–30** | escolher um fluxo de valor, definir outcome e guardrails, publicar a postura sobre IA, inventariar dados e estabelecer a baseline | a squad consegue descrever seu sistema atual com evidências |
+| **Dias 31–60** | reduzir o tamanho dos lotes, tornar trabalho e ownership visíveis, padronizar tarefas recorrentes, automatizar checks comuns e registrar o envolvimento da IA | trabalhos comparáveis seguem um caminho repetível |
+| **Dias 61–90** | remover o maior gargalo medido, delegar uma atividade de baixo risco e comparar resultado, estabilidade, esforço e custo | uma capacidade avança sem enfraquecer outra |
+
+## O que maturidade não é
+
+- Taxa de adoção de IA, licenças compradas, quantidade de prompts, volume de tokens ou linhas de código geradas.
+- Um ranking de pessoas, squads ou papéis de agentes.
+- Um checklist que só pode subir.
+- Automação máxima em toda decisão.
+- Um substituto para estratégia de produto, julgamento de engenharia ou accountability.
+
+A pesquisa atual do DORA descreve a IA como amplificadora do sistema organizacional ao redor e destaca foco no usuário, lotes pequenos, controle de versão forte, dados saudáveis, contexto interno acessível à IA, postura clara sobre IA e plataforma interna de qualidade como capacidades habilitadoras. Este modelo transforma essas ideias em um caminho operacional cumulativo; ele não exige a adoção de um framework ou provedor específico. Consulte o [State of AI-assisted Software Development 2025](https://dora.dev/research/2025/dora-report/) e o [questionário do DORA AI Capabilities Model](https://dora.dev/ai/capabilities-model/questions/) para conhecer a pesquisa de base.
 
 ---
 
-*Próximo: [Agentes](AGENTES.md) — como um agente funciona e o catálogo dos 23 papéis.*
+*Próximo: [Métricas](METRICS.md) — como medir entrega, valor, estabilidade e colaboração humano-IA sem premiar volume.*

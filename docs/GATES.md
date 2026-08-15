@@ -69,7 +69,7 @@ Gates support increasing levels of autonomy. The central rule: **the harness lev
 
 A repository in HL1 operating with A2 autonomy is not an advanced repository — it is a repository with a missing gate that no one has noticed yet.
 
-The level is a claim about the repository, and a claim needs a way to be checked. What each level requires, item by item, and how a repository measures the level it is actually at, is in [Maturity](MATURITY.md).
+These HL levels apply specifically to repository verification and set the autonomy ceiling for that scope. The broader squad assessment across product, flow, engineering, knowledge, platform and human-AI collaboration is in [Maturity](MATURITY.md).
 
 ## What the staircase does not cover
 

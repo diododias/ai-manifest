@@ -65,7 +65,7 @@ And an agent iterates faster than anyone reviews. A gate that silently stopped r
 
 When a check genuinely cannot run, the repository states so explicitly, with four fields: which gate, why it cannot run, what compensates for it in the meantime, and when the exception expires. An exception without an expiry is a permanent change to the verification architecture, and it goes through the harness owner and the changelog like any other ([Versioning](VERSIONING.md)).
 
-Operating in a declared degraded mode also lowers the autonomy ceiling while it lasts. A repository missing a gate is, for the duration, a repository at the maturity level that missing gate defines — see [Maturity](MATURITY.md).
+Operating in a declared degraded mode also lowers the autonomy ceiling while it lasts. A repository missing a gate is, for the duration, at the verification level that missing gate can sustain — see [Gates](GATES.md#progressive-autonomy-and-the-harness-ceiling).
 
 ---
 

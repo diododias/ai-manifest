@@ -17,6 +17,17 @@ The base supports the top, not the other way around: a skill (2) is only verifia
 
 ---
 
+## Cross-cutting overview
+
+Two pages describe the health and evolution of the whole software-development system. They sit in the main Overview because they cross every layer of the pyramid rather than belonging to the repository harness.
+
+| Page | Answers |
+|---|---|
+| [**Maturity**](MATURITY.md) | how a squad evolves from opportunistic AI use to an adaptive, governed operating model across product, flow, engineering, knowledge, platform and human-AI collaboration |
+| [**Metrics**](METRICS.md) | how to measure product value, deployments, failed deployments, flow, quality, reliability, AI collaboration, economics and team health without rewarding volume |
+
+---
+
 ## 1. Application repository harness
 
 The **repo harness** converts the tacit knowledge of the repository into versioned files that the agent reads on its own and into checks that run without asking for a license. Overview, the five cumulative layers (Context, Procedure, Verification, Permission, Evidence) and the four properties they need once the harness is operated (Trust, Resilience, Coordination, Economy) are in [`REPO_HARNESS.md`](REPO_HARNESS.md).
@@ -33,7 +44,7 @@ The **repo harness** converts the tacit knowledge of the repository into version
 | **Documentation** | `AGENTS.md`, ADRs, the evidence pack, and the identity that produced each artifact | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
 | **MCPs** | Model Context Protocol servers, authorized scopes and the difference for a local tool | [`MCPS.md`](MCPS.md) |
 
-Seven further pages cover what the five layers need once the harness is operated rather than built — several agents at once, hostile input, checks that stop running, and a version history for the controls themselves.
+Five further pages cover what the five layers need once the harness is operated rather than built — several agents at once, hostile input, checks that stop running, and a version history for the controls themselves.
 
 | Section | Answers | File |
 |---|---|---|
@@ -42,8 +53,6 @@ Seven further pages cover what the five layers need once the harness is operated
 | **Concurrency** | several agents in flight, evidence freshness and the order of integration | [`CONCURRENCY.md`](CONCURRENCY.md) |
 | **Budget** | cost, turns, wall-clock and context — and what degrades when they run out | [`BUDGET.md`](BUDGET.md) |
 | **Versioning** | the harness has a version, and changing it invalidates approvals granted before | [`VERSIONING.md`](VERSIONING.md) |
-| **Metrics** | gate escape rate and the panel that raises or lowers the autonomy level | [`METRICS.md`](METRICS.md) |
-| **Maturity** | the item-by-item checklist per level and the script that computes where a repository stands | [`MATURITY.md`](MATURITY.md) |
 
 ## 2. Skills
 
@@ -78,7 +87,7 @@ Every page in this index is published in English and Brazilian Portuguese from t
 | Do you want… | Read |
 |---|---|
 | Prepare a repository to be operated by agents | [Harness](REPO_HARNESS.md) → [Permissions](PERMISSIONS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
-| Find out which maturity level a repository is really at | [Maturity](MATURITY.md) → [Gates](GATES.md) → [Metrics](METRICS.md) |
+| Assess the squad's maturity profile and decide what to improve next | [Maturity](MATURITY.md) → [Metrics](METRICS.md) |
 | Operate agents in production, at volume | [Trust](TRUST.md) → [Failure](FAILURE.md) → [Concurrency](CONCURRENCY.md) → [Budget](BUDGET.md) → [Versioning](VERSIONING.md) |
 | Understand the agent catalog | [Agents](AGENTES.md) → [individual contracts](agentes/README.md) |
 | See the journey from end to end | [Loops](LOOPS.md) → [the 12 steps](loops/README.md) |

@@ -69,7 +69,7 @@ Os gates sustentam níveis crescentes de autonomia. A regra central: **o nível 
 
 Um repositório em HL1 operando com autonomia A2 não é um repositório adiantado — é um repositório com um gate faltando que ninguém percebeu ainda.
 
-O nível é uma afirmação sobre o repositório, e uma afirmação precisa de um modo de ser verificada. O que cada nível exige, item a item, e como um repositório mede o nível em que realmente está encontra-se em [Maturidade](MATURITY.md).
+Esses níveis HL se aplicam especificamente à verificação do repositório e definem o teto de autonomia desse escopo. A avaliação mais ampla da squad entre produto, fluxo, engenharia, conhecimento, plataforma e colaboração humano-IA está em [Maturidade](MATURITY.md).
 
 ## O que a escada não cobre
 
