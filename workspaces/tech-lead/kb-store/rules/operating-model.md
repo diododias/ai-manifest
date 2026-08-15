@@ -6,9 +6,9 @@ updated_at: 2026-08-08
 
 # Agent Team — operating system of the human trio
 
-> Canonical view of the Agent Team for a team led by **Product Manager, UX and Tech Lead**. Related details: [90/10 operating model](rules/operating-model-90-10.md) · [full visual flow](operations/end-to-end-journey.md) · [flows per phase](operations/journey-by-phase.md) · [multi-agent workflows](workflows/README.md) · [Tech Lead workspace](architecture/tech-lead-workspace.md).
+> Canonical view of the Agent Team for a team led by **Product Manager, UX and Tech Lead**. Related details: [90/10 operating model](operating-model-90-10.md) · [full visual flow](end-to-end-journey.md) · [flows per phase](journey-by-phase.md) · [multi-agent workflows](../../../../workflows/README.md) · [Tech Lead workspace](../diagrams/tech-lead-workspace.md).
 
-> Agents: [detailed catalog and contracts](agents/catalog.md) · [Meeting Context Agent for transcriptions](agents/meeting-context-agent.md).
+> Agents: [detailed catalog and contracts](../../../../agents/catalog.md) · [Meeting Context Agent for transcriptions](../../../../agents/meeting-context-agent.md).
 
 ## 1. Purpose
 
@@ -55,7 +55,7 @@ The human trio does not attempt to perform all the work manually. It operates th
 ## 3. Agent Teams operating model
 
 - Each phase can activate a temporary team of specialized agents.
-- The [agent catalog](agents/catalog.md) defines the contracts and limits of each role.
+- The [agent catalog](../../../../agents/catalog.md) defines the contracts and limits of each role.
 - Each agent analyzes the problem based on an explicit responsibility.
 - A primary agent conducts and consolidates the phase artifact.
 - Adversarial agents look for ambiguities, gaps, risks and weak assumptions.
@@ -393,7 +393,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 0. Intake and backlog screening
 
-- **Workflow:** [intake and screening](workflows/00-intake-and-triage.md)
+- **Workflow:** [intake and screening](../../../../workflows/00-intake-and-triage.md)
 - **Human Owner:** Product Manager
 - **Agents:** Intake Agent + Product Manager Agent
 - **Objective:** register, deduplicate, contextualize and prioritize needs
@@ -405,7 +405,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 1. Discovery
 
-- **Workflow:** [discovery and research](workflows/01-discovery-and-research.md)
+- **Workflow:** [discovery and research](../../../../workflows/01-discovery-and-research.md)
 - **Human owner:** PM; UX and Tech Lead respond for their domains
 - **Agent Team:** Product Discovery Team
   - Product Manager Agent
@@ -421,7 +421,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 2. Product and experience planning
 
-- **Workflow:** [product and UX planning](workflows/02-product-and-ux-planning.md)
+- **Workflow:** [product and UX planning](../../../../workflows/02-product-and-ux-planning.md)
 - **Human owner:** PM for product; UX for experience
 - **Agent Team:** Product Planning Team
   - Product Manager Agent
@@ -443,7 +443,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 3. Technical specification
 
-- **Workflow:** [technical specification](workflows/03-technical-specification.md)
+- **Workflow:** [technical specification](../../../../workflows/03-technical-specification.md)
 - **Human Owner:** Tech Lead
 - **Agent Team:** Technical Specification Team
   - Specification Tech Lead Agent
@@ -465,7 +465,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 4. Implementation
 
-- **Workflow:** [standalone implementation](workflows/04-autonomous-implementation.md)
+- **Workflow:** [standalone implementation](../../../../workflows/04-autonomous-implementation.md)
 - **Human Owner:** Tech Lead by policy and exception
 - **Agents:** Orchestrator Agent + Software Engineer Agents
 - **Support:** repo harness, skills and code tools
@@ -478,7 +478,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 5. Adversarial validation
 
-- **Workflow:** [adversarial validation](workflows/05-adversarial-validation.md)
+- **Workflow:** [adversarial validation](../../../../workflows/05-adversarial-validation.md)
 - **Human Owner:** Tech Lead; PM and UX validate your criteria
 - **Agents:** Validation / QA, Security, Architecture and Reviewer Agents
 - **Support:** repo harness and reproducible environments
@@ -490,7 +490,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 6. Code review, PR and merge decision
 
-- **Workflow:** [PR and merge](workflows/06-pr-and-merge.md)
+- **Workflow:** [PR and merge](../../../../workflows/06-pr-and-merge.md)
 - **Human Owner:** Tech Lead or Code Owner depending on risk
 - **Agents:** PR Agent + Reviewer Agent
 - **Objective:** evaluate quality, risk, maintainability and readiness for integration
@@ -502,7 +502,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 7. Approval
 
-- **Workflow:** [approval](workflows/07-release-candidate-validation.md)
+- **Workflow:** [approval](../../../../workflows/07-release-candidate-validation.md)
 - **Human owners:** PM for value; UX for experience; stakeholder when necessary
 - **Agents:** Release Agent + Product Validation Agent
 - **Objective:** confirm value and behavior in the representative scenario
@@ -513,7 +513,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 8. Delivery and observation
 
-- **Workflow:** [production and observation](workflows/08-production-release-and-observation.md)
+- **Workflow:** [production and observation](../../../../workflows/08-production-release-and-observation.md)
 - **Human Owner:** Tech Lead; PM co-approves exposure R3/R4
 - **Agents:** Release Agent + Observability Agent
 - **Objective:** release with controlled exposure and prove health in real use
@@ -525,7 +525,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ### 9. Knowledge base update
 
-- **Workflow:** [knowledge curation](workflows/09-knowledge-curation.md)
+- **Workflow:** [knowledge curation](../../../../workflows/09-knowledge-curation.md)
 - **Human owner:** domain owner changed
 - **Agent:** Knowledge Agent
 - **Cadence:** continuous + weekly automated review
@@ -537,7 +537,7 @@ Ceremonies are decision points for the trio. Preparation, analysis, status updat
 
 ## 10. Telemetry and continuous improvement — Auto Dream
 
-- **Workflow:** [telemetry and continuous improvement](workflows/10-continuous-improvement.md)
+- **Workflow:** [telemetry and continuous improvement](../../../../workflows/10-continuous-improvement.md)
 - **Human owner:** trio; each demand returns to the domain owner
 - **Agents:** Telemetry/Observability Agent + Auto Dream Agent + independent Critic Agent
 - **Trigger:** continuous collection, weekly synthesis and extraordinary execution after relevant incident
@@ -755,7 +755,7 @@ The evidence pack should allow you to decide without re-reading all the sessions
 
 ### 12.2 Skills
 
-Native Agent Team skills, in [`skills/`](../skills/):
+Native Agent Team skills, in [`skills/`](../../../../skills/):
 
 - `business-discovery`, `technical-discovery`, `write-feature`, `review-prd`, `create-spec`, `review-spec`, `review-cross-prd-spec`, `refine-spec` — discovery, specification and planning
 - `implement`, `dev-flow`, `fix-bug`, `analyse-bug`, `test-integration-local` — implementation and validation

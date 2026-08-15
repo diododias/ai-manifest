@@ -19,18 +19,31 @@ A base sustenta o topo, não o contrário: uma skill (2) só é verificável se 
 
 ## 1. Harness do repositório da aplicação
 
-O **repo harness** converte o conhecimento tácito do repositório em arquivos versionados que o agente lê sozinho e em verificações que rodam sem pedir licença. Visão geral e as cinco camadas cumulativas (Contexto, Procedimento, Verificação, Permissão, Evidência) estão em [`REPO_HARNESS.md`](REPO_HARNESS.md).
+O **repo harness** converte o conhecimento tácito do repositório em arquivos versionados que o agente lê sozinho e em verificações que rodam sem pedir licença. A visão geral, as cinco camadas cumulativas (Contexto, Procedimento, Verificação, Permissão, Evidência) e as quatro propriedades de que elas precisam quando o harness é operado (Confiança, Resiliência, Coordenação, Economia) estão em [`REPO_HARNESS.md`](REPO_HARNESS.md).
 
 | Seção | Responde | Arquivo |
 |---|---|---|
 | **Overview** | o que é o repo harness, as quatro perguntas que ele resolve e as cinco camadas cumulativas | [`REPO_HARNESS.md`](REPO_HARNESS.md) |
-| **Tools** | quais ferramentas o agente pode invocar, com que limites, e o que exige autorização humana | [`TOOLS.md`](TOOLS.md) |
+| **Permissões** | quais tools o agente pode invocar, o que exige autorização humana e por que isso não pode viver no prompt | [`PERMISSIONS.md`](PERMISSIONS.md) |
+| **Tools** | o índice de ferramentas — verificação, navegação, gestão de contexto — e onde cada check roda | [`TOOLS.md`](TOOLS.md) |
 | **Skills** | o catálogo de procedimentos verificáveis para tarefas recorrentes que exigem julgamento | [`SKILLS.md`](SKILLS.md) |
 | **Rules** | o estado desejado do repositório — arquitetura, coding e testing — e o motivo de cada regra | [`RULES.md`](RULES.md) |
 | **Hooks** | as verificações locais versionadas (`.hooks/`) que rodam antes do código sair da máquina do agente | [`SENSORS.md`](SENSORS.md) |
 | **Gates** | a arquitetura de verificação do commit ao deploy — local, CI, merge, ambiente, pós-deploy | [`GATES.md`](GATES.md) |
-| **Documentation** | `AGENTS.md`, ADRs em `docs/adr/` e o evidence pack em `docs/evidence/` | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
+| **Documentation** | `AGENTS.md`, ADRs, o evidence pack e a identidade que produziu cada artefato | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
 | **MCPs** | servidores Model Context Protocol, escopos autorizados e a diferença para uma tool local | [`MCPS.md`](MCPS.md) |
+
+Outras sete páginas cobrem aquilo de que as cinco camadas precisam quando o harness é operado, em vez de apenas construído — vários agentes ao mesmo tempo, entrada hostil, verificações que param de rodar e um histórico de versões dos próprios controles.
+
+| Seção | Responde | Arquivo |
+|---|---|---|
+| **Confiança** | quais entradas são instruções e quais são conteúdo; injeção, exfiltração e supply chain | [`TRUST.md`](TRUST.md) |
+| **Falha** | o que acontece quando um gate não roda e como uma verificação é, ela própria, verificada | [`FAILURE.md`](FAILURE.md) |
+| **Concorrência** | vários agentes em voo, frescor de evidência e ordem de integração | [`CONCURRENCY.md`](CONCURRENCY.md) |
+| **Orçamento** | custo, turnos, tempo de relógio e contexto — e o que degrada quando acabam | [`BUDGET.md`](BUDGET.md) |
+| **Versionamento** | o harness tem uma versão, e mudá-la invalida aprovações concedidas antes | [`VERSIONING.md`](VERSIONING.md) |
+| **Métricas** | taxa de escape dos gates e o painel que sobe ou baixa o nível de autonomia | [`METRICS.md`](METRICS.md) |
+| **Maturidade** | o checklist item a item por nível e o script que calcula onde um repositório está | [`MATURITY.md`](MATURITY.md) |
 
 ## 2. Skills
 
@@ -64,7 +77,9 @@ Toda página deste índice é publicada em inglês e português brasileiro a par
 
 | Você quer… | Leia |
 |---|---|
-| Preparar um repositório para ser operado por agentes | [Harness](REPO_HARNESS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
+| Preparar um repositório para ser operado por agentes | [Harness](REPO_HARNESS.md) → [Permissões](PERMISSIONS.md) → [Tools](TOOLS.md) → [Skills](SKILLS.md) → [Rules](RULES.md) → [Hooks](SENSORS.md) → [Gates](GATES.md) → [Documentation](DOCUMENTATION.md) → [MCPs](MCPS.md) |
+| Descobrir em qual nível de maturidade um repositório realmente está | [Maturidade](MATURITY.md) → [Gates](GATES.md) → [Métricas](METRICS.md) |
+| Operar agentes em produção, em volume | [Confiança](TRUST.md) → [Falha](FAILURE.md) → [Concorrência](CONCURRENCY.md) → [Orçamento](BUDGET.md) → [Versionamento](VERSIONING.md) |
 | Entender o catálogo de agentes | [Agentes](AGENTES.md) → [contratos individuais](agentes/README.md) |
 | Ver a jornada de ponta a ponta | [Loops](LOOPS.md) → [as 12 etapas](loops/README.md) |
 | Saber o que uma pessoa faz, na prática | [Metodologia](METODOLOGIA.md) → [manual do operador](metodologia/05-manual-do-operador.md) |

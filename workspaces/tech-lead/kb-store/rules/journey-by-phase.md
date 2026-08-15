@@ -6,7 +6,7 @@ updated_at: 2026-08-08
 
 # Agent Team — journey in phases
 
-> Fragmented view of [complete flow](end-to-end-journey.md), designed for analysis in parts and use in slides. The interaction contracts between agents are in [workflow map](../workflows/README.md).
+> Fragmented view of [complete flow](end-to-end-journey.md), designed for analysis in parts and use in slides. The interaction contracts between agents are in [workflow map](../../../../workflows/README.md).
 
 ## Block map
 
@@ -31,7 +31,7 @@ flowchart LR
 
 ### Scope
 
-- Workflows: [intake](../workflows/00-intake-and-triage.md), [discovery and research](../workflows/01-discovery-and-research.md) and [product and UX planning](../workflows/02-product-and-ux-planning.md)
+- Workflows: [intake](../../../../workflows/00-intake-and-triage.md), [discovery and research](../../../../workflows/01-discovery-and-research.md) and [product and UX planning](../../../../workflows/02-product-and-ux-planning.md)
 - Step 0: backlog and triage
 - Step 1: multi-agent discovery
 - Step 2: Product Planning
@@ -91,7 +91,7 @@ flowchart LR
 
 ### Scope
 
-- Workflow: [technical specification](../workflows/03-technical-specification.md)
+- Workflow: [technical specification](../../../../workflows/03-technical-specification.md)
 - Step 3: specification and technical criticism
 - Human checkpoint: conditional H3
 - Artifacts: `PLAN.md`, `ADR.md`, `SPEC.md`, `TASKS.md` and `CHECKLIST.md`
@@ -137,7 +137,7 @@ flowchart LR
 
 ### Scope
 
-- Workflows: [standalone implementation](../workflows/04-autonomous-implementation.md) and [adversarial validation](../workflows/05-adversarial-validation.md)
+- Workflows: [standalone implementation](../../../../workflows/04-autonomous-implementation.md) and [adversarial validation](../../../../workflows/05-adversarial-validation.md)
 - Step 4: Standalone implementation
 - Step 5: adversarial validation
 - Human intervention only by exception
@@ -184,7 +184,7 @@ flowchart LR
 
 ### Scope
 
-- Workflows: [PR and merge](../workflows/06-pr-and-merge.md), [approval](../workflows/07-release-candidate-validation.md) and [production and observation](../workflows/08-production-release-and-observation.md)
+- Workflows: [PR and merge](../../../../workflows/06-pr-and-merge.md), [approval](../../../../workflows/07-release-candidate-validation.md) and [production and observation](../../../../workflows/08-production-release-and-observation.md)
 - Step 6: PR and merge decision
 - Step 7: automated approval
 - Stage 8: production and initial observation
@@ -245,7 +245,7 @@ flowchart LR
 
 ### Scope
 
-- Workflows: [knowledge curation](../workflows/09-knowledge-curation.md) and [telemetry and continuous improvement](../workflows/10-continuous-improvement.md)
+- Workflows: [knowledge curation](../../../../workflows/09-knowledge-curation.md) and [telemetry and continuous improvement](../../../../workflows/10-continuous-improvement.md)
 - Step 9: specific knowledge of the delivery
 - Step 10: Weekly Auto Dream
 - Human checkpoint: H6 conditional or by sampling

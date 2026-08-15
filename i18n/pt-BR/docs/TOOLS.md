@@ -1,37 +1,24 @@
 # Tools
 
-A camada de permissão do harness define quais ferramentas o agente está autorizado a invocar, com que limites, e o que exige autorização humana antes de prosseguir. Essa definição é estrutural — não vive em instruções de prompt, mas em arquivos versionados dentro do repositório.
+Esta página é o índice de ferramentas do harness: de quais categorias de tool um agente precisa, o que cada uma oferece e onde roda na escada de verificação. Ela responde *o que instalar*.
 
-## `.agent/settings.json`
+Ela não responde *o que o agente está autorizado a invocar* — essa é a camada de permissão, e vive em [Permissões](PERMISSIONS.md). A distinção importa porque as duas envelhecem em ritmos diferentes: um modelo de permissão é propriedade do método e muda raramente, enquanto uma recomendação de ferramenta tem vida útil medida em meses. Mantê-las no mesmo documento fez a metade estável herdar a volatilidade da outra.
 
-O arquivo `settings.json` declara os limites operacionais do agente naquele repositório: quais tools estão permitidas, quais estão explicitamente proibidas, quais modelos podem ser usados e qual é o threshold de confiança abaixo do qual o agente deve escalar. Um agente que não encontra esse arquivo deve tratar o repositório como não autorizado para operação autônoma.
-
-```json
-{
-  "tools": {
-    "allowed": ["read_file", "write_file", "run_tests", "run_lint"],
-    "forbidden": ["delete_branch", "force_push", "modify_ci"]
-  },
-  "models": {
-    "default": "claude-sonnet-5",
-    "max_cost_per_task_usd": 2.00
-  },
-  "escalation": {
-    "confidence_threshold": 0.85,
-    "max_retries_before_escalation": 2
-  }
-}
-```
-
-## `.agent/permissions.md`
-
-O arquivo `permissions.md` descreve, em linguagem natural, o que exige autorização humana naquele repositório específico. Ele complementa o `settings.json` com o julgamento que nenhum JSON consegue capturar: quando a situação é ambígua o suficiente para parar.
-
-Categorias típicas cobertas por esse arquivo incluem paths que exigem owner antes de qualquer mudança, operações que alteram estado persistido (migrações, schemas, secrets), ações irreversíveis com janela de rollback limitada, e qualquer mudança que afete os próprios gates de verificação.
+> **Índice de referência, revisado em 2026-08.** As tools nomeadas são o padrão atual de cada categoria no momento desta revisão, não uma imposição. Um repositório adota a linha que corresponde a seu stack e ao posicionamento de seus gates. Quando uma recomendação envelhece, a categoria e o critério de posicionamento ao redor permanecem válidos — substitua o nome, mantenha o raciocínio.
 
 ## `scripts/verify.sh`
 
 O script `verify.sh` é a entrada única de todas as verificações locais. Hooks, CI e agente chamam o mesmo script. Sem essa centralização, a verificação local e a de CI divergem — e a divergência aparece da forma mais cara: o agente entrega, o CI reprova, e ninguém consegue reproduzir localmente.
+
+Um único entrypoint e um sensor que responde em segundos são requisitos conflitantes, a menos que o escopo seja um argumento. O script recebe um:
+
+| Invocação | Cobre | Chamado por |
+|---|---|---|
+| `verify.sh --staged` | apenas o que está no índice | pre-commit |
+| `verify.sh --affected` | os paths alterados e aquilo que depende deles | pre-push |
+| `verify.sh --full` | tudo, sem seleção de paths | CI e, localmente, antes de solicitar revisão |
+
+Os estágios abaixo são o corpo de `--full`; os modos mais estreitos rodam os mesmos estágios sobre um conjunto menor de arquivos. Manter a seleção dentro do script — em vez de deixar cada hook implementar a própria — é o que impede a verificação local de se afastar silenciosamente da CI.
 
 ```bash
 #!/usr/bin/env bash
@@ -117,6 +104,16 @@ Lint e typecheck capturam problemas no nível da sintaxe e do contrato. Uma clas
 
 Essas checagens são mais caras de interpretar que lint — uma dependência circular ou uma violação de SOLID exige um julgamento sobre escopo de refatoração, não apenas uma correção. Pertencem à trilha profunda de CI descrita em [Gates](GATES.md), não ao pre-commit.
 
+## Secrets e risco de dependências
+
+Dois checks desta classe diferem de todos os anteriores em um aspecto: falham por coisas que o agente não escreveu.
+
+**Secret scanning** é o único check da escada cuja falha um gate posterior não consegue desfazer. Uma credencial que chega ao remoto está comprometida mesmo depois de um revert, portanto o check roda antes de o objeto sair da máquina. **gitleaks** é o padrão comum — binário único, regex mais entropia, rápido o bastante para pre-commit; **trufflehog** vai além ao verificar se uma credencial encontrada está ativa, e seu tempo extra vale a pena na CI, não em um hook. A proteção contra push da própria plataforma é a segunda linha, nunca a primeira: ela captura o que o sensor local não detectou, e faz isso depois que o objeto já existe.
+
+**Checks de dependências e supply chain** respondem a uma pergunta que os testes do próprio repositório não conseguem: se o código que ele traz para dentro é seguro para executar. **Dependabot** ou **Renovate** mantêm versões atualizadas e abrem o upgrade como uma mudança revisável; a revisão continua necessária, porque um upgrade automatizado é uma mudança como qualquer outra. **npm audit**, **pip-audit** e **osv-scanner** informam vulnerabilidades conhecidas contra o manifesto, e uma **SBOM** (syft ou o gerador nativo da plataforma) registra o que realmente foi entregue, que é aquilo de que uma resposta a incidente precisa e que nenhum lockfile fornece depois do fato. **Semgrep** e **CodeQL** cobrem a fatia de SAST — padrões perigosos, e não apenas incorretos.
+
+O posicionamento segue o critério habitual com uma exceção. Secret scanning é barato e vai para o pre-commit; SAST, SBOM e scanning de vulnerabilidades são caros e pertencem à deep lane. A exceção é uma mudança de dependência: adicionar ou atualizar uma dependência executa o conjunto completo para aquele path antes do merge, porque esse é o momento em que o risco entra no repositório e porque — como explica [Confiança](TRUST.md#o-harness-é-uma-supply-chain) — uma nova dependência do próprio *harness* é código com acesso à sessão do agente.
+
 ## Testes, containers e observabilidade
 
 Testes são a camada de verificação mais custosa de executar e mais cara de ignorar. A separação entre níveis — unitário, integração, contrato, end-to-end — define qual ferramenta está disponível em qual gate. Testes unitários rodam sem dependências externas e pertencem ao pre-commit. Testes de integração exigem serviços e pertencem ao pre-push ou CI.
@@ -166,6 +163,13 @@ A tabela abaixo consolida todas as ferramentas nomeadas neste documento. É um �
 | Vulture | Código morto | Python, AST + pontuação de confiança |
 | depcheck | Dependências não usadas | JS/TS, escopo apenas do `package.json` |
 | SonarQube / SonarLint | SOLID / code smell / segurança | multi-linguagem |
+| gitleaks | Secret scanning | binário único, rápido o bastante para pre-commit |
+| trufflehog | Secret scanning | verifica se uma credencial encontrada está ativa; CI |
+| Proteção contra push (plataforma) | Secret scanning | segunda linha, depois que o objeto existe |
+| Dependabot / Renovate | Atualizações de dependências | abre cada upgrade como uma mudança revisável |
+| npm audit / pip-audit / osv-scanner | Vulnerabilidades conhecidas | baseado no manifesto, por stack |
+| Semgrep / CodeQL | SAST | padrões perigosos, deep lane |
+| syft (SBOM) | Inventário de supply chain | registra o que realmente foi entregue |
 | NDepend | Aderência a SOLID | .NET |
 | DesigniteJava | Classificação de design smells | Java |
 | PMD / Checkstyle | Convenção / complexidade | Java |
@@ -177,3 +181,7 @@ A tabela abaixo consolida todas as ferramentas nomeadas neste documento. É um �
 | Hooks nativos do Git (`.hooks/` + `core.hooksPath`) | Sensores locais / hooks | agnóstico de linguagem, padrão do repo |
 | Husky | Sensores locais / hooks | convenção JS/TS, instalação gerenciada por npm |
 | `scripts/verify.sh` (+ scripts por estágio) | Orquestração de gates | ponto de entrada único para checagens locais e CI |
+
+---
+
+*Próximo: [Rules](RULES.md) — o estado desejado do repositório e o contrato de entrada.*

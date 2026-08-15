@@ -33,7 +33,7 @@ The **repo harness** converts the tacit knowledge of the repository into version
 | **Documentation** | `AGENTS.md`, ADRs, the evidence pack, and the identity that produced each artifact | [`DOCUMENTATION.md`](DOCUMENTATION.md) |
 | **MCPs** | Model Context Protocol servers, authorized scopes and the difference for a local tool | [`MCPS.md`](MCPS.md) |
 
-Six further pages cover what the five layers need once the harness is operated rather than built — several agents at once, hostile input, checks that stop running, and a version history for the controls themselves.
+Seven further pages cover what the five layers need once the harness is operated rather than built — several agents at once, hostile input, checks that stop running, and a version history for the controls themselves.
 
 | Section | Answers | File |
 |---|---|---|

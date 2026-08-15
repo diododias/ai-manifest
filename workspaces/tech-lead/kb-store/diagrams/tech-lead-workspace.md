@@ -16,7 +16,7 @@ tags:
 
 > Operational structure of the workspace shared by Tech Lead agents. Complements [human trio operating system](../rules/operating-model.md), [agent catalog](../../../../agents/catalog.md), and [90/10 operating model](../rules/operating-model-90-10.md).
 >
-> A browsable implementation of this agreement is available at [`workspaces/tech-lead/`](../../WORKSPACE.md).
+> A browsable implementation of this agreement is available at [`workspaces/tech-lead/`](../../README.md).
 > Reusable workflows are in the [global catalog](../workflows/README.md); This workspace maintains only your local bindings and execution artifacts per project.
 
 ## 1. Objective

@@ -14,14 +14,14 @@ You are in the **Tech Lead** workspace. Your responsibility is to prepare and ex
 
 Before taking action:
 
-1. Read [`AGENTS.md`](AGENTS.md) and [`WORKSPACE.md`](WORKSPACE.md).
-2. Identify the project in [`kb-store/portfolio/PROJECTS.md`](kb-store/portfolio/PROJECTS.md) and the Work Item in [`BOARD.md`](BOARD.md).
+1. Read the operating model in [`kb-store/rules/operating-model.md`](kb-store/rules/operating-model.md) and the standards in [`kb-store/standards/README.md`](kb-store/standards/README.md).
+2. Identify the project in [`kb-store/portfolio/PROJECTS.md`](kb-store/portfolio/PROJECTS.md) and the Work Item in the plan of the project, under [`plans/`](plans/README.md).
 3. Read `CONTEXT.md`, `STATUS.md`, the active plan and Work Item of the project.
 4. See `engineering/repositories.yaml`, then the instructions for the repository involved.
 5. Check branch, worktree, Git state, risk, permissions, criteria and gates.
 6. If any critical input is missing or contradictory, stop and escalate to the Tech Lead.
 
-In the example, start with [`projects/checkout/README.md`](projects/checkout/README.md) and [`projects/checkout/work-items/WI-031.md`](projects/checkout/work-items/WI-031.md).
+In the example, start with [`projects/checkout/README.md`](projects/checkout/README.md) and the plan in [`plans/checkout/`](plans/checkout/refund-notification.plan.md).
 
 ## Your domain
 
