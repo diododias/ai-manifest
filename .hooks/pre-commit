@@ -1,0 +1,30 @@
+#!/bin/sh
+# Translation drift sensor.
+#
+# Reports when this commit changes a document whose translation is now stale.
+# It is a sensor, not a gate: it never blocks the commit. Holding an English fix
+# hostage to its translation is how documentation stops being updated at all.
+#
+# Install: git config core.hooksPath .hooks
+
+set -u
+
+command -v uv >/dev/null 2>&1 || exit 0
+
+staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.md' | grep -v '^i18n/' || true)
+[ -n "$staged" ] || exit 0
+
+drift=$(uv run scripts/i18n.py status --porcelain 2>/dev/null | grep -v '^current' || true)
+[ -n "$drift" ] || exit 0
+
+affected=$(printf '%s\n' "$drift" | while IFS="$(printf '\t')" read -r state locale path; do
+  printf '%s\n' "$staged" | grep -qxF "$path" && printf '  %-9s %s  (%s)\n' "$state" "$path" "$locale"
+done)
+
+[ -n "$affected" ] || exit 0
+
+printf '\n[i18n] this commit changes documents whose translation is out of sync:\n%s\n' "$affected"
+printf '\nTranslate under i18n/<locale>/, then: uv run scripts/i18n.py stamp <path>\n'
+printf 'Full report: uv run scripts/i18n.py status\n\n'
+
+exit 0

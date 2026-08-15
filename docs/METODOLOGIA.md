@@ -17,8 +17,8 @@ The entire documentation reading rule fits in a table. Confusing these layers is
 | Layer | Reply | Where do you live |
 |---|---|---|
 | **Harness** | what the repository needs to load to support all of this | [`REPO_HARNESS.md`](REPO_HARNESS.md) and neighbors |
-| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md) |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Loop** | *in what order*, what crosses the border and when to stop | [`LOOPS.md`](LOOPS.md), [`loops/`](loops/README.md) |
 | **Methodology** | *who operates*, what triggers what and what demands people | this section |
 

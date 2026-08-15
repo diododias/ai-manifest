@@ -1,37 +1,24 @@
-#Tools
+# Tools
 
-The harness permission layer defines which tools the agent is authorized to invoke, with what limits, and what requires human authorization before proceeding. This definition is structural — it doesn't live in prompt statements, but in versioned files within the repository.
+This page is the tooling index of the harness: which categories of tool an agent needs, what each one buys, and where on the verification ladder it runs. It answers *what to install*.
 
-## `.agent/settings.json`
+It does not answer *what the agent is allowed to invoke* — that is the permission layer, and it lives in [Permissions](PERMISSIONS.md). The distinction matters because the two age at different rates: a permission model is a property of the method and changes rarely, while a tool recommendation has a shelf life measured in months. Keeping them in one document made the stable half inherit the volatility of the other.
 
-The `settings.json` file declares the operational limits of the agent in that repository: which tools are allowed, which are explicitly prohibited, which models can be used and what is the trust threshold below which the agent must scale. An agent that does not find this file should treat the repository as not authorized for unattended operation.
-
-```json
-{
-  "tools": {
-    "allowed": ["read_file", "write_file", "run_tests", "run_lint"],
-    "forbidden": ["delete_branch", "force_push", "modify_ci"]
-  },
-  "models": {
-    "default": "claude-sonnet-5",
-    "max_cost_per_task_usd": 2.00
-  },
-  "escalation": {
-    "confidence_threshold": 0.85,
-    "max_retries_before_escalation": 2
-  }
-}
-```
-
-## `.agent/permissions.md`
-
-The `permissions.md` file describes, in natural language, what requires human authorization in that specific repository. It complements `settings.json` with the judgment that no JSON can capture: when the situation is ambiguous enough to stop.
-
-Typical categories covered by this file include paths that require ownership before making any changes, operations that alter persisted state (migrations, schemas, secrets), irreversible actions with a limited rollback window, and any changes that affect the verification gates themselves.
+> **Reference index, reviewed 2026-08.** The named tools are the current default for each category at the time of this revision, not a mandate. A repository adopts the row that matches its stack and its gate placement. When a recommendation ages out, the category and the placement criterion around it stay valid — replace the name, keep the reasoning.
 
 ## `scripts/verify.sh`
 
-The `verify.sh` script is the single input for all local checks. Hooks, CI and agent call the same script. Without this centralization, local and CI verification diverge — and the divergence appears in the most expensive form: the agent delivers, the CI fails, and no one can reproduce locally.
+The `verify.sh` script is the single entrypoint for all local checks. Hooks, CI and agent call the same script. Without this centralization, local and CI verification diverge — and the divergence appears in the most expensive form: the agent delivers, the CI fails, and no one can reproduce locally.
+
+A single entrypoint and a sensor that returns in seconds are conflicting requirements unless the scope is an argument. The script takes one:
+
+| Invocation | Covers | Called by |
+|---|---|---|
+| `verify.sh --staged` | only what is in the index | pre-commit |
+| `verify.sh --affected` | the changed paths and what depends on them | pre-push |
+| `verify.sh --full` | everything, no path selection | CI, and locally before requesting review |
+
+The stages below are the `--full` body; the narrower modes run the same stages over a smaller file set. Keeping the selection inside the script — rather than letting each hook implement its own — is what stops local verification from quietly drifting away from CI.
 
 ```bash
 #!/usr/bin/env bash
@@ -79,7 +66,7 @@ Biome and Ruff are the current generation of these checks: single-binary, Rust-b
 
 ## Typecheck and static analysis
 
-Typecheck is the cheapest gate to catch broken contracts between modules. TypeScript (`tsc --noEmit`), mypy or Pyright, rustc and equivalents must be run before testing — a type error makes test results ambiguous.
+Typecheck is a sensor, not a gate: it runs locally, in seconds, and belongs in pre-commit alongside lint — the cheapest layer of the verification ladder ([Sensors](SENSORS.md)). It is the cheapest way to catch broken contracts between modules. TypeScript (`tsc --noEmit`), mypy or Pyright, rustc and equivalents must be run before testing — a type error makes test results ambiguous.
 
 Static analysis goes beyond type: it checks data flow, prohibited dependencies between modules (ArchUnit, dependency-cruiser) and patterns that lint does not capture. The result of a well-configured static analysis is that the agent knows, before opening a PR, whether the change violates an architectural boundary declared in the rules.
 
@@ -117,15 +104,25 @@ Lint and typecheck catch syntax-level and contract-level problems. A separate cl
 
 These checks are more expensive to interpret than lint — a circular dependency or a SOLID violation requires a judgment call about refactor scope, not just a fix. They belong in the deep CI lane described in [Gates](GATES.md), not pre-commit.
 
+## Secrets and dependency risk
+
+Two checks in this class differ from everything above in one respect: they fail on things the agent did not write.
+
+**Secret scanning** is the only check on the ladder whose failure a later gate cannot undo. A credential that reaches the remote is compromised even after a revert, so the check runs before the object leaves the machine. **gitleaks** is the common default — single binary, regex plus entropy, fast enough for pre-commit; **trufflehog** goes further by verifying whether a found credential is live, which is worth its extra runtime in CI rather than in a hook. The platform's own push protection is the second line, never the first: it catches what the local sensor missed, and it catches it after the object exists.
+
+**Dependency and supply chain checks** answer a question the repository's own tests cannot: whether the code it pulls in is safe to run. **Dependabot** or **Renovate** keep versions current and open the upgrade as a reviewable change; the review still applies, because an automated upgrade is a change like any other. **npm audit**, **pip-audit** and **osv-scanner** report known vulnerabilities against the manifest, and an **SBOM** (syft, or the platform's native generator) records what actually shipped, which is what an incident response needs and no lockfile provides after the fact. **Semgrep** and **CodeQL** cover the SAST slice — patterns that are dangerous rather than merely wrong.
+
+Placement follows the usual criterion with one exception. Secret scanning is cheap and goes in pre-commit; SAST, SBOM and vulnerability scanning are expensive and belong in the deep lane. The exception is a dependency change: adding or upgrading a dependency runs the full set for that path before merge, because that is the moment the risk enters the repository, and because — as [Trust](TRUST.md#the-harness-is-a-supply-chain) covers — a new dependency of the *harness itself* is code with access to the agent's session.
+
 ## Tests, containers and observability
 
-Tests are the most expensive layer of verification to run and most expensive to ignore. The separation between levels — unitary, integration, contract, end-to-end — defines which tool is available at which gate. Unit tests run without external dependencies and belong to pre-commit. Integration tests require services and belong to pre-push or CI.
+Tests are the most expensive layer of verification to run and most expensive to ignore. The separation between levels — unit, integration, contract, end-to-end — defines which tool is available at which gate. Unit tests run without external dependencies and belong to pre-commit. Integration tests require services and belong to pre-push or CI.
 
 Mutation testing is the gate that answers a question coverage cannot: whether the existing tests would actually catch a regression, not just execute the line. **Stryker** covers JS/TS and, separately, .NET via Roslyn analyzers, with threshold-based CI gating (high/low/break) and HTML reporting. **PIT** is the equivalent for Java, with incremental analysis to keep runs fast on large suites. **mutmut** covers Python, with a `--CI` flag that produces pipeline-appropriate exit codes. Mutation testing is the most expensive item on the [testing ladder](RULES.md#the-testing-strategy-as-a-rule) and belongs at the end of the deep CI lane, run on a schedule or before merge — never per commit.
 
 Containers (Docker, Testcontainers) are the mechanism that makes integration tests reproducible without shared state. A repository that doesn't use containers to isolate integration tests introduces environment dependency — and the agent that locally reproduces what the CI will run needs the same environment, not an approximation.
 
-Observability — structured logs, distributed traces, baseline metrics — closes the post-deploy verification cycle. The difference between a deployment and a controlled rollout is that the second has a baseline defined beforehand and an objective rollback criterion if the baseline is violated. The agent does not decide rollback: it reads the observability signal and scales if the criterion is met.
+Observability — structured logs, distributed traces, baseline metrics — closes the post-deploy verification cycle. The difference between a deployment and a controlled rollout is that the second has a baseline defined beforehand and an objective rollback criterion if the baseline is violated. The agent does not decide rollback: it reads the observability signal and escalates if the criterion is met.
 
 ## Git hooks and local automation
 
@@ -166,6 +163,13 @@ The table below consolidates every tool named in this document. It is a referenc
 | Vulture | Dead code | Python, AST + confidence score |
 | depcheck | Unused dependencies | JS/TS, `package.json` scope only |
 | SonarQube / SonarLint | SOLID / code smell / security | multi-language |
+| gitleaks | Secret scanning | single binary, fast enough for pre-commit |
+| trufflehog | Secret scanning | verifies whether a found credential is live; CI |
+| Push protection (platform) | Secret scanning | second line, after the object exists |
+| Dependabot / Renovate | Dependency updates | opens each upgrade as a reviewable change |
+| npm audit / pip-audit / osv-scanner | Known vulnerabilities | manifest-based, per stack |
+| Semgrep / CodeQL | SAST | dangerous patterns, deep lane |
+| syft (SBOM) | Supply chain inventory | records what actually shipped |
 | NDepend | SOLID adherence | .NET |
 | DesigniteJava | Design smell classification | Java |
 | PMD / Checkstyle | Convention / complexity | Java |
@@ -177,3 +181,7 @@ The table below consolidates every tool named in this document. It is a referenc
 | Native Git hooks (`.hooks/` + `core.hooksPath`) | Local sensors / hooks | language-agnostic, repo default |
 | Husky | Local sensors / hooks | JS/TS convention, npm-managed install |
 | `scripts/verify.sh` (+ staged scripts) | Gate orchestration | single entrypoint for local checks and CI |
+
+---
+
+*Next: [Rules](RULES.md) — the desired state of the repository and the entry contract.*

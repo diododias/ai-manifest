@@ -6,7 +6,7 @@
 
 A **loop** is the collaboration contract for a stage of the journey: who executes it, in what order, what crosses the boundary between agents and what condition needs to be true to move forward. It's what the literature calls *multi-agent workflow* — and this manifesto calls it a loop because the word better describes what actually happens.
 
-A workflow, in common usage, suggests a conveyor belt: it enters on one side, leaves on the other. A loop with agents does not behave like this. It spins. The agent tries, the sensor fails, the agent corrects, the critic contests, the consolidator responds, the gate returns. **Successful execution is the case where the spin converges quickly, not the case where there was no spin.** A process designed for the treadmill treats each turn as an exception and does not instrument any of them; a process designed as a loop declares where the correction happens and how much it costs.
+A workflow, in common usage, suggests a conveyor belt: it enters on one side, leaves on the other. A loop with agents does not behave like this. It spins. The agent tries, the sensor fails, the agent corrects, the critic contests, the consolidator responds, the gate returns. **Successful execution is the case where the spin converges quickly, not the case where there was no spin.** A process designed for the conveyor belt treats each turn as an exception and does not instrument any of them; a process designed as a loop declares where the correction happens and how much it costs.
 
 ### What a loop is — and what it isn't
 
@@ -14,8 +14,8 @@ Three layers of the harness answer different questions, and confusing them produ
 
 | Layer | Reply | Where do you live |
 |---|---|---|
-| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Skill** | *how* a recurring task is performed correctly | [`SKILLS.md`](SKILLS.md), `skills/<skill>/SKILL.md` |
+| **Agent** | *who* executes, under what authority and with what limits | [`AGENTES.md`](AGENTES.md), [`agentes/`](agentes/README.md) |
 | **Loop** | *in what order*, what crosses the border and when to stop | this page, [`loops/`](loops/README.md) |
 
 A loop does not redefine any agent's contract, does not expand anyone's autonomy and does not create its own gates. He composes pieces that already exist. When a loop needs permission that the agent doesn't have, the problem is with the agent's contract — not the loop.

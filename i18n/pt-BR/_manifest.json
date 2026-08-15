@@ -1,0 +1,546 @@
+{
+  "locale": "pt-BR",
+  "source_locale": "en",
+  "entries": {
+    "README.md": {
+      "source_sha256": "5bbb6ced5e14ef22cacd11d1daf651bd9a37c08774bb56f283f21c4b34ca893d"
+    },
+    "agents/README.md": {
+      "source_sha256": "7c89f67408e593de82a1a74d652d31442abcc85fdd90da9a80942ec3c30ad265",
+      "origin": "main"
+    },
+    "agents/adversarial-code-reviewer-agent/AGENT.md": {
+      "source_sha256": "f1fb93f72532a0d404f394d07d8246b552f08464683d42822820ca9cc260620f",
+      "origin": "main"
+    },
+    "agents/adversarial-product-manager-agent/AGENT.md": {
+      "source_sha256": "4f8f8625a9f9ed2734767d42662aeec4afddac11d22a006c200b5f4db8167684",
+      "origin": "main"
+    },
+    "agents/adversarial-tech-lead-agent/AGENT.md": {
+      "source_sha256": "15582ec6225394b648081c913ad9533f190e507adf11414e49949a72090cab1a",
+      "origin": "main"
+    },
+    "agents/architecture-review-agent/AGENT.md": {
+      "source_sha256": "71182cba8a999fc99693d0258b7be9b354b5e0cd0d6d07c07b81fa8751c8ad56",
+      "origin": "main"
+    },
+    "agents/auto-dream-agent/AGENT.md": {
+      "source_sha256": "0c47a9f2cbeb9ee4e1711003cfb077ed4ac717b9e6f7bc30a97ffd55cfef4294",
+      "origin": "main"
+    },
+    "agents/catalog.md": {
+      "source_sha256": "6f7b1e8fa8fe9666d53f144596f76fb145f1bde19fe17ede61658018c4822d02",
+      "origin": "main"
+    },
+    "agents/critic-agent/AGENT.md": {
+      "source_sha256": "a8df454ddbf0a138b212259ad7538314b966e91dbe7fb608e4c860b3a461cf0d",
+      "origin": "main"
+    },
+    "agents/intake-agent/AGENT.md": {
+      "source_sha256": "f92eb6b62cc5b34f7e38bb5c7edd2975611c42ca7b5dc6387a099e47f4b5674c",
+      "origin": "main"
+    },
+    "agents/knowledge-agent/AGENT.md": {
+      "source_sha256": "aa3af72a2ac1e51f40706d713f5a62c34cea3ee608c63e9a30e86f44f2cefc8b",
+      "origin": "main"
+    },
+    "agents/meeting-context-agent.md": {
+      "source_sha256": "aa3696b886ad84742d9cef6e3ddbb80cfb74536385c3cdc0737ffa1efa66150a",
+      "origin": "main"
+    },
+    "agents/meeting-context-agent/AGENT.md": {
+      "source_sha256": "e7c5527260539fe0e56183a15d26207d5de68f3924dec6de0e1cc8cde82e7862",
+      "origin": "main"
+    },
+    "agents/observability-agent/AGENT.md": {
+      "source_sha256": "06c786a828d7f8cbad3a16182d1efcfc492700447c8301f2ca456d7af820b41a",
+      "origin": "main"
+    },
+    "agents/orchestrator-agent/AGENT.md": {
+      "source_sha256": "c370f4ba8fbcf0ad2f2c574d2c68a1e263138d9af8e4e16497b543297115578f",
+      "origin": "main"
+    },
+    "agents/pr-agent/AGENT.md": {
+      "source_sha256": "a7182790c3a8954e07e5ee4b77971ab406aa94eb8fda51b8d02f79dc45f3c603",
+      "origin": "main"
+    },
+    "agents/product-manager-agent/AGENT.md": {
+      "source_sha256": "0acd26fe3e244387e1ae28f754f10da2de0b9db0043a9a855258510349f30770",
+      "origin": "main"
+    },
+    "agents/product-validation-agent/AGENT.md": {
+      "source_sha256": "743ea6c45f54cb65341fbfcc3d513bfae5f85c02d1588d47d9237655ee83792c",
+      "origin": "main"
+    },
+    "agents/qa-validation-agent/AGENT.md": {
+      "source_sha256": "c4d7e5dc3f491b29a27243ea60419e7562b083314b709b42a24562fbe9164997",
+      "origin": "main"
+    },
+    "agents/release-agent/AGENT.md": {
+      "source_sha256": "04719bfb20ddd34257262902c876a6af7ff892cbd8998bfca691560fa22dd689",
+      "origin": "main"
+    },
+    "agents/security-review-agent/AGENT.md": {
+      "source_sha256": "52f54ad24beaa8d84dae4752ec2114b1bf45046aab9c344830314bb24c2a8b61",
+      "origin": "main"
+    },
+    "agents/software-engineer-agent/AGENT.md": {
+      "source_sha256": "03520ca2338f3c6a1e8a551d7587c2737e07146df58c064a86681869e6783ee6",
+      "origin": "main"
+    },
+    "agents/specialist-security-data-platform-agent/AGENT.md": {
+      "source_sha256": "6042404f64babbe97000e8fa73cf36453c8b5d3ed9164006c969b18cb5f06dd1",
+      "origin": "main"
+    },
+    "agents/specification-tech-lead-agent/AGENT.md": {
+      "source_sha256": "44d5f9553ea1629bcd4796f3122a34c581dcea6592853927dae25d27b9522ecc",
+      "origin": "main"
+    },
+    "agents/tech-lead-discovery-agent/AGENT.md": {
+      "source_sha256": "3018c5a4efab608815307501c43d3ef6c6569abea822b4c8c3357d5af8ec29e4",
+      "origin": "main"
+    },
+    "agents/telemetry-agent/AGENT.md": {
+      "source_sha256": "d3eba5795afd7edc78885b86fbe05e69b5f504454ed2b7f90d663de92debc13b",
+      "origin": "main"
+    },
+    "agents/ux-specification-agent/AGENT.md": {
+      "source_sha256": "8a1eacc5e120453067e0bac3ade7fd368a65ffe6d0f09aab3af02bf1f4e66a8a",
+      "origin": "main"
+    },
+    "docs/AGENTES.md": {
+      "source_sha256": "b92c16bf2430e9c36d71f8bb247a96322e3c434d06226d0ec1eab364c83775a0",
+      "origin": "main"
+    },
+    "docs/DOCUMENTATION.md": {
+      "source_sha256": "6741e0f083ea2203056eba06cfb6cd29c6fa4381c1ecf39bbf603255e6f7b0b9",
+      "origin": "main"
+    },
+    "docs/GATES.md": {
+      "source_sha256": "6101f4b2c0e8ff742d7d391972753d1ed95e7b7cef9ab06b0572ccd4413355dc",
+      "origin": "main"
+    },
+    "docs/LOOPS.md": {
+      "source_sha256": "9a7ddbbef9a413d2b0b2811eada1a12f960dc6eb6b434a5960b8d75c16b00756"
+    },
+    "docs/MCPS.md": {
+      "source_sha256": "12db91acbb6271fed6692eb55a8e197a800343e47dcb8a2b3790d77b82800f34",
+      "origin": "main"
+    },
+    "docs/METODOLOGIA.md": {
+      "source_sha256": "a77bf3a9b01db0f03064654cfd165bb08e9151760453ee6232e34955009ccf43"
+    },
+    "docs/README.md": {
+      "source_sha256": "6e827f0975cbed350996f0f95347803fba0c36999c725eb3af031161fe150160"
+    },
+    "docs/REPO_HARNESS.md": {
+      "source_sha256": "ecf2c00d57518d67627c69ec198c45308847b9833e84acbe764c11a1b183c270",
+      "origin": "main"
+    },
+    "docs/RULES.md": {
+      "source_sha256": "e6d82e1ffd434b517618d07fc6458ed8ad6555803107c59d87198fe16d67b3f8",
+      "origin": "main"
+    },
+    "docs/SENSORS.md": {
+      "source_sha256": "5de94691c4ac0552889ca1f53ec939894f8d4a8159c0fbbfd2ef53a806593f4f"
+    },
+    "docs/SKILLS.md": {
+      "source_sha256": "db5934472b2d169a5fcdfa9c7c2988dfc82e18db41ec87cfd4919cdcb77d30ef",
+      "origin": "main"
+    },
+    "docs/TOOLS.md": {
+      "source_sha256": "2a7e2d042f6a38f995a601912dd7d96a91900219f1de0dcc48eb0f6e5733d925"
+    },
+    "docs/WORKSPACE.md": {
+      "source_sha256": "f9cdce63e15995c864a396c43f2beb2918a4b9113e5baad8767bef3db78127f7"
+    },
+    "docs/agentes/README.md": {
+      "source_sha256": "96016143b8784337739293c6417b29d6f881ba430394e17487e48e4a56d4d05f",
+      "origin": "main"
+    },
+    "docs/agentes/adversarial-code-reviewer-agent.md": {
+      "source_sha256": "22d62ead1e32c610feb8f72881ad3907feeceb8a1b379b881f8b74cb0398a558",
+      "origin": "main"
+    },
+    "docs/agentes/adversarial-product-manager-agent.md": {
+      "source_sha256": "f7c0f8f5c880000fac56cf8c3bdc443252b81e134d47f850db010aa369f0a320",
+      "origin": "main"
+    },
+    "docs/agentes/adversarial-tech-lead-agent.md": {
+      "source_sha256": "337ede30cf4b3fe2d39c08e0ab96eac4fba0e9ed467c1f8caf1fa3fde485e8f4",
+      "origin": "main"
+    },
+    "docs/agentes/architecture-review-agent.md": {
+      "source_sha256": "5010d6f1ad9a9b7f323612af710cde727d9565a3bfb0a545ecb654ca08cdcfb8",
+      "origin": "main"
+    },
+    "docs/agentes/auto-dream-agent.md": {
+      "source_sha256": "daa97b24a8d0f1cde9ddd6861aa3bb03b8b95cdb28ae64bfcbbef00021ffef5c",
+      "origin": "main"
+    },
+    "docs/agentes/critic-agent.md": {
+      "source_sha256": "2f49651f8721d6d855b166e7bb9da02c895f9deef47c230be89bad6c47fdd67d",
+      "origin": "main"
+    },
+    "docs/agentes/intake-agent.md": {
+      "source_sha256": "6d92cee457dad97447c4762d35e3e2fb0c0f97e2314fa1d519e18c9c5a64d655",
+      "origin": "main"
+    },
+    "docs/agentes/knowledge-agent.md": {
+      "source_sha256": "e8c8c6720b0d52328e7f61f7495d4e877d741a00023538026f6aefb9d1a0aeae",
+      "origin": "main"
+    },
+    "docs/agentes/meeting-context-agent.md": {
+      "source_sha256": "632250a07038cded1689cf4299d5a4ffd93e791aeea51219cf5be76b4ee87f2e",
+      "origin": "main"
+    },
+    "docs/agentes/observability-agent.md": {
+      "source_sha256": "c0de5cb9029f48d96f6fc480cd5ff5e0330068eb33b8c801a0d901c6065e96fc",
+      "origin": "main"
+    },
+    "docs/agentes/orchestrator-agent.md": {
+      "source_sha256": "78f83b777b3f7ce726624eca46763bf34a76f8f2e404ef8a4aa1197ba896cd74",
+      "origin": "main"
+    },
+    "docs/agentes/pr-agent.md": {
+      "source_sha256": "8ff6f84192268b7a4bcf52d4839e08e0092d13ac4f33b04e670f61c557598de8",
+      "origin": "main"
+    },
+    "docs/agentes/product-manager-agent.md": {
+      "source_sha256": "022b8e2272b9791ea5bb14b4b25baa998b23fe9a9368ebda03d7f797e1237926",
+      "origin": "main"
+    },
+    "docs/agentes/product-validation-agent.md": {
+      "source_sha256": "2e32d01cb8eee96e67a5291ad6bfa394b5e50b45b054d531cad722278a1701d1",
+      "origin": "main"
+    },
+    "docs/agentes/qa-validation-agent.md": {
+      "source_sha256": "5dedfac8ca80166aa07603bee581718b9a1858dae2824bc235574f5092f3c707",
+      "origin": "main"
+    },
+    "docs/agentes/release-agent.md": {
+      "source_sha256": "364b811207843ab2565ef8109e192d50ccd59ec5aecd45af14553b0bda2dea32",
+      "origin": "main"
+    },
+    "docs/agentes/security-review-agent.md": {
+      "source_sha256": "5dbb603e2a0dffeb39417aa9691df7b841460ff212910d38b2936d809d57a197",
+      "origin": "main"
+    },
+    "docs/agentes/software-engineer-agent.md": {
+      "source_sha256": "effb8d66619e7d29608c2f305022e68a244e22846241c9306c75a6b79eec6afa",
+      "origin": "main"
+    },
+    "docs/agentes/specialist-security-data-platform-agent.md": {
+      "source_sha256": "d27967b30f53ab844753092058e705866a829faa8f6a20cf4d4650a35bbc3a99",
+      "origin": "main"
+    },
+    "docs/agentes/specification-tech-lead-agent.md": {
+      "source_sha256": "179af9b78dcc842a0d7dcb4731c9f167a9cffbb7f589e37fcce201c3cf0fed4d",
+      "origin": "main"
+    },
+    "docs/agentes/tech-lead-discovery-agent.md": {
+      "source_sha256": "8eb12990c7e65ea234c2ec827577413f6d17d71a337a9870c38701c4da84bbc0",
+      "origin": "main"
+    },
+    "docs/agentes/telemetry-agent.md": {
+      "source_sha256": "5405a524d401f6aea72cf85544f7b63e57f998d8418800b1c3df44aefaa345a5",
+      "origin": "main"
+    },
+    "docs/agentes/ux-specification-agent.md": {
+      "source_sha256": "094ca41c64c6dbe631d225b527e409ba1bd085328d0e9f19c1ca9c1b04e44c3e",
+      "origin": "main"
+    },
+    "docs/loops/00-intake-and-triage.md": {
+      "source_sha256": "1b73021ea0a96a2f6b6582a42d2e8639db5787a310df1e5509966f2578f0f44e",
+      "origin": "main"
+    },
+    "docs/loops/01-discovery-and-research.md": {
+      "source_sha256": "80e583e6f62e5746cb8f7da3ded474be4edad759e447a2167a81f94968f0704a",
+      "origin": "main"
+    },
+    "docs/loops/02-product-and-ux-planning.md": {
+      "source_sha256": "cc5858c525b5c462ba4fe23296367a85a989754cf309469b0b679ba6d6d5233b",
+      "origin": "main"
+    },
+    "docs/loops/03-technical-specification.md": {
+      "source_sha256": "eff8269ac9932ea384ba1c5be82b459ea4a63b93d0cdd931ae8147c9123b094e",
+      "origin": "main"
+    },
+    "docs/loops/04-autonomous-implementation.md": {
+      "source_sha256": "4bbc14022351d33a9c0aecda3003a727ccd83113080a7aa18cc147c6c820c20e",
+      "origin": "main"
+    },
+    "docs/loops/05-adversarial-validation.md": {
+      "source_sha256": "1c4605e36bdf4b6de6091b38ae8a9f8b371cc841d77eab5b483bf8a82520fa99",
+      "origin": "main"
+    },
+    "docs/loops/06-pr-and-merge.md": {
+      "source_sha256": "7afd7ee6f36c09f3db41f48ec3196fc665cadcc5115170e1101455d5c0ce3659",
+      "origin": "main"
+    },
+    "docs/loops/07-release-candidate-validation.md": {
+      "source_sha256": "5549dacd6226c8316741aa1974211a4de05a82456f3b0cf3ff93111545a24d44",
+      "origin": "main"
+    },
+    "docs/loops/08-production-release-and-observation.md": {
+      "source_sha256": "737cec8590e32ccfab166002d9f0c0a9d340bf5a6489f4bae1e0c2bc511d178f",
+      "origin": "main"
+    },
+    "docs/loops/09-knowledge-curation.md": {
+      "source_sha256": "ac2c6c3dee8211e48053e897d0beb194249d5d0fcde7f9c1c99434dac4b365c3",
+      "origin": "main"
+    },
+    "docs/loops/10-continuous-improvement.md": {
+      "source_sha256": "f78aafa9ce1c00cc9f1648a1c6222fda628d2b432229b94148ba0b74c4ea16a9",
+      "origin": "main"
+    },
+    "docs/loops/11-daily-operations.md": {
+      "source_sha256": "e1fb292dd742dfe2a91f99acb2198a9577bc63733d32e913e89803c1a616614f",
+      "origin": "main"
+    },
+    "docs/loops/README.md": {
+      "source_sha256": "27a3ae2033d4c6b59a6adfb9b8f108e3bea0f60492ac6e7eda638dd56093758b",
+      "origin": "main"
+    },
+    "docs/metodologia/01-papeis.md": {
+      "source_sha256": "75b2421ed2bd150f55cc8bcda66e656c3534e7a84f65e0ee560f1c5fbb12f1e9",
+      "origin": "main"
+    },
+    "docs/metodologia/02-checkpoints-humanos.md": {
+      "source_sha256": "113c0d20986ec2103ac21b0a0be2c054c92895ac7fb58183a4d0bfdf428e2160",
+      "origin": "main"
+    },
+    "docs/metodologia/03-gatilhos-e-disparos.md": {
+      "source_sha256": "f0834eafc5ad60f2b9f7e2dead8caf90cc4a1d6eb6d30415fbbcb4b059251f67",
+      "origin": "main"
+    },
+    "docs/metodologia/04-ritmos-e-cadencias.md": {
+      "source_sha256": "31d3fd9e9f02d024a45bfa11892facfe6f3ba3637046e5752ed44ec05ac79158",
+      "origin": "main"
+    },
+    "docs/metodologia/05-manual-do-operador.md": {
+      "source_sha256": "91944bb886d81dcb6032a2d63818accc3f30d13d416acd35a91772a254e9deb9",
+      "origin": "main"
+    },
+    "docs/metodologia/06-jornada-comentada.md": {
+      "source_sha256": "bcc711136c6720f203a0cf92360f3b8471297979e905f3b02d98fcd2ed0cb3ac",
+      "origin": "main"
+    },
+    "docs/metodologia/07-workflows-de-documentacao.md": {
+      "source_sha256": "67b94fc99df609945f65e5a18902142dcfd372d09c778729793d0d51dfeaf9d5",
+      "origin": "main"
+    },
+    "docs/metodologia/README.md": {
+      "source_sha256": "5913abc1f768dcfbb616e95260b95cac58dd802381b12800138a4e2d32693e62",
+      "origin": "main"
+    },
+    "docs/workspace/01-estrutura-do-workspace.md": {
+      "source_sha256": "c13c38ad0d7385ca6fceea0ee14473a64455055a1c912be190653f2b0b24b387",
+      "origin": "main"
+    },
+    "docs/workspace/02-ownership-entre-workspaces.md": {
+      "source_sha256": "144b68cb67507f7c6d73bc0cd405bfe6e596cb90da5811e52e92f256db87a355",
+      "origin": "main"
+    },
+    "docs/workspace/03-harness-do-workspace.md": {
+      "source_sha256": "f1afc620d47e745ecf4425bc5fff2c0650c63fe1c89dc1a148cc6cbf4f5bff57",
+      "origin": "main"
+    },
+    "docs/workspace/04-board-e-work-items.md": {
+      "source_sha256": "e729dcd6f1f1c2005d69ad319d42d584d9b71a3b385e0d04d11828aca830c1e1",
+      "origin": "main"
+    },
+    "docs/workspace/README.md": {
+      "source_sha256": "fb40f8fd0d652299b0b5c2cd34911c68889236a638d88ea1f81023f3494ed480",
+      "origin": "main"
+    },
+    "i18n/README.md": {
+      "source_sha256": "10d513643f4c3d90abacc9d1ee8dfbcffca25977b9479ee4578962478ee52314"
+    },
+    "skills/README.md": {
+      "source_sha256": "9570ffc40cab605a2a856784ef6f0e9a5623da43d8c407276622f2ad8ad03be2",
+      "origin": "main"
+    },
+    "skills/analyse-bug/SKILL.md": {
+      "source_sha256": "624a15ac59abcab365468585010421ade261e0aed5f5e4c5701ee7940f47f555",
+      "origin": "main"
+    },
+    "skills/business-discovery/SKILL.md": {
+      "source_sha256": "348b7dba4d9aab9d99573fda10b051ab927b4a9e7d88f7e5bf086f2742975011",
+      "origin": "main"
+    },
+    "skills/check-pr/SKILL.md": {
+      "source_sha256": "60c64f6a24bd7723cc57a30ce1e300bab114b12a56d625673b4071b05e4310e0",
+      "origin": "main"
+    },
+    "skills/code-review/SKILL.md": {
+      "source_sha256": "3240a165ade5bdc4c2e227cfed82a549716139794913ca4b34f907132aaebd90",
+      "origin": "main"
+    },
+    "skills/commit/SKILL.md": {
+      "source_sha256": "7774e1cf39b98a69db36e6afaeade649155e117f293c9e1b83dcc96464d33f4a",
+      "origin": "main"
+    },
+    "skills/create-spec/SKILL.md": {
+      "source_sha256": "85ad7c51cfe4778f4fe9a5902ff5f6c07a3147ff8867659d1832664fc191b2a9",
+      "origin": "main"
+    },
+    "skills/dev-flow/SKILL.md": {
+      "source_sha256": "1bf11348d1b7517f3b519f5db840b23d0e840540276ccbfedec8a6655f36544c",
+      "origin": "main"
+    },
+    "skills/fix-bug/SKILL.md": {
+      "source_sha256": "877eb75aa2b9f893ab03050cd053109ca555cd3c09724bc122a939c58fd9d01d",
+      "origin": "main"
+    },
+    "skills/implement/SKILL.md": {
+      "source_sha256": "0f24b5871d4c47944913b702016adacec066e8a7baa14e82f9fef9cdb41fd035",
+      "origin": "main"
+    },
+    "skills/references/workflow-contract.md": {
+      "source_sha256": "93be692de2e787c18d7760fba47241dc3d975c68979453ec36526d7accb62cfd",
+      "origin": "main"
+    },
+    "skills/refine-spec/SKILL.md": {
+      "source_sha256": "49dfea59db3c5d68fb0d234afcee4a5c7651e8153a1f3d6e019c1cbfc9e9407a",
+      "origin": "main"
+    },
+    "skills/review-cross-prd-spec/SKILL.md": {
+      "source_sha256": "2a43e7376ce7a7e794d74df0d20a22282639b4df0529c17e6b998103b32adc36",
+      "origin": "main"
+    },
+    "skills/review-prd/SKILL.md": {
+      "source_sha256": "206cdecc3c82925b3887d4f0f92aa283beb25341dff83a706f0d642a2f2b3e52",
+      "origin": "main"
+    },
+    "skills/review-spec/SKILL.md": {
+      "source_sha256": "5a906cea3bbb4e7a917216e47617e9406271efb7cd51aacf57d95968dcc63cbd",
+      "origin": "main"
+    },
+    "skills/technical-discovery/SKILL.md": {
+      "source_sha256": "bb19e6d68766c63132458c5c3f5ff471f8019ee4ccbe205b281478f44893411a",
+      "origin": "main"
+    },
+    "skills/test-integration-local/SKILL.md": {
+      "source_sha256": "653e1be0b4916dc7a05a3e988049f63b54551da3fd67b0f26ea593cfbd07c5f9",
+      "origin": "main"
+    },
+    "skills/update-docs/SKILL.md": {
+      "source_sha256": "033fd199fb2c19915adf70bd9fc72a42f6e7d57519835ccd46c9b4322e45bd55",
+      "origin": "main"
+    },
+    "skills/update-pr/SKILL.md": {
+      "source_sha256": "2579aacbd7a4d7607df1b5fc144a8fe4fec2c7761754db13e0ca532a1a758b4f",
+      "origin": "main"
+    },
+    "skills/workspace-board/SKILL.md": {
+      "source_sha256": "d9758e8c72dfa7ef841117e8ae42776d71739cb0ed80128ca8a63193ea05c8b8",
+      "origin": "main"
+    },
+    "skills/workspace-memory/SKILL.md": {
+      "source_sha256": "450b4f17ca5352d8c4429f7ce07b519acabf7f3089837725db87a3a54dc090f4",
+      "origin": "main"
+    },
+    "skills/workspace-projects/SKILL.md": {
+      "source_sha256": "e74312d5e6f341c823e70241caae383677b6233c1ba50b02778458e9122aaec8",
+      "origin": "main"
+    },
+    "skills/write-feature/SKILL.md": {
+      "source_sha256": "8902fbba9c2711143076b1aa32b9b5f944c673925b44ef1a93b452db22c8352b",
+      "origin": "main"
+    },
+    "templates/README.md": {
+      "source_sha256": "3aeef7f3735dd17a751762834d0e30c9601413a84177145a5bfbb2aef578a032"
+    },
+    "templates/pm/README.md": {
+      "source_sha256": "64aa9b86a257ea214fa2e257d12873acfad9b758507817a26b4cf60d4738fcc3",
+      "origin": "main"
+    },
+    "templates/tech-lead/README.md": {
+      "source_sha256": "174820c9fb982d0c75ab0c98d815dc0d7ffd6393a9715d4fd73ace822b4bb7cf"
+    },
+    "templates/ux/README.md": {
+      "source_sha256": "b37fac59c8976493235891d030a36388fd126426d4c4362a1b4e2c6c411341b2",
+      "origin": "main"
+    },
+    "workflows/00-intake-and-triage.md": {
+      "source_sha256": "a5c99734c63274ff754ddf0e6e31f2ca333d8c276c7f48da345bf96fbbada335",
+      "origin": "main"
+    },
+    "workflows/01-discovery-and-research.md": {
+      "source_sha256": "349eb40dfa37fc28e16439b3af76b8a3b29be9a8c79f456f0f89e962b3c68a1d",
+      "origin": "main"
+    },
+    "workflows/02-product-and-ux-planning.md": {
+      "source_sha256": "191cc1fcdb813cf01f70d06c62ffc8a7e6c27a7feef0b2a69dd331bf43be34c3",
+      "origin": "main"
+    },
+    "workflows/03-technical-specification.md": {
+      "source_sha256": "c9ea8e71c9cd63f59137bf6b4c21da6e3f0e27703dddebb4540453d01b5feab2",
+      "origin": "main"
+    },
+    "workflows/04-autonomous-implementation.md": {
+      "source_sha256": "01e05f4911a2312bb3b495270fb2b2cab9179e8add3e03ed67a7700b3f75c1e4",
+      "origin": "main"
+    },
+    "workflows/05-adversarial-validation.md": {
+      "source_sha256": "91f421debb5f0064c17db71a14565d0493972ccefdf8ac7d72ae9ef503bba3c9",
+      "origin": "main"
+    },
+    "workflows/06-pr-and-merge.md": {
+      "source_sha256": "7a3229e95952d171dfbb57cfd8d2b31c1ccd0aeeccb8d290b009eb1d4eda3bad",
+      "origin": "main"
+    },
+    "workflows/07-release-candidate-validation.md": {
+      "source_sha256": "706ca5036d50fc18df030833aa2769f3b48d6c63b750cee093b612545e5b8561",
+      "origin": "main"
+    },
+    "workflows/08-production-release-and-observation.md": {
+      "source_sha256": "c5341c9189c00c92645c47ee6929e78f2330f3257cc1337cfea7ce4f27e78c47",
+      "origin": "main"
+    },
+    "workflows/09-knowledge-curation.md": {
+      "source_sha256": "687c7f58af2ca6c3d409c4fdffdcf5bba85ab73dcd11923dac15dc6ca3f3ecd1",
+      "origin": "main"
+    },
+    "workflows/10-continuous-improvement.md": {
+      "source_sha256": "8a043ee95dbb6ca2672c31b07d68848279babfa811321123c64208a1c3018ff7",
+      "origin": "main"
+    },
+    "workflows/11-daily-operations.md": {
+      "source_sha256": "894b96a0c92a666d26526123c615ebc13f8a43774d61f08d474935a08d558279",
+      "origin": "main"
+    },
+    "workflows/README.md": {
+      "source_sha256": "641fc8f2a32726824bc328afe7cc52bd780276fa4959156126ab1703069c3b6e",
+      "origin": "main"
+    },
+    "workspaces/README.md": {
+      "source_sha256": "053ef68bdbc126a6b35a2029f443215a16709aadc4d2e0cbd8ceca71a649577b",
+      "origin": "main"
+    },
+    "workspaces/pm/README.md": {
+      "source_sha256": "763c22fa843fdd35043ca99e820899c64ac4f972bb63aae628af7d40121e2d9f",
+      "origin": "main"
+    },
+    "workspaces/pm/WORKSPACE.md": {
+      "source_sha256": "fad5129b6b24d6de23fcf628cc270547997228e18b29794ed2f43697707d3285",
+      "origin": "main"
+    },
+    "workspaces/tech-lead/README.md": {
+      "source_sha256": "4543f46c0e1d267f0721b0f8a0d3cdb56d4bf068fc9483092f9aa5f37797a40b"
+    },
+    "workspaces/tech-lead/kb-store/diagrams/tech-lead-workspace.md": {
+      "source_sha256": "786f38c4766384e1c27a69ee2862707f84174a6f6cce1e184abb59d51243e66a"
+    },
+    "workspaces/ux/README.md": {
+      "source_sha256": "6109e31ae0baa88d6cb9d7cca3fa48e87c2845bf814384545e96ceecb01a627e",
+      "origin": "main"
+    },
+    "workspaces/ux/WORKSPACE.md": {
+      "source_sha256": "d3778cbbb3b60037e699c6800ac7a324359208055d47d19c9cdd3031c021b83f",
+      "origin": "main"
+    }
+  }
+}

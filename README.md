@@ -27,13 +27,13 @@ The method is organized into six layers, from the most concrete to the most abst
 | # | Layer | Question that answers | Main document |
 |---|---|---|---|
 | 1 | **Harness** | What does the application repository need to load to be operated by agents? | [`docs/REPO_HARNESS.md`](docs/REPO_HARNESS.md) |
-| 2 | **Agents** | *Who* performs each task, under what authority and with what limits? | [`docs/AGENTES.md`](docs/AGENTES.md) |
-| 3 | **Skills** | *How* should a recurring task be performed correctly? | [`docs/SKILLS.md`](docs/SKILLS.md) |
+| 2 | **Skills** | *How* should a recurring task be performed correctly? | [`docs/SKILLS.md`](docs/SKILLS.md) |
+| 3 | **Agents** | *Who* performs each task, under what authority and with what limits? | [`docs/AGENTES.md`](docs/AGENTES.md) |
 | 4 | **Loops** | *In what order* do agents collaborate, and when to stop? | [`docs/LOOPS.md`](docs/LOOPS.md) |
 | 5 | **Methodology** | *Who operates* the system on a day-to-day basis, and what does it require of a person? | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) |
 | 6 | **Workspace** | *Where* does each artifact of an execution live, outside of the code? | [`docs/WORKSPACE.md`](docs/WORKSPACE.md) |
 
-A simple way to understand the relationship between the layers: **harness** is what makes a repository readable for an agent; **agents** are those who do the work within this repository; **skills** are the recipes that each agent follows so as not to reinvent the procedure for each task; **loops** define the order of a stage of the journey, from intake to deployment; the **methodology** explains what a person needs to decide along this path; and the **workspace** is the place, outside the code, where the decisions and artifacts of each execution are stored.
+A simple way to understand the relationship between the layers: **harness** is what makes a repository readable for an agent; **skills** are the recipes that keep a recurring procedure from being reinvented on each task; **agents** are those who do the work within this repository, following those recipes; **loops** define the order of a stage of the journey, from intake to deployment; the **methodology** explains what a person needs to decide along this path; and the **workspace** is the place, outside the code, where the decisions and artifacts of each execution are stored.
 
 ---
 
@@ -45,19 +45,27 @@ ai-manifest/
 ├── docs/ # the method documentation — start here
 │ ├── README.md # complete pyramid index, with reading tracks
 │ ├── REPO_HARNESS.md # layer 1 — repository harness
-│ ├── TOOLS.md # tools that an agent can invoke
+│ ├── PERMISSIONS.md # what the agent may invoke, and what requires a person
+│ ├── TOOLS.md # tooling index and where each check runs
 │ ├── MCPS.md # MCP servers and authorized scopes
-│ ├── SKILLS.md # layer 3 — procedure catalog
+│ ├── SKILLS.md # layer 2 — procedure catalog
 │ ├── RULES.md # desired state of repository and AGENTS.md
 │ ├── SENSORS.md # local checks (pre-commit, pre-push)
 │ ├── GATES.md # check commit to deploy, maturity levels
-│ ├── DOCUMENTATION.md # ADRs and evidence pack
-│ ├── AGENTS.md # layer 2 — how an agent works
-│ ├── agents/ # the 23 individual agent contracts
+│ ├── DOCUMENTATION.md # ADRs, evidence pack, identity and provenance
+│ ├── TRUST.md # untrusted content, injection, exfiltration
+│ ├── FAILURE.md # the gate that did not run, and how to catch it
+│ ├── CONCURRENCY.md # several agents at once, evidence freshness
+│ ├── BUDGET.md # cost, turns, context and what degrades
+│ ├── VERSIONING.md # the harness has versions, and they invalidate
+│ ├── METRICS.md # gate escape rate and the autonomy panel
+│ ├── MATURITY.md # checklist per level and harness-doctor
+│ ├── AGENTES.md # layer 3 — how an agent works
+│ ├── agentes/ # the 23 individual agent contracts
 │ ├── LOOPS.md # layer 4 — how the steps of the journey coordinate
 │ ├── loops/ # the 12 stage contracts, from intake to daily operation
 │ ├── METODOLOGIA.md # layer 5 — how a person operates the system
-│ ├── methodology/ # the seven operational pages
+│ ├── metodologia/ # the seven operational pages
 │ ├── WORKSPACE.md # layer 6 — where the work lives outside the code
 │ └── workspace/ # the four operational pages
 ├── agents/ # the executable prompts for each agent (AGENT.md)
@@ -65,8 +73,11 @@ ai-manifest/
 ├── workflows/ # the executable version of the loops
 ├── templates/ # templates used by PM, UX and Tech Lead
 ├── workspaces/ # workspace examples for the three roles
+├── i18n/ # translations: pt-BR mirror, UI strings and glossary
 └── scripts/ # documentation support utilities
 ```
+
+The documentation is published in English and Brazilian Portuguese from this same branch. The canonical text is the tree above; `i18n/pt-BR/` mirrors the same paths, and [`i18n/README.md`](i18n/README.md) is the contract for keeping both in sync.
 
 The rule of thumb to guide yourself: **`docs/` explains the concept and why; the sister folders (`agents/`, `skills/`, `workflows/`, `templates/`, `workspaces/`) contain the executable version of what `docs/` describes.** Reading a concept document before the corresponding artifact avoids applying a procedure without understanding the reason behind it.
 
@@ -79,7 +90,9 @@ The complete documentation, with the detailed index for each layer and reading t
 | If you want… | Start with… |
 |---|---|
 | Understand the project idea together | [`docs/README.md`](docs/README.md) |
-| Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Permissions](docs/PERMISSIONS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Know which maturity level your repository is really at | [Maturity](docs/MATURITY.md) |
+| Operate agents in production, at volume | [Trust](docs/TRUST.md) → [Failure](docs/FAILURE.md) → [Concurrency](docs/CONCURRENCY.md) → [Budget](docs/BUDGET.md) |
 | Get to know the agent catalog and what each one does | [`docs/AGENTES.md`](docs/AGENTES.md) → [individual contracts](docs/agentes/README.md) |
 | See the complete journey, from intake to deployment | [`docs/LOOPS.md`](docs/LOOPS.md) → [the 12 steps](docs/loops/README.md) |
 | Knowing what is up to a person to decide, in practice | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) → [operator manual](docs/metodologia/05-manual-do-operador.md) |
@@ -91,9 +104,9 @@ The complete documentation, with the detailed index for each layer and reading t
 
 These five concepts appear in almost all documents in the repository. It's worth fixing them before moving on to the complete material.
 
-**Agent.** A process with a delimited mission: receives an objective, reads the necessary context, acts within authorized tools, submits the result to objective verification and returns a standardized report. A nice name on a diagram is not an agent — it only becomes one when these five parts are defined.
-
 **Skill.** The verifiable procedure for a recurring task that requires judgment — for example, how to investigate a bug or how to write a technical specification. A skill is different from a script because it covers criteria, not just deterministic criteria.
+
+**Agent.** A process with a delimited mission: receives an objective, reads the necessary context, acts within authorized tools, submits the result to objective verification and returns a standardized report. A nice name on a diagram is not an agent — it only becomes one when these five parts are defined.
 
 **Loop.** The collaboration contract for a stage of the journey: who participates, in what order, what passes from one agent to the other and what needs to be true to move forward. The name "loop", rather than "workflow", is intentional — the work rotates (tries, is corrected, is challenged, converges) instead of moving in a straight line.
 
@@ -114,7 +127,7 @@ One principle runs through the entire manifesto: **the autonomy granted to an ag
 | **HL2 — verifiable** | CI by risk, branch protection, evidence pack | average (A2) |
 | **HL3 — operable by team** | repository skills, identities per agent, environment and post-deploy gates | high (A3–A4) |
 
-The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md).
+The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md). The item-by-item checklist, and the script that computes the level a repository actually reached instead of the one it claims, is at [`docs/MATURITY.md`](docs/MATURITY.md).
 
 ---
 

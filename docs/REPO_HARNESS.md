@@ -13,28 +13,57 @@ The **repo harness** converts the tacit knowledge of the repository into version
 
 The harness is organized into five cumulative layers. Order matters: Each layer eliminates a specific class of failure, and building out of sequence produces expensive failures.
 
-| Layer | Reply | Materializes in |
+| Layer | Answers | Materializes in |
 |---|---|---|
 | **Context** | what this repository is and what rules apply | `AGENTS.md`, `docs/rules/` |
 | **Procedure** | how to perform a recurring task the right way | `skills/`, scripts |
 | **Verification** | what needs to be true before moving forward | sensors, CI, merge policies |
-| **Permission** | what this agent can do and what it requires people | `.agent/`, environments |
+| **Permission** | what this agent can do and what requires a person | `.agent/`, environments |
 | **Evidence** | how to prove later that it was correct | evidence pack, logs, artifacts |
 
-It's also worth understanding what a harness **isn't**. It is not the CI treadmill — the treadmill is just one possible implementation of the verification layer. It is not the architectural documentation itself — it points to it. And it's not about how the work is organized outside of the code: that's the responsibility of the workspace of whoever coordinates the agents.
+It's also worth understanding what a harness **isn't**. It is not the CI pipeline — the pipeline is just one possible implementation of the verification layer. It is not the architectural documentation itself — it points to it. And it's not about how the work is organized outside of the code: that's the responsibility of the workspace of whoever coordinates the agents.
+
+## The five layers under load
+
+The five layers describe a harness that is being built. A harness that is being *operated* — several agents, real traffic, a repository that keeps changing — needs four properties that no single layer owns, because each of them is a way for the layers to be present and still not hold:
+
+| Property | The failure it answers |
+|---|---|
+| **Trust** | the agent read something hostile and treated it as an instruction |
+| **Resilience** | the verification did not run, and its silence was read as approval |
+| **Coordination** | the evidence was valid, against a base that has since moved |
+| **Economy** | nothing broke, and the work cost more than it was worth |
+
+They are properties rather than layers because they cannot be built in sequence after the others: each one is a question asked *of* the five layers, and a harness that never asks them is not an earlier-stage harness — it is one whose gaps have not surfaced yet.
 
 ---
 
 ## Index
 
-- [Tools](TOOLS.md) — authoritative tools, LSP, codebase navigation, context management
-- [MCPs](MCPS.md) — Model Context Protocol servers, scopes and authorization
-- [Skills](SKILLS.md) — catalog of verifiable procedures from the repository
-- [Rules](RULES.md) — desired state, entry contract (`AGENTS.md`) and escalation conditions
+**Foundations**
+
+- [Permissions](PERMISSIONS.md) — what the agent may invoke, what requires a person, and why it cannot live in the prompt
+- [Tools](TOOLS.md) — tooling index: LSP, verification, navigation, context management
+- [Rules](RULES.md) — desired state, entry contract (`AGENTS.md`), escalation and reversibility
 - [Sensors](SENSORS.md) — local versioned checks (pre-commit, pre-push)
 - [Gates](GATES.md) — verification architecture from commit to deploy and autonomy levels
-- [Documentation](DOCUMENTATION.md) — ADRs, evidence pack and complete file structure
+- [Documentation](DOCUMENTATION.md) — ADRs, evidence pack, identity and provenance
+- [MCPs](MCPS.md) — Model Context Protocol servers, scopes and authorization
+- [Skills](SKILLS.md) — catalog of verifiable procedures from the repository
+
+**Operating under load**
+
+- [Trust](TRUST.md) — untrusted content, injection, exfiltration and the harness as a supply chain
+- [Failure](FAILURE.md) — fail-closed, the gate that did not run, flaky checks, verifying the verifier
+- [Concurrency](CONCURRENCY.md) — several agents at once, evidence freshness and integration order
+- [Budget](BUDGET.md) — cost, turns, context, and what degrades when they run out
+- [Versioning](VERSIONING.md) — the harness has versions, and a change invalidates past approvals
+- [Metrics](METRICS.md) — gate escape rate and the panel that promotes or demotes autonomy
+
+**Adoption**
+
+- [Maturity](MATURITY.md) — the checklist per level, `harness-doctor`, and the order to build in
 
 ---
 
-*Next: [Agents](AGENTES.md) — how an agent works and the catalog of 23 roles.*
+*Next: [Permissions](PERMISSIONS.md) — the layer that cannot be enforced by asking.*
