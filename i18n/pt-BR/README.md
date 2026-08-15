@@ -41,32 +41,40 @@ Uma forma simples de entender a relação entre as camadas: o **harness** é o q
 
 ```text
 ai-manifest/
-├── README.md              # este arquivo
-├── docs/                  # a documentação do método — comece por aqui
-│   ├── README.md          # índice completo da pirâmide, com trilhas de leitura
-│   ├── REPO_HARNESS.md    # camada 1 — harness do repositório
-│   ├── TOOLS.md           # ferramentas que um agente pode invocar
-│   ├── MCPS.md            # servidores MCP e escopos autorizados
-│   ├── SKILLS.md          # camada 2 — catálogo de procedimentos
-│   ├── RULES.md           # estado desejado do repositório e AGENTS.md
-│   ├── SENSORS.md         # verificações locais (pre-commit, pre-push)
-│   ├── GATES.md           # verificação do commit ao deploy, níveis de maturidade
-│   ├── DOCUMENTATION.md   # ADRs e evidence pack
-│   ├── AGENTES.md         # camada 3 — como um agente funciona
-│   ├── agentes/           # os 23 contratos individuais de agentes
-│   ├── LOOPS.md           # camada 4 — como as etapas da jornada se coordenam
-│   ├── loops/              # os 12 contratos de etapa, do intake à operação diária
-│   ├── METODOLOGIA.md     # camada 5 — como uma pessoa opera o sistema
-│   ├── metodologia/        # as sete páginas operacionais
-│   ├── WORKSPACE.md       # camada 6 — onde o trabalho vive fora do código
-│   └── workspace/          # as quatro páginas operacionais
-├── agents/                 # os prompts executáveis de cada agente (AGENT.md)
-├── skills/                  # os procedimentos executáveis (SKILL.md)
-├── workflows/               # a versão executável dos loops
-├── templates/               # modelos usados por PM, UX e Tech Lead
-├── workspaces/               # exemplos de workspace para os três papéis
-├── i18n/                     # traduções: espelho pt-BR, strings de interface e glossário
-└── scripts/                  # utilitários de apoio à documentação
+├── README.md # este arquivo
+├── docs/ # a documentação do método — comece por aqui
+│ ├── README.md # índice completo da pirâmide, com trilhas de leitura
+│ ├── REPO_HARNESS.md # camada 1 — harness do repositório
+│ ├── PERMISSIONS.md # o que o agente pode invocar e o que exige uma pessoa
+│ ├── TOOLS.md # índice de ferramentas e onde cada check roda
+│ ├── MCPS.md # servidores MCP e escopos autorizados
+│ ├── SKILLS.md # camada 2 — catálogo de procedimentos
+│ ├── RULES.md # estado desejado do repositório e AGENTS.md
+│ ├── SENSORS.md # verificações locais (pre-commit, pre-push)
+│ ├── GATES.md # verificação do commit ao deploy, níveis de autonomia
+│ ├── DOCUMENTATION.md # ADRs, evidence pack, identidade e proveniência
+│ ├── TRUST.md # conteúdo não confiável, injeção, exfiltração
+│ ├── FAILURE.md # o gate que não rodou e como detectá-lo
+│ ├── CONCURRENCY.md # vários agentes simultâneos, frescor de evidência
+│ ├── BUDGET.md # custo, turnos, contexto e o que degrada
+│ ├── VERSIONING.md # o harness tem versões, e elas invalidam
+│ ├── METRICS.md # métricas equilibradas da squad para a era da IA
+│ ├── MATURITY.md # maturidade do oportunista ao adaptativo
+│ ├── AGENTES.md # camada 3 — como um agente funciona
+│ ├── agentes/ # os 23 contratos individuais de agentes
+│ ├── LOOPS.md # camada 4 — como as etapas da jornada se coordenam
+│ ├── loops/ # os 12 contratos de etapa, do intake à operação diária
+│ ├── METODOLOGIA.md # camada 5 — como uma pessoa opera o sistema
+│ ├── metodologia/ # as sete páginas operacionais
+│ ├── WORKSPACE.md # camada 6 — onde o trabalho vive fora do código
+│ └── workspace/ # as quatro páginas operacionais
+├── agents/ # os prompts executáveis de cada agente (AGENT.md)
+├── skills/ # os procedimentos executáveis (SKILL.md)
+├── workflows/ # a versão executável dos loops
+├── templates/ # modelos usados por PM, UX e Tech Lead
+├── workspaces/ # exemplos de workspace para os três papéis
+├── i18n/ # traduções: espelho pt-BR, strings de interface e glossário
+└── scripts/ # utilitários de apoio à documentação
 ```
 
 A documentação é publicada em inglês e português brasileiro a partir deste mesmo branch. O texto canônico é a árvore acima; o `i18n/pt-BR/` espelha os mesmos caminhos, e o [`i18n/README.md`](i18n/README.md) é o contrato para manter os dois em sincronia.
@@ -82,7 +90,9 @@ A documentação completa, com o índice detalhado de cada camada e trilhas de l
 | Se você quer… | Comece por… |
 |---|---|
 | Entender a ideia do projeto em conjunto | [`docs/README.md`](docs/README.md) |
-| Preparar um repositório de aplicação para ser operado por agentes | [Harness](docs/REPO_HARNESS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Preparar um repositório de aplicação para ser operado por agentes | [Harness](docs/REPO_HARNESS.md) → [Permissões](docs/PERMISSIONS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Avaliar o perfil de maturidade da squad e escolher a próxima melhoria | [Maturidade](docs/MATURITY.md) → [Métricas](docs/METRICS.md) |
+| Operar agentes em produção, em volume | [Confiança](docs/TRUST.md) → [Falha](docs/FAILURE.md) → [Concorrência](docs/CONCURRENCY.md) → [Orçamento](docs/BUDGET.md) |
 | Conhecer o catálogo de agentes e o que cada um faz | [`docs/AGENTES.md`](docs/AGENTES.md) → [contratos individuais](docs/agentes/README.md) |
 | Ver a jornada completa, do intake ao deploy | [`docs/LOOPS.md`](docs/LOOPS.md) → [as 12 etapas](docs/loops/README.md) |
 | Saber o que cabe a uma pessoa decidir, na prática | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) → [manual do operador](docs/metodologia/05-manual-do-operador.md) |
@@ -106,18 +116,20 @@ Estes cinco conceitos aparecem em quase todos os documentos do repositório. Val
 
 ---
 
-## Maturidade do repositório e autonomia do agente
+## Maturidade no desenvolvimento de software na era da IA
 
-Um princípio atravessa todo o manifesto: **a autonomia concedida a um agente nunca é maior do que aquilo que o repositório consegue verificar automaticamente.** Um repositório sem gates suficientes não deveria operar com agentes de alta autonomia, mesmo que pareça estar funcionando bem — a aparência de sucesso não substitui a verificação.
+Maturidade é a capacidade da squad transformar um problema real em um outcome de produto mensurável de forma repetível, segura e sustentável. Adoção de IA isolada não é maturidade: sem outcomes claros, lotes pequenos, engenharia confiável, contexto acessível e governança, ela apenas amplifica o sistema ao redor.
 
-| Nível | O repositório tem | Autonomia sustentada |
-|---|---|---|
-| **HL0 — nu** | apenas README, testes eventuais, CI de build | nenhuma — trabalho assistido |
-| **HL1 — legível** | `AGENTS.md`, rules mínimas, script de verificação, pre-commit | baixa (A0–A1) |
-| **HL2 — verificável** | CI por risco, proteção de branch, evidence pack | média (A2) |
-| **HL3 — operável por time** | skills do repositório, identidades por agente, gates de ambiente e pós-deploy | alta (A3–A4) |
+| Nível | A squad opera como |
+|---|---|
+| **M0 — Oportunista** | uso individual de IA, conhecimento implícito e nenhuma baseline comparável |
+| **M1 — Assistido** | IA supervisionada sobre trabalho visível, versionado e verificado no nível básico |
+| **M2 — Padronizado** | procedimentos compartilhados, contexto reutilizável, lotes pequenos e dados comparáveis |
+| **M3 — Integrado** | um fluxo rastreável da decisão de produto ao outcome em produção |
+| **M4 — Autonomia governada** | trabalho delegado e reversível dentro de políticas explícitas e com evidências |
+| **M5 — Adaptativo** | melhoria contínua do sistema humano-IA por experimentos controlados |
 
-O detalhamento completo — o que cada nível exige e por quê — está em [`docs/GATES.md`](docs/GATES.md).
+A avaliação multidimensional completa está em [`docs/MATURITY.md`](docs/MATURITY.md), e o dashboard equilibrado da squad — incluindo implantações, implantações com falha, fluxo, qualidade, produto, colaboração com IA, economia e saúde da equipe — está em [`docs/METRICS.md`](docs/METRICS.md). A verificação do repositório ainda impõe um teto separado à autonomia dos agentes; esse controle especializado está descrito em [`docs/GATES.md`](docs/GATES.md).
 
 ---
 

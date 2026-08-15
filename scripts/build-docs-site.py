@@ -87,8 +87,20 @@ def title_from(body: str, meta: dict[str, str], fallback: str) -> str:
     return heading.group(1).strip() if heading else fallback
 
 
-def page(path: str, section: str, group: str, title: str | None = None) -> dict[str, str]:
-    return {"path": path, "section": section, "group": group, "title": title or ""}
+def page(
+    path: str,
+    section: str,
+    group: str,
+    title: str | None = None,
+    featured: bool = False,
+) -> dict[str, str | bool]:
+    return {
+        "path": path,
+        "section": section,
+        "group": group,
+        "title": title or "",
+        "featured": featured,
+    }
 
 
 def source_file(locale: str, path: str) -> tuple[str, bool]:
@@ -107,7 +119,8 @@ def github_file_url(path: str) -> str:
 PAGES = [
     page("README.md", "overview", "Start here", "What is Agent Team?"),
     page("docs/README.md", "overview", "Start here", "Documentation index"),
-    page("i18n/README.md", "overview", "Start here", "Translation contract"),
+    page("docs/MATURITY.md", "overview", "Start here", "Maturity", featured=True),
+    page("docs/METRICS.md", "overview", "Start here", "Metrics", featured=True),
     page("docs/REPO_HARNESS.md", "harness", "Fundamentals", "Repository harness"),
     page("docs/PERMISSIONS.md", "harness", "Repository controls", "Permissions"),
     page("docs/TOOLS.md", "harness", "Repository controls", "Tools"),
@@ -121,8 +134,6 @@ PAGES = [
     page("docs/CONCURRENCY.md", "harness", "Operating under load", "Concurrency"),
     page("docs/BUDGET.md", "harness", "Operating under load", "Budget"),
     page("docs/VERSIONING.md", "harness", "Operating under load", "Versioning"),
-    page("docs/METRICS.md", "harness", "Operating under load", "Metrics"),
-    page("docs/MATURITY.md", "harness", "Adoption", "Maturity"),
     page("docs/SKILLS.md", "skills", "Fundamentals", "How skills work"),
     page("skills/README.md", "skills", "Fundamentals", "Skills catalog"),
     page("skills/references/workflow-contract.md", "skills", "Shared contracts", "Artifact contract"),
@@ -450,7 +461,7 @@ a{color:inherit}.reading-progress{position:fixed;z-index:90;top:0;left:0;height:
 .search-box{padding:15px 14px 12px;position:relative}.search-box label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.search-box input{width:100%;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:10px;padding:10px 36px 10px 12px;font:13px var(--sans);outline:0}.search-box input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft)}.shortcut{position:absolute;right:24px;top:25px;color:var(--faint);font:10px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
 .lang-fab{position:fixed;top:1rem;right:1rem;z-index:9999;display:flex;align-items:center;gap:.4rem;padding:.45rem .8rem;border-radius:2rem;background:var(--charcoal);border:1px solid var(--line);color:var(--muted);font:12px/1 var(--mono);cursor:pointer;backdrop-filter:blur(8px);transition:border-color .15s,color .15s;box-shadow:0 2px 12px rgba(0,0,0,.3);text-decoration:none}.lang-fab:hover,.lang-fab:focus-visible{border-color:var(--cyan);color:var(--text);outline:0}.lang-flag{font-size:15px;line-height:1}
 .untranslated{margin:0 0 26px;padding:11px 14px;border:1px solid rgba(34,211,238,.28);border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;background:rgba(34,211,238,.06);color:var(--muted);font-size:12.5px;line-height:1.55}
-.nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
+.nav-scroll{overflow:auto;padding:4px 10px 30px}.nav-label{color:var(--faint);font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:15px 10px 7px}.nav-link{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--muted);border:1px solid transparent;border-radius:9px;padding:8px 9px;margin:2px 0;line-height:1.3}.nav-link:hover{color:var(--text);background:rgba(255,255,255,.025)}.nav-link.active{color:var(--cyan);border-color:rgba(34,211,238,.2);background:var(--cyan-soft)}.nav-num{font:10px var(--mono);color:var(--faint);width:21px}.nav-link.active .nav-num{color:var(--cyan)}.overview-subnav{margin:-1px 0 9px 20px;padding-left:9px;border-left:1px solid var(--line-soft)}.overview-subnav .nav-link{font-size:12px;padding:6px 9px}.nav-divider{height:1px;background:var(--line-soft);margin:12px 10px}.context-group{margin-bottom:7px}.context-group summary{cursor:pointer;color:var(--faint);font:10px var(--mono);letter-spacing:.09em;text-transform:uppercase;padding:8px 10px;list-style:none}.context-group summary::-webkit-details-marker{display:none}.context-group summary::before{content:"+";margin-right:7px;color:var(--cyan)}.context-group[open] summary::before{content:"−"}.context-group .nav-link{font-size:12px;padding:7px 9px 7px 15px}
 .link-icon{width:16px;height:16px;display:block;fill:currentColor}.footer-link-icon{width:14px;height:14px;vertical-align:-2px;margin-right:5px}
 .main{min-width:0}.view{min-height:100vh}.menu-toggle{display:none;position:fixed;z-index:70;top:14px;left:14px;border:1px solid var(--line);background:var(--charcoal);color:var(--text);border-radius:9px;width:42px;height:42px;font-size:18px}.overlay{display:none}
 .home{max-width:1440px;margin:auto;padding:clamp(34px,5vw,76px)}.hero{min-height:calc(100vh - 152px);display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);column-gap:clamp(36px,6vw,92px);row-gap:clamp(30px,4vw,54px);align-items:center}.hero-heading{grid-column:1/-1;max-width:1040px}.eyebrow{color:var(--cyan);font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.eyebrow::before{content:"";width:28px;height:1px;background:var(--cyan)}.hero h1{font-size:clamp(52px,7.2vw,104px);line-height:.92;letter-spacing:-.06em;margin:20px 0 0;max-width:980px}.hero h1 span{color:var(--cyan)}.hero-copy{align-self:start;padding-top:8px}.hero-lede{color:var(--muted);font-size:clamp(16px,1.4vw,20px);max-width:590px;margin-top:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}.button{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-weight:650}.button.primary{background:var(--cyan);border-color:var(--cyan);color:#062127}.button:hover{transform:translateY(-1px);border-color:var(--cyan)}.button .arrow{font-family:var(--mono)}
@@ -511,12 +522,13 @@ function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('
 function groupsFor(sectionId){const groups=new Map();DATA.pages.filter(p=>p.section===sectionId).forEach(page=>{if(!groups.has(page.group))groups.set(page.group,[]);groups.get(page.group).push(page)});return groups}
 function renderNav(sectionId='',pageId=''){
   const layers=DATA.sections.map(section=>`<a class="nav-link ${section.id===sectionId?'active':''}" href="${sectionRoute(section)}"><span class="nav-num">${section.number}</span><span>${esc(section.title)}</span></a>`).join('');
+  const overview=`<div class="overview-subnav">${DATA.pages.filter(page=>page.section==='overview'&&page.featured).map(page=>`<a class="nav-link ${page.id===pageId?'active':''}" href="${routeFor(page)}">${esc(page.title)}</a>`).join('')}</div>`;
   let context='';
   if(sectionsById.has(sectionId)){
     context=`<div class="nav-divider"></div><div class="nav-label">${esc(UI.inThisLayer)}</div>`;
     for(const [group,pages] of groupsFor(sectionId)) context+=`<details class="context-group" open><summary>${esc(group)}</summary>${pages.map(page=>`<a class="nav-link ${page.id===pageId?'active':''}" href="${routeFor(page)}">${esc(page.title)}</a>`).join('')}</details>`;
   }
-  nav.innerHTML=`<div class="nav-label">${esc(UI.explore)}</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>${esc(UI.overview)}</span></a><div class="nav-label">${esc(UI.sixLayers)}</div>${layers}${context}<div class="nav-label">${esc(UI.links)}</div><a class="nav-link" href="${SITE_LINKS.repository}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.github}</span><span>${esc(UI.githubRepo)}</span></a><a class="nav-link" href="${SITE_LINKS.linkedin}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.linkedin}</span><span>LinkedIn</span></a><a class="nav-link" href="mailto:${SITE_LINKS.email}"><span class="nav-num">@</span><span>${SITE_LINKS.email}</span></a>`;
+  nav.innerHTML=`<div class="nav-label">${esc(UI.explore)}</div><a class="nav-link ${!sectionId?'active':''}" href="#/"><span class="nav-num">00</span><span>${esc(UI.overview)}</span></a>${overview}<div class="nav-label">${esc(UI.sixLayers)}</div>${layers}${context}<div class="nav-label">${esc(UI.links)}</div><a class="nav-link" href="${SITE_LINKS.repository}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.github}</span><span>${esc(UI.githubRepo)}</span></a><a class="nav-link" href="${SITE_LINKS.linkedin}" target="_blank" rel="noreferrer"><span class="nav-num">${ICONS.linkedin}</span><span>LinkedIn</span></a><a class="nav-link" href="mailto:${SITE_LINKS.email}"><span class="nav-num">@</span><span>${SITE_LINKS.email}</span></a>`;
 }
 function homeMarkup(){
   const layers=DATA.sections.map(section=>`<a class="layer" href="${sectionRoute(section)}" aria-label="${esc(UI.layerAria.replace('{number}',section.number).replace('{title}',section.title).replace('{question}',section.question))}"><span class="layer-number">${section.number}</span><span class="layer-title">${esc(section.title)}</span><span class="layer-question">${esc(section.question)}</span></a>`).join('');

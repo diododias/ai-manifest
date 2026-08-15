@@ -51,15 +51,15 @@ ai-manifest/
 │ ├── SKILLS.md # layer 2 — procedure catalog
 │ ├── RULES.md # desired state of repository and AGENTS.md
 │ ├── SENSORS.md # local checks (pre-commit, pre-push)
-│ ├── GATES.md # check commit to deploy, maturity levels
+│ ├── GATES.md # check commit to deploy, autonomy levels
 │ ├── DOCUMENTATION.md # ADRs, evidence pack, identity and provenance
 │ ├── TRUST.md # untrusted content, injection, exfiltration
 │ ├── FAILURE.md # the gate that did not run, and how to catch it
 │ ├── CONCURRENCY.md # several agents at once, evidence freshness
 │ ├── BUDGET.md # cost, turns, context and what degrades
 │ ├── VERSIONING.md # the harness has versions, and they invalidate
-│ ├── METRICS.md # gate escape rate and the autonomy panel
-│ ├── MATURITY.md # checklist per level and harness-doctor
+│ ├── METRICS.md # balanced squad metrics for the AI era
+│ ├── MATURITY.md # maturity from opportunistic to adaptive
 │ ├── AGENTES.md # layer 3 — how an agent works
 │ ├── agentes/ # the 23 individual agent contracts
 │ ├── LOOPS.md # layer 4 — how the steps of the journey coordinate
@@ -91,7 +91,7 @@ The complete documentation, with the detailed index for each layer and reading t
 |---|---|
 | Understand the project idea together | [`docs/README.md`](docs/README.md) |
 | Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Permissions](docs/PERMISSIONS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
-| Know which maturity level your repository is really at | [Maturity](docs/MATURITY.md) |
+| Assess the squad's maturity profile and choose the next improvement | [Maturity](docs/MATURITY.md) → [Metrics](docs/METRICS.md) |
 | Operate agents in production, at volume | [Trust](docs/TRUST.md) → [Failure](docs/FAILURE.md) → [Concurrency](docs/CONCURRENCY.md) → [Budget](docs/BUDGET.md) |
 | Get to know the agent catalog and what each one does | [`docs/AGENTES.md`](docs/AGENTES.md) → [individual contracts](docs/agentes/README.md) |
 | See the complete journey, from intake to deployment | [`docs/LOOPS.md`](docs/LOOPS.md) → [the 12 steps](docs/loops/README.md) |
@@ -116,18 +116,20 @@ These five concepts appear in almost all documents in the repository. It's worth
 
 ---
 
-## Repository maturity and agent autonomy
+## Software development maturity in the AI era
 
-One principle runs through the entire manifesto: **the autonomy granted to an agent is never greater than what the repository can automatically verify.** A repository without sufficient gates should not operate with high-autonomy agents, even if it appears to be working well — the appearance of success is no substitute for verification.
+Maturity is the squad's ability to turn a real problem into a measurable product outcome repeatedly, safely and sustainably. AI adoption alone is not maturity: without clear outcomes, small batches, reliable engineering, accessible context and governance, it only amplifies the surrounding system.
 
-| Level | The repository has | Sustained autonomy |
-|---|---|---|
-| **HL0 — naked** | just README, occasional tests, build CI | none — assisted work |
-| **HL1 — readable** | `AGENTS.md`, minimum rules, verification script, pre-commit | low (A0–A1) |
-| **HL2 — verifiable** | CI by risk, branch protection, evidence pack | average (A2) |
-| **HL3 — operable by team** | repository skills, identities per agent, environment and post-deploy gates | high (A3–A4) |
+| Level | The squad operates as |
+|---|---|
+| **M0 — Opportunistic** | individual AI use, implicit knowledge and no comparable baseline |
+| **M1 — Assisted** | supervised AI over visible, versioned and basically verified work |
+| **M2 — Standardized** | shared procedures, reusable context, small batches and comparable data |
+| **M3 — Integrated** | one traceable flow from product decision to production outcome |
+| **M4 — Governed autonomy** | delegated, reversible work within explicit policies and evidence |
+| **M5 — Adaptive** | continuous improvement of the human-AI system through controlled experiments |
 
-The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md). The item-by-item checklist, and the script that computes the level a repository actually reached instead of the one it claims, is at [`docs/MATURITY.md`](docs/MATURITY.md).
+The complete multidimensional assessment is in [`docs/MATURITY.md`](docs/MATURITY.md), and the balanced squad dashboard — including deployments, failed deployments, flow, quality, product, AI collaboration, economics and team health — is in [`docs/METRICS.md`](docs/METRICS.md). Repository verification still places a separate ceiling on agent autonomy; that specialized control is described in [`docs/GATES.md`](docs/GATES.md).
 
 ---
 

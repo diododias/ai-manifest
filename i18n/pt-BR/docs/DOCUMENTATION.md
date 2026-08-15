@@ -95,7 +95,7 @@ Um repositório em nível HL3 — o alvo de maturidade plena — apresenta a seg
 ├── scripts/
 │   ├── verify.sh                  # entrada única das verificações locais
 │   ├── evidence.sh                # coleta e empacota evidência
-│   └── harness-doctor.sh          # informa o nível de maturidade realmente atingido
+│   └── harness-doctor.sh          # informa a prontidão dos controles do repositório
 │
 ├── .hooks/                        # sensors versionados (pre-commit, pre-push)
 └── .github/workflows/             # fast lane e deep lane
@@ -103,7 +103,7 @@ Um repositório em nível HL3 — o alvo de maturidade plena — apresenta a seg
 
 O último path é o que deve ser adaptado: está escrito como GitHub Actions por ser o caso comum, e corresponde a `.gitlab-ci.yml` ou ao equivalente em outra plataforma. O que importa não é o diretório, mas que as duas lanes estejam em arquivos separados e que nenhum deles possa ser editado de dentro do fluxo que controla.
 
-Repositórios em HL1 ou HL2 contêm subconjuntos dessa árvore. Os níveis de maturidade definem qual subconjunto é suficiente para cada patamar de autonomia — a decomposição item a item está em [Maturidade](MATURITY.md).
+Repositórios em níveis HL diferentes de verificação contêm subconjuntos dessa árvore. [Gates](GATES.md#autonomia-progressiva-e-o-teto-do-harness) define o teto de autonomia sustentado por esses controles; [Maturidade](MATURITY.md) avalia o modelo operacional mais amplo da squad.
 
 ## O que cada arquivo carrega
 

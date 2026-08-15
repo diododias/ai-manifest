@@ -58,11 +58,13 @@ They are properties rather than layers because they cannot be built in sequence 
 - [Concurrency](CONCURRENCY.md) — several agents at once, evidence freshness and integration order
 - [Budget](BUDGET.md) — cost, turns, context, and what degrades when they run out
 - [Versioning](VERSIONING.md) — the harness has versions, and a change invalidates past approvals
-- [Metrics](METRICS.md) — gate escape rate and the panel that promotes or demotes autonomy
 
-**Adoption**
+**Related overview**
 
-- [Maturity](MATURITY.md) — the checklist per level, `harness-doctor`, and the order to build in
+- [Maturity](MATURITY.md) — the squad-wide evolution from opportunistic assistance to adaptive operation
+- [Metrics](METRICS.md) — the balanced panel for product, delivery, stability and human-AI collaboration
+
+These are cross-cutting views of the full development system, not additional harness layers.
 
 ---
 

@@ -3,7 +3,7 @@
   "source_locale": "en",
   "entries": {
     "README.md": {
-      "source_sha256": "5bbb6ced5e14ef22cacd11d1daf651bd9a37c08774bb56f283f21c4b34ca893d"
+      "source_sha256": "04ed20d095f7402613dcccd90f4845d5e10375d95670c88fb350f0cd37b950d7"
     },
     "agents/README.md": {
       "source_sha256": "7c89f67408e593de82a1a74d652d31442abcc85fdd90da9a80942ec3c30ad265",
@@ -120,19 +120,19 @@
       "source_sha256": "5956b33417adc3304c70b8834bbb527a07988bb76ce0ff2431c9661737760cf1"
     },
     "docs/DOCUMENTATION.md": {
-      "source_sha256": "ffd52c4b50a54c791fc461daed858e1d1e964df23382a5b4fb548a4026dc2413"
+      "source_sha256": "b3d09d1c5f5d5402a485027ab2743d60399a76eedbc2cc1cf041010d0ea27808"
     },
     "docs/FAILURE.md": {
-      "source_sha256": "d9f6ebc2324f90d151430e9ed66d2ec49bd59eca1559db80a519b00fae1997a7"
+      "source_sha256": "d9847bb5c4fbe84115e48e91e41644c63c72830b256e5f3008a7135329950871"
     },
     "docs/GATES.md": {
-      "source_sha256": "0e12da0019bfc8f82f7172efdb0f27daa31e4896da717f3e3a8888f57810470e"
+      "source_sha256": "78f5d024b4c1687ddfe5603655eb830bb34dfebe39dd7f509435a609719817be"
     },
     "docs/LOOPS.md": {
       "source_sha256": "76471b1cee5002c4ef72ef0a48999ab3e786a70ec20dd5bd377aa9997109204d"
     },
     "docs/MATURITY.md": {
-      "source_sha256": "b8fabe00c229d1828672fda3df077a2be59e77b837c2a38a95b41b629adcd759"
+      "source_sha256": "90e162d76d0f19c8d4c1040273059a506ab25bc36b167fa68d318834ffe7cd02"
     },
     "docs/MCPS.md": {
       "source_sha256": "2ee3311c344cd0794ec7d158e97c7777e662a53d19aa235cc2b9f06c3ed42694"
@@ -141,16 +141,16 @@
       "source_sha256": "a77bf3a9b01db0f03064654cfd165bb08e9151760453ee6232e34955009ccf43"
     },
     "docs/METRICS.md": {
-      "source_sha256": "f27239571fb7465679f7495521273ed6d43da449fa5624ac3561d0e58a5dd6f7"
+      "source_sha256": "8e52a4d90b8322eefb608d2eed68db94b21ea2d521e52a9badf19b3ea94a0879"
     },
     "docs/PERMISSIONS.md": {
       "source_sha256": "5a811ad38b3ba7e65fedcb5922ce4685b6ef3f054c05ade3604bec0b7c1ec981"
     },
     "docs/README.md": {
-      "source_sha256": "c51b25c0161de36de935c6ae13826deeea94bb54f367ca08f6856eec6b713dba"
+      "source_sha256": "98150e279eb75edbeeba95a9694882ac36ac3f9e378aed18a566bb39bdf02bf9"
     },
     "docs/REPO_HARNESS.md": {
-      "source_sha256": "899a2688abc3039ad728fdc6a075a1c58c3bf42699b9160482286c45820311ee"
+      "source_sha256": "8d06dc71d9a8b325afbfc2dd554280d328ba9c494d7100c8e72079fdf7e3aea8"
     },
     "docs/RULES.md": {
       "source_sha256": "03e7ee8a48dc8a665c4447d6b780c1f9d9e639adebcfa1a7d89984f37c706bdc"
@@ -163,7 +163,7 @@
       "origin": "main"
     },
     "docs/TOOLS.md": {
-      "source_sha256": "c5674f3b418a186097e513d03cd676c5045fff7c670a8fc4e8bf212c7625f373"
+      "source_sha256": "d7d47a18c6d4997b059f1654599694e929992d4745694990849f02231dd076c3"
     },
     "docs/TRUST.md": {
       "source_sha256": "1a1da35f95a67cce545f40ce57b2d30a3d7fed45e06f9b26011712a2f2d28458"

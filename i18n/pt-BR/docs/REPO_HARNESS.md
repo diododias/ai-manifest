@@ -58,11 +58,13 @@ Elas são propriedades, e não camadas, porque não podem ser construídas em se
 - [Concorrência](CONCURRENCY.md) — vários agentes ao mesmo tempo, frescor de evidência e ordem de integração
 - [Orçamento](BUDGET.md) — custo, turnos, contexto e o que degrada quando acabam
 - [Versionamento](VERSIONING.md) — o harness tem versões, e uma mudança invalida aprovações anteriores
-- [Métricas](METRICS.md) — taxa de escape dos gates e o painel que promove ou rebaixa autonomia
 
-**Adoção**
+**Overview relacionado**
 
-- [Maturidade](MATURITY.md) — o checklist por nível, `harness-doctor` e a ordem de construção
+- [Maturidade](MATURITY.md) — a evolução da squad da assistência oportunista à operação adaptativa
+- [Métricas](METRICS.md) — o painel equilibrado de produto, entrega, estabilidade e colaboração humano-IA
+
+Essas são visões transversais de todo o sistema de desenvolvimento, não camadas adicionais do harness.
 
 ---
 

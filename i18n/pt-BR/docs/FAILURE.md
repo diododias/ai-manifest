@@ -65,7 +65,7 @@ E um agente itera mais rápido do que qualquer pessoa revisa. Um gate que parou 
 
 Quando uma verificação genuinamente não consegue rodar, o repositório declara isso explicitamente, com quatro campos: qual gate, por que não consegue rodar, o que compensa nesse meio-tempo e quando a exceção expira. Uma exceção sem prazo é uma mudança permanente na arquitetura de verificação, e passa pelo dono do harness e pelo changelog como qualquer outra ([Versionamento](VERSIONING.md)).
 
-Operar em um modo degradado declarado também baixa o teto de autonomia enquanto durar. Um repositório sem um gate é, pelo período, um repositório no nível de maturidade que aquele gate ausente define — ver [Maturidade](MATURITY.md).
+Operar em um modo degradado declarado também baixa o teto de autonomia enquanto durar. Um repositório sem um gate fica, durante o período, no nível de verificação que o gate ausente consegue sustentar — ver [Gates](GATES.md#autonomia-progressiva-e-o-teto-do-harness).
 
 ---
 
