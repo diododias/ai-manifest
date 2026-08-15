@@ -59,7 +59,7 @@ Registradas em `execution/evidence/WI-031.md`.
 - 2026-08-08 14:00 — item assumido por `agent-backend`.
 ```
 
-Um exemplo completo, com histórico e evidência ligados a um plano real, está em [`workspaces/tech-lead/projects/checkout/work-items/WI-031.md`](../../workspaces/tech-lead/projects/checkout/work-items/WI-031.md). A skill [`workspace-board`](../../skills/workspace-board/SKILL.md) é o procedimento que aplica exatamente esta regra de autoridade: primeiro atualiza ou confirma o Work Item, só depois reconcilia o board.
+Um exemplo completo, com critérios de aceite e handoffs ligados aos demais workspaces, está em [`workspaces/pm/projects/checkout/work-items/PM-WI-001.md`](../../workspaces/pm/projects/checkout/work-items/PM-WI-001.md). A skill [`workspace-board`](../../skills/workspace-board/SKILL.md) é o procedimento que aplica exatamente esta regra de autoridade: primeiro atualiza ou confirma o Work Item, só depois reconcilia o board.
 
 ## Estados permitidos
 

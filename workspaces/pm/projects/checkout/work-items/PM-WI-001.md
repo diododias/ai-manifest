@@ -23,4 +23,4 @@ updated_at: 2026-08-08T15:00:00-03:00
 ## Related Handoffs
 
 - UX: [`../../../../ux/projects/checkout/handoffs/from-pm.md`](../../../../ux/projects/checkout/handoffs/from-pm.md)
-- Tech Lead: [`../../../../tech-lead/projects/checkout/work-items/WI-031.md`](../../../../tech-lead/projects/checkout/work-items/WI-031.md)
+- Tech Lead: [`../../../../tech-lead/projects/checkout/README.md`](../../../../tech-lead/projects/checkout/README.md)

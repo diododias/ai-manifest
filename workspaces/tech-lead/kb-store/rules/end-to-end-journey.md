@@ -6,9 +6,9 @@ updated_at: 2026-08-08
 
 # Agent Team — journey flow
 
-> Visual view of [human trio operating system](../rules/operating-model.md) and [90/10 operating model](operating-model-90-10.md) · [Phase-separated flows](journey-by-phase.md) · [multi-agent workflows](../workflows/README.md).
+> Visual view of [human trio operating system](../rules/operating-model.md) and [90/10 operating model](operating-model-90-10.md) · [Phase-separated flows](journey-by-phase.md) · [multi-agent workflows](../../../../workflows/README.md).
 
-Each stage with collaboration between agents has a detailed contract in the [workflow map](../workflows/README.md): [intake](../workflows/00-intake-and-triage.md), [discovery](../workflows/01-discovery-and-research.md), [product and UX](../workflows/02-product-and-ux-planning.md), [specification](../workflows/03-technical-specification.md), [implementation](../workflows/04-autonomous-implementation.md), [validation](../workflows/05-adversarial-validation.md), [PR](../workflows/06-pr-and-merge.md), [approval](../workflows/07-release-candidate-validation.md), [production](../workflows/08-production-release-and-observation.md), [knowledge](../workflows/09-knowledge-curation.md) and [continuous improvement](../workflows/10-continuous-improvement.md).
+Each stage with collaboration between agents has a detailed contract in the [workflow map](../../../../workflows/README.md): [intake](../../../../workflows/00-intake-and-triage.md), [discovery](../../../../workflows/01-discovery-and-research.md), [product and UX](../../../../workflows/02-product-and-ux-planning.md), [specification](../../../../workflows/03-technical-specification.md), [implementation](../../../../workflows/04-autonomous-implementation.md), [validation](../../../../workflows/05-adversarial-validation.md), [PR](../../../../workflows/06-pr-and-merge.md), [approval](../../../../workflows/07-release-candidate-validation.md), [production](../../../../workflows/08-production-release-and-observation.md), [knowledge](../../../../workflows/09-knowledge-curation.md) and [continuous improvement](../../../../workflows/10-continuous-improvement.md).
 
 ## Development journey
 

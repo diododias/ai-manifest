@@ -59,7 +59,7 @@ Registered in `execution/evidence/WI-031.md`.
 - 2026-08-08 14:00 — item taken over by `agent-backend`.
 ```
 
-A complete example, with history and evidence linked to a real plan, is in [`workspaces/tech-lead/projects/checkout/work-items/WI-031.md`](../../workspaces/tech-lead/projects/checkout/work-items/WI-031.md). The skill [`workspace-board`](../../skills/workspace-board/SKILL.md) is the procedure that applies exactly this authority rule: first updates or confirms the Work Item, and only then reconciles the board.
+A complete example, with acceptance criteria and handoffs linked to the other workspaces, is in [`workspaces/pm/projects/checkout/work-items/PM-WI-001.md`](../../workspaces/pm/projects/checkout/work-items/PM-WI-001.md). The skill [`workspace-board`](../../skills/workspace-board/SKILL.md) is the procedure that applies exactly this authority rule: first updates or confirms the Work Item, and only then reconciles the board.
 
 ## Allowed states
 

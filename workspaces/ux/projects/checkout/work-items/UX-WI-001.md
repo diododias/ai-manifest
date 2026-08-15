@@ -24,4 +24,4 @@ updated_at: 2026-08-08T15:00:00-03:00
 ## External dependencies
 
 - Product: [`../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md`](../../../../pm/projects/checkout/requirements/prd/PRD-001-reliable-checkout.md)
-- Engineering: [`../../../../tech-lead/projects/checkout/engineering/specs/SPEC-001-payment-idempotency.md`](../../../../tech-lead/projects/checkout/engineering/specs/SPEC-001-payment-idempotency.md)
+- Engineering: [`../../../../tech-lead/projects/checkout/README.md`](../../../../tech-lead/projects/checkout/README.md)

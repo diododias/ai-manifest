@@ -113,44 +113,63 @@
       "source_sha256": "b92c16bf2430e9c36d71f8bb247a96322e3c434d06226d0ec1eab364c83775a0",
       "origin": "main"
     },
+    "docs/BUDGET.md": {
+      "source_sha256": "77c9c29576f45d63c06c3b3111814b694e49bb15e36b5d82697774c394b6fb4e"
+    },
+    "docs/CONCURRENCY.md": {
+      "source_sha256": "5956b33417adc3304c70b8834bbb527a07988bb76ce0ff2431c9661737760cf1"
+    },
     "docs/DOCUMENTATION.md": {
-      "source_sha256": "6741e0f083ea2203056eba06cfb6cd29c6fa4381c1ecf39bbf603255e6f7b0b9",
-      "origin": "main"
+      "source_sha256": "ffd52c4b50a54c791fc461daed858e1d1e964df23382a5b4fb548a4026dc2413"
+    },
+    "docs/FAILURE.md": {
+      "source_sha256": "d9f6ebc2324f90d151430e9ed66d2ec49bd59eca1559db80a519b00fae1997a7"
     },
     "docs/GATES.md": {
-      "source_sha256": "6101f4b2c0e8ff742d7d391972753d1ed95e7b7cef9ab06b0572ccd4413355dc",
-      "origin": "main"
+      "source_sha256": "0e12da0019bfc8f82f7172efdb0f27daa31e4896da717f3e3a8888f57810470e"
     },
     "docs/LOOPS.md": {
-      "source_sha256": "9a7ddbbef9a413d2b0b2811eada1a12f960dc6eb6b434a5960b8d75c16b00756"
+      "source_sha256": "76471b1cee5002c4ef72ef0a48999ab3e786a70ec20dd5bd377aa9997109204d"
+    },
+    "docs/MATURITY.md": {
+      "source_sha256": "b8fabe00c229d1828672fda3df077a2be59e77b837c2a38a95b41b629adcd759"
     },
     "docs/MCPS.md": {
-      "source_sha256": "12db91acbb6271fed6692eb55a8e197a800343e47dcb8a2b3790d77b82800f34",
-      "origin": "main"
+      "source_sha256": "2ee3311c344cd0794ec7d158e97c7777e662a53d19aa235cc2b9f06c3ed42694"
     },
     "docs/METODOLOGIA.md": {
       "source_sha256": "a77bf3a9b01db0f03064654cfd165bb08e9151760453ee6232e34955009ccf43"
     },
+    "docs/METRICS.md": {
+      "source_sha256": "f27239571fb7465679f7495521273ed6d43da449fa5624ac3561d0e58a5dd6f7"
+    },
+    "docs/PERMISSIONS.md": {
+      "source_sha256": "5a811ad38b3ba7e65fedcb5922ce4685b6ef3f054c05ade3604bec0b7c1ec981"
+    },
     "docs/README.md": {
-      "source_sha256": "6e827f0975cbed350996f0f95347803fba0c36999c725eb3af031161fe150160"
+      "source_sha256": "c51b25c0161de36de935c6ae13826deeea94bb54f367ca08f6856eec6b713dba"
     },
     "docs/REPO_HARNESS.md": {
-      "source_sha256": "ecf2c00d57518d67627c69ec198c45308847b9833e84acbe764c11a1b183c270",
-      "origin": "main"
+      "source_sha256": "899a2688abc3039ad728fdc6a075a1c58c3bf42699b9160482286c45820311ee"
     },
     "docs/RULES.md": {
-      "source_sha256": "e6d82e1ffd434b517618d07fc6458ed8ad6555803107c59d87198fe16d67b3f8",
-      "origin": "main"
+      "source_sha256": "03e7ee8a48dc8a665c4447d6b780c1f9d9e639adebcfa1a7d89984f37c706bdc"
     },
     "docs/SENSORS.md": {
-      "source_sha256": "5de94691c4ac0552889ca1f53ec939894f8d4a8159c0fbbfd2ef53a806593f4f"
+      "source_sha256": "afddafcbae869ea400aca0137b6a5dc064a0c8a678bf25ecfdbbdf23ed155d30"
     },
     "docs/SKILLS.md": {
       "source_sha256": "db5934472b2d169a5fcdfa9c7c2988dfc82e18db41ec87cfd4919cdcb77d30ef",
       "origin": "main"
     },
     "docs/TOOLS.md": {
-      "source_sha256": "2a7e2d042f6a38f995a601912dd7d96a91900219f1de0dcc48eb0f6e5733d925"
+      "source_sha256": "c5674f3b418a186097e513d03cd676c5045fff7c670a8fc4e8bf212c7625f373"
+    },
+    "docs/TRUST.md": {
+      "source_sha256": "1a1da35f95a67cce545f40ce57b2d30a3d7fed45e06f9b26011712a2f2d28458"
+    },
+    "docs/VERSIONING.md": {
+      "source_sha256": "7ca36189143a66e2f79cf291f9d5fcd60da8b82e8682da96a52c8f9bf58fc773"
     },
     "docs/WORKSPACE.md": {
       "source_sha256": "f9cdce63e15995c864a396c43f2beb2918a4b9113e5baad8767bef3db78127f7"
@@ -348,8 +367,7 @@
       "origin": "main"
     },
     "docs/workspace/04-board-e-work-items.md": {
-      "source_sha256": "e729dcd6f1f1c2005d69ad319d42d584d9b71a3b385e0d04d11828aca830c1e1",
-      "origin": "main"
+      "source_sha256": "6d6c608589ea50e78444df373121b63902f8a1b97c9b16b4e24f97d788b08943"
     },
     "docs/workspace/README.md": {
       "source_sha256": "fb40f8fd0d652299b0b5c2cd34911c68889236a638d88ea1f81023f3494ed480",
@@ -529,10 +547,10 @@
       "origin": "main"
     },
     "workspaces/tech-lead/README.md": {
-      "source_sha256": "4543f46c0e1d267f0721b0f8a0d3cdb56d4bf068fc9483092f9aa5f37797a40b"
+      "source_sha256": "bc008d90d8b8527d5803ec7ce71c027301a6084834bdeb1a749214a819a897eb"
     },
     "workspaces/tech-lead/kb-store/diagrams/tech-lead-workspace.md": {
-      "source_sha256": "786f38c4766384e1c27a69ee2862707f84174a6f6cce1e184abb59d51243e66a"
+      "source_sha256": "5221653670572857f0cbb0db64378c5b6b431d78c8196c3ba9c60e3786c0b870"
     },
     "workspaces/ux/README.md": {
       "source_sha256": "6109e31ae0baa88d6cb9d7cca3fa48e87c2845bf814384545e96ceecb01a627e",
