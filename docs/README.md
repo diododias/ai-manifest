@@ -54,6 +54,12 @@ The workspace is the physical place where work actually happens: where a Work It
 
 ---
 
+## Languages
+
+Every page in this index is published in English and Brazilian Portuguese from the same branch: the canonical text lives at these paths and `i18n/pt-BR/` mirrors them one to one. A page without a translation yet falls back to English and says so at the top, and drift between the two is measured by `uv run scripts/i18n.py status`. How to translate, stamp and add a locale is in [`i18n/README.md`](../i18n/README.md); the terminology that must stay consistent is in [`i18n/GLOSSARY.md`](../i18n/GLOSSARY.md).
+
+---
+
 ## Where to start
 
 | Do you want… | Read |

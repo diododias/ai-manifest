@@ -65,8 +65,11 @@ ai-manifest/
 ├── workflows/ # the executable version of the loops
 ├── templates/ # templates used by PM, UX and Tech Lead
 ├── workspaces/ # workspace examples for the three roles
+├── i18n/ # translations: pt-BR mirror, UI strings and glossary
 └── scripts/ # documentation support utilities
 ```
+
+The documentation is published in English and Brazilian Portuguese from this same branch. The canonical text is the tree above; `i18n/pt-BR/` mirrors the same paths, and [`i18n/README.md`](i18n/README.md) is the contract for keeping both in sync.
 
 The rule of thumb to guide yourself: **`docs/` explains the concept and why; the sister folders (`agents/`, `skills/`, `workflows/`, `templates/`, `workspaces/`) contain the executable version of what `docs/` describes.** Reading a concept document before the corresponding artifact avoids applying a procedure without understanding the reason behind it.
 
