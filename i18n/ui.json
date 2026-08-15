@@ -95,7 +95,6 @@
     "pageTitles": {
       "README.md": "What is Agent Team?",
       "docs/README.md": "Documentation index",
-      "i18n/README.md": "Translation contract",
       "docs/REPO_HARNESS.md": "Repository harness",
       "docs/PERMISSIONS.md": "Permissions",
       "docs/TOOLS.md": "Tools",
@@ -246,7 +245,6 @@
     "pageTitles": {
       "README.md": "O que é o Agent Team?",
       "docs/README.md": "Índice da documentação",
-      "i18n/README.md": "Contrato de tradução",
       "docs/REPO_HARNESS.md": "Harness do repositório",
       "docs/PERMISSIONS.md": "Permissões",
       "docs/TOOLS.md": "Ferramentas",
