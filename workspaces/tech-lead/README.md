@@ -15,7 +15,7 @@ You are in the **Tech Lead** workspace. Your responsibility is to prepare and ex
 Before taking action:
 
 1. Read [`AGENTS.md`](AGENTS.md) and [`WORKSPACE.md`](WORKSPACE.md).
-2. Identify the project in [`docs/portfolio/PROJECTS.md`](docs/portfolio/PROJECTS.md) and the Work Item in [`BOARD.md`](BOARD.md).
+2. Identify the project in [`kb-store/portfolio/PROJECTS.md`](kb-store/portfolio/PROJECTS.md) and the Work Item in [`BOARD.md`](BOARD.md).
 3. Read `CONTEXT.md`, `STATUS.md`, the active plan and Work Item of the project.
 4. See `engineering/repositories.yaml`, then the instructions for the repository involved.
 5. Check branch, worktree, Git state, risk, permissions, criteria and gates.

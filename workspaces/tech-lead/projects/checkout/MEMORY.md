@@ -2,7 +2,7 @@
 
 - Pilot project: `checkout`.
 - Active illustrative mission: `WI-031`.
-- Portfolio source of truth: [`docs/portfolio/PROJECTS.md`](docs/portfolio/PROJECTS.md).
+- Portfolio source of truth: [`kb-store/portfolio/PROJECTS.md`](../../kb-store/portfolio/PROJECTS.md).
 
 ## Agents
 Agents can maintain separate summaries for continuity, without copying secrets or replacing official documents.
