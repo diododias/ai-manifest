@@ -45,19 +45,27 @@ ai-manifest/
 ├── docs/ # the method documentation — start here
 │ ├── README.md # complete pyramid index, with reading tracks
 │ ├── REPO_HARNESS.md # layer 1 — repository harness
-│ ├── TOOLS.md # tools that an agent can invoke
+│ ├── PERMISSIONS.md # what the agent may invoke, and what requires a person
+│ ├── TOOLS.md # tooling index and where each check runs
 │ ├── MCPS.md # MCP servers and authorized scopes
 │ ├── SKILLS.md # layer 2 — procedure catalog
 │ ├── RULES.md # desired state of repository and AGENTS.md
 │ ├── SENSORS.md # local checks (pre-commit, pre-push)
 │ ├── GATES.md # check commit to deploy, maturity levels
-│ ├── DOCUMENTATION.md # ADRs and evidence pack
-│ ├── AGENTS.md # layer 3 — how an agent works
-│ ├── agents/ # the 23 individual agent contracts
+│ ├── DOCUMENTATION.md # ADRs, evidence pack, identity and provenance
+│ ├── TRUST.md # untrusted content, injection, exfiltration
+│ ├── FAILURE.md # the gate that did not run, and how to catch it
+│ ├── CONCURRENCY.md # several agents at once, evidence freshness
+│ ├── BUDGET.md # cost, turns, context and what degrades
+│ ├── VERSIONING.md # the harness has versions, and they invalidate
+│ ├── METRICS.md # gate escape rate and the autonomy panel
+│ ├── MATURITY.md # checklist per level and harness-doctor
+│ ├── AGENTES.md # layer 3 — how an agent works
+│ ├── agentes/ # the 23 individual agent contracts
 │ ├── LOOPS.md # layer 4 — how the steps of the journey coordinate
 │ ├── loops/ # the 12 stage contracts, from intake to daily operation
 │ ├── METODOLOGIA.md # layer 5 — how a person operates the system
-│ ├── methodology/ # the seven operational pages
+│ ├── metodologia/ # the seven operational pages
 │ ├── WORKSPACE.md # layer 6 — where the work lives outside the code
 │ └── workspace/ # the four operational pages
 ├── agents/ # the executable prompts for each agent (AGENT.md)
@@ -82,7 +90,9 @@ The complete documentation, with the detailed index for each layer and reading t
 | If you want… | Start with… |
 |---|---|
 | Understand the project idea together | [`docs/README.md`](docs/README.md) |
-| Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Prepare an application repository to be operated by agents | [Harness](docs/REPO_HARNESS.md) → [Permissions](docs/PERMISSIONS.md) → [Tools](docs/TOOLS.md) → [Skills](docs/SKILLS.md) → [Rules](docs/RULES.md) → [Sensors](docs/SENSORS.md) → [Gates](docs/GATES.md) |
+| Know which maturity level your repository is really at | [Maturity](docs/MATURITY.md) |
+| Operate agents in production, at volume | [Trust](docs/TRUST.md) → [Failure](docs/FAILURE.md) → [Concurrency](docs/CONCURRENCY.md) → [Budget](docs/BUDGET.md) |
 | Get to know the agent catalog and what each one does | [`docs/AGENTES.md`](docs/AGENTES.md) → [individual contracts](docs/agentes/README.md) |
 | See the complete journey, from intake to deployment | [`docs/LOOPS.md`](docs/LOOPS.md) → [the 12 steps](docs/loops/README.md) |
 | Knowing what is up to a person to decide, in practice | [`docs/METODOLOGIA.md`](docs/METODOLOGIA.md) → [operator manual](docs/metodologia/05-manual-do-operador.md) |
@@ -117,7 +127,7 @@ One principle runs through the entire manifesto: **the autonomy granted to an ag
 | **HL2 — verifiable** | CI by risk, branch protection, evidence pack | average (A2) |
 | **HL3 — operable by team** | repository skills, identities per agent, environment and post-deploy gates | high (A3–A4) |
 
-The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md).
+The full breakdown — what each level requires and why — is at [`docs/GATES.md`](docs/GATES.md). The item-by-item checklist, and the script that computes the level a repository actually reached instead of the one it claims, is at [`docs/MATURITY.md`](docs/MATURITY.md).
 
 ---
 

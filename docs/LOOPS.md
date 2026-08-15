@@ -6,7 +6,7 @@
 
 A **loop** is the collaboration contract for a stage of the journey: who executes it, in what order, what crosses the boundary between agents and what condition needs to be true to move forward. It's what the literature calls *multi-agent workflow* — and this manifesto calls it a loop because the word better describes what actually happens.
 
-A workflow, in common usage, suggests a conveyor belt: it enters on one side, leaves on the other. A loop with agents does not behave like this. It spins. The agent tries, the sensor fails, the agent corrects, the critic contests, the consolidator responds, the gate returns. **Successful execution is the case where the spin converges quickly, not the case where there was no spin.** A process designed for the treadmill treats each turn as an exception and does not instrument any of them; a process designed as a loop declares where the correction happens and how much it costs.
+A workflow, in common usage, suggests a conveyor belt: it enters on one side, leaves on the other. A loop with agents does not behave like this. It spins. The agent tries, the sensor fails, the agent corrects, the critic contests, the consolidator responds, the gate returns. **Successful execution is the case where the spin converges quickly, not the case where there was no spin.** A process designed for the conveyor belt treats each turn as an exception and does not instrument any of them; a process designed as a loop declares where the correction happens and how much it costs.
 
 ### What a loop is — and what it isn't
 
