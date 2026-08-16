@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Agent Team — Social Card</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{
+  background:#0b0f12;
+  color:#e8f0f3;
+  font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+.bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 80% at 73% 48%,rgba(34,211,238,.1),transparent),
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:auto,36px 36px,36px 36px;
+}
+.topbar{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#22d3ee 22%,#06b6d4 78%,transparent);
+  box-shadow:0 0 22px #22d3ee,0 0 48px rgba(34,211,238,.35);
+  z-index:2;
+}
+.layout{
+  position:relative;z-index:1;
+  display:flex;height:630px;
+}
+
+/* ── LEFT PANEL ── */
+.left{
+  flex:0 0 524px;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 50px 60px 64px;
+  position:relative;
+}
+.left::after{
+  content:"";position:absolute;right:0;top:14%;bottom:14%;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(34,211,238,.22) 30%,rgba(34,211,238,.22) 70%,transparent);
+}
+.brand{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:36px;
+}
+.brand-mark{
+  flex-shrink:0;width:38px;height:38px;
+  border:1px solid rgba(34,211,238,.42);border-radius:9px;
+  background:linear-gradient(145deg,rgba(34,211,238,.18),rgba(34,211,238,.02));
+  display:flex;align-items:center;justify-content:center;
+  color:#22d3ee;font:bold 11px/1 "SF Mono","Fira Code","Courier New",monospace;
+}
+.brand-label{
+  font:600 10.5px "SF Mono","Fira Code",monospace;
+  color:#60727d;letter-spacing:.18em;text-transform:uppercase;
+}
+.eyebrow{
+  font:400 11px "SF Mono","Fira Code",monospace;
+  color:rgba(34,211,238,.75);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.title{
+  font:700 50px/1.05 "SF Mono","Fira Code","Courier New",monospace;
+  color:#e8f0f3;letter-spacing:-.022em;
+  margin-bottom:14px;
+}
+.title em{color:#22d3ee;font-style:normal}
+.subtitle{
+  font:400 16.5px/1.5 ui-sans-serif,-apple-system,sans-serif;
+  color:#93a4ae;margin-bottom:26px;
+}
+.desc{
+  font:400 13px/1.7 ui-sans-serif,-apple-system,sans-serif;
+  color:#60727d;max-width:384px;margin-bottom:42px;
+}
+.url-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;border:1px solid rgba(49,64,74,.9);border-radius:100px;
+  background:rgba(16,22,26,.8);
+}
+.url-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#22d3ee;box-shadow:0 0 7px #22d3ee;
+}
+.url-text{
+  font:400 11px "SF Mono","Fira Code",monospace;
+  color:#60727d;letter-spacing:.03em;
+}
+
+/* ── RIGHT PANEL ── */
+.right{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;
+  padding:32px 32px 32px 24px;
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="topbar"></div>
+
+<div class="layout">
+  <div class="left">
+    <div class="brand">
+      <div class="brand-mark">AT</div>
+      <span class="brand-label">Agent Team</span>
+    </div>
+
+    <div class="eyebrow">Manifesto · Método · Documentação</div>
+
+    <div class="title">Build with<br><em>AI agents.</em></div>
+    <div class="subtitle">Documentação interativa · Método completo</div>
+    <div class="desc">
+      Um método de seis camadas para times que desenvolvem software
+      com agentes de IA — do intake à operação em produção.
+    </div>
+
+    <div class="url-pill">
+      <span class="url-dot"></span>
+      <span class="url-text">diododias.github.io/ai-manifest</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <!--
+      Pyramid geometry (SVG viewBox 0 0 560 520):
+      Apex: (200, 30)  Base: y=490, x 0–400 (width=400, center x=200)
+      Height: 460px    6 equal layers: 460/6 ≈ 76.7px each
+      half_width(y) = 200 * (y−30) / 460
+
+      y-boundaries:  30, 107, 183, 260, 337, 413, 490
+      hw at each:      0,  33,  67, 100, 134, 167, 200
+
+      Layer trapezoids (top→bottom):
+        L6 Workspace:    M200,30  L233,107 L167,107 Z
+        L5 Methodology:  M167,107 L233,107 L267,183 L133,183 Z
+        L4 Loops:        M133,183 L267,183 L300,260 L100,260 Z
+        L3 Agents:       M100,260 L300,260 L334,337 L 66,337 Z
+        L2 Skills:       M 66,337 L334,337 L367,413 L 33,413 Z
+        L1 Harness:      M 33,413 L367,413 L400,490 L  0,490 Z
+
+      Right-edge at layer center y:
+        L6 y=69:  x=217   L5 y=145: x=250
+        L4 y=222: x=284   L3 y=299: x=317
+        L2 y=375: x=350   L1 y=452: x=383
+
+      Labels start at right_edge+14px.
+    -->
+    <svg viewBox="0 0 560 520" fill="none" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;height:100%;max-height:500px;max-width:560px">
+      <defs>
+        <radialGradient id="glowBg" cx="35%" cy="90%" r="55%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.13)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.03)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.11)"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.06)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.17)"/>
+        </linearGradient>
+        <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.10)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.25)"/>
+        </linearGradient>
+        <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.15)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.35)"/>
+        </linearGradient>
+        <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.22)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.47)"/>
+        </linearGradient>
+        <linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(34,211,238,0.33)"/>
+          <stop offset="100%" stop-color="rgba(34,211,238,0.66)"/>
+        </linearGradient>
+        <filter id="apexGlow" x="-300%" y="-300%" width="700%" height="700%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="6"/>
+        </filter>
+      </defs>
+
+      <!-- Ambient glow near base -->
+      <ellipse cx="200" cy="480" rx="185" ry="52" fill="url(#glowBg)"/>
+
+      <!-- Layer 1: Harness (bottom) -->
+      <path d="M33,413 L367,413 L400,490 L0,490 Z"
+            fill="url(#g1)" stroke="rgba(34,211,238,.20)" stroke-width="1"/>
+
+      <!-- Layer 2: Skills -->
+      <path d="M66,337 L334,337 L367,413 L33,413 Z"
+            fill="url(#g2)" stroke="rgba(34,211,238,.27)" stroke-width="1"/>
+
+      <!-- Layer 3: Agents -->
+      <path d="M100,260 L300,260 L334,337 L66,337 Z"
+            fill="url(#g3)" stroke="rgba(34,211,238,.35)" stroke-width="1"/>
+
+      <!-- Layer 4: Loops -->
+      <path d="M133,183 L267,183 L300,260 L100,260 Z"
+            fill="url(#g4)" stroke="rgba(34,211,238,.43)" stroke-width="1"/>
+
+      <!-- Layer 5: Methodology -->
+      <path d="M167,107 L233,107 L267,183 L133,183 Z"
+            fill="url(#g5)" stroke="rgba(34,211,238,.52)" stroke-width="1"/>
+
+      <!-- Layer 6: Workspace (apex triangle) -->
+      <path d="M200,30 L233,107 L167,107 Z"
+            fill="url(#g6)" stroke="rgba(34,211,238,.66)" stroke-width="1"/>
+
+      <!-- Apex glow dot -->
+      <circle cx="200" cy="30" r="6" fill="rgba(34,211,238,.5)" filter="url(#apexGlow)"/>
+      <circle cx="200" cy="30" r="2.5" fill="#22d3ee"/>
+
+      <!-- ── Labels (right of each layer) ── -->
+
+      <!-- L6 Workspace  y=69  right_x=217  label_x=231 -->
+      <line x1="219" y1="69" x2="229" y2="69" stroke="rgba(34,211,238,.3)" stroke-width="1"/>
+      <text x="231" y="64"  font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.7)" letter-spacing=".1em">06</text>
+      <text x="231" y="77"  font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Workspace</text>
+
+      <!-- L5 Methodology  y=145  right_x=250  label_x=264 -->
+      <line x1="252" y1="145" x2="262" y2="145" stroke="rgba(34,211,238,.25)" stroke-width="1"/>
+      <text x="264" y="140" font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.6)" letter-spacing=".1em">05</text>
+      <text x="264" y="153" font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Methodology</text>
+
+      <!-- L4 Loops  y=222  right_x=284  label_x=298 -->
+      <line x1="286" y1="222" x2="296" y2="222" stroke="rgba(34,211,238,.2)" stroke-width="1"/>
+      <text x="298" y="217" font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.5)" letter-spacing=".1em">04</text>
+      <text x="298" y="230" font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Loops</text>
+
+      <!-- L3 Agents  y=299  right_x=317  label_x=331 -->
+      <line x1="319" y1="299" x2="329" y2="299" stroke="rgba(34,211,238,.17)" stroke-width="1"/>
+      <text x="331" y="294" font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.42)" letter-spacing=".1em">03</text>
+      <text x="331" y="307" font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Agents</text>
+
+      <!-- L2 Skills  y=375  right_x=350  label_x=364 -->
+      <line x1="352" y1="375" x2="362" y2="375" stroke="rgba(34,211,238,.14)" stroke-width="1"/>
+      <text x="364" y="370" font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.36)" letter-spacing=".1em">02</text>
+      <text x="364" y="383" font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Skills</text>
+
+      <!-- L1 Harness  y=452  right_x=383  label_x=397 -->
+      <line x1="385" y1="452" x2="395" y2="452" stroke="rgba(34,211,238,.12)" stroke-width="1"/>
+      <text x="397" y="447" font-family="'SF Mono','Courier New',monospace" font-size="9"
+            fill="rgba(34,211,238,.30)" letter-spacing=".1em">01</text>
+      <text x="397" y="460" font-family="ui-sans-serif,-apple-system,sans-serif" font-size="12"
+            fill="#93a4ae" font-weight="500">Harness</text>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>
